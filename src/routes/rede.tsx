@@ -23,7 +23,7 @@ export const Route = createFileRoute("/rede")({
       },
     ],
   }),
-  component: Rede;
+  component: Rede,
 });
 
 function Rede() {
