@@ -165,7 +165,7 @@ export function MapaVivo({
         </g>
       )}
 
-      <g>
+      <g className="anim-mapa-pontos">
         {nucleos.map((n) => {
           if (visiveis && !visiveis.includes(n.id)) return null;
           const ativo = estaSelecionado(n.id);
