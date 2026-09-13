@@ -15,30 +15,37 @@ import {
   missoesTerritorio,
   ordemDimensoes,
 } from "@/data/missoes.config";
+import { tipoAtividadeMap } from "@/data/atividades.config";
 import { conectores } from "@/data/jornada";
 import { nucleoAtualId } from "@/data/nucleos";
 import type {
-  DadosRegistro,
+  AtividadeRegistrada,
+  DadosAtividade,
   DimensaoId,
   FonteProgressoTerritorio,
   IndicadorConfig,
   MissaoTerritorialCalculada,
   RegistroJornada,
+  StatusValidacaoRegistro,
 } from "@/types";
 
 /**
  * Estado da jornada do Núcleo (MVP, em memória).
  *
- * ARQUITETURA: a única coisa que o Conector cria é REGISTRO DE TRABALHO REAL.
- * Progresso, percentual, status, indicadores e pontuação são SEMPRE derivados
- * desses registros — nunca editáveis manualmente. Futuramente os registros
- * virão do banco, já vinculados a município e Núcleo, alimentando também o
- * mapa da página "Territórios".
+ * ARQUITETURA: a única coisa que o Conector cria é ATIVIDADE REAL com
+ * evidência. Progresso, status das missões, indicadores e pontuação são SEMPRE
+ * derivados dessas atividades — nunca editáveis manualmente.
  */
+export interface ResultadoRegistro {
+  atividade: AtividadeRegistrada;
+  missoesRelacionadas: { id: string; titulo: string; icone: string }[];
+}
+
 interface MeuNucleoState {
   participante: { nome: string; papel: string; iniciais: string };
   nucleoId: string;
   conectoresNucleo: typeof conectores;
+  atividades: AtividadeRegistrada[];
   registros: RegistroJornada[];
   missoes: MissaoTerritorialCalculada[];
   missoesPorDimensao: (d: DimensaoId) => MissaoTerritorialCalculada[];
@@ -49,49 +56,89 @@ interface MeuNucleoState {
   pontuacaoTotal: number;
   missoesConcluidas: number;
   missoesEmValidacao: number;
+  atividadesEmValidacao: number;
   indicadoresTerritoriais: (IndicadorConfig & { valor: number })[];
   indicadoresIndividuais: (IndicadorConfig & { valor: number })[];
-  registrarAtividade: (missaoId: string, dados: DadosRegistro) => void;
+  /** Registra a atividade e devolve o que ela poderá alimentar. */
+  registrarAtividade: (dados: DadosAtividade) => ResultadoRegistro;
 }
 
 const MeuNucleoContext = createContext<MeuNucleoState | null>(null);
 
-/**
- * Registros demonstrativos. Enquanto não houver cadastro real, a lista fica
- * vazia — nenhum número é inventado; tudo começa zerado.
- */
-const registrosIniciais: RegistroJornada[] = [];
+/** Enquanto não houver cadastro real, nada é inventado: tudo começa zerado. */
+const atividadesIniciais: AtividadeRegistrada[] = [];
 
-function contarPorFonte(registros: RegistroJornada[], fonte?: FonteProgressoTerritorio) {
-  if (!fonte) return 0;
-  return registros.filter((r) => r.fonte === fonte && r.statusValidacao === "aprovado").length;
+function statusValidacaoDe(status: AtividadeRegistrada["status"]): StatusValidacaoRegistro {
+  if (status === "aprovada") return "aprovado";
+  if (status === "ajustes_solicitados") return "ajustes_solicitados";
+  return "em_validacao";
+}
+
+/** Missões que uma atividade pode alimentar (hoje ou com regras futuras). */
+function missoesDaAtividade(tipoId: string, missaoId?: string) {
+  const fontes = tipoAtividadeMap[tipoId]?.fontes ?? [];
+  const ids = missoesTerritorio
+    .filter((m) => m.ativo && fontes.includes(m.fonteProgresso))
+    .map((m) => m.id);
+  if (missaoId && !ids.includes(missaoId)) ids.unshift(missaoId);
+  return ids;
 }
 
 export function MeuNucleoProvider({ children }: { children: ReactNode }) {
-  const [registros, setRegistros] = useState<RegistroJornada[]>(registrosIniciais);
+  const [atividades, setAtividades] = useState<AtividadeRegistrada[]>(atividadesIniciais);
 
-  const registrarAtividade = useCallback<MeuNucleoState["registrarAtividade"]>(
-    (missaoId, dados) => {
-      const config = missaoTerritorialMap[missaoId];
-      if (!config) return;
-      setRegistros((atual) => [
-        ...atual,
-        {
-          ...dados,
-          id: `reg-${missaoId}-${atual.length + 1}-${Date.now()}`,
-          missaoId,
-          fonte: config.fonteProgresso,
-          municipio: undefined,
-          // TIPO A soma direto; TIPO B fica em validação até aprovação.
-          statusValidacao: config.exigeValidacao ? "em_validacao" : "aprovado",
-          criadoEm: new Date().toISOString(),
-        },
-      ]);
-    },
-    [],
-  );
+  const registrarAtividade = useCallback<MeuNucleoState["registrarAtividade"]>((dados) => {
+    const relacionadas = missoesDaAtividade(dados.tipoId, dados.missaoId);
+    // Contribuição contabilizada: a missão de origem ou a primeira compatível.
+    const missaoPrincipalId = dados.missaoId ?? relacionadas[0];
+    const missaoPrincipal = missaoPrincipalId ? missaoTerritorialMap[missaoPrincipalId] : undefined;
+    const exigeValidacao = missaoPrincipal?.exigeValidacao ?? true;
+
+    const atividade: AtividadeRegistrada = {
+      ...dados,
+      id: `atv-${Date.now()}`,
+      status: exigeValidacao ? "em_validacao" : "aprovada",
+      criadoEm: new Date().toISOString(),
+      fonteContribuicao: missaoPrincipal?.fonteProgresso,
+      missoesRelacionadas: relacionadas,
+    };
+
+    setAtividades((atual) => [atividade, ...atual]);
+
+    return {
+      atividade,
+      missoesRelacionadas: relacionadas
+        .map((id) => missaoTerritorialMap[id])
+        .filter((m): m is NonNullable<typeof m> => Boolean(m))
+        .map((m) => ({ id: m.id, titulo: m.titulo, icone: m.icone })),
+    };
+  }, []);
 
   const value = useMemo<MeuNucleoState>(() => {
+    // Registros de progresso derivados das atividades (1 contribuição cada).
+    const registros: RegistroJornada[] = atividades.flatMap((a) => {
+      const missaoId = a.missaoId ?? a.missoesRelacionadas[0];
+      if (!missaoId || !a.fonteContribuicao) return [];
+      return [
+        {
+          id: `reg-${a.id}`,
+          missaoId,
+          fonte: a.fonteContribuicao,
+          titulo: a.titulo,
+          descricao: a.descricao,
+          data: a.data,
+          local: a.local,
+          atores: a.atores,
+          resultado: a.resultados,
+          localizacao: a.localizacao,
+          municipio: a.municipio || undefined,
+          anexoNome: a.evidenciaFoto ?? a.evidenciaDocumento,
+          statusValidacao: statusValidacaoDe(a.status),
+          criadoEm: a.criadoEm,
+        },
+      ];
+    });
+
     const missoes: MissaoTerritorialCalculada[] = missoesTerritorio
       .filter((m) => m.ativo)
       .map((m) => {
@@ -138,6 +185,11 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
     const metaGeral = missoes.reduce((s, m) => s + m.metaTotal, 0);
     const feitoGeral = missoes.reduce((s, m) => s + m.progressoAtual, 0);
 
+    const contarPorFonte = (fonte?: FonteProgressoTerritorio) =>
+      fonte
+        ? registros.filter((r) => r.fonte === fonte && r.statusValidacao === "aprovado").length
+        : 0;
+
     return {
       participante: {
         nome: conectores[0]!.nome,
@@ -146,6 +198,7 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
       },
       nucleoId: nucleoAtualId,
       conectoresNucleo: conectores,
+      atividades,
       registros,
       missoes,
       missoesPorDimensao: (d) => missoes.filter((m) => m.dimensao === d),
@@ -156,15 +209,16 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
       pontuacaoTotal: missoes.reduce((s, m) => s + (m.status === "concluida" ? m.pontuacao : 0), 0),
       missoesConcluidas: missoes.filter((m) => m.status === "concluida").length,
       missoesEmValidacao: missoes.filter((m) => m.status === "validacao").length,
+      atividadesEmValidacao: atividades.filter((a) => a.status === "em_validacao").length,
       indicadoresTerritoriais: indicadoresNucleo.map((i) => ({
         ...i,
-        valor: contarPorFonte(registros, i.fonte),
+        valor: contarPorFonte(i.fonte),
       })),
       // Indicadores individuais ainda não possuem fonte de cadastro: zerados.
       indicadoresIndividuais: indicadoresIndividuais.map((i) => ({ ...i, valor: 0 })),
       registrarAtividade,
     };
-  }, [registros, registrarAtividade]);
+  }, [atividades, registrarAtividade]);
 
   return <MeuNucleoContext.Provider value={value}>{children}</MeuNucleoContext.Provider>;
 }
