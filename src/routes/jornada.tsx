@@ -3,6 +3,7 @@ import { LogOut, User } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { MapaVivo } from "@/components/MapaVivo";
 import { JornadaDimensoes } from "@/components/jornada/JornadaDimensoes";
+import { MeuDesempenho } from "@/components/jornada/MeuDesempenho";
 import { MissoesTerritorio } from "@/components/jornada/MissoesTerritorio";
 import { ProgressoNucleo } from "@/components/jornada/ProgressoNucleo";
 import { RankingNucleos } from "@/components/jornada/RankingNucleos";
@@ -139,13 +140,14 @@ function JornadaConteudo() {
         </div>
       </div>
 
-      {/* Jornada de progresso + Progresso do núcleo */}
+      {/* Meu Núcleo (coletivo) + Meu desempenho (individual) */}
       <div className="grid min-w-0 gap-4 lg:grid-cols-2">
         <div className="anim-rise" style={{ animationDelay: "160ms" }}>
-          <JornadaDimensoes />
-        </div>
-        <div className="anim-rise" style={{ animationDelay: "220ms" }}>
           <ProgressoNucleo />
+        </div>
+        <div className="anim-rise flex flex-col gap-4" style={{ animationDelay: "220ms" }}>
+          <MeuDesempenho />
+          <JornadaDimensoes />
         </div>
       </div>
 
@@ -154,7 +156,8 @@ function JornadaConteudo() {
         <div className="mb-3">
           <h3 className="font-display text-lg font-bold">Missões do Território</h3>
           <p className="mt-0.5 text-sm text-muted-foreground">
-            Realize missões, envie evidências e some progresso para o seu Núcleo.
+            Registre o trabalho realizado no território — a plataforma calcula o progresso
+            automaticamente.
           </p>
         </div>
         <MissoesTerritorio />
