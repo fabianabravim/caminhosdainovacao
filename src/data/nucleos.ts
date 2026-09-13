@@ -256,7 +256,7 @@ const nucleosBase: Nucleo[] = [
   },
 ];
 
-/** Núcleos com posição derivada da projeção da geometria oficial do IBGE. */
+/** Núcleos com posição derivada da projeção da geometria oficial fornecida. */
 export const nucleos: Nucleo[] = nucleosBase.map((n) => {
   const coord = coordenadasNucleos[n.id];
   return coord ? { ...n, ...projetar(coord[0], coord[1]) } : n;
@@ -307,6 +307,6 @@ export const pontosTerritoriais = pontosNoTerritorio(34);
 
 /**
  * Contorno oficial do Espírito Santo, gerado diretamente do GeoJSON
- * (IBGE / UF 32, WGS84) sem redesenho nem simplificação manual.
+ * (limite oficial do ES, WGS84) sem redesenho nem simplificação manual.
  */
 export const contornoES = ES_PATH;
