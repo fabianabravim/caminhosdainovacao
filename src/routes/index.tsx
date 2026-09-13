@@ -40,22 +40,20 @@ function Home() {
   const focado = hover ? nucleoMap[hover] : null;
 
   function selecionar(id: string) {
-    setSelecionados((atual) => {
-      const proximo = atual.includes(id)
-        ? atual.filter((i) => i !== id)
-        : [...atual, id].slice(-2);
-      const temPar = PAR_WOW.every((p) => proximo.includes(p));
-      const jaConectado = conexoes.some(
-        (c) =>
-          (c.de === PAR_WOW[0] && c.para === PAR_WOW[1]) ||
-          (c.de === PAR_WOW[1] && c.para === PAR_WOW[0]),
-      );
-      if (temPar) {
-        if (!jaConectado) criarConexao(PAR_WOW[0], PAR_WOW[1], "Serra ↔ Caparaó");
-        setWow(true);
-      }
-      return proximo;
-    });
+    const proximo = selecionados.includes(id)
+      ? selecionados.filter((i) => i !== id)
+      : [...selecionados, id].slice(-2);
+    setSelecionados(proximo);
+
+    if (!PAR_WOW.every((p) => proximo.includes(p))) return;
+    const jaConectado = conexoes.some(
+      (c) =>
+        (c.de === PAR_WOW[0] && c.para === PAR_WOW[1]) ||
+        (c.de === PAR_WOW[1] && c.para === PAR_WOW[0]),
+    );
+    if (!jaConectado) criarConexao(PAR_WOW[0], PAR_WOW[1], "Serra ↔ Caparaó");
+    fecharCelebracao();
+    setWow(true);
   }
 
   function explorar() {
