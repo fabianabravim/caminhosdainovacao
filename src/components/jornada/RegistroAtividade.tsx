@@ -11,7 +11,6 @@ import {
 
 // O hook e o contexto vivem em `registroAtividadeBase.ts` para este arquivo
 // exportar apenas componentes — compatível com Fast Refresh.
-export { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
 
 /**
  * Porta de entrada única do trabalho real: um só sistema de registro de
