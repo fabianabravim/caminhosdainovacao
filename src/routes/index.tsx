@@ -128,7 +128,7 @@ function Home() {
               <p className="mt-6 text-sm font-medium text-primary">Passe, toque ou use o teclado para conhecer os núcleos.</p>
             </div>
             <div className="relative mx-auto aspect-[3/4] w-full max-w-xl rounded-md border border-primary/15 bg-background p-4 shadow-2xl shadow-primary/10 sm:p-7">
-              <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionar} onHover={setHover} pontosTerritoriais destaque="serra" />
+              <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} pontosTerritoriais destaque="serra" />
               {focado ? <NucleoTooltip nucleoId={focado.id} light /> : null}
               <p className="absolute bottom-3 right-4 text-[0.58rem] uppercase tracking-[0.12em] text-muted-foreground">Fonte do contorno: IBGE</p>
             </div>
