@@ -1,4 +1,5 @@
 import { contornoES, nucleoMap, nucleos, pontosTerritoriais } from "@/data/nucleos";
+import { ES_VIEWBOX } from "@/lib/geoES";
 import { cn } from "@/lib/utils";
 import type { Conexao } from "@/types";
 
@@ -49,7 +50,8 @@ export function MapaVivo({
 
   return (
     <svg
-      viewBox="0 0 400 600"
+      viewBox={ES_VIEWBOX}
+      preserveAspectRatio="xMidYMid meet"
       className={cn("h-full w-full select-none overflow-visible", className)}
       role="img"
       aria-label="Mapa vivo da inovação do Espírito Santo com os 14 núcleos regionais"
@@ -72,22 +74,26 @@ export function MapaVivo({
         </filter>
       </defs>
 
-      <path
-        d={contornoES}
-        fill="url(#mapaFill)"
-        stroke="oklch(0.72 0.12 305 / 0.5)"
-        strokeWidth="1.6"
-      />
+      {/* 1. contorno é traçado, 2. preenchimento surge suavemente */}
+      <path d={contornoES} fill="url(#mapaFill)" stroke="none" className="anim-mapa-fill" />
       <path
         d={contornoES}
         fill="none"
         stroke="oklch(0.86 0.13 200 / 0.25)"
         strokeWidth="6"
         filter="url(#softGlow)"
+        className="anim-mapa-fill"
+      />
+      <path
+        d={contornoES}
+        fill="none"
+        stroke="oklch(0.78 0.12 305 / 0.75)"
+        strokeWidth="1.4"
+        className="anim-mapa-traco"
       />
 
       {exibirPontos && (
-        <g aria-hidden="true">
+        <g aria-hidden="true" className="anim-mapa-pontos">
           {pontosTerritoriais.map((p, i) => (
             <g key={`pt-${i}`}>
               <circle
@@ -112,7 +118,7 @@ export function MapaVivo({
       )}
 
       {conexoesVisiveis && (
-        <g>
+        <g className="anim-mapa-conexoes">
           {conexoes.map((c) => {
             const de = nucleoMap[c.de];
             const para = nucleoMap[c.para];
@@ -159,7 +165,7 @@ export function MapaVivo({
         </g>
       )}
 
-      <g>
+      <g className="anim-mapa-pontos">
         {nucleos.map((n) => {
           if (visiveis && !visiveis.includes(n.id)) return null;
           const ativo = estaSelecionado(n.id);

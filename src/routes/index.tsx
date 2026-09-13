@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, Maximize2, Menu, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { HomeSections } from "@/components/home/HomeSections";
+import { ES_VIEW_HEIGHT, ES_VIEW_WIDTH } from "@/lib/geoES";
 import { MapaVivo } from "@/components/MapaVivo";
 import { ModoApresentacao } from "@/components/ModoApresentacao";
 import { Button } from "@/components/ui/button";
@@ -93,7 +94,8 @@ function Home() {
               <h1 className="mt-5 font-display text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
             </div>
 
-            <div className="relative order-2 mx-auto aspect-[3/4] w-full max-w-[600px] lg:row-span-2 lg:ml-auto">
+            <div className="relative order-2 mx-auto w-full max-w-[600px] lg:row-span-2 lg:ml-auto"
+              style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}>
               <div className={`h-full w-full origin-[67%_62%] transition-transform duration-[900ms] ease-out ${zoom || entrando ? "scale-[1.28]" : "scale-100"}`}>
                 <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} pontosTerritoriais labels destaque="serra" />
               </div>
@@ -126,7 +128,8 @@ function Home() {
               <p className="mt-6 max-w-xl text-base leading-relaxed text-paper-muted">Explore o Espírito Santo e descubra como diferentes atores, iniciativas e conexões formam o nosso ecossistema de inovação.</p>
               <p className="mt-6 text-sm font-medium text-primary">Passe, toque ou use o teclado para conhecer os núcleos.</p>
             </div>
-            <div className="relative mx-auto aspect-[3/4] w-full max-w-xl rounded-md border border-primary/15 bg-background p-4 shadow-2xl shadow-primary/10 sm:p-7">
+            <div style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
+              className="relative mx-auto w-full max-w-xl rounded-md border border-primary/15 bg-background p-4 shadow-2xl shadow-primary/10 sm:p-7">
               <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} pontosTerritoriais destaque="serra" />
               {focado ? <NucleoTooltip nucleoId={focado.id} light /> : null}
               <p className="absolute bottom-3 right-4 text-[0.58rem] uppercase tracking-[0.12em] text-muted-foreground">Fonte do contorno: IBGE</p>

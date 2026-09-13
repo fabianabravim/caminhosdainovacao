@@ -242,3 +242,44 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Entrada institucional do mapa: contorno, preenchimento, pontos, conexões */
+@keyframes mapa-traco {
+  from {
+    stroke-dashoffset: 3200;
+    opacity: 0.9;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 0.55;
+  }
+}
+
+@keyframes mapa-surge {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility anim-mapa-traco {
+  stroke-dasharray: 3200;
+  animation: mapa-traco 2.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@utility anim-mapa-fill {
+  opacity: 0;
+  animation: mapa-surge 1.6s ease-out 1.5s forwards;
+}
+
+@utility anim-mapa-pontos {
+  opacity: 0;
+  animation: mapa-surge 1.4s ease-out 2.5s forwards;
+}
+
+@utility anim-mapa-conexoes {
+  opacity: 0;
+  animation: mapa-surge 1.6s ease-out 3.2s forwards;
+}
