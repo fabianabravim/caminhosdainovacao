@@ -24,3 +24,10 @@
 - [x] Progresso do Núcleo + Jornada das 4 dimensões
 - [x] Ranking dos 14 Núcleos com dados demonstrativos sinalizados
 - [x] Nome oficial "Viana, Fundão e Guarapari" padronizado
+
+## Ajustes da entrada pública da Jornada
+- [x] Adicionar Jornada ao menu desktop e mobile da Home
+- [x] Reorganizar atores em grid responsiva e uniforme
+- [x] Remover escolha manual de núcleo e CTAs da seção final
+- [x] Manter mapa final explorável sem vincular o núcleo ao usuário
+- [x] Adicionar opção de primeiro acesso na entrada da Jornada

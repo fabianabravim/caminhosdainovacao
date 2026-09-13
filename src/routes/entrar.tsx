@@ -75,14 +75,20 @@ function Entrar() {
           </div>
 
           <Link
-            to="/mapa"
+            to="/jornada"
             className="tap panel-glow mt-5 flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3.5 font-display text-sm font-semibold text-primary-foreground"
           >
             Entrar na jornada
           </Link>
           <Link
+            to="/jornada"
+            className="tap mt-2 flex w-full items-center justify-center rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 text-xs font-semibold text-lilac"
+          >
+            Primeiro acesso
+          </Link>
+          <Link
             to="/"
-            className="tap mt-2 flex w-full items-center justify-center rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 text-xs font-semibold text-muted-foreground"
+            className="tap mt-2 flex w-full items-center justify-center px-5 py-2 text-xs font-semibold text-muted-foreground"
           >
             Voltar à página inicial
           </Link>
