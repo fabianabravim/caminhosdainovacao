@@ -140,9 +140,8 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "centro-sul",
-    labelDx: -12,
-    labelDy: 6,
-    labelAnchor: "end",
+    labelDx: 0,
+    labelDy: 18,
     nome: "Centro Sul",
     regiao: "Sul",
     x: 154,
@@ -158,6 +157,8 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "caparao",
+    labelDx: 0,
+    labelDy: -16,
     nome: "Caparaó",
     regiao: "Sul",
     x: 80,
