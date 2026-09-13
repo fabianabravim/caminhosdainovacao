@@ -15,10 +15,14 @@ export function RedeCapixaba({ conexoes, selecionado, onSelecionar, destaque = "
     const outros = nucleos.filter((n) => n.id !== destaque);
     const mapa: Record<string, { x: number; y: number }> = {};
     if (centro) mapa[centro.id] = { x: 200, y: 200 };
+    const round = (v: number) => Math.round(v * 100) / 100;
     outros.forEach((n, i) => {
       const anel = i % 2 === 0 ? 150 : 105;
       const ang = (i / outros.length) * Math.PI * 2 - Math.PI / 2;
-      mapa[n.id] = { x: 200 + Math.cos(ang) * anel, y: 200 + Math.sin(ang) * anel };
+      mapa[n.id] = {
+        x: round(200 + Math.cos(ang) * anel),
+        y: round(200 + Math.sin(ang) * anel),
+      };
     });
     return mapa;
   }, [destaque]);
