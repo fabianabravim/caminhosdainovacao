@@ -160,7 +160,7 @@ export function HomeSections() {
             </div>
           ) : null}
         </div>
-        <div className="pointer-events-none relative mx-auto max-w-7xl px-5 py-24 sm:py-32">
+        <div className="pointer-events-none relative mx-auto max-w-7xl px-5 pb-52 pt-24 sm:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-glow">Sua jornada começa aqui</p>
           <h2 className="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight sm:text-6xl">Cada missão revela uma nova parte do ecossistema capixaba.</h2>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">Entre na Jornada da Inovação Capixaba e ajude a revelar, conectar e fortalecer o ecossistema de inovação do seu território.</p>
