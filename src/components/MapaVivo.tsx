@@ -1,4 +1,4 @@
-import { contornoES, nucleoMap, nucleos } from "@/data/nucleos";
+import { contornoES, nucleoMap, nucleos, pontosTerritoriais } from "@/data/nucleos";
 import { cn } from "@/lib/utils";
 import type { Conexao } from "@/types";
 
@@ -17,6 +17,11 @@ interface Props {
   visiveis?: string[];
   /** Conexões visíveis; quando ausente, todas aparecem. */
   conexoesVisiveis?: boolean;
+  /**
+   * Pontos de luz espalhados pelo território representando atores,
+   * iniciativas, conhecimento, oportunidades e inovação. Sem linhas.
+   */
+  pontosTerritoriais?: boolean;
 }
 
 function curva(de: { x: number; y: number }, para: { x: number; y: number }) {
@@ -38,6 +43,7 @@ export function MapaVivo({
   particulas = false,
   visiveis,
   conexoesVisiveis = true,
+  pontosTerritoriais: exibirPontos = false,
 }: Props) {
   const estaSelecionado = (id: string) => selecionado === id || !!selecionados?.includes(id);
 
