@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Progresso } from "@/components/ui/Progresso";
-import { ModalEvidencia } from "@/components/jornada/ModalEvidencia";
+import { tipoAtividadePorFonte } from "@/data/atividades.config";
+import { useRegistroAtividade } from "@/components/jornada/RegistroAtividade";
 import { useMeuNucleo } from "@/context/MeuNucleoContext";
 import { dimensaoMap } from "@/data/dimensoes";
 import { ordemDimensoes, statusMissaoLabel } from "@/data/missoes.config";
