@@ -190,11 +190,3 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
 
   return <MeuNucleoContext.Provider value={value}>{children}</MeuNucleoContext.Provider>;
 }
-
-export function useMeuNucleo() {
-  const ctx = useContext(MeuNucleoContext);
-  if (!ctx) throw new Error("useMeuNucleo precisa estar dentro de MeuNucleoProvider");
-  return ctx;
-}
-
-export { missoesPorDimensao as missoesConfigPorDimensao };
