@@ -18,3 +18,9 @@
 - [ ] Progresso do Núcleo (XP, missões, dimensões)
 - [ ] Ranking dos 14 Núcleos com dados demonstrativos sinalizados
 - [ ] Responsividade mobile (registro em campo)
+- [x] Reformular /jornada como "Meu Núcleo" (MVP gamificado) — entregue
+- [x] Configuração centralizada de missões (src/data/missoes.config.ts)
+- [x] Modal de envio de evidência (status "Em validação")
+- [x] Progresso do Núcleo + Jornada das 4 dimensões
+- [x] Ranking dos 14 Núcleos com dados demonstrativos sinalizados
+- [x] Nome oficial "Viana, Fundão e Guarapari" padronizado
