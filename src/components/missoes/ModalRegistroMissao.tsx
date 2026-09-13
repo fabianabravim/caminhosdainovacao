@@ -57,7 +57,8 @@ export function ModalRegistroMissao({ missao, onClose, onEnviar }: Props) {
           className="mt-4 space-y-3.5"
           onSubmit={(event) => {
             event.preventDefault();
-            if (valido) onEnviar({ ...form, anexoNome });
+            if (!valido) return;
+            onEnviar(anexoNome ? { ...form, anexoNome } : form);
           }}
         >
           <div>
