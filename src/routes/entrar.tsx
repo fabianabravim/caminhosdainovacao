@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MapaVivo } from "@/components/MapaVivo";
-import { conexoes, nucleoMap } from "@/data/nucleos";
+import { conexoes } from "@/data/nucleos";
 import { totaisEstado } from "@/data/ranking";
 
 export const Route = createFileRoute("/entrar")({
@@ -23,8 +23,6 @@ export const Route = createFileRoute("/entrar")({
 });
 
 function Entrar() {
-  const serra = nucleoMap["serra"]!;
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0 opacity-45">
@@ -66,11 +64,11 @@ function Entrar() {
 
           <div className="mt-5 rounded-2xl border border-border/60 bg-surface/60 p-3.5">
             <p className="text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground">
-              Seu núcleo
+              Vínculo territorial
             </p>
-            <p className="mt-1 font-display text-lg font-semibold">Núcleo {serra.nome}</p>
-            <p className="text-xs text-muted-foreground">
-              Nível {serra.nivel} · {serra.progresso}% da jornada concluída
+            <p className="mt-1 font-display text-lg font-semibold">Seu Núcleo Territorial</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              Será identificado automaticamente após o acesso do Conector.
             </p>
           </div>
 
