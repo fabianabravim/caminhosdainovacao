@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Progresso } from "@/components/ui/Progresso";
-import { ModalEvidencia } from "@/components/jornada/ModalEvidencia";
+import { tipoAtividadePorFonte } from "@/data/atividades.config";
+import { useRegistroAtividade } from "@/components/jornada/RegistroAtividade";
 import { useMeuNucleo } from "@/context/MeuNucleoContext";
 import { dimensaoMap } from "@/data/dimensoes";
 import { ordemDimensoes, statusMissaoLabel } from "@/data/missoes.config";
@@ -20,8 +20,8 @@ const estiloStatus: Record<StatusMissao, string> = {
  * Nenhum controle permite avançar a barra manualmente.
  */
 export function MissoesTerritorio() {
-  const { missoesPorDimensao, registrarAtividade } = useMeuNucleo();
-  const [missaoAberta, setMissaoAberta] = useState<string | null>(null);
+  const { missoesPorDimensao } = useMeuNucleo();
+  const { abrir } = useRegistroAtividade();
 
   return (
     <div className="min-w-0 space-y-6">
@@ -87,7 +87,12 @@ export function MissoesTerritorio() {
                     {!concluida ? (
                       <button
                         type="button"
-                        onClick={() => setMissaoAberta(m.id)}
+                        onClick={() =>
+                          abrir({
+                            missaoId: m.id,
+                            tipoId: tipoAtividadePorFonte(m.fonteProgresso)?.id,
+                          })
+                        }
                         className="tap mt-3 min-h-11 w-full rounded-xl bg-primary px-3.5 py-2 text-[0.74rem] font-semibold text-primary-foreground transition-opacity sm:min-h-0"
                       >
                         {m.cta}
@@ -113,16 +118,6 @@ export function MissoesTerritorio() {
         );
       })}
 
-      {missaoAberta ? (
-        <ModalEvidencia
-          missaoId={missaoAberta}
-          onClose={() => setMissaoAberta(null)}
-          onEnviar={(dados) => {
-            registrarAtividade(missaoAberta, dados);
-            setMissaoAberta(null);
-          }}
-        />
-      ) : null}
     </div>
   );
 }
