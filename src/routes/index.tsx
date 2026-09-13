@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, Maximize2, Menu, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { HomeSections } from "@/components/home/HomeSections";
+import { ChancelaInstitucional } from "@/components/ChancelaInstitucional";
 import { ES_VIEW_HEIGHT, ES_VIEW_WIDTH } from "@/lib/geoES";
 import { MapaVivo } from "@/components/MapaVivo";
 import { ModoApresentacao } from "@/components/ModoApresentacao";
@@ -57,7 +58,9 @@ function Home() {
     <div className="min-h-screen overflow-x-hidden bg-background">
       <header className="absolute inset-x-0 top-0 z-40 border-b border-border/40 bg-background/65 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5">
-          <a href="#inicio" className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-foreground">Caminhos da Inovação</a>
+          <ChancelaInstitucional />
+          <span aria-hidden="true" className="hidden h-5 w-px bg-border/50 md:block" />
+          <a href="#inicio" className="hidden font-display text-xs font-semibold uppercase tracking-[0.2em] text-foreground md:block">Caminhos da Inovação</a>
           <nav aria-label="Navegação principal" className="ml-auto hidden items-center gap-6 lg:flex">
             <a href="#sobre" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Sobre</a>
             <a href="#inovacao" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Inovação</a>
@@ -139,6 +142,16 @@ function Home() {
 
         <HomeSections onIniciar={iniciarJornada} />
       </main>
+
+      <footer className="border-t border-border/40 bg-surface/60">
+        <div className="mx-auto flex max-w-7xl flex-col items-start gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
+          <ChancelaInstitucional tamanho="footer" />
+          <div className="max-w-sm space-y-1">
+            <p className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Caminhos da Inovação</p>
+            <p className="text-xs leading-relaxed text-muted-foreground">Uma iniciativa institucional do Instituto Jones dos Santos Neves (IJSN) e do Governo do Estado do Espírito Santo.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
