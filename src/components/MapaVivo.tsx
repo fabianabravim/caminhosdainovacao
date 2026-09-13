@@ -140,6 +140,21 @@ export function MapaVivo({
               onClick={interativo ? () => onSelecionar?.(n.id) : undefined}
               onMouseEnter={interativo ? () => onHover?.(n.id) : undefined}
               onMouseLeave={interativo ? () => onHover?.(null) : undefined}
+              onFocus={interativo ? () => onHover?.(n.id) : undefined}
+              onBlur={interativo ? () => onHover?.(null) : undefined}
+              onKeyDown={
+                interativo
+                  ? (event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        onSelecionar?.(n.id);
+                      }
+                    }
+                  : undefined
+              }
+              tabIndex={interativo ? 0 : undefined}
+              role={interativo ? "button" : undefined}
+              aria-label={interativo ? `Explorar núcleo ${n.nome}` : undefined}
               className={interativo ? "cursor-pointer" : undefined}
             >
               {interativo && <circle cx={n.x} cy={n.y} r={16} fill="transparent" />}
