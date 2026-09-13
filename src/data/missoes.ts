@@ -8,8 +8,10 @@ export const missoes: Missao[] = [
       "Registre laboratórios, coletivos, escolas técnicas e espaços maker do Núcleo Serra.",
     dimensao: "explorar",
     pontos: 180,
-    progresso: 7,
-    meta: 10,
+    meta_total: 10,
+    fonteProgresso: "ativos_inovacao",
+    cta: "Cadastrar ativo",
+    requerValidacao: true,
     recompensa: "Badge Cartógrafo do Território",
   },
   {
@@ -18,8 +20,10 @@ export const missoes: Missao[] = [
     descricao: "Percorra o bairro registrando pontos de encontro e economia local.",
     dimensao: "explorar",
     pontos: 120,
-    progresso: 1,
-    meta: 2,
+    meta_total: 2,
+    fonteProgresso: "atividades_territoriais",
+    cta: "Registrar atividade",
+    requerValidacao: true,
     recompensa: "+120 pontos de impacto",
   },
   {
@@ -28,8 +32,10 @@ export const missoes: Missao[] = [
     descricao: "Classifique as vocações produtivas identificadas nas últimas escutas.",
     dimensao: "explorar",
     pontos: 90,
-    progresso: 0,
-    meta: 4,
+    meta_total: 4,
+    fonteProgresso: "vocacoes_territoriais",
+    cta: "Registrar atividade",
+    requerValidacao: true,
     recompensa: "Selo Atlas Vivo",
   },
   {
@@ -38,8 +44,10 @@ export const missoes: Missao[] = [
     descricao: "Reúna poder público, iniciativa privada e sociedade civil na mesma mesa.",
     dimensao: "conectar",
     pontos: 240,
-    progresso: 2,
-    meta: 3,
+    meta_total: 3,
+    fonteProgresso: "presencas_setoriais",
+    cta: "Registrar atividade",
+    requerValidacao: true,
     recompensa: "Badge Articulador Regional",
   },
   {
@@ -48,8 +56,10 @@ export const missoes: Missao[] = [
     descricao: "Convide atores ainda não cadastrados para a rede capixaba.",
     dimensao: "conectar",
     pontos: 150,
-    progresso: 3,
-    meta: 5,
+    meta_total: 5,
+    fonteProgresso: "atores_rede",
+    cta: "Cadastrar ativo",
+    requerValidacao: true,
     recompensa: "+150 pontos de impacto",
   },
   {
@@ -58,8 +68,10 @@ export const missoes: Missao[] = [
     descricao: "Ouça empreendedores e lideranças comunitárias e registre suas histórias.",
     dimensao: "descobrir",
     pontos: 200,
-    progresso: 5,
-    meta: 8,
+    meta_total: 8,
+    fonteProgresso: "escutas_ativas",
+    cta: "Registrar atividade",
+    requerValidacao: true,
     recompensa: "Badge Escuta Profunda",
   },
   {
@@ -68,8 +80,10 @@ export const missoes: Missao[] = [
     descricao: "Publique nas Descobertas uma solução local que ninguém documentou ainda.",
     dimensao: "descobrir",
     pontos: 260,
-    progresso: 0,
-    meta: 1,
+    meta_total: 1,
+    fonteProgresso: "descobertas_publicadas",
+    cta: "Enviar evidência",
+    requerValidacao: true,
     recompensa: "Destaque no Desafio do Mês",
     prazo: "Desafio do Mês",
   },
@@ -79,8 +93,10 @@ export const missoes: Missao[] = [
     descricao: "Transforme uma dor escutada em protótipo testado no território.",
     dimensao: "transformar",
     pontos: 320,
-    progresso: 1,
-    meta: 3,
+    meta_total: 3,
+    fonteProgresso: "prototipos_comunitarios",
+    cta: "Registrar atividade",
+    requerValidacao: true,
     recompensa: "Badge Catalisador de Soluções",
   },
   {
@@ -89,11 +105,29 @@ export const missoes: Missao[] = [
     descricao: "Sistematize evidências e proponha uma recomendação de política pública.",
     dimensao: "transformar",
     pontos: 300,
-    progresso: 0,
-    meta: 1,
+    meta_total: 1,
+    fonteProgresso: "relatorios_aprovados",
+    cta: "Enviar relatório",
+    requerValidacao: true,
     recompensa: "Selo Inteligência Territorial",
   },
 ];
+
+/**
+ * Quantidades demonstrativas já aprovadas. Elas substituem o antigo número
+ * editável de progresso e simulam registros válidos vindos de cada fonte.
+ */
+export const registrosAprovadosIniciais: Record<string, number> = {
+  "m-mapa-ativos": 7,
+  "m-caminhada": 1,
+  "m-atlas": 0,
+  "m-roda": 2,
+  "m-agenda": 3,
+  "m-escutas": 5,
+  "m-invisivel": 0,
+  "m-prototipo": 1,
+  "m-politica": 0,
+};
 
 export const missoesColaborativas: MissaoColaborativa[] = [
   {
