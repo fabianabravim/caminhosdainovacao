@@ -118,16 +118,6 @@ export function MissoesTerritorio() {
         );
       })}
 
-      {missaoAberta ? (
-        <ModalEvidencia
-          missaoId={missaoAberta}
-          onClose={() => setMissaoAberta(null)}
-          onEnviar={(dados) => {
-            registrarAtividade(missaoAberta, dados);
-            setMissaoAberta(null);
-          }}
-        />
-      ) : null}
     </div>
   );
 }
