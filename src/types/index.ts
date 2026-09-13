@@ -174,36 +174,74 @@ export interface Conector {
   foco: string;
 }
 
-/** Status possíveis de uma missão do território. */
+/** Status possíveis de uma missão do território (calculados pelo sistema). */
 export type StatusMissao =
-  | "disponivel"
+  | "nao_iniciada"
   | "andamento"
-  | "enviada"
   | "validacao"
+  | "ajustes"
   | "concluida";
 
 /**
+ * TIPO A — "automatica": o registro válido já soma no progresso.
+ * TIPO B — "validacao": o registro fica em validação e só soma após aprovação.
+ */
+export type TipoMissao = "automatica" | "validacao";
+
+/**
+ * Fonte de dados que alimenta o progresso de cada missão territorial.
+ * Preparada para, futuramente, vir de cadastros reais vinculados a
+ * município e Núcleo (integração com a página "Territórios").
+ */
+export type FonteProgressoTerritorio =
+  | "ativos_inovacao"
+  | "ambientes_inovacao"
+  | "escutas_territoriais"
+  | "articulacoes"
+  | "conexoes_atores"
+  | "colaboracoes_internucleos"
+  | "iniciativas_reveladas"
+  | "vocacoes_territoriais"
+  | "oportunidades_identificadas"
+  | "mobilizacoes"
+  | "oficinas_realizadas"
+  | "resultados_articulacao";
+
+/**
  * Configuração centralizada de uma missão territorial.
- * Nome, descrição, XP, limite, categoria e necessidade de validação
- * são alterados aqui, sem reconstruir telas.
+ * Nome, descrição, meta, pontuação, tipo, limite e necessidade de
+ * validação são alterados SOMENTE aqui — as telas se ajustam sozinhas.
+ * Todos os valores são PROVISÓRIOS até validação da Coordenação.
  */
 export interface MissaoTerritorialConfig {
   id: string;
   dimensao: DimensaoId;
   titulo: string;
   descricao: string;
-  /** XP PROVISÓRIO — ajustável neste arquivo. */
-  xp: number;
   icone: string;
+  tipoMissao: TipoMissao;
+  /** Quantidade de registros válidos necessária para concluir. */
+  metaTotal: number;
+  /** Unidade exibida no progresso, ex.: "ativos identificados". */
+  unidade: string;
+  fonteProgresso: FonteProgressoTerritorio;
+  /** Rótulo da ação real do Conector, ex.: "Cadastrar ativo". */
+  cta: string;
+  exigeValidacao: boolean;
+  /** Pontuação PROVISÓRIA — camada de gamificação, não o objetivo. */
+  pontuacao: number;
+  /** Conquista apresentada quando a missão é concluída. */
+  conquista: string;
   /** Quantas vezes a missão pode ser realizada (0 = sem limite). */
   limite: number;
-  /** Se true, a evidência enviada fica "Em validação" até análise. */
-  requerValidacao: boolean;
+  ativo: boolean;
 }
 
-/** Evidência enviada pelo conector ao realizar uma missão. */
-export interface Evidencia {
+/** Registro/evidência de trabalho real feito no território. */
+export interface RegistroJornada {
+  id: string;
   missaoId: string;
+  fonte: FonteProgressoTerritorio;
   titulo: string;
   descricao: string;
   data: string;
@@ -211,6 +249,35 @@ export interface Evidencia {
   atores: string;
   resultado: string;
   localizacao: string;
+  /** Preparado para vincular o registro ao mapa municipal. */
+  municipio?: string | undefined;
   anexoNome?: string | undefined;
-  enviadaEm: string;
+  statusValidacao: StatusValidacaoRegistro;
+  criadoEm: string;
+}
+
+/** Dados do formulário de registro (o restante o sistema preenche). */
+export type DadosRegistro = Pick<
+  RegistroJornada,
+  "titulo" | "descricao" | "data" | "local" | "atores" | "resultado" | "localizacao"
+> & { anexoNome?: string | undefined };
+
+/** Visão calculada de uma missão territorial. */
+export interface MissaoTerritorialCalculada extends MissaoTerritorialConfig {
+  progressoAtual: number;
+  percentualProgresso: number;
+  restante: number;
+  registrosEmValidacao: number;
+  registrosEmAjuste: number;
+  status: StatusMissao;
+}
+
+/** Indicador (individual ou coletivo) — mede o trabalho, não gamifica. */
+export interface IndicadorConfig {
+  id: string;
+  rotulo: string;
+  icone: string;
+  meta?: number;
+  fonte?: FonteProgressoTerritorio;
+  descricao: string;
 }
