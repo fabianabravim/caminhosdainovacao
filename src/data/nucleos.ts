@@ -256,6 +256,12 @@ const nucleosBase: Nucleo[] = [
   },
 ];
 
+/** Núcleos com posição derivada da projeção da geometria oficial do IBGE. */
+export const nucleos: Nucleo[] = nucleosBase.map((n) => {
+  const coord = coordenadasNucleos[n.id];
+  return coord ? { ...n, ...projetar(coord[0], coord[1]) } : n;
+});
+
 export const nucleoAtualId = "serra";
 
 export const nucleoMap = nucleos.reduce<Record<string, Nucleo>>(
