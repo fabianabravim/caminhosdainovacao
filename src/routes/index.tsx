@@ -200,9 +200,9 @@ function Home() {
           </div>
 
           <p className="mt-4 text-center text-[0.68rem] text-muted-foreground">
-            Selecione <span className="text-lilac">Serra</span> e{" "}
-            <span className="text-lilac">Caparaó</span> para acender uma nova conexão territorial
+            Toque em um território para conhecer sua jornada de inovação
           </p>
+
         </div>
       </section>
 
