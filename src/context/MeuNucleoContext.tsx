@@ -1,29 +1,20 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 import {
   indicadoresIndividuais,
   indicadoresNucleo,
   metaTotalDimensao,
   missaoTerritorialMap,
-  missoesPorDimensao,
   missoesTerritorio,
   ordemDimensoes,
 } from "@/data/missoes.config";
 import { tipoAtividadeMap } from "@/data/atividades.config";
 import { conectores } from "@/data/jornada";
 import { nucleoAtualId } from "@/data/nucleos";
+import { MeuNucleoContext, type MeuNucleoState } from "@/context/meuNucleoBase";
 import type {
   AtividadeRegistrada,
-  DadosAtividade,
   DimensaoId,
   FonteProgressoTerritorio,
-  IndicadorConfig,
   MissaoTerritorialCalculada,
   RegistroJornada,
   StatusValidacaoRegistro,
@@ -35,35 +26,12 @@ import type {
  * ARQUITETURA: a única coisa que o Conector cria é ATIVIDADE REAL com
  * evidência. Progresso, status das missões, indicadores e pontuação são SEMPRE
  * derivados dessas atividades — nunca editáveis manualmente.
+ *
+ * O contexto, o hook e os tipos vivem em `meuNucleoBase.ts` para este arquivo
+ * exportar apenas o provider (componente) — compatível com Fast Refresh.
  */
-export interface ResultadoRegistro {
-  atividade: AtividadeRegistrada;
-  missoesRelacionadas: { id: string; titulo: string; icone: string }[];
-}
-
-interface MeuNucleoState {
-  participante: { nome: string; papel: string; iniciais: string };
-  nucleoId: string;
-  conectoresNucleo: typeof conectores;
-  atividades: AtividadeRegistrada[];
-  registros: RegistroJornada[];
-  missoes: MissaoTerritorialCalculada[];
-  missoesPorDimensao: (d: DimensaoId) => MissaoTerritorialCalculada[];
-  missaoPorId: (id: string) => MissaoTerritorialCalculada | undefined;
-  /** Progresso territorial do Núcleo, em % das metas das missões ativas. */
-  progressoNucleo: number;
-  progressoPorDimensao: Record<DimensaoId, number>;
-  pontuacaoTotal: number;
-  missoesConcluidas: number;
-  missoesEmValidacao: number;
-  atividadesEmValidacao: number;
-  indicadoresTerritoriais: (IndicadorConfig & { valor: number })[];
-  indicadoresIndividuais: (IndicadorConfig & { valor: number })[];
-  /** Registra a atividade e devolve o que ela poderá alimentar. */
-  registrarAtividade: (dados: DadosAtividade) => ResultadoRegistro;
-}
-
-const MeuNucleoContext = createContext<MeuNucleoState | null>(null);
+export { useMeuNucleo } from "@/context/meuNucleoBase";
+export type { MeuNucleoState, ResultadoRegistro } from "@/context/meuNucleoBase";
 
 /** Enquanto não houver cadastro real, nada é inventado: tudo começa zerado. */
 const atividadesIniciais: AtividadeRegistrada[] = [];
