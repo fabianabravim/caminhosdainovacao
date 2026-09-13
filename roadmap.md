@@ -44,3 +44,9 @@
 - [x] Adicionar busca, seleção, tooltip e painel de dados em construção
 - [x] Preparar modos Municípios / Núcleos e camadas futuras sem associações fictícias
 - [x] Validar desktop, celular, teclado e integridade da experiência territorial
+
+## Revisão responsiva da Jornada (/jornada)
+- [ ] Ajustar cabeçalho, containers e bloco Meu Núcleo nos quatro intervalos de tela
+- [ ] Garantir mapa, progresso, missões e ranking sem cortes ou compressão
+- [ ] Adaptar navegação inferior e modal de evidência para telas pequenas
+- [ ] Validar visualmente em 1440, 1024, 768, 430, 390 e 360 px
