@@ -14,3 +14,8 @@
   - Modo Apresentação em tela cheia com sequência automatizada de 9 etapas
   - Integração fluida com as demais páginas
   - Silhueta oficial do ES conferida com a nova referência visual, sem divisões internas inventadas
+- [x] Padronizar mapas das seções da Home com o estilo do mapa principal
+- [ ] Fonte cartográfica: trocar créditos para GEOBASES / IDAF
+- [ ] Texto Transformar: nova redação oficial
+- [ ] Conferir nomenclatura 14 Núcleos Territoriais restante
+- [ ] Marca IJSN: extrair do CDR enviado e aplicar na chancela
