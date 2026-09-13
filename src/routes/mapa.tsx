@@ -24,7 +24,7 @@ export const Route = createFileRoute("/mapa")({
 
 function Territorios() {
   return (
-    <AppShell titulo="Territórios da Inovação" mostrarPontos={false} ampla>
+    <AppShell titulo="TERRITÓRIOS DA INOVAÇÃO" mostrarPontos={false} ampla>
       <header className="max-w-3xl pt-2">
         <p className="text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-lilac">Espírito Santo em detalhe</p>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">

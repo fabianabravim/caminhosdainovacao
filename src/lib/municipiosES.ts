@@ -25,7 +25,14 @@ function coletarCoordenadas(valor: unknown): void {
 
 feicoes.forEach((feicao) => coletarCoordenadas(feicao.geometry.coordinates));
 
-const limitesGeograficos = todasCoordenadas.reduce(
+/**
+ * O enquadramento principal usa o território continental. As geometrias
+ * oceânicas oficiais permanecem intactas nos paths, apenas fora da vista
+ * inicial, para não reduzir o continente a uma miniatura.
+ */
+const coordenadasContinentais = todasCoordenadas.filter(([longitude]) => longitude < -38.5);
+
+const limitesGeograficos = coordenadasContinentais.reduce(
   (limites, [longitude, latitude]) => ({
     longitudeMinima: Math.min(limites.longitudeMinima, longitude),
     longitudeMaxima: Math.max(limites.longitudeMaxima, longitude),

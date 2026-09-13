@@ -46,6 +46,16 @@ export function MapaMunicipalES() {
   }, [busca]);
 
   const foco = hover ?? selecionado;
+  const viewBoxSelecionado = useMemo(() => {
+    if (!selecionado) return MUNICIPIOS_VIEWBOX;
+    const proporcao = MUNICIPIOS_VIEW_WIDTH / MUNICIPIOS_VIEW_HEIGHT;
+    const largura = Math.max(selecionado.limites.largura * 3.2, 145);
+    const altura = Math.max(selecionado.limites.altura * 3.2, largura / proporcao);
+    const larguraAjustada = Math.max(largura, altura * proporcao);
+    const centroX = selecionado.limites.x + selecionado.limites.largura / 2;
+    const centroY = selecionado.limites.y + selecionado.limites.altura / 2;
+    return `${centroX - larguraAjustada / 2} ${centroY - altura / 2} ${larguraAjustada} ${altura}`;
+  }, [selecionado]);
   const selecionar = (municipio: MunicipioES) => {
     setSelecionado(municipio);
     setHover(null);
@@ -127,7 +137,7 @@ export function MapaMunicipalES() {
         <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:linear-gradient(to_right,color-mix(in_oklab,var(--border)_30%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--border)_30%,transparent)_1px,transparent_1px)] [background-size:42px_42px]" />
         <div className={cn("relative h-[36rem] w-full transition-opacity duration-500 lg:h-[43rem]", modo === "nucleos" && "opacity-35")}>
           <svg
-            viewBox={MUNICIPIOS_VIEWBOX}
+            viewBox={viewBoxSelecionado}
             preserveAspectRatio="xMidYMid meet"
             role="img"
             aria-label="Mapa oficial dos 78 municípios do Espírito Santo"
@@ -192,6 +202,12 @@ export function MapaMunicipalES() {
             <p className="mt-0.5 font-display text-base font-semibold">{foco.nome}</p>
             <p className="mt-1 text-xs text-muted-foreground">Núcleo Territorial: Dados em construção</p>
           </div>
+        ) : null}
+
+        {selecionado && modo === "municipios" ? (
+          <Button variant="outline" size="sm" onClick={() => { setSelecionado(null); setBusca(""); }} className="absolute bottom-9 right-4 z-20 bg-background/90 text-xs sm:right-6">
+            Ver todo o Estado
+          </Button>
         ) : null}
 
         <p className="absolute bottom-3 left-4 z-10 max-w-[calc(100%-2rem)] text-[0.55rem] uppercase leading-relaxed tracking-[0.08em] text-muted-foreground sm:left-6">
