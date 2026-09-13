@@ -112,7 +112,8 @@ export function JornadaProvider({ children }: { children: ReactNode }) {
       const percentual_progresso = missao.meta_total > 0
         ? Math.min(100, Math.round((progresso_atual / missao.meta_total) * 100))
         : 0;
-      const status = progresso_atual >= missao.meta_total
+      const todasValidacoesAprovadas = registrosEmValidacao === 0 && !ajustesSolicitados;
+      const status = progresso_atual >= missao.meta_total && todasValidacoesAprovadas
         ? "concluida"
         : ajustesSolicitados
           ? "ajustes_solicitados"

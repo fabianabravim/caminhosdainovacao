@@ -52,7 +52,7 @@
 - [x] Validar visualmente em 1440, 1024, 768, 430, 390 e 360 px
 
 ## Progresso automático — Missões do Território (/missoes)
-- [ ] Configurar meta, fonte de dados, CTA e validação por missão
-- [ ] Derivar progresso, percentual e status exclusivamente dos registros vinculados
-- [ ] Substituir avanço manual por formulário de atividade/evidência
-- [ ] Validar envio, estado Em validação e ausência de avanço manual
+- [x] Configurar meta, fonte de dados, CTA e validação por missão
+- [x] Derivar progresso, percentual e status exclusivamente dos registros vinculados
+- [x] Substituir avanço manual por formulário de atividade/evidência
+- [x] Validar envio, estado Em validação e ausência de avanço manual
