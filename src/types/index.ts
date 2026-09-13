@@ -272,6 +272,57 @@ export interface MissaoTerritorialCalculada extends MissaoTerritorialConfig {
   status: StatusMissao;
 }
 
+/** Categoria configurável de atividade realizada no território. */
+export interface TipoAtividadeConfig {
+  id: string;
+  rotulo: string;
+  icone: string;
+  /**
+   * Fontes de progresso que este tipo PODE alimentar. A primeira é a
+   * contribuição contabilizada; as demais ficam preparadas para regras futuras.
+   */
+  fontes: FonteProgressoTerritorio[];
+}
+
+/** Ciclo de vida de uma atividade registrada pelo Conector. */
+export type StatusAtividade =
+  | "rascunho"
+  | "enviada"
+  | "em_validacao"
+  | "aprovada"
+  | "ajustes_solicitados";
+
+/** Campos preenchidos pelo Conector no formulário de atividade. */
+export interface DadosAtividade {
+  tipoId: string;
+  data: string;
+  municipio: string;
+  local: string;
+  titulo: string;
+  descricao: string;
+  atores: string;
+  resultados: string;
+  observacoes: string;
+  /** Preparado para integração territorial futura (lat/long ou referência). */
+  localizacao: string;
+  evidenciaFoto?: string | undefined;
+  evidenciaDocumento?: string | undefined;
+  evidenciaLink?: string | undefined;
+  /** Missão de origem quando o registro nasce do CTA de uma missão. */
+  missaoId?: string | undefined;
+}
+
+/** Atividade real registrada — única coisa que o Conector cria. */
+export interface AtividadeRegistrada extends DadosAtividade {
+  id: string;
+  status: StatusAtividade;
+  criadoEm: string;
+  /** Fonte efetivamente contabilizada (sem duplicar contribuições). */
+  fonteContribuicao?: FonteProgressoTerritorio | undefined;
+  /** Missões que a atividade pode alimentar, hoje ou com regras futuras. */
+  missoesRelacionadas: string[];
+}
+
 /** Indicador (individual ou coletivo) — mede o trabalho, não gamifica. */
 export interface IndicadorConfig {
   id: string;
