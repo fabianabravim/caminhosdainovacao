@@ -164,6 +164,6 @@ export interface Evidencia {
   atores: string;
   resultado: string;
   localizacao: string;
-  anexoNome?: string;
+  anexoNome?: string | undefined;
   enviadaEm: string;
 }
