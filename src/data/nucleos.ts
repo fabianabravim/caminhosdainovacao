@@ -54,7 +54,7 @@ export const nucleos: Nucleo[] = [
   {
     id: "cariacica",
     labelDx: -12,
-    labelDy: 2,
+    labelDy: -6,
     labelAnchor: "end",
     nome: "Cariacica",
     regiao: "Metropolitana",
@@ -71,8 +71,8 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "viana-fundao-guarapari",
-    labelDx: -12,
-    labelDy: 12,
+    labelDx: -14,
+    labelDy: 16,
     labelAnchor: "end",
     nome: "Viana / Fundão / Guarapari",
     regiao: "Metropolitana",
@@ -108,7 +108,7 @@ export const nucleos: Nucleo[] = [
   {
     id: "sudoeste-serrana",
     labelDx: -12,
-    labelDy: 0,
+    labelDy: 8,
     labelAnchor: "end",
     nome: "Sudoeste Serrana",
     regiao: "Serrana",
@@ -270,4 +270,4 @@ export const conexoes: Conexao[] = [
 
 /** Contorno estilizado do Espírito Santo. */
 export const contornoES =
-  "M285 54 Q315 100 342 156 L343 214 Q334 258 328 300 Q312 328 297 350 Q281 378 266 403 Q252 428 237 453 Q228 462 220 471 Q198 490 176 507 L169 543 Q142 533 115 522 Q84 490 54 458 Q71 415 88 372 Q94 330 101 289 Q110 264 120 240 Q124 215 129 190 Q136 155 143 121 Q186 104 230 88 Q257 71 285 54 Z";
+  "M131 114 Q131 114 153.5 96.5 Q176 79 200 68 Q224 57 251 55.5 Q278 54 295 70 Q312 86 327 121.5 Q342 157 342.5 182 Q343 207 344.5 225 Q346 243 339 271.5 Q332 300 315 321.5 Q298 343 291.5 357.5 Q285 372 276 387.5 Q267 403 252 429 Q237 455 227 465 Q217 475 204.5 487.5 Q192 500 184 506 Q176 512 169 527.5 Q162 543 145 532.5 Q128 522 111 515 Q94 508 85.5 501 Q77 494 65.5 477.5 Q54 461 64 441.5 Q74 422 79.5 404 Q85 386 89.5 343 Q94 300 111 250 Q128 200 131.5 175 Q135 150 131 114 Z";
