@@ -16,6 +16,7 @@ import { MapaVivo } from "@/components/MapaVivo";
 import { Button } from "@/components/ui/button";
 import { dimensoes } from "@/data/dimensoes";
 import { conexoes } from "@/data/nucleos";
+import { ES_VIEW_HEIGHT, ES_VIEW_WIDTH } from "@/lib/geoES";
 
 const conceitos = [
   { titulo: "Novas soluções", texto: "Ideias que resolvem problemas de novas maneiras.", Icon: Lightbulb },
@@ -70,7 +71,11 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
 
       <section id="conectores" className="relative overflow-hidden bg-surface text-foreground">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-2 lg:items-center">
-          <div className="relative mx-auto aspect-[3/4] w-full max-w-md" aria-hidden="true">
+          <div
+            className="relative mx-auto w-full max-w-md"
+            style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
+            aria-hidden="true"
+          >
             <MapaVivo conexoes={conexoes} labels={false} interativo={false} particulas />
           </div>
           <div>

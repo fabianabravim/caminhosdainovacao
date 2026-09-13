@@ -6,6 +6,7 @@ import { DimensoesGrid } from "@/components/Dimensoes";
 import { Metrica, Progresso } from "@/components/ui/Progresso";
 import { useJornada } from "@/context/JornadaContext";
 import { nucleoAtualId, nucleoMap } from "@/data/nucleos";
+import { ES_VIEW_HEIGHT, ES_VIEW_WIDTH } from "@/lib/geoES";
 
 export const Route = createFileRoute("/mapa")({
   head: () => ({
@@ -42,7 +43,10 @@ function Mapa() {
   return (
     <AppShell titulo="Mapa Vivo da Inovação" subtitulo="14 núcleos regionais em rede viva">
       <section className="panel relative overflow-hidden rounded-3xl">
-        <div className="aspect-[3/4] w-full">
+        <div
+          className="mx-auto w-full max-w-md"
+          style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
+        >
           <MapaVivo
             conexoes={conexoes}
             selecionado={selecionado}
