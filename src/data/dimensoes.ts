@@ -26,7 +26,7 @@ export const dimensoes: Dimensao[] = [
     id: "transformar",
     nome: "Transformar",
     icone: "🚀",
-    descricao: "Converter escuta em soluções e políticas territoriais",
+    descricao: "Transformar conexões e conhecimento em oportunidades de desenvolvimento territorial",
     colorVar: "var(--dim-transformar)",
   },
 ];
