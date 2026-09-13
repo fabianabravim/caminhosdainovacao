@@ -20,8 +20,8 @@ const estiloStatus: Record<StatusMissao, string> = {
  * Nenhum controle permite avançar a barra manualmente.
  */
 export function MissoesTerritorio() {
-  const { missoesPorDimensao, registrarAtividade } = useMeuNucleo();
-  const [missaoAberta, setMissaoAberta] = useState<string | null>(null);
+  const { missoesPorDimensao } = useMeuNucleo();
+  const { abrir } = useRegistroAtividade();
 
   return (
     <div className="min-w-0 space-y-6">
