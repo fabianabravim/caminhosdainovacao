@@ -1,3 +1,13 @@
-Coloque aqui os arquivos oficiais:
-logo-ijsn.png
-marca-governo-es.png
+Marcas institucionais oficiais em uso
+=====================================
+
+assinatura-ijsn-governo.png
+  Assinatura institucional oficial IJSN + Governo do Estado do Espírito
+  Santo, na versão oficial para fundo escuro, extraída sem alterações do
+  arquivo oficial "Aplicações_Logo_IJSN_2018.cdr" fornecido ao projeto.
+
+logo-fapes.png
+  Marca oficial da FAPES (versão colorida), extraída sem alterações do
+  mesmo arquivo oficial fornecido.
+
+Não editar, redesenhar ou recolorir estes arquivos.
