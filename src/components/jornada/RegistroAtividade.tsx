@@ -1,33 +1,16 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Check, Plus, X } from "lucide-react";
 import { tipoAtividadeMap, tiposAtividade } from "@/data/atividades.config";
-import { useMeuNucleo, type ResultadoRegistro } from "@/context/MeuNucleoContext";
+import { useMeuNucleo, type ResultadoRegistro } from "@/context/meuNucleoBase";
 import { missaoTerritorialMap } from "@/data/missoes.config";
+import {
+  RegistroAtividadeContext as Ctx,
+  useRegistroAtividade,
+  type PresetRegistroAtividade as Preset,
+} from "@/components/jornada/registroAtividadeBase";
 
-interface Preset {
-  tipoId?: string | undefined;
-  missaoId?: string | undefined;
-}
-
-interface RegistroCtx {
-  abrir: (preset?: Preset) => void;
-}
-
-const Ctx = createContext<RegistroCtx | null>(null);
-
-export function useRegistroAtividade() {
-  const ctx = useContext(Ctx);
-  if (!ctx) throw new Error("useRegistroAtividade precisa estar dentro de RegistroAtividadeProvider");
-  return ctx;
-}
+// O hook e o contexto vivem em `registroAtividadeBase.ts` para este arquivo
+// exportar apenas componentes — compatível com Fast Refresh.
 
 /**
  * Porta de entrada única do trabalho real: um só sistema de registro de

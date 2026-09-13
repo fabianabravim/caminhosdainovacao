@@ -3,7 +3,7 @@ import {
   statusAtividadeLabel,
   tipoAtividadeMap,
 } from "@/data/atividades.config";
-import { useMeuNucleo } from "@/context/MeuNucleoContext";
+import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { missaoTerritorialMap } from "@/data/missoes.config";
 import { BotaoRegistrarAtividade } from "@/components/jornada/RegistroAtividade";
 

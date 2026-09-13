@@ -1,4 +1,4 @@
-import { useMeuNucleo } from "@/context/MeuNucleoContext";
+import { useMeuNucleo } from "@/context/meuNucleoBase";
 
 /**
  * MEU DESEMPENHO — nível individual do Conector.

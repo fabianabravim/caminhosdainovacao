@@ -1,4 +1,4 @@
-import { useMeuNucleo } from "@/context/MeuNucleoContext";
+import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { ordenarRanking } from "@/data/ranking";
 
 const medalhas = ["🥇", "🥈", "🥉"];

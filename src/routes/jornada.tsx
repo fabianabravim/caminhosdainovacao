@@ -15,7 +15,8 @@ import {
   BotaoRegistrarAtividade,
   RegistroAtividadeProvider,
 } from "@/components/jornada/RegistroAtividade";
-import { MeuNucleoProvider, useMeuNucleo } from "@/context/MeuNucleoContext";
+import { MeuNucleoProvider } from "@/context/MeuNucleoContext";
+import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { nucleoMap } from "@/data/nucleos";
 
 export const Route = createFileRoute("/jornada")({

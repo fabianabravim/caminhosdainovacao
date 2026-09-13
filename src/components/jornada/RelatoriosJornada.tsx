@@ -1,5 +1,5 @@
-import { useMeuNucleo } from "@/context/MeuNucleoContext";
-import { useRegistroAtividade } from "@/components/jornada/RegistroAtividade";
+import { useMeuNucleo } from "@/context/meuNucleoBase";
+import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
 
 /**
  * "O que preciso entregar" — entregas do Conector.
