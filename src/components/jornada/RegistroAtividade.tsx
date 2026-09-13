@@ -13,8 +13,8 @@ import { useMeuNucleo, type ResultadoRegistro } from "@/context/MeuNucleoContext
 import { missaoTerritorialMap } from "@/data/missoes.config";
 
 interface Preset {
-  tipoId?: string;
-  missaoId?: string;
+  tipoId?: string | undefined;
+  missaoId?: string | undefined;
 }
 
 interface RegistroCtx {
