@@ -39,8 +39,8 @@
 - [x] Preservar decisões posteriores: dados zerados, sem linhas fictícias e acesso pelo menu
 
 ## Territórios da Inovação (/mapa)
-- [ ] Incorporar malha oficial dos 78 municípios do ES (IBGE 2024)
-- [ ] Criar mapa municipal interativo sem alterar o MapaVivo da Home
-- [ ] Adicionar busca, seleção, tooltip e painel de dados em construção
-- [ ] Preparar modos Municípios / Núcleos e camadas futuras sem associações fictícias
-- [ ] Validar desktop, celular, teclado e integridade das demais páginas
+- [x] Incorporar malha oficial dos 78 municípios do ES (IBGE 2024)
+- [x] Criar mapa municipal interativo sem alterar o MapaVivo da Home
+- [x] Adicionar busca, seleção, tooltip e painel de dados em construção
+- [x] Preparar modos Municípios / Núcleos e camadas futuras sem associações fictícias
+- [x] Validar desktop, celular, teclado e integridade da experiência territorial

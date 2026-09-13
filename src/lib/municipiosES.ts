@@ -85,7 +85,9 @@ export interface MunicipioES {
 export const municipiosES: MunicipioES[] = feicoes
   .map((feicao) => {
     const aneis = geometriaParaAneis(feicao.geometry);
-    const pontos = aneis.flat().map(projetar);
+    const coordenadas = aneis.flat();
+    const coordenadasParaEnquadramento = coordenadas.filter(([longitude]) => longitude < -38.5);
+    const pontos = (coordenadasParaEnquadramento.length ? coordenadasParaEnquadramento : coordenadas).map(projetar);
     const limites = pontos.reduce(
       (atuais, ponto) => ({
         xMin: Math.min(atuais.xMin, ponto.x),
