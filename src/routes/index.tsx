@@ -5,7 +5,7 @@ import { HomeSections } from "@/components/home/HomeSections";
 import { MapaVivo } from "@/components/MapaVivo";
 import { ModoApresentacao } from "@/components/ModoApresentacao";
 import { Button } from "@/components/ui/button";
-import { useJornada } from "@/context/JornadaContext";
+
 import { nucleoMap } from "@/data/nucleos";
 
 export const Route = createFileRoute("/")({
@@ -27,7 +27,6 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const navigate = useNavigate();
-  const { conexoes } = useJornada();
   const exploracaoRef = useRef<HTMLElement>(null);
   const [hover, setHover] = useState<string | null>(null);
   const [selecionado, setSelecionado] = useState<string | null>(null);
@@ -96,7 +95,7 @@ function Home() {
 
             <div className="relative order-2 mx-auto aspect-[3/4] w-full max-w-[600px] lg:row-span-2 lg:ml-auto">
               <div className={`h-full w-full origin-[67%_62%] transition-transform duration-[900ms] ease-out ${zoom || entrando ? "scale-[1.28]" : "scale-100"}`}>
-                <MapaVivo conexoes={conexoes} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} particulas labels destaque="serra" />
+                <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} pontosTerritoriais labels destaque="serra" />
               </div>
               <p className="absolute bottom-2 right-2 text-[0.58rem] uppercase tracking-[0.14em] text-muted-foreground">Contorno geográfico: IBGE</p>
               {focado ? <NucleoTooltip nucleoId={focado.id} /> : null}
@@ -128,7 +127,7 @@ function Home() {
               <p className="mt-6 text-sm font-medium text-primary">Passe, toque ou use o teclado para conhecer os núcleos.</p>
             </div>
             <div className="relative mx-auto aspect-[3/4] w-full max-w-xl rounded-md border border-primary/15 bg-background p-4 shadow-2xl shadow-primary/10 sm:p-7">
-              <MapaVivo conexoes={conexoes} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} particulas destaque="serra" />
+              <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} pontosTerritoriais destaque="serra" />
               {focado ? <NucleoTooltip nucleoId={focado.id} light /> : null}
               <p className="absolute bottom-3 right-4 text-[0.58rem] uppercase tracking-[0.12em] text-muted-foreground">Fonte do contorno: IBGE</p>
             </div>

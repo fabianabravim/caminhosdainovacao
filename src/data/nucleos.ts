@@ -271,6 +271,49 @@ export const conexoes: Conexao[] = [
 ];
 
 /**
+ * Pequenos pontos de luz espalhados pelo território capixaba.
+ * Representam simbolicamente atores, iniciativas, conhecimento,
+ * oportunidades e inovação acontecendo no território — sem linhas
+ * conectando-os. São apenas pontos de presença/descoberta.
+ */
+export const pontosTerritoriais: { x: number; y: number; r: number; delay: string }[] = [
+  { x: 250, y: 100, r: 1.8, delay: "0.2s" },
+  { x: 210, y: 124, r: 1.5, delay: "1.1s" },
+  { x: 292, y: 128, r: 2.0, delay: "2.3s" },
+  { x: 240, y: 168, r: 1.6, delay: "0.8s" },
+  { x: 198, y: 182, r: 1.7, delay: "3.1s" },
+  { x: 274, y: 196, r: 1.5, delay: "1.7s" },
+  { x: 318, y: 178, r: 1.4, delay: "2.8s" },
+  { x: 228, y: 214, r: 1.9, delay: "0.5s" },
+  { x: 262, y: 244, r: 1.6, delay: "3.6s" },
+  { x: 304, y: 262, r: 2.0, delay: "1.4s" },
+  { x: 232, y: 268, r: 1.5, delay: "2.1s" },
+  { x: 272, y: 296, r: 1.7, delay: "0.9s" },
+  { x: 322, y: 296, r: 1.5, delay: "3.3s" },
+  { x: 248, y: 312, r: 1.6, delay: "1.9s" },
+  { x: 184, y: 322, r: 1.8, delay: "2.6s" },
+  { x: 222, y: 332, r: 1.5, delay: "0.3s" },
+  { x: 152, y: 358, r: 1.7, delay: "1.2s" },
+  { x: 204, y: 358, r: 1.5, delay: "2.7s" },
+  { x: 262, y: 356, r: 1.6, delay: "3.5s" },
+  { x: 132, y: 382, r: 1.8, delay: "0.6s" },
+  { x: 246, y: 392, r: 1.5, delay: "1.6s" },
+  { x: 102, y: 412, r: 1.7, delay: "2.2s" },
+  { x: 140, y: 402, r: 1.5, delay: "3.0s" },
+  { x: 92, y: 442, r: 1.9, delay: "0.4s" },
+  { x: 132, y: 440, r: 1.5, delay: "1.8s" },
+  { x: 178, y: 442, r: 1.6, delay: "2.9s" },
+  { x: 212, y: 422, r: 1.5, delay: "0.7s" },
+  { x: 122, y: 472, r: 1.8, delay: "2.4s" },
+  { x: 162, y: 482, r: 1.5, delay: "1.3s" },
+  { x: 204, y: 472, r: 1.6, delay: "3.2s" },
+  { x: 96, y: 506, r: 1.7, delay: "0.1s" },
+  { x: 134, y: 512, r: 1.5, delay: "2.0s" },
+  { x: 172, y: 522, r: 1.6, delay: "1.0s" },
+  { x: 112, y: 540, r: 1.5, delay: "2.5s" },
+];
+
+/**
  * Contorno oficial simplificado do Espírito Santo.
  * Fonte: API de Malhas Geográficas do IBGE, UF 32, qualidade mínima.
  * Projeção linear preservando proporções, ajustada ao viewBox 0 0 400 600.
