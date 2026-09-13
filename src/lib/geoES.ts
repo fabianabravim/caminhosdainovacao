@@ -1,12 +1,12 @@
 import geojson from "@/data/es-uf-32.geojson.json";
 
 /**
- * Renderização do Espírito Santo a partir da geometria oficial (GeoJSON).
- * Fonte: IBGE — Malhas Geográficas, UF 32, qualidade máxima. WGS84 / EPSG:4326.
+ * Renderização do Espírito Santo a partir da geometria oficial fornecida
+ * (limite_es_2017). WGS84 / EPSG:4326.
  *
- * A geometria NÃO é redesenhada nem simplificada: os anéis do GeoJSON são
- * apenas projetados (equirretangular com correção de longitude por cos(lat))
- * para o espaço do SVG, preservando a proporção real do Estado.
+ * O contorno não é redesenhado: os anéis do GeoJSON são apenas projetados
+ * (equirretangular com correção de longitude por cos(lat)) para o espaço do
+ * SVG, preservando a proporção real do Estado.
  */
 
 type Anel = [number, number][];
