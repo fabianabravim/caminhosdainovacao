@@ -15,3 +15,4 @@
   - Momento WOW: conexão Serra ↔ Caparaó com aviso comemorativo
   - Modo Apresentação em tela cheia com sequência automatizada de 9 etapas
   - Integração fluida com as demais páginas
+  - Conferir a silhueta oficial do ES também com a nova referência visual enviada, sem reproduzir divisões internas não oficiais
