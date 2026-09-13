@@ -96,7 +96,7 @@ function Home() {
 
             <div className="relative order-2 mx-auto aspect-[3/4] w-full max-w-[600px] lg:row-span-2 lg:ml-auto">
               <div className={`h-full w-full origin-[67%_62%] transition-transform duration-[900ms] ease-out ${zoom || entrando ? "scale-[1.28]" : "scale-100"}`}>
-                <MapaVivo conexoes={conexoes} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} particulas labels destaque="serra" />
+                <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} pontosTerritoriais labels destaque="serra" />
               </div>
               <p className="absolute bottom-2 right-2 text-[0.58rem] uppercase tracking-[0.14em] text-muted-foreground">Contorno geográfico: IBGE</p>
               {focado ? <NucleoTooltip nucleoId={focado.id} /> : null}
