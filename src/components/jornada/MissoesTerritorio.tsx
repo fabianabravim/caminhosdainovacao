@@ -87,7 +87,12 @@ export function MissoesTerritorio() {
                     {!concluida ? (
                       <button
                         type="button"
-                        onClick={() => setMissaoAberta(m.id)}
+                        onClick={() =>
+                          abrir({
+                            missaoId: m.id,
+                            tipoId: tipoAtividadePorFonte(m.fonteProgresso)?.id,
+                          })
+                        }
                         className="tap mt-3 min-h-11 w-full rounded-xl bg-primary px-3.5 py-2 text-[0.74rem] font-semibold text-primary-foreground transition-opacity sm:min-h-0"
                       >
                         {m.cta}
