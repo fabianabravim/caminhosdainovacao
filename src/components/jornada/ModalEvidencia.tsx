@@ -49,22 +49,22 @@ export function ModalEvidencia({ missaoId, onClose, onEnviar }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-background/80 backdrop-blur-sm sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex min-w-0 items-end justify-center overflow-hidden bg-background/80 backdrop-blur-sm sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-label={`Realizar missão: ${missao.titulo}`}
       onClick={onClose}
     >
       <div
-        className="panel panel-glow max-h-[92dvh] w-full max-w-lg overflow-y-auto rounded-t-3xl p-5 sm:rounded-3xl"
+        className="panel panel-glow max-h-[calc(100dvh-env(safe-area-inset-top))] w-full min-w-0 max-w-lg overflow-x-hidden overflow-y-auto rounded-t-3xl px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 sm:max-h-[92dvh] sm:rounded-3xl sm:p-5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
-          <div>
+          <div className="min-w-0">
             <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
               Realizar missão · {missao.xp} XP
             </p>
-            <h3 className="font-display text-lg font-semibold">
+            <h3 className="break-words font-display text-lg font-semibold [overflow-wrap:anywhere]">
               {missao.icone} {missao.titulo}
             </h3>
           </div>
@@ -94,7 +94,7 @@ export function ModalEvidencia({ missaoId, onClose, onEnviar }: Props) {
             <label className={rotulo} htmlFor="ev-descricao">Descrição</label>
             <textarea id="ev-descricao" className={campo} rows={3} value={form.descricao} onChange={set("descricao")} required />
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className={rotulo} htmlFor="ev-data">Data</label>
               <input id="ev-data" type="date" className={campo} value={form.data} onChange={set("data")} required />
@@ -118,7 +118,7 @@ export function ModalEvidencia({ missaoId, onClose, onEnviar }: Props) {
           </div>
           <div>
             <span className={rotulo}>Foto / documento</span>
-            <label className="tap flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-border/80 bg-surface/50 px-3.5 py-3 text-sm text-muted-foreground">
+            <label className="tap flex min-w-0 cursor-pointer items-center justify-center gap-2 break-words rounded-xl border border-dashed border-border/80 bg-surface/50 px-3.5 py-3 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
               <input
                 type="file"
                 accept="image/*,.pdf"

@@ -10,13 +10,13 @@ export function ProgressoNucleo() {
   const { xpTotal, missoesConcluidas, missoesEmValidacao, progressoPorDimensao } = useMeuNucleo();
 
   return (
-    <div className="panel panel-glow rounded-3xl p-4">
+    <div className="panel panel-glow h-full min-w-0 rounded-3xl p-4 sm:p-5">
       <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Progresso do Núcleo</p>
       <p className="mt-1 text-[0.72rem] text-muted-foreground">
         O esforço dos dois conectores soma para o mesmo progresso territorial.
       </p>
 
-      <div className="mt-3.5 grid grid-cols-3 gap-2">
+      <div className="mt-3.5 grid grid-cols-2 gap-2 sm:grid-cols-3">
         <Metrica valor={`${xpTotal} XP`} label="XP total" />
         <Metrica valor={missoesConcluidas} label="Concluídas" />
         <Metrica valor={missoesEmValidacao} label="Em validação" />

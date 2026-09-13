@@ -31,7 +31,7 @@ export const Route = createFileRoute("/jornada")({
 function JornadaPage() {
   return (
     <MeuNucleoProvider>
-      <AppShell titulo="Jornada da Inovação Capixaba" subtitulo="Meu Núcleo" mostrarPontos={false}>
+      <AppShell titulo="Jornada da Inovação Capixaba" subtitulo="Meu Núcleo" mostrarPontos={false} ampla>
         <JornadaConteudo />
       </AppShell>
     </MeuNucleoProvider>
@@ -43,21 +43,21 @@ function JornadaConteudo() {
   const nucleo = nucleoMap[nucleoId]!;
 
   return (
-    <>
+    <div className="min-w-0 space-y-5 sm:space-y-6">
       {/* Identificação do participante */}
-      <section className="anim-rise flex items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-xl font-bold">
+      <section className="anim-rise flex min-w-0 flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
+          <h2 className="font-display text-xl font-bold sm:text-2xl">
             Olá, {participante.nome.split(" ")[0]}
           </h2>
-          <p className="mt-0.5 text-sm text-muted-foreground">
+          <p className="mt-0.5 break-words text-sm text-muted-foreground">
             Você faz parte do{" "}
             <span className="font-semibold uppercase tracking-wide text-glow">
               Núcleo {nucleo.nome}
             </span>
           </p>
         </div>
-        <div className="flex shrink-0 items-center gap-1.5">
+        <div className="flex shrink-0 items-center gap-1.5 self-end sm:self-auto">
           <Link
             to="/perfil"
             aria-label="Meu perfil"
@@ -87,16 +87,16 @@ function JornadaConteudo() {
           <p className="mt-4 text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
             Conectores do Núcleo
           </p>
-          <div className="mt-2 grid grid-cols-2 gap-2.5">
+          <div className="mt-2 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {conectoresNucleo.map((c) => (
-              <div key={c.nome} className="rounded-2xl border border-border/70 bg-surface/60 p-3">
+              <div key={c.nome} className="min-w-0 rounded-2xl border border-border/70 bg-surface/60 p-3">
                 <div className="flex items-center gap-2.5">
                   <span className="panel-glow grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/40 font-display text-xs font-bold text-glow">
                     {c.iniciais}
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold">{c.nome}</p>
-                    <p className="truncate text-[0.68rem] text-muted-foreground">{c.papel}</p>
+                    <p className="break-words text-sm font-semibold">{c.nome}</p>
+                    <p className="break-words text-[0.68rem] text-muted-foreground">{c.papel}</p>
                   </div>
                 </div>
               </div>
@@ -117,13 +117,14 @@ function JornadaConteudo() {
               ambientes de inovação, oportunidades e conexões reais.
             </p>
           </div>
-          <div className="px-2 pb-1 pt-2">
+          <div className="min-w-0 overflow-hidden px-2 pb-1 pt-2 sm:px-4">
             <MapaVivo
               destaque={nucleoId}
               conexoes={[]}
               pontosTerritoriais
               labels
               interativo={false}
+              className="mx-auto block h-auto max-h-[44rem] w-full max-w-[30rem] overflow-hidden"
             />
           </div>
           <p className="px-5 pb-3.5 text-center text-[0.6rem] tracking-wide text-muted-foreground/70">
@@ -133,7 +134,7 @@ function JornadaConteudo() {
       </div>
 
       {/* Jornada de progresso + Progresso do núcleo */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid min-w-0 gap-4 lg:grid-cols-2">
         <div className="anim-rise" style={{ animationDelay: "160ms" }}>
           <JornadaDimensoes />
         </div>
@@ -157,6 +158,6 @@ function JornadaConteudo() {
       <div className="anim-rise" style={{ animationDelay: "320ms" }}>
         <RankingNucleos />
       </div>
-    </>
+    </div>
   );
 }

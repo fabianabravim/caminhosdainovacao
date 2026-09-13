@@ -24,7 +24,7 @@ export function AppShell({
   const nucleo = nucleoMap[nucleoAtualId]!;
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen min-w-0 overflow-x-clip pb-24">
       <Celebracao />
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 px-4 pb-3 pt-4 backdrop-blur-xl">
         <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
@@ -32,7 +32,11 @@ export function AppShell({
             <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-lilac/80">
               Caminhos da Inovação
             </p>
-            <h1 className="truncate font-display text-xl font-semibold">{titulo}</h1>
+            <h1
+              className={`font-display text-xl font-semibold ${mostrarPontos ? "truncate" : "text-balance leading-tight"}`}
+            >
+              {titulo}
+            </h1>
             {subtitulo ? (
               <p className="truncate text-xs text-muted-foreground">{subtitulo}</p>
             ) : null}
@@ -59,7 +63,11 @@ export function AppShell({
           )}
         </div>
       </header>
-      <main className={`mx-auto px-4 py-5 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>{children}</main>
+      <main
+        className={`mx-auto w-full min-w-0 px-4 py-5 sm:px-5 lg:px-8 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}
+      >
+        {children}
+      </main>
       <BottomNav />
     </div>
   );

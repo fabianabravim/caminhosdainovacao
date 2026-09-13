@@ -18,7 +18,7 @@ export function MissoesTerritorio() {
   const [missaoAberta, setMissaoAberta] = useState<string | null>(null);
 
   return (
-    <div className="space-y-6">
+    <div className="min-w-0 space-y-6">
       {ordemDimensoes.map((dimId) => {
         const dim = dimensaoMap[dimId]!;
         return (
@@ -29,13 +29,13 @@ export function MissoesTerritorio() {
             >
               <span aria-hidden>{dim.icone}</span> {dim.nome}
             </p>
-            <div className="space-y-2.5">
+            <div className="grid min-w-0 grid-cols-1 gap-2.5 md:grid-cols-2 xl:grid-cols-3">
               {missoesPorDimensao(dimId).map((m) => {
                 const status = statusPorMissao[m.id] ?? "disponivel";
                 const bloqueada = status === "validacao" || status === "enviada" || status === "concluida";
                 return (
-                  <article key={m.id} className="panel rounded-2xl p-3.5">
-                    <div className="flex items-start gap-3">
+                  <article key={m.id} className="panel min-w-0 rounded-2xl p-3.5">
+                    <div className="flex min-w-0 flex-col items-start gap-3 sm:flex-row">
                       <span
                         className="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base"
                         style={{ backgroundColor: `color-mix(in oklab, ${dim.colorVar} 16%, transparent)` }}
@@ -44,20 +44,20 @@ export function MissoesTerritorio() {
                         {m.icone}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <h3 className="min-w-0 flex-1 truncate font-display text-sm font-semibold">
+                        <div className="flex min-w-0 items-start gap-2">
+                          <h3 className="min-w-0 flex-1 overflow-wrap-anywhere font-display text-sm font-semibold">
                             {m.titulo}
                           </h3>
                           <span className="shrink-0 rounded-full bg-glow/12 px-2 py-0.5 text-[0.68rem] font-bold text-glow">
                             {m.xp} XP
                           </span>
                         </div>
-                        <p className="mt-1 text-[0.74rem] leading-relaxed text-muted-foreground">
+                        <p className="mt-1 break-words text-[0.74rem] leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
                           {m.descricao}
                         </p>
-                        <div className="mt-2.5 flex items-center justify-between gap-2">
+                        <div className="mt-2.5 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-between">
                           <span
-                            className={`rounded-full border px-2.5 py-0.5 text-[0.66rem] font-semibold ${estiloStatus[status]}`}
+                            className={`w-fit rounded-full border px-2.5 py-0.5 text-[0.66rem] font-semibold ${estiloStatus[status]}`}
                           >
                             {statusMissaoLabel[status]}
                           </span>
@@ -68,7 +68,7 @@ export function MissoesTerritorio() {
                               iniciarMissao(m.id);
                               setMissaoAberta(m.id);
                             }}
-                            className="tap rounded-xl bg-primary px-3.5 py-2 text-[0.72rem] font-semibold text-primary-foreground transition-opacity disabled:cursor-not-allowed disabled:opacity-45"
+                            className="tap min-h-11 w-full rounded-xl bg-primary px-3.5 py-2 text-[0.72rem] font-semibold text-primary-foreground transition-opacity disabled:cursor-not-allowed disabled:opacity-45 sm:min-h-0 sm:w-auto"
                           >
                             {status === "concluida"
                               ? "Concluída ✓"
