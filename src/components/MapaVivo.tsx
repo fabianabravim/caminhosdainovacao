@@ -201,7 +201,6 @@ export function MapaVivo({
           return (
             <g
               key={n.id}
-              onClick={interativo ? () => onSelecionar?.(n.id) : undefined}
               onMouseEnter={interativo ? () => onHover?.(n.id) : undefined}
               onMouseLeave={interativo ? () => onHover?.(null) : undefined}
               onFocus={interativo ? () => onHover?.(n.id) : undefined}
@@ -227,7 +226,7 @@ export function MapaVivo({
                 cy={n.y}
                 r={r + 8}
                 fill={meu ? "oklch(0.86 0.13 200 / 0.28)" : "oklch(0.78 0.12 305 / 0.18)"}
-                className="anim-node"
+                className="anim-node pointer-events-none"
                 style={{
                   animationDelay: `${((n.x + n.y) % 30) / 10}s`,
                   transformOrigin: `${n.x}px ${n.y}px`,
@@ -241,7 +240,7 @@ export function MapaVivo({
                   fill="none"
                   stroke="oklch(0.9 0.12 200 / 0.8)"
                   strokeWidth="1.2"
-                  className="anim-halo"
+                  className="anim-halo pointer-events-none"
                   style={{ transformOrigin: `${n.x}px ${n.y}px` }}
                 />
               )}
@@ -252,7 +251,7 @@ export function MapaVivo({
                 fill={meu ? "oklch(0.9 0.11 200)" : ativo ? "oklch(0.95 0.06 305)" : "oklch(0.84 0.1 305)"}
                 stroke="oklch(0.2 0.06 295)"
                 strokeWidth="1.4"
-                className="transition-all duration-200"
+                className="pointer-events-none transition-all duration-200"
               />
               {labels && (
                 <text
