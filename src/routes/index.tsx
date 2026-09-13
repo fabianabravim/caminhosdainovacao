@@ -59,8 +59,8 @@ function Home() {
       <header className="absolute inset-x-0 top-0 z-40 border-b border-border/40 bg-background/65 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5">
           <ChancelaInstitucional />
-          <span aria-hidden="true" className="hidden h-5 w-px bg-border/50 sm:block" />
-          <a href="#inicio" className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-foreground">Caminhos da Inovação</a>
+          <span aria-hidden="true" className="hidden h-5 w-px bg-border/50 md:block" />
+          <a href="#inicio" className="hidden font-display text-xs font-semibold uppercase tracking-[0.2em] text-foreground md:block">Caminhos da Inovação</a>
           <nav aria-label="Navegação principal" className="ml-auto hidden items-center gap-6 lg:flex">
             <a href="#sobre" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Sobre</a>
             <a href="#inovacao" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Inovação</a>

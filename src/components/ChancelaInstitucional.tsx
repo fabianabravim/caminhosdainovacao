@@ -17,14 +17,21 @@ type MarcaProps = {
 };
 
 function Marca({ src, alt, altura }: MarcaProps) {
+  const imgRef = useRef<HTMLImageElement>(null);
   const [ausente, setAusente] = useState(false);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.complete && img.naturalWidth === 0) setAusente(true);
+  }, []);
 
   if (ausente) {
     return (
       <span
         role="img"
         aria-label={`${alt} (aguardando arquivo oficial)`}
-        className={`inline-flex items-center rounded-sm border border-dashed border-border/70 px-3 text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground ${altura}`}
+        title={`${alt} — aguardando arquivo oficial`}
+        className={`inline-flex items-center whitespace-nowrap rounded-sm border border-dashed border-border/70 px-3 text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground ${altura}`}
       >
         {alt}
       </span>
@@ -33,6 +40,7 @@ function Marca({ src, alt, altura }: MarcaProps) {
 
   return (
     <img
+      ref={imgRef}
       src={src}
       alt={alt}
       onError={() => setAusente(true)}
