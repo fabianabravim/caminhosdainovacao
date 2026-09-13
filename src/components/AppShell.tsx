@@ -10,6 +10,7 @@ export function AppShell({
   subtitulo,
   mostrarPontos = true,
   ampla = false,
+  jornadaResponsiva = false,
   children,
 }: {
   titulo: string;
@@ -18,13 +19,15 @@ export function AppShell({
   mostrarPontos?: boolean;
   /** Permite experiências territoriais amplas sem alterar as demais telas. */
   ampla?: boolean;
+  /** Ativa somente os ajustes responsivos próprios da página Jornada. */
+  jornadaResponsiva?: boolean;
   children: ReactNode;
 }) {
   const { pontos, nivelAtual } = useJornada();
   const nucleo = nucleoMap[nucleoAtualId]!;
 
   return (
-    <div className="min-h-screen min-w-0 overflow-x-clip pb-24">
+    <div className={jornadaResponsiva ? "min-h-screen min-w-0 overflow-x-clip pb-24" : "min-h-screen pb-24"}>
       <Celebracao />
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 px-4 pb-3 pt-4 backdrop-blur-xl">
         <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
@@ -32,9 +35,7 @@ export function AppShell({
             <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-lilac/80">
               Caminhos da Inovação
             </p>
-            <h1
-              className={`font-display text-xl font-semibold ${mostrarPontos ? "truncate" : "text-balance leading-tight"}`}
-            >
+            <h1 className={`font-display text-xl font-semibold ${jornadaResponsiva ? "text-balance leading-tight" : "truncate"}`}>
               {titulo}
             </h1>
             {subtitulo ? (
@@ -63,12 +64,10 @@ export function AppShell({
           )}
         </div>
       </header>
-      <main
-        className={`mx-auto w-full min-w-0 px-4 py-5 sm:px-5 lg:px-8 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}
-      >
+      <main className={`mx-auto ${jornadaResponsiva ? "w-full min-w-0 px-4 py-5 sm:px-5 lg:px-8" : "px-4 py-5"} ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
         {children}
       </main>
-      <BottomNav />
+      <BottomNav compacta={jornadaResponsiva} />
     </div>
   );
 }

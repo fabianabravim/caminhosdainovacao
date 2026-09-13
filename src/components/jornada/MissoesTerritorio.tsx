@@ -45,7 +45,7 @@ export function MissoesTerritorio() {
                       </span>
                       <div className="min-w-0 flex-1">
                         <div className="flex min-w-0 items-start gap-2">
-                          <h3 className="min-w-0 flex-1 overflow-wrap-anywhere font-display text-sm font-semibold">
+                          <h3 className="min-w-0 flex-1 font-display text-sm font-semibold [overflow-wrap:anywhere]">
                             {m.titulo}
                           </h3>
                           <span className="shrink-0 rounded-full bg-glow/12 px-2 py-0.5 text-[0.68rem] font-bold text-glow">

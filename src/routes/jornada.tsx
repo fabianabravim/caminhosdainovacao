@@ -31,7 +31,13 @@ export const Route = createFileRoute("/jornada")({
 function JornadaPage() {
   return (
     <MeuNucleoProvider>
-      <AppShell titulo="Jornada da Inovação Capixaba" subtitulo="Meu Núcleo" mostrarPontos={false} ampla>
+      <AppShell
+        titulo="Jornada da Inovação Capixaba"
+        subtitulo="Meu Núcleo"
+        mostrarPontos={false}
+        ampla
+        jornadaResponsiva
+      >
         <JornadaConteudo />
       </AppShell>
     </MeuNucleoProvider>
