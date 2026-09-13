@@ -103,7 +103,7 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
             </h2>
           </div>
           <div className="mt-12 grid gap-8 border-y border-primary/15 py-8 sm:grid-cols-3">
-            {[['14', 'Núcleos'], ['28', 'Conectores'], ['1', 'Rede Capixaba de Inovação']].map(([valor, label]) => (
+            {[['14', 'Núcleos Territoriais'], ['28', 'Conectores'], ['1', 'Rede Capixaba de Inovação']].map(([valor, label]) => (
               <div key={label} className="flex items-end gap-3">
                 <strong className="font-display text-5xl text-primary">{valor}</strong>
                 <span className="pb-1 text-xs font-semibold uppercase tracking-[0.14em] text-paper-muted">{label}</span>

@@ -71,7 +71,7 @@ export function ModoApresentacao({ onSair }: { onSair: () => void }) {
       case 0:
         return { titulo: "CAMINHOS DA INOVAÇÃO", sub: "Jornada da Inovação Capixaba" };
       case 1:
-        return { titulo: "14 TERRITÓRIOS", sub: "Núcleos regionais do Espírito Santo" };
+        return { titulo: "14 NÚCLEOS TERRITORIAIS", sub: "Núcleos regionais do Espírito Santo" };
       case 2:
         return { titulo: "28 CONECTORES", sub: "Pessoas que escutam e articulam o território" };
       case 3:
