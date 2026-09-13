@@ -1,4 +1,4 @@
-import { ChevronDown, Database, Layers3, MapPinned, Search, X } from "lucide-react";
+import { Database, Layers3, MapPinned, Search, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";

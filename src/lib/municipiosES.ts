@@ -11,7 +11,7 @@ type FeicaoMunicipal = {
   geometry: GeometriaMunicipal;
 };
 
-const feicoes = (malhaMunicipal as { features: FeicaoMunicipal[] }).features;
+const feicoes = (malhaMunicipal as unknown as { features: FeicaoMunicipal[] }).features;
 const todasCoordenadas: Coordenada[] = [];
 
 function coletarCoordenadas(valor: unknown): void {
