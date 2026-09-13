@@ -115,7 +115,11 @@ export function ModoApresentacao({ onSair }: { onSair: () => void }) {
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/35 to-background/70" />
 
-      <div className="absolute inset-x-0 bottom-0 top-0 flex flex-col items-center justify-center px-8 text-center">
+      <div
+        className={`absolute inset-x-0 bottom-0 top-0 flex flex-col items-center px-8 text-center ${
+          etapa >= 3 && etapa <= 6 ? "justify-end pb-24" : "justify-center"
+        }`}
+      >
         <div key={`${ciclo}-${etapa}`} className="animate-fade-in">
           {legenda.titulo ? (
             <h2 className="font-display text-4xl font-semibold leading-tight text-gradient sm:text-6xl">
