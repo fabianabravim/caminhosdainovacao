@@ -1,5 +1,4 @@
-import { ES_PATH } from "@/lib/geoES";
-import { pontosNoTerritorio, projetar } from "@/lib/geoES";
+import { ES_PATH, pontosNoTerritorio, projetar } from "@/lib/geoES";
 import type { Conexao, Nucleo } from "@/types";
 
 /**
