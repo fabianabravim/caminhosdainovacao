@@ -76,7 +76,7 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
             style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
             aria-hidden="true"
           >
-            <MapaVivo conexoes={conexoes} labels={false} interativo={false} particulas />
+            <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais destaque="serra" />
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-glow">Ecossistema capixaba</p>
