@@ -79,7 +79,7 @@ function anelParaPath(anel: Anel) {
 }
 
 /** Paths do contorno oficial (um por anel da geometria). */
-export const ES_PATHS: string[] = aneis.map(anelParaPath);
+export const ES_PATHS: string[] = aneisContinentais.map(anelParaPath);
 
 /** Path único combinando todos os anéis (para preenchimento e traçado). */
 export const ES_PATH = ES_PATHS.join(" ");
@@ -98,7 +98,7 @@ function dentroDoAnel(lon: number, lat: number, anel: Anel) {
 
 /** Teste geográfico: a coordenada está dentro do território capixaba? */
 export function dentroDoES(lon: number, lat: number) {
-  return aneis.some((anel) => dentroDoAnel(lon, lat, anel));
+  return aneisContinentais.some((anel) => dentroDoAnel(lon, lat, anel));
 }
 
 /** Gera pontos determinísticos distribuídos dentro do território real. */
