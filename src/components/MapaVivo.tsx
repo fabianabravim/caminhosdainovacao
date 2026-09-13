@@ -48,6 +48,32 @@ export function MapaVivo({
 }: Props) {
   const estaSelecionado = (id: string) => selecionado === id || !!selecionados?.includes(id);
 
+  /**
+   * Seleção por proximidade: o clique em qualquer ponto próximo a um núcleo
+   * seleciona o núcleo mais próximo. Isso evita que brilhos/halos animados
+   * ou a sobreposição de pontos na região metropolitana capturem o clique
+   * do núcleo errado.
+   */
+  const handleMapClick = (event: React.MouseEvent<SVGSVGElement>) => {
+    if (!interativo || !onSelecionar) return;
+    const svg = event.currentTarget;
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return;
+    const pt = new DOMPoint(event.clientX, event.clientY).matrixTransform(ctm.inverse());
+    let melhor: Nucleo | null = null;
+    let melhorDist = Infinity;
+    for (const n of nucleos) {
+      if (visiveis && !visiveis.includes(n.id)) continue;
+      const d = Math.hypot(n.x - pt.x, n.y - pt.y);
+      if (d < melhorDist) {
+        melhorDist = d;
+        melhor = n;
+      }
+    }
+    // Só seleciona quando o clique está razoavelmente próximo de um núcleo.
+    if (melhor && melhorDist <= 26) onSelecionar(melhor.id);
+  };
+
   return (
     <svg
       viewBox={ES_VIEWBOX}
@@ -55,6 +81,7 @@ export function MapaVivo({
       className={cn("h-full w-full select-none overflow-visible", className)}
       role="img"
       aria-label="Mapa vivo da inovação do Espírito Santo com os 14 núcleos regionais"
+      onClick={handleMapClick}
     >
       <defs>
         <linearGradient id="mapaFill" x1="0" y1="0" x2="1" y2="1">
