@@ -108,7 +108,7 @@ function Home() {
                 <p>O Caminhos da Inovação percorre o Espírito Santo para revelar atores, iniciativas, vocações e oportunidades que fortalecem o ecossistema capixaba de inovação.</p>
               </div>
               <div className="mt-7 grid grid-cols-2 gap-4 border-y border-border/60 py-5 sm:gap-7">
-                <Stat valor="14" label="Territórios" /><Stat valor="28" label="Conectores" />
+                <Stat valor="14" label="Núcleos Territoriais" /><Stat valor="28" label="Conectores" />
               </div>
               <p className="mt-5 max-w-lg text-sm text-lilac">Cada ponto é uma descoberta.<br />Cada conexão abre um novo caminho.</p>
               <div className="mt-7 flex flex-wrap gap-3">
