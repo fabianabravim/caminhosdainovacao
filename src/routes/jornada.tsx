@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { LogOut, User } from "lucide-react";
-import { AppShell, Secao } from "@/components/AppShell";
+import { AppShell } from "@/components/AppShell";
 import { MapaVivo } from "@/components/MapaVivo";
 import { JornadaDimensoes } from "@/components/jornada/JornadaDimensoes";
 import { MissoesTerritorio } from "@/components/jornada/MissoesTerritorio";
 import { ProgressoNucleo } from "@/components/jornada/ProgressoNucleo";
 import { RankingNucleos } from "@/components/jornada/RankingNucleos";
 import { MeuNucleoProvider, useMeuNucleo } from "@/context/MeuNucleoContext";
-import { nucleoMap, pontosTerritoriais } from "@/data/nucleos";
+import { nucleoMap } from "@/data/nucleos";
 
 export const Route = createFileRoute("/jornada")({
   head: () => ({
@@ -76,7 +76,7 @@ function JornadaConteudo() {
       </section>
 
       {/* Meu Núcleo */}
-      <Secao delay={60}>
+      <div className="anim-rise" style={{ animationDelay: "60ms" }}>
         <div className="panel panel-glow overflow-hidden rounded-3xl p-5">
           <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Meu Núcleo</p>
           <h3 className="mt-1 font-display text-lg font-bold">Núcleo {nucleo.nome}</h3>
@@ -103,10 +103,10 @@ function JornadaConteudo() {
             ))}
           </div>
         </div>
-      </Secao>
+      </div>
 
       {/* Mapa do território */}
-      <Secao delay={120}>
+      <div className="anim-rise" style={{ animationDelay: "120ms" }}>
         <div className="panel overflow-hidden rounded-3xl">
           <div className="border-b border-border/60 px-5 py-3.5">
             <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
@@ -121,7 +121,7 @@ function JornadaConteudo() {
             <MapaVivo
               destaque={nucleoId}
               conexoes={[]}
-              pontosTerritoriais={pontosTerritoriais}
+              pontosTerritoriais
               labels
               interativo={false}
             />
@@ -130,20 +130,20 @@ function JornadaConteudo() {
             Fonte cartográfica: GEOBASES / IDAF
           </p>
         </div>
-      </Secao>
+      </div>
 
       {/* Jornada de progresso + Progresso do núcleo */}
       <div className="grid gap-4 md:grid-cols-2">
-        <Secao delay={160}>
+        <div className="anim-rise" style={{ animationDelay: "160ms" }}>
           <JornadaDimensoes />
-        </Secao>
-        <Secao delay={220}>
+        </div>
+        <div className="anim-rise" style={{ animationDelay: "220ms" }}>
           <ProgressoNucleo />
-        </Secao>
+        </div>
       </div>
 
       {/* Missões */}
-      <Secao delay={260}>
+      <div className="anim-rise" style={{ animationDelay: "260ms" }}>
         <div className="mb-3">
           <h3 className="font-display text-lg font-bold">Missões do Território</h3>
           <p className="mt-0.5 text-sm text-muted-foreground">
@@ -151,12 +151,12 @@ function JornadaConteudo() {
           </p>
         </div>
         <MissoesTerritorio />
-      </Secao>
+      </div>
 
       {/* Ranking */}
-      <Secao delay={320}>
+      <div className="anim-rise" style={{ animationDelay: "320ms" }}>
         <RankingNucleos />
-      </Secao>
+      </div>
     </>
   );
 }
