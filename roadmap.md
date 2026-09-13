@@ -6,7 +6,7 @@
 - Telas: Mapa Vivo, Missões (com desafio do mês e colaborativas), Jornada, Rede, Perfil, Descobertas, Conquistas, Ranking, Inteligência
 - Bottom navigation e microinterações comemorativas
 
- - Nova experiência inicial (Home/Landing) com o território protagonista:
+- Nova experiência inicial (Home/Landing) com o território protagonista:
   - Hero territorial dominante (~55% do mapa no desktop), CTAs "Explorar o mapa" e "Conheça o projeto"
   - Storytelling progressivo (14 territórios • 28 conectores • rede em movimento)
   - Tooltip flutuante ao passar o mouse nos núcleos, partículas lentas e nós pulsantes
