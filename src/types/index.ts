@@ -41,10 +41,57 @@ export interface Missao {
   descricao: string;
   dimensao: DimensaoId;
   pontos: number;
-  progresso: number;
-  meta: number;
+  /** Meta configurada; nunca é editada pelo conector. */
+  meta_total: number;
+  /** Fonte de registros que alimenta automaticamente a missão. */
+  fonteProgresso: FonteProgressoMissao;
+  cta: string;
+  requerValidacao: boolean;
   recompensa: string;
   prazo?: string;
+}
+
+export type FonteProgressoMissao =
+  | "ativos_inovacao"
+  | "atividades_territoriais"
+  | "vocacoes_territoriais"
+  | "presencas_setoriais"
+  | "atores_rede"
+  | "escutas_ativas"
+  | "descobertas_publicadas"
+  | "prototipos_comunitarios"
+  | "relatorios_aprovados";
+
+export type StatusValidacaoRegistro =
+  | "aprovado"
+  | "em_validacao"
+  | "ajustes_solicitados";
+
+export interface RegistroMissao {
+  id: string;
+  missaoId: string;
+  fonte: FonteProgressoMissao;
+  titulo: string;
+  descricao: string;
+  data: string;
+  local: string;
+  anexoNome?: string;
+  statusValidacao: StatusValidacaoRegistro;
+  criadoEm: string;
+}
+
+export type StatusProgressoMissao =
+  | "nao_iniciada"
+  | "andamento"
+  | "em_validacao"
+  | "ajustes_solicitados"
+  | "concluida";
+
+export interface MissaoCalculada extends Missao {
+  progresso_atual: number;
+  percentual_progresso: number;
+  status: StatusProgressoMissao;
+  registrosEmValidacao: number;
 }
 
 export interface MissaoColaborativa {
