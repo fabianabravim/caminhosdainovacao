@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { missaoTerritorialMap } from "@/data/missoes.config";
-import type { Evidencia } from "@/types";
+import type { DadosRegistro } from "@/types";
 
 interface Props {
   missaoId: string;
   onClose: () => void;
-  onEnviar: (dados: Omit<Evidencia, "missaoId" | "enviadaEm">) => void;
+  onEnviar: (dados: DadosRegistro) => void;
 }
 
 const campo =
@@ -14,8 +14,8 @@ const campo =
 const rotulo = "mb-1 block text-[0.68rem] font-medium uppercase tracking-wide text-muted-foreground";
 
 /**
- * Formulário genérico de evidência. Os campos são os mesmos para todas as
- * missões; futuramente a configuração da missão poderá ligar/desligar campos.
+ * Formulário de registro do trabalho real. O envio nunca altera a barra
+ * diretamente: o sistema recalcula o progresso a partir do registro.
  */
 export function ModalEvidencia({ missaoId, onClose, onEnviar }: Props) {
   const missao = missaoTerritorialMap[missaoId];
@@ -52,7 +52,7 @@ export function ModalEvidencia({ missaoId, onClose, onEnviar }: Props) {
       className="fixed inset-0 z-50 flex min-w-0 items-end justify-center overflow-hidden bg-background/80 backdrop-blur-sm sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
-      aria-label={`Realizar missão: ${missao.titulo}`}
+      aria-label={`${missao.cta}: ${missao.titulo}`}
       onClick={onClose}
     >
       <div
@@ -61,12 +61,13 @@ export function ModalEvidencia({ missaoId, onClose, onEnviar }: Props) {
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
-              Realizar missão · {missao.xp} XP
-            </p>
+            <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">{missao.cta}</p>
             <h3 className="break-words font-display text-lg font-semibold [overflow-wrap:anywhere]">
               {missao.icone} {missao.titulo}
             </h3>
+            <p className="mt-1 text-[0.7rem] text-muted-foreground">
+              Meta da missão: {missao.metaTotal} {missao.unidade}
+            </p>
           </div>
           <button
             type="button"
@@ -134,10 +135,17 @@ export function ModalEvidencia({ missaoId, onClose, onEnviar }: Props) {
             disabled={!valido}
             className="tap panel-glow w-full rounded-2xl bg-primary px-5 py-3.5 font-display text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
           >
-            ENVIAR EVIDÊNCIA
+            {missao.cta.toUpperCase()}
           </button>
           <p className="text-center text-[0.68rem] text-muted-foreground">
-            Após o envio, a missão ficará <strong>Em validação</strong> pela equipe gestora.
+            {missao.exigeValidacao ? (
+              <>
+                O registro ficará <strong>Em validação</strong> e só somará no progresso após
+                aprovação.
+              </>
+            ) : (
+              <>O progresso da missão será atualizado automaticamente pelo sistema.</>
+            )}
           </p>
         </form>
       </div>
