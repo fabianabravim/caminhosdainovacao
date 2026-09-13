@@ -118,7 +118,7 @@ export function MapaVivo({
       )}
 
       {conexoesVisiveis && (
-        <g>
+        <g className="anim-mapa-conexoes">
           {conexoes.map((c) => {
             const de = nucleoMap[c.de];
             const para = nucleoMap[c.para];
