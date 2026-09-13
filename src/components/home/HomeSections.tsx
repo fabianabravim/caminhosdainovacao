@@ -138,19 +138,21 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
       </section>
 
       <section className="relative overflow-hidden bg-background text-foreground">
-        <div className="absolute inset-y-0 right-0 w-1/2 opacity-25" aria-hidden="true">
-          <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais />
+        <div className="absolute inset-y-0 right-0 w-1/2 opacity-20" aria-hidden="true">
+          <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais destaque="" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-glow">Sua jornada começa aqui</p>
           <h2 className="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight sm:text-6xl">Cada missão revela uma nova parte do ecossistema capixaba.</h2>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">Comece pelo Núcleo Serra e transforme descobertas e conexões em impacto para o território.</p>
-          <Button onClick={onIniciar} size="lg" className="panel-glow mt-9 h-12 rounded-md px-7 font-display text-xs font-semibold uppercase tracking-[0.16em]">
-            Iniciar minha jornada <ArrowRight aria-hidden="true" />
-          </Button>
-          <Button asChild variant="ghost" size="lg" className="mt-9 h-12 text-lilac">
-            <Link to="/entrar">Já participo do projeto</Link>
-          </Button>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">Escolha seu Núcleo Territorial e comece a revelar as conexões, iniciativas e oportunidades de inovação do seu território.</p>
+          <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <Button onClick={onIniciar} size="lg" className="panel-glow h-12 rounded-md px-7 font-display text-xs font-semibold uppercase tracking-[0.16em]">
+              Iniciar minha jornada <ArrowRight aria-hidden="true" />
+            </Button>
+            <Button asChild variant="ghost" size="lg" className="h-12 text-lilac">
+              <Link to="/entrar">Já tenho acesso <ArrowRight aria-hidden="true" /></Link>
+            </Button>
+          </div>
         </div>
       </section>
     </>
