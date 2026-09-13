@@ -6,78 +6,137 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { missoesTerritorio, missaoTerritorialMap, ordemDimensoes, xpTotalDimensao } from "@/data/missoes.config";
+import {
+  indicadoresIndividuais,
+  indicadoresNucleo,
+  metaTotalDimensao,
+  missaoTerritorialMap,
+  missoesPorDimensao,
+  missoesTerritorio,
+  ordemDimensoes,
+} from "@/data/missoes.config";
 import { conectores } from "@/data/jornada";
 import { nucleoAtualId } from "@/data/nucleos";
-import type { DimensaoId, Evidencia, StatusMissao } from "@/types";
+import type {
+  DadosRegistro,
+  DimensaoId,
+  FonteProgressoTerritorio,
+  IndicadorConfig,
+  MissaoTerritorialCalculada,
+  RegistroJornada,
+} from "@/types";
 
 /**
- * Estado da jornada do participante (MVP, em memória).
- * Futuramente os dados virão do banco: participante autenticado,
- * conectores do núcleo, status das missões e evidências.
+ * Estado da jornada do Núcleo (MVP, em memória).
+ *
+ * ARQUITETURA: a única coisa que o Conector cria é REGISTRO DE TRABALHO REAL.
+ * Progresso, percentual, status, indicadores e pontuação são SEMPRE derivados
+ * desses registros — nunca editáveis manualmente. Futuramente os registros
+ * virão do banco, já vinculados a município e Núcleo, alimentando também o
+ * mapa da página "Territórios".
  */
 interface MeuNucleoState {
   participante: { nome: string; papel: string; iniciais: string };
   nucleoId: string;
   conectoresNucleo: typeof conectores;
-  statusPorMissao: Record<string, StatusMissao>;
-  evidencias: Evidencia[];
-  xpTotal: number;
+  registros: RegistroJornada[];
+  missoes: MissaoTerritorialCalculada[];
+  missoesPorDimensao: (d: DimensaoId) => MissaoTerritorialCalculada[];
+  missaoPorId: (id: string) => MissaoTerritorialCalculada | undefined;
+  /** Progresso territorial do Núcleo, em % das metas das missões ativas. */
+  progressoNucleo: number;
+  progressoPorDimensao: Record<DimensaoId, number>;
+  pontuacaoTotal: number;
   missoesConcluidas: number;
   missoesEmValidacao: number;
-  progressoPorDimensao: Record<DimensaoId, number>;
-  iniciarMissao: (id: string) => void;
-  enviarEvidencia: (missaoId: string, dados: Omit<Evidencia, "missaoId" | "enviadaEm">) => void;
+  indicadoresTerritoriais: (IndicadorConfig & { valor: number })[];
+  indicadoresIndividuais: (IndicadorConfig & { valor: number })[];
+  registrarAtividade: (missaoId: string, dados: DadosRegistro) => void;
 }
 
 const MeuNucleoContext = createContext<MeuNucleoState | null>(null);
 
-const statusInicial = (): Record<string, StatusMissao> =>
-  Object.fromEntries(missoesTerritorio.map((m) => [m.id, "disponivel" as StatusMissao]));
+/**
+ * Registros demonstrativos. Enquanto não houver cadastro real, a lista fica
+ * vazia — nenhum número é inventado; tudo começa zerado.
+ */
+const registrosIniciais: RegistroJornada[] = [];
+
+function contarPorFonte(registros: RegistroJornada[], fonte?: FonteProgressoTerritorio) {
+  if (!fonte) return 0;
+  return registros.filter((r) => r.fonte === fonte && r.statusValidacao === "aprovado").length;
+}
 
 export function MeuNucleoProvider({ children }: { children: ReactNode }) {
-  const [statusPorMissao, setStatusPorMissao] =
-    useState<Record<string, StatusMissao>>(statusInicial);
-  const [evidencias, setEvidencias] = useState<Evidencia[]>([]);
+  const [registros, setRegistros] = useState<RegistroJornada[]>(registrosIniciais);
 
-  const iniciarMissao = useCallback((id: string) => {
-    setStatusPorMissao((atual) =>
-      atual[id] === "disponivel" ? { ...atual, [id]: "andamento" } : atual,
-    );
-  }, []);
-
-  const enviarEvidencia = useCallback<MeuNucleoState["enviarEvidencia"]>(
+  const registrarAtividade = useCallback<MeuNucleoState["registrarAtividade"]>(
     (missaoId, dados) => {
       const config = missaoTerritorialMap[missaoId];
       if (!config) return;
-      setEvidencias((atual) => [
+      setRegistros((atual) => [
         ...atual,
-        { ...dados, missaoId, enviadaEm: new Date().toISOString() },
+        {
+          ...dados,
+          id: `reg-${missaoId}-${atual.length + 1}-${Date.now()}`,
+          missaoId,
+          fonte: config.fonteProgresso,
+          municipio: undefined,
+          // TIPO A soma direto; TIPO B fica em validação até aprovação.
+          statusValidacao: config.exigeValidacao ? "em_validacao" : "aprovado",
+          criadoEm: new Date().toISOString(),
+        },
       ]);
-      // Toda missão exige validação: após o envio fica "Em validação",
-      // nunca é aprovada automaticamente.
-      setStatusPorMissao((atual) => ({
-        ...atual,
-        [missaoId]: config.requerValidacao ? "validacao" : "enviada",
-      }));
     },
     [],
   );
 
   const value = useMemo<MeuNucleoState>(() => {
-    const xpTotal = missoesTerritorio.reduce(
-      (s, m) => s + (statusPorMissao[m.id] === "concluida" ? m.xp : 0),
-      0,
-    );
+    const missoes: MissaoTerritorialCalculada[] = missoesTerritorio
+      .filter((m) => m.ativo)
+      .map((m) => {
+        const daMissao = registros.filter((r) => r.missaoId === m.id);
+        const aprovados = daMissao.filter((r) => r.statusValidacao === "aprovado").length;
+        const emValidacao = daMissao.filter((r) => r.statusValidacao === "em_validacao").length;
+        const emAjuste = daMissao.filter((r) => r.statusValidacao === "ajustes_solicitados").length;
+
+        const progressoAtual = Math.min(aprovados, m.metaTotal);
+        const percentual =
+          m.metaTotal > 0 ? Math.min(100, Math.round((progressoAtual / m.metaTotal) * 100)) : 0;
+
+        const status: MissaoTerritorialCalculada["status"] =
+          progressoAtual >= m.metaTotal && emValidacao === 0 && emAjuste === 0
+            ? "concluida"
+            : emAjuste > 0
+              ? "ajustes"
+              : emValidacao > 0
+                ? "validacao"
+                : progressoAtual > 0
+                  ? "andamento"
+                  : "nao_iniciada";
+
+        return {
+          ...m,
+          progressoAtual,
+          percentualProgresso: percentual,
+          restante: Math.max(0, m.metaTotal - progressoAtual),
+          registrosEmValidacao: emValidacao,
+          registrosEmAjuste: emAjuste,
+          status,
+        };
+      });
+
     const progressoPorDimensao = Object.fromEntries(
       ordemDimensoes.map((d) => {
-        const conquistado = missoesTerritorio
-          .filter((m) => m.dimensao === d && statusPorMissao[m.id] === "concluida")
-          .reduce((s, m) => s + m.xp, 0);
-        const total = xpTotalDimensao(d);
-        return [d, total > 0 ? Math.round((conquistado / total) * 100) : 0];
+        const doGrupo = missoes.filter((m) => m.dimensao === d);
+        const feito = doGrupo.reduce((s, m) => s + m.progressoAtual, 0);
+        const meta = metaTotalDimensao(d);
+        return [d, meta > 0 ? Math.round((feito / meta) * 100) : 0];
       }),
     ) as Record<DimensaoId, number>;
+
+    const metaGeral = missoes.reduce((s, m) => s + m.metaTotal, 0);
+    const feitoGeral = missoes.reduce((s, m) => s + m.progressoAtual, 0);
 
     return {
       participante: {
@@ -87,18 +146,25 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
       },
       nucleoId: nucleoAtualId,
       conectoresNucleo: conectores,
-      statusPorMissao,
-      evidencias,
-      xpTotal,
-      missoesConcluidas: Object.values(statusPorMissao).filter((s) => s === "concluida").length,
-      missoesEmValidacao: Object.values(statusPorMissao).filter(
-        (s) => s === "validacao" || s === "enviada",
-      ).length,
+      registros,
+      missoes,
+      missoesPorDimensao: (d) => missoes.filter((m) => m.dimensao === d),
+      missaoPorId: (id) => missoes.find((m) => m.id === id),
+      progressoNucleo: metaGeral > 0 ? Math.round((feitoGeral / metaGeral) * 100) : 0,
       progressoPorDimensao,
-      iniciarMissao,
-      enviarEvidencia,
+      // Pontuação é CONSEQUÊNCIA: só entra quando a missão é concluída.
+      pontuacaoTotal: missoes.reduce((s, m) => s + (m.status === "concluida" ? m.pontuacao : 0), 0),
+      missoesConcluidas: missoes.filter((m) => m.status === "concluida").length,
+      missoesEmValidacao: missoes.filter((m) => m.status === "validacao").length,
+      indicadoresTerritoriais: indicadoresNucleo.map((i) => ({
+        ...i,
+        valor: contarPorFonte(registros, i.fonte),
+      })),
+      // Indicadores individuais ainda não possuem fonte de cadastro: zerados.
+      indicadoresIndividuais: indicadoresIndividuais.map((i) => ({ ...i, valor: 0 })),
+      registrarAtividade,
     };
-  }, [statusPorMissao, evidencias, iniciarMissao, enviarEvidencia]);
+  }, [registros, registrarAtividade]);
 
   return <MeuNucleoContext.Provider value={value}>{children}</MeuNucleoContext.Provider>;
 }
@@ -108,3 +174,5 @@ export function useMeuNucleo() {
   if (!ctx) throw new Error("useMeuNucleo precisa estar dentro de MeuNucleoProvider");
   return ctx;
 }
+
+export { missoesPorDimensao as missoesConfigPorDimensao };

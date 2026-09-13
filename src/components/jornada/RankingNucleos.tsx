@@ -52,7 +52,7 @@ export function RankingNucleos() {
                 ) : null}
               </span>
               <span className="col-start-2 shrink-0 text-xs font-semibold text-muted-foreground sm:col-start-auto">
-                {item.pontos.toLocaleString("pt-BR")} XP
+                {item.pontos.toLocaleString("pt-BR")} pts
               </span>
             </li>
           );
