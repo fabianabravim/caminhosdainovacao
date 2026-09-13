@@ -148,7 +148,7 @@ function Home() {
           <ChancelaInstitucional tamanho="footer" />
           <div className="max-w-sm space-y-1">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-foreground">Caminhos da Inovação</p>
-            <p className="text-xs leading-relaxed text-muted-foreground">Uma iniciativa institucional do Instituto Jones dos Santos Neves (IJSN) e do Governo do Estado do Espírito Santo.</p>
+            <p className="text-xs leading-relaxed text-muted-foreground">Uma iniciativa institucional do Instituto Jones dos Santos Neves (IJSN), da Fundação de Amparo à Pesquisa e Inovação do Espírito Santo (FAPES) e do Governo do Estado do Espírito Santo.</p>
           </div>
         </div>
       </footer>
