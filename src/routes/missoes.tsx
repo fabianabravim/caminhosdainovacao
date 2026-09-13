@@ -1,12 +1,30 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
+import { ModalRegistroMissao } from "@/components/missoes/ModalRegistroMissao";
+import { Button } from "@/components/ui/button";
 import { Chip, Progresso } from "@/components/ui/Progresso";
 import { useJornada } from "@/context/JornadaContext";
 import { dimensaoMap, dimensoes } from "@/data/dimensoes";
 import { desafioDoMes, missoesColaborativas } from "@/data/missoes";
 import { nucleoMap } from "@/data/nucleos";
-import type { DimensaoId } from "@/types";
+import type { DimensaoId, StatusProgressoMissao } from "@/types";
+
+const statusLabel: Record<StatusProgressoMissao, string> = {
+  nao_iniciada: "Não iniciada",
+  andamento: "Em andamento",
+  em_validacao: "Em validação",
+  ajustes_solicitados: "Ajustes solicitados",
+  concluida: "Concluída",
+};
+
+const statusStyle: Record<StatusProgressoMissao, string> = {
+  nao_iniciada: "border-border/70 bg-surface/60 text-muted-foreground",
+  andamento: "border-lilac/50 bg-primary/15 text-lilac",
+  em_validacao: "border-glow/50 bg-glow/10 text-glow",
+  ajustes_solicitados: "border-destructive/50 bg-destructive/10 text-destructive",
+  concluida: "border-emerald-300/40 bg-emerald-400/10 text-emerald-200",
+};
 
 export const Route = createFileRoute("/missoes")({
   head: () => ({
@@ -22,6 +40,8 @@ export const Route = createFileRoute("/missoes")({
         property: "og:description",
         content: "Cumpra missões nos 4 caminhos da jornada e some pontos de impacto.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Missoes,
@@ -47,8 +67,9 @@ function useContagem(fim: string) {
 }
 
 function Missoes() {
-  const { missoes, avancarMissao, criarConexao, conexoes } = useJornada();
+  const { missoes, registrarAtividade, criarConexao, conexoes } = useJornada();
   const [filtro, setFiltro] = useState<DimensaoId | "todas">("todas");
+  const [missaoAberta, setMissaoAberta] = useState<string | null>(null);
   const contagem = useContagem(desafioDoMes.fim);
 
   const lista = filtro === "todas" ? missoes : missoes.filter((m) => m.dimensao === filtro);
@@ -95,7 +116,7 @@ function Missoes() {
       <section className="mt-4 space-y-3">
         {lista.map((m) => {
           const d = dimensaoMap[m.dimensao];
-          const completa = m.progresso >= m.meta;
+          const completa = m.status === "concluida";
           return (
             <article key={m.id} className={`panel rounded-2xl p-4 ${completa ? "panel-glow" : ""}`}>
               <div className="flex items-start gap-2">
@@ -110,23 +131,35 @@ function Missoes() {
               <p className="mt-1 text-[0.75rem] leading-relaxed text-muted-foreground">
                 {m.descricao}
               </p>
-              <div className="mt-3 flex items-center gap-3">
-                <Progresso valor={(m.progresso / m.meta) * 100} cor={d.colorVar} />
+              <div className="mt-3 flex items-center gap-3" aria-label={`Progresso: ${m.progresso_atual} de ${m.meta_total}, ${m.percentual_progresso}%`}>
+                <Progresso valor={m.percentual_progresso} cor={d.colorVar} />
                 <span className="shrink-0 text-[0.7rem] tabular-nums text-muted-foreground">
-                  {m.progresso}/{m.meta}
+                  {m.progresso_atual}/{m.meta_total} · {m.percentual_progresso}%
                 </span>
               </div>
+              <div className="mt-2 flex items-center justify-between gap-3">
+                <span className={`rounded-full border px-2.5 py-0.5 text-[0.66rem] font-semibold ${statusStyle[m.status]}`}>
+                  {statusLabel[m.status]}
+                </span>
+                {m.registrosEmValidacao > 0 ? (
+                  <span className="text-[0.66rem] text-muted-foreground">
+                    {m.registrosEmValidacao} {m.registrosEmValidacao === 1 ? "registro pendente" : "registros pendentes"}
+                  </span>
+                ) : null}
+              </div>
               <div className="mt-3 flex items-center justify-between gap-3">
-                <p className="min-w-0 truncate text-[0.7rem] text-muted-foreground">
+                <p className="min-w-0 text-[0.7rem] text-muted-foreground">
                   🎁 {m.recompensa}
                 </p>
-                <button
-                  onClick={() => avancarMissao(m.id)}
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={() => setMissaoAberta(m.id)}
                   disabled={completa}
-                  className="tap shrink-0 rounded-xl bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground disabled:bg-secondary disabled:text-muted-foreground"
+                  className="tap h-auto shrink-0 rounded-xl px-3.5 py-2 text-xs font-semibold"
                 >
-                  {completa ? "Concluída" : "Registrar avanço"}
-                </button>
+                  {completa ? "Concluída ✓" : m.cta}
+                </Button>
               </div>
             </article>
           );
@@ -173,18 +206,34 @@ function Missoes() {
                     {mc.progresso}%
                   </span>
                 </div>
-                <button
+                <Button
+                  type="button"
+                  variant="outline"
                   onClick={() => a && b && criarConexao(a, b, mc.titulo)}
                   disabled={jaConectado}
-                  className="tap mt-3 w-full rounded-xl border border-glow/40 bg-glow/10 px-3 py-2 text-xs font-semibold text-glow disabled:border-border disabled:bg-secondary disabled:text-muted-foreground"
+                  className="tap mt-3 h-auto w-full rounded-xl border-glow/40 bg-glow/10 px-3 py-2 text-xs font-semibold text-glow"
                 >
                   {jaConectado ? "Conexão já acesa no mapa" : "Acender conexão no Mapa Vivo"}
-                </button>
+                </Button>
               </article>
             );
           })}
         </div>
       </section>
+
+      {missaoAberta ? (() => {
+        const missao = missoes.find((item) => item.id === missaoAberta);
+        return missao ? (
+          <ModalRegistroMissao
+            missao={missao}
+            onClose={() => setMissaoAberta(null)}
+            onEnviar={(dados) => {
+              registrarAtividade(missao.id, dados);
+              setMissaoAberta(null);
+            }}
+          />
+        ) : null;
+      })() : null}
     </AppShell>
   );
 }
