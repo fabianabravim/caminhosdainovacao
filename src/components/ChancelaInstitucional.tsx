@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Chancela institucional — exibe as marcas oficiais do IJSN e do
