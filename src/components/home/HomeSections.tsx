@@ -70,7 +70,11 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
 
       <section id="conectores" className="relative overflow-hidden bg-surface text-foreground">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-2 lg:items-center">
-          <div className="relative mx-auto aspect-[3/4] w-full max-w-md" aria-hidden="true">
+          <div
+            className="relative mx-auto w-full max-w-md"
+            style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
+            aria-hidden="true"
+          >
             <MapaVivo conexoes={conexoes} labels={false} interativo={false} particulas />
           </div>
           <div>

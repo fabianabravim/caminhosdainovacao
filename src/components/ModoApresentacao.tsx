@@ -101,7 +101,10 @@ export function ModoApresentacao({ onSair }: { onSair: () => void }) {
         className="absolute inset-0 flex items-center justify-center transition-transform duration-[2500ms] ease-out"
         style={{ transform: `scale(${zoom})` }}
       >
-        <div className="h-[92vh] w-[92vh] max-w-[95vw]">
+        <div
+          className="h-[92vh] max-w-[95vw]"
+          style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
+        >
           <MapaVivo
             conexoes={conexoesBase}
             labels={etapa >= 6}
