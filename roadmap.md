@@ -37,3 +37,10 @@
 - [x] Confirmar geometria oficial, 14 pontos, tooltips e transição de exploração
 - [x] Confirmar ritmo claro/escuro, responsividade e visual para telões
 - [x] Preservar decisões posteriores: dados zerados, sem linhas fictícias e acesso pelo menu
+
+## Territórios da Inovação (/mapa)
+- [x] Incorporar malha oficial dos 78 municípios do ES (IBGE 2024)
+- [x] Criar mapa municipal interativo sem alterar o MapaVivo da Home
+- [x] Adicionar busca, seleção, tooltip e painel de dados em construção
+- [x] Preparar modos Municípios / Núcleos e camadas futuras sem associações fictícias
+- [x] Validar desktop, celular, teclado e integridade da experiência territorial
