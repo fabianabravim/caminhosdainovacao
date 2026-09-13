@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ConquistasRouteImport } from './routes/conquistas'
 import { Route as DescobertasRouteImport } from './routes/descobertas'
+import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as InteligenciaRouteImport } from './routes/inteligencia'
 import { Route as JornadaRouteImport } from './routes/jornada'
 import { Route as MapaRouteImport } from './routes/mapa'
@@ -33,6 +34,11 @@ const ConquistasRoute = ConquistasRouteImport.update({
 const DescobertasRoute = DescobertasRouteImport.update({
   id: '/descobertas',
   path: '/descobertas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InteligenciaRoute = InteligenciaRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/conquistas': typeof ConquistasRoute
   '/descobertas': typeof DescobertasRoute
+  '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
   '/jornada': typeof JornadaRoute
   '/mapa': typeof MapaRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/conquistas': typeof ConquistasRoute
   '/descobertas': typeof DescobertasRoute
+  '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
   '/jornada': typeof JornadaRoute
   '/mapa': typeof MapaRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/conquistas': typeof ConquistasRoute
   '/descobertas': typeof DescobertasRoute
+  '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
   '/jornada': typeof JornadaRoute
   '/mapa': typeof MapaRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/conquistas'
     | '/descobertas'
+    | '/entrar'
     | '/inteligencia'
     | '/jornada'
     | '/mapa'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/conquistas'
     | '/descobertas'
+    | '/entrar'
     | '/inteligencia'
     | '/jornada'
     | '/mapa'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/conquistas'
     | '/descobertas'
+    | '/entrar'
     | '/inteligencia'
     | '/jornada'
     | '/mapa'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConquistasRoute: typeof ConquistasRoute
   DescobertasRoute: typeof DescobertasRoute
+  EntrarRoute: typeof EntrarRoute
   InteligenciaRoute: typeof InteligenciaRoute
   JornadaRoute: typeof JornadaRoute
   MapaRoute: typeof MapaRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/descobertas'
       fullPath: '/descobertas'
       preLoaderRoute: typeof DescobertasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inteligencia': {
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConquistasRoute: ConquistasRoute,
   DescobertasRoute: DescobertasRoute,
+  EntrarRoute: EntrarRoute,
   InteligenciaRoute: InteligenciaRoute,
   JornadaRoute: JornadaRoute,
   MapaRoute: MapaRoute,
