@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Check, Plus, X } from "lucide-react";
 import { tipoAtividadeMap, tiposAtividade } from "@/data/atividades.config";
-import { useMeuNucleo, type ResultadoRegistro } from "@/context/MeuNucleoContext";
+import { useMeuNucleo, type ResultadoRegistro } from "@/context/meuNucleoBase";
 import { missaoTerritorialMap } from "@/data/missoes.config";
 import {
   RegistroAtividadeContext as Ctx,

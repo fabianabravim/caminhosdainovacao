@@ -1,4 +1,4 @@
-import { useMeuNucleo } from "@/context/MeuNucleoContext";
+import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
 
 /**

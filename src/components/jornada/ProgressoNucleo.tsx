@@ -1,5 +1,5 @@
 import { Progresso } from "@/components/ui/Progresso";
-import { useMeuNucleo } from "@/context/MeuNucleoContext";
+import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { dimensoes } from "@/data/dimensoes";
 
 /**

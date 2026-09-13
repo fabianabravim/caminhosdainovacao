@@ -30,7 +30,6 @@ import type {
  * O contexto, o hook e os tipos vivem em `meuNucleoBase.ts` para este arquivo
  * exportar apenas o provider (componente) — compatível com Fast Refresh.
  */
-export { useMeuNucleo } from "@/context/meuNucleoBase";
 export type { MeuNucleoState, ResultadoRegistro } from "@/context/meuNucleoBase";
 
 /** Enquanto não houver cadastro real, nada é inventado: tudo começa zerado. */
