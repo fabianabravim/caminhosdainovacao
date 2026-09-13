@@ -10,33 +10,167 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConquistasRouteImport } from './routes/conquistas'
+import { Route as DescobertasRouteImport } from './routes/descobertas'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as InteligenciaRouteImport } from './routes/inteligencia'
+import { Route as JornadaRouteImport } from './routes/jornada'
+import { Route as MapaRouteImport } from './routes/mapa'
+import { Route as MissoesRouteImport } from './routes/missoes'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as RankingRouteImport } from './routes/ranking'
+import { Route as RedeRouteImport } from './routes/rede'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConquistasRoute = ConquistasRouteImport.update({
+  id: '/conquistas',
+  path: '/conquistas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DescobertasRoute = DescobertasRouteImport.update({
+  id: '/descobertas',
+  path: '/descobertas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InteligenciaRoute = InteligenciaRouteImport.update({
+  id: '/inteligencia',
+  path: '/inteligencia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaRoute = JornadaRouteImport.update({
+  id: '/jornada',
+  path: '/jornada',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapaRoute = MapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissoesRoute = MissoesRouteImport.update({
+  id: '/missoes',
+  path: '/missoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RankingRoute = RankingRouteImport.update({
+  id: '/ranking',
+  path: '/ranking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RedeRoute = RedeRouteImport.update({
+  id: '/rede',
+  path: '/rede',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/conquistas': typeof ConquistasRoute
+  '/descobertas': typeof DescobertasRoute
+  '/entrar': typeof EntrarRoute
+  '/inteligencia': typeof InteligenciaRoute
+  '/jornada': typeof JornadaRoute
+  '/mapa': typeof MapaRoute
+  '/missoes': typeof MissoesRoute
+  '/perfil': typeof PerfilRoute
+  '/ranking': typeof RankingRoute
+  '/rede': typeof RedeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/conquistas': typeof ConquistasRoute
+  '/descobertas': typeof DescobertasRoute
+  '/entrar': typeof EntrarRoute
+  '/inteligencia': typeof InteligenciaRoute
+  '/jornada': typeof JornadaRoute
+  '/mapa': typeof MapaRoute
+  '/missoes': typeof MissoesRoute
+  '/perfil': typeof PerfilRoute
+  '/ranking': typeof RankingRoute
+  '/rede': typeof RedeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/conquistas': typeof ConquistasRoute
+  '/descobertas': typeof DescobertasRoute
+  '/entrar': typeof EntrarRoute
+  '/inteligencia': typeof InteligenciaRoute
+  '/jornada': typeof JornadaRoute
+  '/mapa': typeof MapaRoute
+  '/missoes': typeof MissoesRoute
+  '/perfil': typeof PerfilRoute
+  '/ranking': typeof RankingRoute
+  '/rede': typeof RedeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/conquistas'
+    | '/descobertas'
+    | '/entrar'
+    | '/inteligencia'
+    | '/jornada'
+    | '/mapa'
+    | '/missoes'
+    | '/perfil'
+    | '/ranking'
+    | '/rede'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/conquistas'
+    | '/descobertas'
+    | '/entrar'
+    | '/inteligencia'
+    | '/jornada'
+    | '/mapa'
+    | '/missoes'
+    | '/perfil'
+    | '/ranking'
+    | '/rede'
+  id:
+    | '__root__'
+    | '/'
+    | '/conquistas'
+    | '/descobertas'
+    | '/entrar'
+    | '/inteligencia'
+    | '/jornada'
+    | '/mapa'
+    | '/missoes'
+    | '/perfil'
+    | '/ranking'
+    | '/rede'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConquistasRoute: typeof ConquistasRoute
+  DescobertasRoute: typeof DescobertasRoute
+  EntrarRoute: typeof EntrarRoute
+  InteligenciaRoute: typeof InteligenciaRoute
+  JornadaRoute: typeof JornadaRoute
+  MapaRoute: typeof MapaRoute
+  MissoesRoute: typeof MissoesRoute
+  PerfilRoute: typeof PerfilRoute
+  RankingRoute: typeof RankingRoute
+  RedeRoute: typeof RedeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +182,91 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conquistas': {
+      id: '/conquistas'
+      path: '/conquistas'
+      fullPath: '/conquistas'
+      preLoaderRoute: typeof ConquistasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/descobertas': {
+      id: '/descobertas'
+      path: '/descobertas'
+      fullPath: '/descobertas'
+      preLoaderRoute: typeof DescobertasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inteligencia': {
+      id: '/inteligencia'
+      path: '/inteligencia'
+      fullPath: '/inteligencia'
+      preLoaderRoute: typeof InteligenciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada': {
+      id: '/jornada'
+      path: '/jornada'
+      fullPath: '/jornada'
+      preLoaderRoute: typeof JornadaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mapa': {
+      id: '/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof MapaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/missoes': {
+      id: '/missoes'
+      path: '/missoes'
+      fullPath: '/missoes'
+      preLoaderRoute: typeof MissoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ranking': {
+      id: '/ranking'
+      path: '/ranking'
+      fullPath: '/ranking'
+      preLoaderRoute: typeof RankingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rede': {
+      id: '/rede'
+      path: '/rede'
+      fullPath: '/rede'
+      preLoaderRoute: typeof RedeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConquistasRoute: ConquistasRoute,
+  DescobertasRoute: DescobertasRoute,
+  EntrarRoute: EntrarRoute,
+  InteligenciaRoute: InteligenciaRoute,
+  JornadaRoute: JornadaRoute,
+  MapaRoute: MapaRoute,
+  MissoesRoute: MissoesRoute,
+  PerfilRoute: PerfilRoute,
+  RankingRoute: RankingRoute,
+  RedeRoute: RedeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
