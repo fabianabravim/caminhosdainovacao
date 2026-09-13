@@ -11,7 +11,7 @@ export const rankingBase: RankingItem[] = [
   { nucleoId: "central-serrana", nome: "Central Serrana", pontos: 1870, evolucao: 11, colaboracoes: 4, conexoes: 12, descobertas: 17 },
   { nucleoId: "litoral-sul", nome: "Litoral Sul", pontos: 1760, evolucao: 8, colaboracoes: 3, conexoes: 13, descobertas: 15 },
   { nucleoId: "centro-sul", nome: "Centro Sul", pontos: 1690, evolucao: 7, colaboracoes: 4, conexoes: 10, descobertas: 14 },
-  { nucleoId: "viana-fundao-guarapari", nome: "Viana / Fundão / Guarapari", pontos: 1640, evolucao: 16, colaboracoes: 3, conexoes: 11, descobertas: 12 },
+  { nucleoId: "viana-fundao-guarapari", nome: "Viana, Fundão e Guarapari", pontos: 1640, evolucao: 16, colaboracoes: 3, conexoes: 11, descobertas: 12 },
   { nucleoId: "centro-oeste", nome: "Centro-Oeste", pontos: 1510, evolucao: 6, colaboracoes: 2, conexoes: 10, descobertas: 11 },
   { nucleoId: "sudoeste-serrana", nome: "Sudoeste Serrana", pontos: 1420, evolucao: 13, colaboracoes: 4, conexoes: 9, descobertas: 10 },
   { nucleoId: "noroeste", nome: "Noroeste", pontos: 1350, evolucao: 10, colaboracoes: 2, conexoes: 9, descobertas: 9 },

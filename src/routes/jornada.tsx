@@ -1,9 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AppShell } from "@/components/AppShell";
-import { DimensoesBarras } from "@/components/Dimensoes";
-import { Progresso } from "@/components/ui/Progresso";
-import { useJornada } from "@/context/JornadaContext";
-import { niveis } from "@/data/jornada";
+import { LogOut, User } from "lucide-react";
+import { AppShell, Secao } from "@/components/AppShell";
+import { MapaVivo } from "@/components/MapaVivo";
+import { JornadaDimensoes } from "@/components/jornada/JornadaDimensoes";
+import { MissoesTerritorio } from "@/components/jornada/MissoesTerritorio";
+import { ProgressoNucleo } from "@/components/jornada/ProgressoNucleo";
+import { RankingNucleos } from "@/components/jornada/RankingNucleos";
+import { MeuNucleoProvider, useMeuNucleo } from "@/context/MeuNucleoContext";
+import { nucleoMap, pontosTerritoriais } from "@/data/nucleos";
 
 export const Route = createFileRoute("/jornada")({
   head: () => ({
@@ -12,113 +16,147 @@ export const Route = createFileRoute("/jornada")({
       {
         name: "description",
         content:
-          "Trilha de progressão do conector territorial: de Explorador a Embaixador da Inovação, com pontos de impacto e progresso por dimensão.",
+          "Área do Conector: missões do território, progresso do Núcleo e ranking dos 14 Núcleos Territoriais do Espírito Santo.",
       },
-      { property: "og:title", content: "Minha Jornada da Inovação Capixaba" },
+      { property: "og:title", content: "Minha Jornada — Caminhos da Inovação" },
       {
         property: "og:description",
-        content: "Acompanhe sua evolução de Explorador a Embaixador da Inovação.",
+        content: "Cada missão realizada contribui para o avanço do seu Núcleo Territorial.",
       },
     ],
   }),
-  component: Jornada,
+  component: JornadaPage,
 });
 
-function Jornada() {
-  const { pontos, nivelAtual, proximoNivel, faltamPontos, concluidas } = useJornada();
-  const base = nivelAtual.pontosNecessarios;
-  const alvo = proximoNivel?.pontosNecessarios ?? pontos;
-  const pct = proximoNivel ? ((pontos - base) / (alvo - base)) * 100 : 100;
+function JornadaPage() {
+  return (
+    <MeuNucleoProvider>
+      <AppShell titulo="Jornada da Inovação Capixaba" subtitulo="Meu Núcleo">
+        <JornadaConteudo />
+      </AppShell>
+    </MeuNucleoProvider>
+  );
+}
+
+function JornadaConteudo() {
+  const { participante, nucleoId, conectoresNucleo } = useMeuNucleo();
+  const nucleo = nucleoMap[nucleoId]!;
 
   return (
-    <AppShell titulo="Minha Jornada" subtitulo="Núcleo Serra · trilha de progressão">
-      <section className="panel panel-glow rounded-3xl p-5">
-        <div className="flex items-end justify-between gap-3">
-          <div>
-            <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
-              Pontos de impacto
-            </p>
-            <p className="font-display text-4xl font-semibold text-gradient">
-              {pontos.toLocaleString("pt-BR")}
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-xs text-muted-foreground">Nível atual</p>
-            <p className="font-display text-lg font-semibold">
-              {nivelAtual.icone} {nivelAtual.nome}
-            </p>
+    <>
+      {/* Identificação do participante */}
+      <section className="anim-rise flex items-center justify-between gap-3">
+        <div>
+          <h2 className="font-display text-xl font-bold">
+            Olá, {participante.nome.split(" ")[0]}
+          </h2>
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            Você faz parte do{" "}
+            <span className="font-semibold uppercase tracking-wide text-glow">
+              Núcleo {nucleo.nome}
+            </span>
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-1.5">
+          <Link
+            to="/perfil"
+            aria-label="Meu perfil"
+            className="tap rounded-full border border-border/70 bg-surface/60 p-2.5 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <User className="h-4 w-4" />
+          </Link>
+          <Link
+            to="/entrar"
+            aria-label="Sair"
+            className="tap rounded-full border border-border/70 bg-surface/60 p-2.5 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <LogOut className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* Meu Núcleo */}
+      <Secao delay={60}>
+        <div className="panel panel-glow overflow-hidden rounded-3xl p-5">
+          <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Meu Núcleo</p>
+          <h3 className="mt-1 font-display text-lg font-bold">Núcleo {nucleo.nome}</h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+            “Cada descoberta ajuda a revelar o ecossistema de inovação do seu território.”
+          </p>
+
+          <p className="mt-4 text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
+            Conectores do Núcleo
+          </p>
+          <div className="mt-2 grid grid-cols-2 gap-2.5">
+            {conectoresNucleo.map((c) => (
+              <div key={c.nome} className="rounded-2xl border border-border/70 bg-surface/60 p-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="panel-glow grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/40 font-display text-xs font-bold text-glow">
+                    {c.iniciais}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold">{c.nome}</p>
+                    <p className="truncate text-[0.68rem] text-muted-foreground">{c.papel}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-        <Progresso valor={pct} className="mt-4 h-2.5" />
-        <p className="mt-2 text-xs text-muted-foreground">
-          {proximoNivel
-            ? `Faltam ${faltamPontos.toLocaleString("pt-BR")} pontos para ${proximoNivel.nome}`
-            : "Você alcançou o nível máximo da jornada capixaba"}
-        </p>
-      </section>
+      </Secao>
 
-      <section className="mt-5">
-        <h2 className="mb-3 font-display text-base font-semibold">Trilha da inovação</h2>
-        <ol className="relative space-y-3 pl-8">
-          <span className="absolute bottom-4 left-[0.9rem] top-4 w-px bg-gradient-to-b from-glow/70 via-primary/60 to-border" />
-          {niveis.map((n) => {
-            const alcancado = pontos >= n.pontosNecessarios;
-            const atual = n.id === nivelAtual.id;
-            return (
-              <li key={n.id} className="relative">
-                <span
-                  className={`absolute -left-8 top-3 grid h-8 w-8 place-items-center rounded-full border text-sm ${
-                    atual
-                      ? "panel-glow border-glow/70 bg-primary/40"
-                      : alcancado
-                        ? "border-lilac/50 bg-primary/25"
-                        : "border-border bg-surface/70 opacity-60"
-                  }`}
-                >
-                  {n.icone}
-                </span>
-                <div
-                  className={`panel rounded-2xl p-3.5 ${atual ? "panel-glow" : ""} ${
-                    alcancado ? "" : "opacity-70"
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <p className="font-display text-sm font-semibold">{n.nome}</p>
-                    {atual ? (
-                      <span className="rounded-full bg-glow/15 px-2 py-0.5 text-[0.62rem] font-semibold text-glow">
-                        você está aqui
-                      </span>
-                    ) : null}
-                    <span className="ml-auto text-[0.68rem] text-muted-foreground">
-                      {n.pontosNecessarios.toLocaleString("pt-BR")} pts
-                    </span>
-                  </div>
-                  <p className="mt-1 text-[0.72rem] leading-relaxed text-muted-foreground">
-                    {n.descricao}
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-
-      <section className="mt-5">
-        <DimensoesBarras />
-      </section>
-
-      <section className="mt-5 grid grid-cols-2 gap-3">
-        <Link to="/missoes" className="panel tap rounded-2xl p-3.5">
-          <p className="font-display text-sm font-semibold">Missões</p>
-          <p className="text-[0.7rem] text-muted-foreground">
-            {concluidas.length} concluídas nesta sessão
+      {/* Mapa do território */}
+      <Secao delay={120}>
+        <div className="panel overflow-hidden rounded-3xl">
+          <div className="border-b border-border/60 px-5 py-3.5">
+            <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
+              Mapa do território
+            </p>
+            <p className="mt-1 text-[0.72rem] text-muted-foreground">
+              Seu núcleo em destaque. A estrutura está preparada para receber atores, iniciativas,
+              ambientes de inovação, oportunidades e conexões reais.
+            </p>
+          </div>
+          <div className="px-2 pb-1 pt-2">
+            <MapaVivo
+              destaque={nucleoId}
+              conexoes={[]}
+              pontosTerritoriais={pontosTerritoriais}
+              labels
+              interativo={false}
+            />
+          </div>
+          <p className="px-5 pb-3.5 text-center text-[0.6rem] tracking-wide text-muted-foreground/70">
+            Fonte cartográfica: GEOBASES / IDAF
           </p>
-        </Link>
-        <Link to="/conquistas" className="panel tap rounded-2xl p-3.5">
-          <p className="font-display text-sm font-semibold">Conquistas</p>
-          <p className="text-[0.7rem] text-muted-foreground">Badges e selos do território</p>
-        </Link>
-      </section>
-    </AppShell>
+        </div>
+      </Secao>
+
+      {/* Jornada de progresso + Progresso do núcleo */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Secao delay={160}>
+          <JornadaDimensoes />
+        </Secao>
+        <Secao delay={220}>
+          <ProgressoNucleo />
+        </Secao>
+      </div>
+
+      {/* Missões */}
+      <Secao delay={260}>
+        <div className="mb-3">
+          <h3 className="font-display text-lg font-bold">Missões do Território</h3>
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            Realize missões, envie evidências e some progresso para o seu Núcleo.
+          </p>
+        </div>
+        <MissoesTerritorio />
+      </Secao>
+
+      {/* Ranking */}
+      <Secao delay={320}>
+        <RankingNucleos />
+      </Secao>
+    </>
   );
 }
