@@ -13,7 +13,7 @@ type Anel = [number, number][];
 
 const geometria = (geojson as unknown as {
   features: { geometry: { type: string; coordinates: number[][][][] | number[][][] } }[];
-}).features[0].geometry;
+}).features[0]!.geometry;
 
 const aneis: Anel[] = (() => {
   const saida: Anel[] = [];
@@ -80,8 +80,8 @@ export const ES_PATH = ES_PATHS.join(" ");
 function dentroDoAnel(lon: number, lat: number, anel: Anel) {
   let dentro = false;
   for (let i = 0, j = anel.length - 1; i < anel.length; j = i++) {
-    const [xi, yi] = anel[i];
-    const [xj, yj] = anel[j];
+    const [xi, yi] = anel[i]!;
+    const [xj, yj] = anel[j]!;
     if (yi > lat !== yj > lat && lon < ((xj - xi) * (lat - yi)) / (yj - yi) + xi) {
       dentro = !dentro;
     }
