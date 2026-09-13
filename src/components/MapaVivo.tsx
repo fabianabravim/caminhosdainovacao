@@ -1,7 +1,7 @@
 import { contornoES, nucleoMap, nucleos, pontosTerritoriais } from "@/data/nucleos";
 import { ES_VIEWBOX } from "@/lib/geoES";
 import { cn } from "@/lib/utils";
-import type { Conexao } from "@/types";
+import type { Conexao, Nucleo } from "@/types";
 
 interface Props {
   conexoes: Conexao[];
