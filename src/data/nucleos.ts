@@ -1,7 +1,28 @@
+import { pontosNoTerritorio, projetar } from "@/lib/geoES";
 import type { Conexao, Nucleo } from "@/types";
 
-/** Pontos demonstrativos projetados sobre a malha oficial do ES (viewBox 0 0 400 600). */
-export const nucleos: Nucleo[] = [
+/**
+ * Coordenadas geográficas reais (WGS84) de referência de cada núcleo.
+ * Os pontos são sobrepostos ao mapa oficial; nenhum polígono interno é criado.
+ */
+const coordenadasNucleos: Record<string, [number, number]> = {
+  vitoria: [-40.3376, -20.3155],
+  "vila-velha": [-40.2925, -20.3417],
+  serra: [-40.3074, -20.1288],
+  cariacica: [-40.42, -20.2639],
+  "viana-fundao-guarapari": [-40.4977, -20.5561],
+  "central-serrana": [-40.7419, -20.0272],
+  "sudoeste-serrana": [-40.6589, -20.3631],
+  "litoral-sul": [-40.7256, -20.8378],
+  "centro-sul": [-41.1128, -20.8489],
+  caparao: [-41.6786, -20.7756],
+  "rio-doce": [-40.0644, -19.3947],
+  "centro-oeste": [-40.6303, -19.5394],
+  nordeste: [-39.8586, -18.7161],
+  noroeste: [-40.4022, -18.7108],
+};
+
+const nucleosBase: Nucleo[] = [
   {
     id: "vitoria",
     labelDx: 4,
