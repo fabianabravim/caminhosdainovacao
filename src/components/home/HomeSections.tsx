@@ -1,6 +1,4 @@
-import { Link } from "@tanstack/react-router";
 import {
-  ArrowRight,
   Building2,
   Factory,
   FlaskConical,
@@ -12,10 +10,10 @@ import {
   Sprout,
   Users,
 } from "lucide-react";
+import { useState } from "react";
 import { MapaVivo } from "@/components/MapaVivo";
-import { Button } from "@/components/ui/button";
 import { dimensoes } from "@/data/dimensoes";
-import { conexoes } from "@/data/nucleos";
+import { nucleoMap } from "@/data/nucleos";
 import { ES_VIEW_HEIGHT, ES_VIEW_WIDTH } from "@/lib/geoES";
 
 const conceitos = [
@@ -37,7 +35,11 @@ const atores = [
   { nome: "Comunidades", Icon: Users },
 ] as const;
 
-export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
+export function HomeSections() {
+  const [nucleoFinalSelecionado, setNucleoFinalSelecionado] = useState<string | null>(null);
+  const [nucleoFinalHover, setNucleoFinalHover] = useState<string | null>(null);
+  const nucleoFinal = nucleoMap[nucleoFinalHover ?? nucleoFinalSelecionado ?? ""] ?? null;
+
   return (
     <>
       <section id="inovacao" className="bg-paper text-paper-foreground">
@@ -89,14 +91,14 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
               A inovação não acontece de forma isolada. Ela surge quando diferentes atores compartilham conhecimento, identificam oportunidades e constroem soluções juntos.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-4">
+            <div className="mt-9 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
               {atores.map(({ nome, Icon }, index) => (
-                <div key={nome} className="flex items-center gap-2">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border bg-background/50 text-lilac">
+                <div key={nome} className="grid min-w-0 grid-cols-[2.25rem_minmax(0,1fr)_1.25rem] items-center gap-2">
+                  <span className="grid h-9 w-9 place-items-center rounded-full border border-border bg-background/50 text-lilac">
                     <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                   </span>
-                  <span className="text-sm font-medium leading-none">{nome}</span>
-                  {index < atores.length - 1 ? <span className="hidden h-px w-5 shrink-0 bg-glow/30 sm:block" /> : null}
+                  <span className="min-w-0 text-sm font-medium leading-5">{nome}</span>
+                  {index < atores.length - 1 ? <span aria-hidden="true" className="h-px w-5 bg-glow/30" /> : <span />}
                 </div>
               ))}
             </div>
@@ -138,21 +140,30 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
       </section>
 
       <section className="relative overflow-hidden bg-background text-foreground">
-        <div className="absolute inset-y-0 right-0 w-1/2 opacity-20" aria-hidden="true">
-          <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais destaque="" />
+        <div className="absolute inset-y-0 right-0 w-1/2">
+          <div className="h-full w-full opacity-30 transition-opacity hover:opacity-45 focus-within:opacity-45">
+            <MapaVivo
+              conexoes={[]}
+              selecionado={nucleoFinalSelecionado}
+              onSelecionar={setNucleoFinalSelecionado}
+              onHover={setNucleoFinalHover}
+              labels={false}
+              pontosTerritoriais
+              destaque=""
+            />
+          </div>
+          {nucleoFinal ? (
+            <div className="absolute bottom-6 right-5 max-w-56 rounded-md border border-border bg-surface/90 p-3 shadow-xl backdrop-blur-xl">
+              <p className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-lilac">Núcleo Territorial</p>
+              <p className="mt-1 text-sm font-semibold text-foreground">{nucleoFinal.nome}</p>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{nucleoFinal.destaque}</p>
+            </div>
+          ) : null}
         </div>
-        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:py-32">
+        <div className="pointer-events-none relative mx-auto max-w-7xl px-5 pb-52 pt-24 sm:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-glow">Sua jornada começa aqui</p>
           <h2 className="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight sm:text-6xl">Cada missão revela uma nova parte do ecossistema capixaba.</h2>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">Escolha seu Núcleo Territorial e comece a revelar as conexões, iniciativas e oportunidades de inovação do seu território.</p>
-          <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <Button onClick={onIniciar} size="lg" className="panel-glow h-12 rounded-md px-7 font-display text-xs font-semibold uppercase tracking-[0.16em]">
-              Iniciar minha jornada <ArrowRight aria-hidden="true" />
-            </Button>
-            <Button asChild variant="ghost" size="lg" className="h-12 text-lilac">
-              <Link to="/entrar">Já tenho acesso <ArrowRight aria-hidden="true" /></Link>
-            </Button>
-          </div>
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">Entre na Jornada da Inovação Capixaba e ajude a revelar, conectar e fortalecer o ecossistema de inovação do seu território.</p>
         </div>
       </section>
     </>

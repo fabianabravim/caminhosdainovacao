@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, Maximize2, Menu, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { HomeSections } from "@/components/home/HomeSections";
@@ -28,12 +28,10 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const navigate = useNavigate();
   const exploracaoRef = useRef<HTMLElement>(null);
   const [hover, setHover] = useState<string | null>(null);
   const [selecionado, setSelecionado] = useState<string | null>(null);
   const [zoom, setZoom] = useState(false);
-  const [entrando, setEntrando] = useState(false);
   const [apresentacao, setApresentacao] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
   const focado = nucleoMap[hover ?? selecionado ?? ""] ?? null;
@@ -44,12 +42,6 @@ function Home() {
       exploracaoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       window.setTimeout(() => setZoom(false), 650);
     }, 500);
-  }
-
-  function iniciarJornada() {
-    setEntrando(true);
-    setSelecionado("serra");
-    window.setTimeout(() => navigate({ to: "/mapa" }), 950);
   }
 
   if (apresentacao) return <ModoApresentacao onSair={() => setApresentacao(false)} />;
@@ -66,6 +58,7 @@ function Home() {
             <a href="#inovacao" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Inovação</a>
             <a href="#territorios" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Territórios</a>
             <a href="#conectores" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Conectores</a>
+            <Link to="/jornada" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Jornada</Link>
           </nav>
           <Button variant="ghost" size="sm" onClick={() => setApresentacao(true)} className="ml-auto hidden text-[0.62rem] uppercase tracking-[0.14em] text-lilac sm:inline-flex lg:ml-2">
             <Maximize2 aria-hidden="true" /> Modo apresentação
@@ -80,6 +73,7 @@ function Home() {
             {[["#sobre", "Sobre"], ["#inovacao", "Inovação"], ["#territorios", "Territórios"], ["#conectores", "Conectores"]].map(([href, label]) => (
               <a key={href} href={href} onClick={() => setMenuAberto(false)} className="block border-b border-border/40 py-3 text-sm">{label}</a>
             ))}
+            <Link to="/jornada" onClick={() => setMenuAberto(false)} className="block border-b border-border/40 py-3 text-sm">Jornada</Link>
             <div className="mt-4 flex gap-2">
               <Button variant="outline" onClick={() => setApresentacao(true)} className="flex-1">Apresentação</Button>
               <Button asChild className="flex-1"><Link to="/entrar">Entrar</Link></Button>
@@ -99,7 +93,7 @@ function Home() {
 
             <div className="relative order-2 mx-auto w-full max-w-[600px] lg:row-span-2 lg:ml-auto"
               style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}>
-              <div className={`h-full w-full origin-[67%_62%] transition-transform duration-[900ms] ease-out ${zoom || entrando ? "scale-[1.28]" : "scale-100"}`}>
+              <div className={`h-full w-full origin-[67%_62%] transition-transform duration-[900ms] ease-out ${zoom ? "scale-[1.28]" : "scale-100"}`}>
                 <MapaVivo conexoes={[]} selecionado={selecionado} onSelecionar={setSelecionado} onHover={setHover} pontosTerritoriais labels destaque="serra" />
               </div>
               <p className="absolute bottom-2 right-2 text-[0.58rem] uppercase tracking-[0.14em] text-muted-foreground">Fonte cartográfica: GEOBASES / IDAF</p>
@@ -140,7 +134,7 @@ function Home() {
           </div>
         </section>
 
-        <HomeSections onIniciar={iniciarJornada} />
+        <HomeSections />
       </main>
 
       <footer className="border-t border-border/40 bg-surface/60">

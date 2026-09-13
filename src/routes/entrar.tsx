@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MapaVivo } from "@/components/MapaVivo";
-import { conexoes, nucleoMap } from "@/data/nucleos";
+import { conexoes } from "@/data/nucleos";
 import { totaisEstado } from "@/data/ranking";
 
 export const Route = createFileRoute("/entrar")({
@@ -23,8 +23,6 @@ export const Route = createFileRoute("/entrar")({
 });
 
 function Entrar() {
-  const serra = nucleoMap["serra"]!;
-
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0 opacity-45">
@@ -66,23 +64,29 @@ function Entrar() {
 
           <div className="mt-5 rounded-2xl border border-border/60 bg-surface/60 p-3.5">
             <p className="text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground">
-              Seu núcleo
+              Vínculo territorial
             </p>
-            <p className="mt-1 font-display text-lg font-semibold">Núcleo {serra.nome}</p>
-            <p className="text-xs text-muted-foreground">
-              Nível {serra.nivel} · {serra.progresso}% da jornada concluída
+            <p className="mt-1 font-display text-lg font-semibold">Seu Núcleo Territorial</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              Será identificado automaticamente após o acesso do Conector.
             </p>
           </div>
 
           <Link
-            to="/mapa"
+            to="/jornada"
             className="tap panel-glow mt-5 flex w-full items-center justify-center rounded-2xl bg-primary px-5 py-3.5 font-display text-sm font-semibold text-primary-foreground"
           >
             Entrar na jornada
           </Link>
           <Link
+            to="/jornada"
+            className="tap mt-2 flex w-full items-center justify-center rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 text-xs font-semibold text-lilac"
+          >
+            Primeiro acesso
+          </Link>
+          <Link
             to="/"
-            className="tap mt-2 flex w-full items-center justify-center rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 text-xs font-semibold text-muted-foreground"
+            className="tap mt-2 flex w-full items-center justify-center px-5 py-2 text-xs font-semibold text-muted-foreground"
           >
             Voltar à página inicial
           </Link>
