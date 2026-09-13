@@ -126,3 +126,44 @@ export interface Conector {
   iniciais: string;
   foco: string;
 }
+
+/** Status possíveis de uma missão do território. */
+export type StatusMissao =
+  | "disponivel"
+  | "andamento"
+  | "enviada"
+  | "validacao"
+  | "concluida";
+
+/**
+ * Configuração centralizada de uma missão territorial.
+ * Nome, descrição, XP, limite, categoria e necessidade de validação
+ * são alterados aqui, sem reconstruir telas.
+ */
+export interface MissaoTerritorialConfig {
+  id: string;
+  dimensao: DimensaoId;
+  titulo: string;
+  descricao: string;
+  /** XP PROVISÓRIO — ajustável neste arquivo. */
+  xp: number;
+  icone: string;
+  /** Quantas vezes a missão pode ser realizada (0 = sem limite). */
+  limite: number;
+  /** Se true, a evidência enviada fica "Em validação" até análise. */
+  requerValidacao: boolean;
+}
+
+/** Evidência enviada pelo conector ao realizar uma missão. */
+export interface Evidencia {
+  missaoId: string;
+  titulo: string;
+  descricao: string;
+  data: string;
+  local: string;
+  atores: string;
+  resultado: string;
+  localizacao: string;
+  anexoNome?: string | undefined;
+  enviadaEm: string;
+}

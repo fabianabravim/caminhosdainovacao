@@ -1,7 +1,7 @@
 import { contornoES, nucleoMap, nucleos, pontosTerritoriais } from "@/data/nucleos";
 import { ES_VIEWBOX } from "@/lib/geoES";
 import { cn } from "@/lib/utils";
-import type { Conexao } from "@/types";
+import type { Conexao, Nucleo } from "@/types";
 
 interface Props {
   conexoes: Conexao[];
@@ -48,6 +48,32 @@ export function MapaVivo({
 }: Props) {
   const estaSelecionado = (id: string) => selecionado === id || !!selecionados?.includes(id);
 
+  /**
+   * Seleção por proximidade: o clique em qualquer ponto próximo a um núcleo
+   * seleciona o núcleo mais próximo. Isso evita que brilhos/halos animados
+   * ou a sobreposição de pontos na região metropolitana capturem o clique
+   * do núcleo errado.
+   */
+  const handleMapClick = (event: React.MouseEvent<SVGSVGElement>) => {
+    if (!interativo || !onSelecionar) return;
+    const svg = event.currentTarget;
+    const ctm = svg.getScreenCTM();
+    if (!ctm) return;
+    const pt = new DOMPoint(event.clientX, event.clientY).matrixTransform(ctm.inverse());
+    let melhor: Nucleo | null = null;
+    let melhorDist = Infinity;
+    for (const n of nucleos) {
+      if (visiveis && !visiveis.includes(n.id)) continue;
+      const d = Math.hypot(n.x - pt.x, n.y - pt.y);
+      if (d < melhorDist) {
+        melhorDist = d;
+        melhor = n;
+      }
+    }
+    // Só seleciona quando o clique está razoavelmente próximo de um núcleo.
+    if (melhor && melhorDist <= 26) onSelecionar(melhor.id);
+  };
+
   return (
     <svg
       viewBox={ES_VIEWBOX}
@@ -55,6 +81,7 @@ export function MapaVivo({
       className={cn("h-full w-full select-none overflow-visible", className)}
       role="img"
       aria-label="Mapa vivo da inovação do Espírito Santo com os 14 núcleos regionais"
+      onClick={handleMapClick}
     >
       <defs>
         <linearGradient id="mapaFill" x1="0" y1="0" x2="1" y2="1">
@@ -174,7 +201,6 @@ export function MapaVivo({
           return (
             <g
               key={n.id}
-              onClick={interativo ? () => onSelecionar?.(n.id) : undefined}
               onMouseEnter={interativo ? () => onHover?.(n.id) : undefined}
               onMouseLeave={interativo ? () => onHover?.(null) : undefined}
               onFocus={interativo ? () => onHover?.(n.id) : undefined}
@@ -200,7 +226,7 @@ export function MapaVivo({
                 cy={n.y}
                 r={r + 8}
                 fill={meu ? "oklch(0.86 0.13 200 / 0.28)" : "oklch(0.78 0.12 305 / 0.18)"}
-                className="anim-node"
+                className="anim-node pointer-events-none"
                 style={{
                   animationDelay: `${((n.x + n.y) % 30) / 10}s`,
                   transformOrigin: `${n.x}px ${n.y}px`,
@@ -214,7 +240,7 @@ export function MapaVivo({
                   fill="none"
                   stroke="oklch(0.9 0.12 200 / 0.8)"
                   strokeWidth="1.2"
-                  className="anim-halo"
+                  className="anim-halo pointer-events-none"
                   style={{ transformOrigin: `${n.x}px ${n.y}px` }}
                 />
               )}
@@ -225,7 +251,7 @@ export function MapaVivo({
                 fill={meu ? "oklch(0.9 0.11 200)" : ativo ? "oklch(0.95 0.06 305)" : "oklch(0.84 0.1 305)"}
                 stroke="oklch(0.2 0.06 295)"
                 strokeWidth="1.4"
-                className="transition-all duration-200"
+                className="pointer-events-none transition-all duration-200"
               />
               {labels && (
                 <text

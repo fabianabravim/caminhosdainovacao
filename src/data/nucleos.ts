@@ -10,7 +10,8 @@ const coordenadasNucleos: Record<string, [number, number]> = {
   "vila-velha": [-40.2925, -20.3417],
   serra: [-40.3074, -20.1288],
   cariacica: [-40.42, -20.2639],
-  "viana-fundao-guarapari": [-40.4977, -20.5561],
+  // Ponto de referência no município de Viana (posição central do núcleo Viana, Fundão e Guarapari)
+  "viana-fundao-guarapari": [-40.4958, -20.3903],
   "central-serrana": [-40.7419, -20.0272],
   "sudoeste-serrana": [-40.6589, -20.3631],
   "litoral-sul": [-40.7256, -20.8378],
@@ -95,7 +96,7 @@ const nucleosBase: Nucleo[] = [
     labelDx: -14,
     labelDy: 16,
     labelAnchor: "end",
-    nome: "Viana / Fundão / Guarapari",
+    nome: "Viana, Fundão e Guarapari",
     regiao: "Metropolitana",
     x: 251,
     y: 433.6,

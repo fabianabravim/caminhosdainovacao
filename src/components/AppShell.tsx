@@ -8,10 +8,13 @@ import { nucleoAtualId, nucleoMap } from "@/data/nucleos";
 export function AppShell({
   titulo,
   subtitulo,
+  mostrarPontos = true,
   children,
 }: {
   titulo: string;
   subtitulo?: string;
+  /** Mostra o selo individual de pontos/nível (false na Jornada territorial). */
+  mostrarPontos?: boolean;
   children: ReactNode;
 }) {
   const { pontos, nivelAtual } = useJornada();
@@ -31,20 +34,26 @@ export function AppShell({
               <p className="truncate text-xs text-muted-foreground">{subtitulo}</p>
             ) : null}
           </div>
-          <Link
-            to="/perfil"
-            className="tap flex shrink-0 items-center gap-2 rounded-full border border-border/70 bg-surface/70 py-1.5 pl-2 pr-3"
-          >
-            <span className="grid h-7 w-7 place-items-center rounded-full bg-primary/30 text-xs font-bold">
+          {mostrarPontos ? (
+            <Link
+              to="/perfil"
+              className="tap flex shrink-0 items-center gap-2 rounded-full border border-border/70 bg-surface/70 py-1.5 pl-2 pr-3"
+            >
+              <span className="grid h-7 w-7 place-items-center rounded-full bg-primary/30 text-xs font-bold">
+                {nucleo.nome.slice(0, 2).toUpperCase()}
+              </span>
+              <span className="text-left leading-tight">
+                <span className="block text-[0.68rem] font-semibold">
+                  {pontos.toLocaleString("pt-BR")} pts
+                </span>
+                <span className="block text-[0.6rem] text-muted-foreground">{nivelAtual.nome}</span>
+              </span>
+            </Link>
+          ) : (
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border/70 bg-surface/70 text-xs font-bold text-glow">
               {nucleo.nome.slice(0, 2).toUpperCase()}
             </span>
-            <span className="text-left leading-tight">
-              <span className="block text-[0.68rem] font-semibold">
-                {pontos.toLocaleString("pt-BR")} pts
-              </span>
-              <span className="block text-[0.6rem] text-muted-foreground">{nivelAtual.nome}</span>
-            </span>
-          </Link>
+          )}
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-5">{children}</main>
