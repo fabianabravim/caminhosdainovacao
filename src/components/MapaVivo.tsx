@@ -124,8 +124,9 @@ export function MapaVivo({
               />
               {labels && (
                 <text
-                  x={n.x + r + 6}
-                  y={n.y + 3.5}
+                  x={n.x + (n.labelAnchor === "end" ? -(r + 6) : r + 6) + (n.labelDx ?? 0)}
+                  y={n.y + 3.5 + (n.labelDy ?? 0)}
+                  textAnchor={n.labelAnchor ?? "start"}
                   fontSize="10.5"
                   fontWeight={meu || ativo ? 700 : 500}
                   fill={meu || ativo ? "oklch(0.97 0.02 300)" : "oklch(0.84 0.04 300 / 0.8)"}
