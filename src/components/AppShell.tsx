@@ -9,12 +9,15 @@ export function AppShell({
   titulo,
   subtitulo,
   mostrarPontos = true,
+  ampla = false,
   children,
 }: {
   titulo: string;
   subtitulo?: string;
   /** Mostra o selo individual de pontos/nível (false na Jornada territorial). */
   mostrarPontos?: boolean;
+  /** Permite experiências territoriais amplas sem alterar as demais telas. */
+  ampla?: boolean;
   children: ReactNode;
 }) {
   const { pontos, nivelAtual } = useJornada();
@@ -24,7 +27,7 @@ export function AppShell({
     <div className="min-h-screen pb-24">
       <Celebracao />
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 px-4 pb-3 pt-4 backdrop-blur-xl">
-        <div className="mx-auto grid max-w-3xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
+        <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
           <div className="min-w-0">
             <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-lilac/80">
               Caminhos da Inovação
@@ -56,7 +59,7 @@ export function AppShell({
           )}
         </div>
       </header>
-      <main className="mx-auto max-w-3xl px-4 py-5">{children}</main>
+      <main className={`mx-auto px-4 py-5 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>{children}</main>
       <BottomNav />
     </div>
   );

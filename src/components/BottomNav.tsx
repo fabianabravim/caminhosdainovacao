@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Compass, Flag, Route as RouteIcon, Share2, User } from "lucide-react";
 
 const itens = [
-  { to: "/mapa", label: "Mapa", Icon: Compass },
+  { to: "/mapa", label: "Territórios", Icon: Compass },
   { to: "/missoes", label: "Missões", Icon: Flag },
   { to: "/jornada", label: "Jornada", Icon: RouteIcon },
   { to: "/rede", label: "Rede", Icon: Share2 },
