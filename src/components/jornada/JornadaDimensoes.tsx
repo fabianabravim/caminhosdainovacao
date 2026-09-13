@@ -10,7 +10,7 @@ export function JornadaDimensoes() {
   const { progressoPorDimensao } = useMeuNucleo();
 
   return (
-    <div className="panel rounded-3xl p-4">
+    <div className="panel h-full min-w-0 rounded-3xl p-4 sm:p-5">
       <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Jornada de progresso</p>
       <p className="mt-1 text-[0.72rem] text-muted-foreground">
         As quatro dimensões evoluem simultaneamente — cada missão fortalece o território.
@@ -42,7 +42,7 @@ export function JornadaDimensoes() {
               </div>
             </div>
             {i < dimensoes.length - 1 ? (
-              <div className="flex justify-center py-0.5 pl-13" aria-hidden>
+              <div className="flex w-10 justify-center py-1" aria-hidden>
                 <span className="text-xs text-muted-foreground/50">↓</span>
               </div>
             ) : null}

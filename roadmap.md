@@ -46,7 +46,7 @@
 - [x] Validar desktop, celular, teclado e integridade da experiência territorial
 
 ## Revisão responsiva da Jornada (/jornada)
-- [ ] Ajustar cabeçalho, containers e bloco Meu Núcleo nos quatro intervalos de tela
-- [ ] Garantir mapa, progresso, missões e ranking sem cortes ou compressão
-- [ ] Adaptar navegação inferior e modal de evidência para telas pequenas
-- [ ] Validar visualmente em 1440, 1024, 768, 430, 390 e 360 px
+- [x] Ajustar cabeçalho, containers e bloco Meu Núcleo nos quatro intervalos de tela
+- [x] Garantir mapa, progresso, missões e ranking sem cortes ou compressão
+- [x] Adaptar navegação inferior e modal de evidência para telas pequenas
+- [x] Validar visualmente em 1440, 1024, 768, 430, 390 e 360 px
