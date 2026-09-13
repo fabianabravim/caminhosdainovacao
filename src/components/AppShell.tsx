@@ -8,10 +8,13 @@ import { nucleoAtualId, nucleoMap } from "@/data/nucleos";
 export function AppShell({
   titulo,
   subtitulo,
+  mostrarPontos = true,
   children,
 }: {
   titulo: string;
   subtitulo?: string;
+  /** Mostra o selo individual de pontos/nível (false na Jornada territorial). */
+  mostrarPontos?: boolean;
   children: ReactNode;
 }) {
   const { pontos, nivelAtual } = useJornada();
