@@ -30,7 +30,7 @@ const PAR_WOW = ["serra", "caparao"] as const;
 
 function Home() {
   const navigate = useNavigate();
-  const { conexoes, criarConexao, pontos, nivelAtual } = useJornada();
+  const { conexoes, criarConexao, pontos, nivelAtual, fecharCelebracao } = useJornada();
   const [hover, setHover] = useState<string | null>(null);
   const [selecionados, setSelecionados] = useState<string[]>([]);
   const [zoom, setZoom] = useState(false);
