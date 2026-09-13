@@ -50,3 +50,9 @@
 - [x] Garantir mapa, progresso, missões e ranking sem cortes ou compressão
 - [x] Adaptar navegação inferior e modal de evidência para telas pequenas
 - [x] Validar visualmente em 1440, 1024, 768, 430, 390 e 360 px
+
+## Progresso automático — Missões do Território (/missoes)
+- [ ] Configurar meta, fonte de dados, CTA e validação por missão
+- [ ] Derivar progresso, percentual e status exclusivamente dos registros vinculados
+- [ ] Substituir avanço manual por formulário de atividade/evidência
+- [ ] Validar envio, estado Em validação e ausência de avanço manual
