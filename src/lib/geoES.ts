@@ -27,8 +27,15 @@ const aneis: Anel[] = (() => {
   return saida;
 })();
 
-const lons = aneis.flatMap((a) => a.map((p) => p[0]));
-const lats = aneis.flatMap((a) => a.map((p) => p[1]));
+/**
+ * O território continental é enquadrado sozinho: as ilhas oceânicas de
+ * Trindade e Martim Vaz (a ~1.100 km da costa) ficam fora do recorte do mapa,
+ * sem qualquer alteração da geometria continental oficial.
+ */
+const aneisContinentais = aneis.filter((a) => a.every((p) => p[0] < -38.5));
+
+const lons = aneisContinentais.flatMap((a) => a.map((p) => p[0]));
+const lats = aneisContinentais.flatMap((a) => a.map((p) => p[1]));
 
 const lonMin = Math.min(...lons);
 const lonMax = Math.max(...lons);
