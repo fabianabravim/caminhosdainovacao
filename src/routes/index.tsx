@@ -1,280 +1,163 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { ArrowDown, ArrowRight, Maximize2, Menu, X } from "lucide-react";
+import { useRef, useState } from "react";
+import { HomeSections } from "@/components/home/HomeSections";
 import { MapaVivo } from "@/components/MapaVivo";
 import { ModoApresentacao } from "@/components/ModoApresentacao";
+import { Button } from "@/components/ui/button";
 import { useJornada } from "@/context/JornadaContext";
-import { nucleoMap, nucleos } from "@/data/nucleos";
-import { dimensoes } from "@/data/dimensoes";
+import { nucleoMap } from "@/data/nucleos";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Caminhos da Inovação — Jornada da Inovação Capixaba" },
+      { title: "Inovação no Espírito Santo — Caminhos da Inovação" },
       {
         name: "description",
-        content:
-          "A inovação capixaba está em movimento: 14 territórios, 28 conectores e uma rede viva de inovação mapeada pelo IJSN e pelo Governo do Espírito Santo.",
+        content: "Explore o território capixaba e descubra os atores, iniciativas e conexões que formam a rede de inovação do Espírito Santo.",
       },
-      { property: "og:title", content: "Caminhos da Inovação — A inovação capixaba em movimento" },
-      {
-        property: "og:description",
-        content:
-          "Explore o mapa vivo do Espírito Santo: cada ponto é uma descoberta, cada linha é uma conexão.",
-      },
+      { property: "og:title", content: "Caminhos da Inovação — A inovação capixaba está em movimento" },
+      { property: "og:description", content: "Uma plataforma que revela a inovação acontecendo no território do Espírito Santo." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,
 });
 
-const PAR_WOW = ["serra", "caparao"] as const;
-
 function Home() {
   const navigate = useNavigate();
-  const { conexoes, criarConexao, pontos, nivelAtual, fecharCelebracao } = useJornada();
+  const { conexoes } = useJornada();
+  const exploracaoRef = useRef<HTMLElement>(null);
   const [hover, setHover] = useState<string | null>(null);
-  const [selecionados, setSelecionados] = useState<string[]>([]);
+  const [selecionado, setSelecionado] = useState<string | null>(null);
   const [zoom, setZoom] = useState(false);
+  const [entrando, setEntrando] = useState(false);
   const [apresentacao, setApresentacao] = useState(false);
-  const [wow, setWow] = useState(false);
+  const [menuAberto, setMenuAberto] = useState(false);
+  const focado = nucleoMap[hover ?? selecionado ?? ""] ?? null;
 
-  const focado = hover ? nucleoMap[hover] : null;
-
-  function selecionar(id: string) {
-    const proximo = selecionados.includes(id)
-      ? selecionados.filter((i) => i !== id)
-      : [...selecionados, id].slice(-2);
-    setSelecionados(proximo);
-
-    if (!PAR_WOW.every((p) => proximo.includes(p))) return;
-    const jaConectado = conexoes.some(
-      (c) =>
-        (c.de === PAR_WOW[0] && c.para === PAR_WOW[1]) ||
-        (c.de === PAR_WOW[1] && c.para === PAR_WOW[0]),
-    );
-    if (!jaConectado) criarConexao(PAR_WOW[0], PAR_WOW[1], "Serra ↔ Caparaó");
-    fecharCelebracao();
-    setWow(true);
+  function explorarMapa() {
+    setZoom(true);
+    window.setTimeout(() => {
+      exploracaoRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.setTimeout(() => setZoom(false), 650);
+    }, 500);
   }
 
-  function explorar() {
-    setZoom(true);
-    setTimeout(() => navigate({ to: "/mapa" }), 900);
+  function iniciarJornada() {
+    setEntrando(true);
+    setSelecionado("serra");
+    window.setTimeout(() => navigate({ to: "/mapa" }), 950);
   }
 
   if (apresentacao) return <ModoApresentacao onSair={() => setApresentacao(false)} />;
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <header className="relative z-20 mx-auto flex max-w-7xl items-center gap-3 px-5 pt-6">
-        <p className="min-w-0 text-[0.6rem] font-semibold uppercase tracking-[0.26em] text-lilac/80">
-          IJSN · Governo do ES
-        </p>
-        <button
-          onClick={() => setApresentacao(true)}
-          className="tap ml-auto shrink-0 rounded-full border border-border/70 bg-surface/50 px-3.5 py-2 text-[0.6rem] font-semibold tracking-[0.18em] text-muted-foreground hover:text-foreground"
-        >
-          [ MODO APRESENTAÇÃO ]
-        </button>
-        <Link
-          to="/entrar"
-          className="tap hidden shrink-0 rounded-full border border-border/70 bg-surface/50 px-3.5 py-2 text-[0.6rem] font-semibold tracking-[0.18em] text-muted-foreground sm:block"
-        >
-          ENTRAR
-        </Link>
+    <div className="min-h-screen overflow-x-hidden bg-background">
+      <header className="absolute inset-x-0 top-0 z-40 border-b border-border/40 bg-background/65 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5">
+          <a href="#inicio" className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-foreground">Caminhos da Inovação</a>
+          <nav aria-label="Navegação principal" className="ml-auto hidden items-center gap-6 lg:flex">
+            <a href="#sobre" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Sobre</a>
+            <a href="#inovacao" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Inovação</a>
+            <a href="#territorios" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Territórios</a>
+            <a href="#conectores" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Conectores</a>
+          </nav>
+          <Button variant="ghost" size="sm" onClick={() => setApresentacao(true)} className="ml-auto hidden text-[0.62rem] uppercase tracking-[0.14em] text-lilac sm:inline-flex lg:ml-2">
+            <Maximize2 aria-hidden="true" /> Modo apresentação
+          </Button>
+          <Button asChild size="sm" className="hidden rounded-full px-5 text-[0.65rem] uppercase tracking-[0.14em] sm:inline-flex"><Link to="/entrar">Entrar <ArrowRight aria-hidden="true" /></Link></Button>
+          <Button variant="ghost" size="icon" aria-label={menuAberto ? "Fechar menu" : "Abrir menu"} onClick={() => setMenuAberto((atual) => !atual)} className="lg:hidden">
+            {menuAberto ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </Button>
+        </div>
+        {menuAberto ? (
+          <nav className="border-t border-border bg-background px-5 py-5 lg:hidden" aria-label="Navegação móvel">
+            {[["#sobre", "Sobre"], ["#inovacao", "Inovação"], ["#territorios", "Territórios"], ["#conectores", "Conectores"]].map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setMenuAberto(false)} className="block border-b border-border/40 py-3 text-sm">{label}</a>
+            ))}
+            <div className="mt-4 flex gap-2">
+              <Button variant="outline" onClick={() => setApresentacao(true)} className="flex-1">Apresentação</Button>
+              <Button asChild className="flex-1"><Link to="/entrar">Entrar</Link></Button>
+            </div>
+          </nav>
+        ) : null}
       </header>
 
-      <section className="relative mx-auto grid max-w-7xl gap-8 px-5 pb-16 pt-8 lg:grid-cols-[45fr_55fr] lg:items-center lg:gap-6 lg:pt-4">
-        <div className="relative z-10 order-2 lg:order-1">
-          <p
-            className="animate-fade-in text-[0.66rem] font-semibold uppercase tracking-[0.34em] text-lilac/90"
-            style={{ animationDelay: "80ms", animationFillMode: "backwards" }}
-          >
-            Caminhos da Inovação
-          </p>
-          <h1
-            className="animate-fade-in mt-4 font-display text-[2.6rem] font-semibold leading-[1.03] sm:text-6xl"
-            style={{ animationDelay: "260ms", animationFillMode: "backwards" }}
-          >
-            A inovação capixaba
-            <br />
-            <span className="text-gradient">está em movimento.</span>
-          </h1>
-          <p
-            className="animate-fade-in mt-5 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base"
-            style={{ animationDelay: "460ms", animationFillMode: "backwards" }}
-          >
-            Uma plataforma de inteligência territorial que revela, conecta e fortalece a inovação
-            que nasce em cada canto do Espírito Santo — do litoral às montanhas.
-          </p>
+      <main>
+        <section id="inicio" className="relative min-h-[780px] pt-20 lg:min-h-screen">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_45%,color-mix(in_oklab,var(--primary)_20%,transparent),transparent_38%)]" />
+          <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-4 px-5 pb-14 pt-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
+            <div className="order-1 max-w-xl">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-lilac">Caminhos da Inovação</p>
+              <h1 className="mt-5 font-display text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
+            </div>
 
-          <div
-            className="animate-fade-in mt-8 border-l border-glow/40 pl-4"
-            style={{ animationDelay: "700ms", animationFillMode: "backwards" }}
-          >
-            <p className="font-display text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-glow sm:text-sm">
-              14 territórios • 28 conectores • uma rede de inovação em movimento
-            </p>
-            <p
-              className="animate-fade-in mt-3 max-w-md text-sm leading-relaxed text-lilac/90"
-              style={{ animationDelay: "1000ms", animationFillMode: "backwards" }}
-            >
-              Cada ponto é uma descoberta. Cada linha é uma conexão. Cada território revela novos
-              caminhos para a inovação.
-            </p>
-          </div>
-
-          <div
-            className="animate-fade-in mt-8 flex flex-wrap gap-3"
-            style={{ animationDelay: "1200ms", animationFillMode: "backwards" }}
-          >
-            <button
-              onClick={explorar}
-              className="tap panel-glow rounded-2xl bg-primary px-6 py-3.5 font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground"
-            >
-              Explorar o mapa
-            </button>
-            <Link
-              to="/jornada"
-              className="tap rounded-2xl border border-border/70 bg-surface/60 px-6 py-3.5 font-display text-xs font-semibold uppercase tracking-[0.16em]"
-            >
-              Minha jornada
-            </Link>
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-2">
-            {dimensoes.map((d) => (
-              <span
-                key={d.id}
-                className="rounded-full border border-border/60 bg-surface/50 px-3 py-1.5 text-[0.68rem] font-medium"
-                style={{ color: d.colorVar }}
-              >
-                {d.icone} {d.nome}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="relative order-1 lg:order-2">
-          <div
-            className="relative mx-auto aspect-[3/4] w-full max-w-[540px] transition-transform duration-[900ms] ease-in"
-            style={{ transform: zoom ? "scale(1.6)" : "scale(1)" }}
-          >
-            <div className="absolute inset-0 -z-10 rounded-[3rem] bg-primary/12 blur-3xl" />
-            <MapaVivo
-              conexoes={conexoes}
-              selecionados={selecionados}
-              onSelecionar={selecionar}
-              onHover={setHover}
-              particulas
-              labels
-            />
-
-            {focado ? (
-              <div
-                className="pointer-events-none absolute z-20 w-56 -translate-x-1/2 -translate-y-full"
-                style={{
-                  left: `${(focado.x / 400) * 100}%`,
-                  top: `${(focado.y / 600) * 100 - 2}%`,
-                }}
-              >
-                <div className="panel panel-glow animate-scale-in rounded-2xl p-3">
-                  <p className="text-[0.58rem] uppercase tracking-[0.18em] text-lilac/80">
-                    {focado.regiao}
-                  </p>
-                  <p className="font-display text-sm font-semibold">{focado.nome}</p>
-                  <p className="mt-1 text-[0.66rem] font-semibold text-glow">
-                    {focado.progresso}% da jornada
-                  </p>
-                  <div className="mt-2 grid grid-cols-2 gap-1 text-[0.62rem] text-muted-foreground">
-                    <span>{focado.atores} atores</span>
-                    <span>{focado.escutas} escutas</span>
-                    <span>{focado.conexoes} conexões</span>
-                    <span>{focado.inovacoes} inovações</span>
-                  </div>
-                  <p className="mt-2 rounded-lg bg-primary/25 px-2 py-1.5 text-center text-[0.62rem] font-semibold">
-                    Toque para explorar
-                  </p>
-                </div>
+            <div className="relative order-2 mx-auto aspect-[3/4] w-full max-w-[600px] lg:row-span-2 lg:ml-auto">
+              <div className={`h-full w-full origin-[67%_62%] transition-transform duration-[900ms] ease-out ${zoom || entrando ? "scale-[1.28]" : "scale-100"}`}>
+                <MapaVivo conexoes={conexoes} selecionado={selecionado ?? undefined} onSelecionar={setSelecionado} onHover={setHover} particulas labels destaque="serra" />
               </div>
-            ) : null}
-          </div>
-
-          <p className="mt-4 text-center text-[0.68rem] text-muted-foreground">
-            Toque em um território para conhecer sua jornada de inovação
-          </p>
-
-        </div>
-      </section>
-
-      <section className="relative mx-auto max-w-7xl px-5 pb-20">
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { v: nucleos.length, l: "territórios em rede" },
-            { v: 28, l: "conectores territoriais" },
-            { v: conexoes.length, l: "conexões acesas" },
-            { v: `${pontos.toLocaleString("pt-BR")}`, l: `pontos · nível ${nivelAtual.nome}` },
-          ].map((m) => (
-            <div key={m.l} className="panel rounded-2xl px-4 py-4">
-              <p className="font-display text-2xl font-semibold text-gradient">{m.v}</p>
-              <p className="mt-1 text-[0.68rem] uppercase tracking-wide text-muted-foreground">
-                {m.l}
-              </p>
+              <p className="absolute bottom-2 right-2 text-[0.58rem] uppercase tracking-[0.14em] text-muted-foreground">Contorno geográfico: IBGE</p>
+              {focado ? <NucleoTooltip nucleoId={focado.id} /> : null}
             </div>
-          ))}
-        </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {[
-            { to: "/missoes", label: "Missões do Território" },
-            { to: "/rede", label: "Rede Capixaba" },
-            { to: "/descobertas", label: "Descobertas" },
-            { to: "/ranking", label: "Movimento dos Territórios" },
-            { to: "/perfil", label: "Núcleo Serra" },
-          ].map((a) => (
-            <Link
-              key={a.to}
-              to={a.to}
-              className="tap rounded-full border border-border/70 bg-surface/50 px-4 py-2 text-xs font-medium"
-            >
-              {a.label}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {wow ? (
-        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-background/80 px-6 backdrop-blur-md">
-          <div className="panel panel-glow animate-scale-in relative max-w-md rounded-3xl p-7 text-center">
-            <span className="anim-halo absolute inset-x-1/2 top-6 h-16 w-16 -translate-x-1/2 rounded-full border border-glow/60" />
-            <p className="text-[0.62rem] font-semibold uppercase tracking-[0.28em] text-glow">
-              Nova conexão territorial
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold text-gradient">
-              Serra ↔ Caparaó
-            </h2>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Dois territórios. Uma nova possibilidade.
-            </p>
-            <div className="mt-6 flex flex-col gap-2">
-              <button
-                onClick={() => {
-                  setWow(false);
-                  navigate({ to: "/rede" });
-                }}
-                className="tap rounded-2xl bg-primary px-5 py-3 font-display text-xs font-semibold uppercase tracking-[0.16em] text-primary-foreground"
-              >
-                Ver na rede capixaba
-              </button>
-              <button
-                onClick={() => setWow(false)}
-                className="tap rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 text-xs font-semibold text-muted-foreground"
-              >
-                Continuar explorando
-              </button>
+            <div className="order-3 max-w-xl lg:order-2">
+              <div className="space-y-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                <p>A inovação acontece quando pessoas, ideias, conhecimento e territórios se conectam.</p>
+                <p>O Caminhos da Inovação percorre o Espírito Santo para revelar atores, iniciativas, vocações e oportunidades que fortalecem o ecossistema capixaba de inovação.</p>
+              </div>
+              <div className="mt-7 grid grid-cols-[auto_auto_1fr] gap-4 border-y border-border/60 py-5 sm:gap-7">
+                <Stat valor="14" label="Territórios" /><Stat valor="28" label="Conectores" /><Stat valor="1" label="Rede de inovação em movimento" />
+              </div>
+              <p className="mt-5 max-w-lg text-sm text-lilac">Cada ponto é uma descoberta.<br />Cada conexão abre um novo caminho.</p>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Button onClick={explorarMapa} size="lg" className="panel-glow h-12 rounded-md px-7 text-xs font-semibold uppercase tracking-[0.15em]">Explorar o mapa <ArrowDown aria-hidden="true" /></Button>
+                <Button asChild variant="outline" size="lg" className="h-12 rounded-md px-7 text-xs font-semibold uppercase tracking-[0.15em]"><a href="#sobre">Conheça o projeto</a></Button>
+              </div>
             </div>
           </div>
-        </div>
-      ) : null}
+        </section>
+
+        <section ref={exploracaoRef} id="territorios" className="scroll-mt-0 bg-paper text-paper-foreground">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.26em] text-violet">Mapa da Inovação Capixaba</p>
+              <h2 className="mt-5 font-display text-4xl font-semibold leading-tight sm:text-5xl">Todo território guarda possibilidades.</h2>
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-paper-muted">Explore o Espírito Santo e descubra como diferentes atores, iniciativas e conexões formam o nosso ecossistema de inovação.</p>
+              <p className="mt-6 text-sm font-medium text-primary">Passe, toque ou use o teclado para conhecer os núcleos.</p>
+            </div>
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-xl rounded-md border border-primary/15 bg-background p-4 shadow-2xl shadow-primary/10 sm:p-7">
+              <MapaVivo conexoes={conexoes} selecionado={selecionado ?? undefined} onSelecionar={setSelecionado} onHover={setHover} particulas destaque="serra" />
+              {focado ? <NucleoTooltip nucleoId={focado.id} light /> : null}
+              <p className="absolute bottom-3 right-4 text-[0.58rem] uppercase tracking-[0.12em] text-muted-foreground">Fonte do contorno: IBGE</p>
+            </div>
+          </div>
+        </section>
+
+        <HomeSections onIniciar={iniciarJornada} />
+      </main>
+    </div>
+  );
+}
+
+function Stat({ valor, label }: { valor: string; label: string }) {
+  return <div><strong className="font-display text-3xl font-semibold text-foreground">{valor}</strong><span className="mt-1 block max-w-36 text-[0.58rem] font-semibold uppercase leading-relaxed tracking-[0.12em] text-muted-foreground">{label}</span></div>;
+}
+
+function NucleoTooltip({ nucleoId, light = false }: { nucleoId: string; light?: boolean }) {
+  const nucleo = nucleoMap[nucleoId];
+  if (!nucleo) return null;
+  return (
+    <div className={`absolute bottom-5 left-5 z-20 w-[min(16rem,calc(100%-2.5rem))] animate-scale-in rounded-md border p-4 shadow-2xl backdrop-blur-xl ${light ? "border-primary/20 bg-paper/95 text-paper-foreground" : "border-border bg-surface/95 text-foreground"}`}>
+      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-violet">Núcleo {nucleo.nome}</p>
+      <div className={`mt-3 space-y-1.5 text-xs ${light ? "text-paper-muted" : "text-muted-foreground"}`}>
+        <p><strong className="text-current">{nucleo.atores}</strong> atores mapeados</p>
+        <p><strong className="text-current">{nucleo.escutas}</strong> escutas realizadas</p>
+        <p><strong className="text-current">{nucleo.conexoes}</strong> conexões criadas</p>
+        <p><strong className="text-current">{nucleo.inovacoes}</strong> inovações identificadas</p>
+      </div>
+      <Link to="/mapa" className="mt-4 flex items-center justify-between border-t border-current/10 pt-3 text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-primary">Explorar território <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
     </div>
   );
 }
