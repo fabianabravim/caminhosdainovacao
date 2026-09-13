@@ -31,3 +31,9 @@
 - [x] Remover escolha manual de núcleo e CTAs da seção final
 - [x] Manter mapa final explorável sem vincular o núcleo ao usuário
 - [x] Adicionar opção de primeiro acesso na entrada da Jornada
+
+## Consolidação da Home institucional
+- [ ] Auditar a Home contra a narrativa completa de apresentação territorial
+- [ ] Confirmar geometria oficial, 14 pontos, tooltips e transição de exploração
+- [ ] Confirmar ritmo claro/escuro, responsividade e visual para telões
+- [ ] Preservar decisões posteriores: dados zerados, sem linhas fictícias e acesso pelo menu
