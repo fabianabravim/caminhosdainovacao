@@ -5,6 +5,7 @@ import { useMeuNucleo, type ResultadoRegistro } from "@/context/MeuNucleoContext
 import { missaoTerritorialMap } from "@/data/missoes.config";
 import {
   RegistroAtividadeContext as Ctx,
+  useRegistroAtividade,
   type PresetRegistroAtividade as Preset,
 } from "@/components/jornada/registroAtividadeBase";
 

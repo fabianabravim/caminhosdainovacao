@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 
 export interface PresetRegistroAtividade {
-  tipoId?: string;
-  missaoId?: string;
+  tipoId?: string | undefined;
+  missaoId?: string | undefined;
 }
 
 export interface RegistroAtividadeCtx {
