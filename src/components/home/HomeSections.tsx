@@ -71,12 +71,17 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
 
       <section id="conectores" className="relative overflow-hidden bg-surface text-foreground">
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-2 lg:items-center">
-          <div
-            className="relative mx-auto w-full max-w-md"
-            style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
-            aria-hidden="true"
-          >
-            <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais destaque="serra" />
+          <div className="relative mx-auto w-full max-w-md">
+            <div
+              className="relative w-full"
+              style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
+              aria-hidden="true"
+            >
+              <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais destaque="serra" />
+            </div>
+            <p className="mt-3 text-center text-[0.65rem] uppercase tracking-[0.18em] text-muted-foreground/70">
+              Fonte cartográfica: GEOBASES / IDAF
+            </p>
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-glow">Ecossistema capixaba</p>
@@ -84,14 +89,14 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
               A inovação não acontece de forma isolada. Ela surge quando diferentes atores compartilham conhecimento, identificam oportunidades e constroem soluções juntos.
             </p>
-            <div className="mt-9 flex flex-wrap gap-x-3 gap-y-4">
+            <div className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-4">
               {atores.map(({ nome, Icon }, index) => (
                 <div key={nome} className="flex items-center gap-2">
-                  <span className="grid h-9 w-9 place-items-center rounded-full border border-border bg-background/50 text-lilac">
-                    <Icon className="h-4 w-4" aria-hidden="true" />
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border bg-background/50 text-lilac">
+                    <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
                   </span>
-                  <span className="text-sm font-medium">{nome}</span>
-                  {index < atores.length - 1 ? <span className="hidden h-px w-5 bg-glow/30 sm:block" /> : null}
+                  <span className="text-sm font-medium leading-none">{nome}</span>
+                  {index < atores.length - 1 ? <span className="hidden h-px w-5 shrink-0 bg-glow/30 sm:block" /> : null}
                 </div>
               ))}
             </div>
