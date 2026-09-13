@@ -1,4 +1,5 @@
 import { contornoES, nucleoMap, nucleos, pontosTerritoriais } from "@/data/nucleos";
+import { ES_VIEWBOX } from "@/lib/geoES";
 import { cn } from "@/lib/utils";
 import type { Conexao } from "@/types";
 
@@ -49,7 +50,8 @@ export function MapaVivo({
 
   return (
     <svg
-      viewBox="0 0 400 600"
+      viewBox={ES_VIEWBOX}
+      preserveAspectRatio="xMidYMid meet"
       className={cn("h-full w-full select-none overflow-visible", className)}
       role="img"
       aria-label="Mapa vivo da inovação do Espírito Santo com os 14 núcleos regionais"
