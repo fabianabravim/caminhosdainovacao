@@ -26,7 +26,7 @@ export const dimensoes: Dimensao[] = [
     id: "transformar",
     nome: "Transformar",
     icone: "🚀",
-    descricao: "Transformar conexões e conhecimento em oportunidades de desenvolvimento territorial",
+    descricao: "Transformar conhecimento e conexões em oportunidades de desenvolvimento territorial",
     colorVar: "var(--dim-transformar)",
   },
 ];

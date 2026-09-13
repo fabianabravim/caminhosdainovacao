@@ -76,7 +76,7 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
             style={{ aspectRatio: `${ES_VIEW_WIDTH} / ${ES_VIEW_HEIGHT}` }}
             aria-hidden="true"
           >
-            <MapaVivo conexoes={conexoes} labels={false} interativo={false} particulas />
+            <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais destaque="serra" />
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-glow">Ecossistema capixaba</p>
@@ -131,7 +131,7 @@ export function HomeSections({ onIniciar }: { onIniciar: () => void }) {
 
       <section className="relative overflow-hidden bg-background text-foreground">
         <div className="absolute inset-y-0 right-0 w-1/2 opacity-25" aria-hidden="true">
-          <MapaVivo conexoes={conexoes} labels={false} interativo={false} />
+          <MapaVivo conexoes={[]} labels={false} interativo={false} pontosTerritoriais />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-glow">Sua jornada começa aqui</p>

@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Chancela institucional — exibe as marcas oficiais do IJSN e do
- * Governo do Estado do Espírito Santo.
+ * Chancela institucional — assinatura oficial extraída do arquivo de
+ * aplicações de marca fornecido (IJSN + Governo do Estado do Espírito
+ * Santo), na versão oficial para fundo escuro, sem alterações de
+ * proporção, cor ou tipografia.
  *
- * Os arquivos oficiais devem ser colocados em:
- *   public/marcas/logo-ijsn.png
- *   public/marcas/marca-governo-es.png
- * Enquanto os arquivos não existem, um espaço reservado discreto é exibido.
+ * Arquivos oficiais em uso:
+ *   public/marcas/assinatura-ijsn-governo.png  (versão para fundo escuro)
+ *   public/marcas/logo-fapes.png               (versão colorida oficial)
+ * Se um arquivo estiver ausente, um espaço reservado discreto é exibido.
  */
 
 type MarcaProps = {
@@ -51,12 +53,31 @@ function Marca({ src, alt, altura }: MarcaProps) {
 }
 
 export function ChancelaInstitucional({ tamanho = "header" }: { tamanho?: "header" | "footer" }) {
-  const altura = tamanho === "footer" ? "h-9 sm:h-10" : "h-6 sm:h-7";
+  if (tamanho === "footer") {
+    return (
+      <div className="flex flex-wrap items-center gap-5 sm:gap-7" aria-label="Marcas institucionais">
+        <Marca
+          src="/marcas/assinatura-ijsn-governo.png"
+          alt="Instituto Jones dos Santos Neves — IJSN | Governo do Estado do Espírito Santo"
+          altura="h-12 sm:h-14"
+        />
+        <span aria-hidden="true" className="hidden h-10 w-px bg-border/70 sm:block" />
+        <Marca
+          src="/marcas/logo-fapes.png"
+          alt="FAPES — Fundação de Amparo à Pesquisa e Inovação do Espírito Santo"
+          altura="h-8 sm:h-9"
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex items-center gap-3 sm:gap-4" aria-label="Marcas institucionais">
-      <Marca src="/marcas/logo-ijsn.png" alt="IJSN" altura={altura} />
-      <span aria-hidden="true" className={`w-px bg-border/70 ${tamanho === "footer" ? "h-8" : "h-5"}`} />
-      <Marca src="/marcas/marca-governo-es.png" alt="Governo do Espírito Santo" altura={altura} />
+    <div className="flex items-center" aria-label="Marcas institucionais">
+      <Marca
+        src="/marcas/assinatura-ijsn-governo.png"
+        alt="Instituto Jones dos Santos Neves — IJSN | Governo do Estado do Espírito Santo"
+        altura="h-9 sm:h-10"
+      />
     </div>
   );
 }
