@@ -5,7 +5,7 @@ import { HomeSections } from "@/components/home/HomeSections";
 import { MapaVivo } from "@/components/MapaVivo";
 import { ModoApresentacao } from "@/components/ModoApresentacao";
 import { Button } from "@/components/ui/button";
-import { useJornada } from "@/context/JornadaContext";
+
 import { nucleoMap } from "@/data/nucleos";
 
 export const Route = createFileRoute("/")({
@@ -27,7 +27,6 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const navigate = useNavigate();
-  const { conexoes } = useJornada();
   const exploracaoRef = useRef<HTMLElement>(null);
   const [hover, setHover] = useState<string | null>(null);
   const [selecionado, setSelecionado] = useState<string | null>(null);
