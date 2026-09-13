@@ -25,12 +25,21 @@ function coletarCoordenadas(valor: unknown): void {
 
 feicoes.forEach((feicao) => coletarCoordenadas(feicao.geometry.coordinates));
 
-const longitudes = todasCoordenadas.map(([longitude]) => longitude);
-const latitudes = todasCoordenadas.map(([, latitude]) => latitude);
-const longitudeMinima = Math.min(...longitudes);
-const longitudeMaxima = Math.max(...longitudes);
-const latitudeMinima = Math.min(...latitudes);
-const latitudeMaxima = Math.max(...latitudes);
+const limitesGeograficos = todasCoordenadas.reduce(
+  (limites, [longitude, latitude]) => ({
+    longitudeMinima: Math.min(limites.longitudeMinima, longitude),
+    longitudeMaxima: Math.max(limites.longitudeMaxima, longitude),
+    latitudeMinima: Math.min(limites.latitudeMinima, latitude),
+    latitudeMaxima: Math.max(limites.latitudeMaxima, latitude),
+  }),
+  {
+    longitudeMinima: Infinity,
+    longitudeMaxima: -Infinity,
+    latitudeMinima: Infinity,
+    latitudeMaxima: -Infinity,
+  },
+);
+const { longitudeMinima, longitudeMaxima, latitudeMinima, latitudeMaxima } = limitesGeograficos;
 const latitudeMedia = ((latitudeMinima + latitudeMaxima) / 2) * (Math.PI / 180);
 const fatorLongitude = Math.cos(latitudeMedia);
 const MARGEM = 18;
@@ -70,12 +79,16 @@ export const municipiosES: MunicipioES[] = feicoes
   .map((feicao) => {
     const aneis = geometriaParaAneis(feicao.geometry);
     const pontos = aneis.flat().map(projetar);
-    const xs = pontos.map(({ x }) => x);
-    const ys = pontos.map(({ y }) => y);
-    const xMin = Math.min(...xs);
-    const xMax = Math.max(...xs);
-    const yMin = Math.min(...ys);
-    const yMax = Math.max(...ys);
+    const limites = pontos.reduce(
+      (atuais, ponto) => ({
+        xMin: Math.min(atuais.xMin, ponto.x),
+        xMax: Math.max(atuais.xMax, ponto.x),
+        yMin: Math.min(atuais.yMin, ponto.y),
+        yMax: Math.max(atuais.yMax, ponto.y),
+      }),
+      { xMin: Infinity, xMax: -Infinity, yMin: Infinity, yMax: -Infinity },
+    );
+    const { xMin, xMax, yMin, yMax } = limites;
     return {
       codigo: feicao.properties.codigo,
       nome: feicao.properties.nome,
