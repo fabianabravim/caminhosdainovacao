@@ -1,12 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { Check, Plus, X } from "lucide-react";
 import { tipoAtividadeMap, tiposAtividade } from "@/data/atividades.config";
 import { useMeuNucleo, type ResultadoRegistro } from "@/context/MeuNucleoContext";
