@@ -22,6 +22,9 @@ export interface Nucleo {
   nivel: string;
   pontos: number;
   destaque?: string;
+  labelDx?: number;
+  labelDy?: number;
+  labelAnchor?: "start" | "end";
 }
 
 export interface Conexao {

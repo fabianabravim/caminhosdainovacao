@@ -4,6 +4,8 @@ import type { Conexao, Nucleo } from "@/types";
 export const nucleos: Nucleo[] = [
   {
     id: "vitoria",
+    labelDx: 4,
+    labelDy: -6,
     nome: "Vitória",
     regiao: "Metropolitana",
     x: 300,
@@ -19,6 +21,8 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "vila-velha",
+    labelDx: 4,
+    labelDy: 8,
     nome: "Vila Velha",
     regiao: "Metropolitana",
     x: 296,
@@ -49,6 +53,9 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "cariacica",
+    labelDx: -12,
+    labelDy: 2,
+    labelAnchor: "end",
     nome: "Cariacica",
     regiao: "Metropolitana",
     x: 266,
@@ -64,6 +71,9 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "viana-fundao-guarapari",
+    labelDx: -12,
+    labelDy: 12,
+    labelAnchor: "end",
     nome: "Viana / Fundão / Guarapari",
     regiao: "Metropolitana",
     x: 268,
@@ -79,6 +89,9 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "central-serrana",
+    labelDx: -12,
+    labelDy: -6,
+    labelAnchor: "end",
     nome: "Central Serrana",
     regiao: "Serrana",
     x: 236,
@@ -94,6 +107,9 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "sudoeste-serrana",
+    labelDx: -12,
+    labelDy: 0,
+    labelAnchor: "end",
     nome: "Sudoeste Serrana",
     regiao: "Serrana",
     x: 212,
@@ -124,6 +140,9 @@ export const nucleos: Nucleo[] = [
   },
   {
     id: "centro-sul",
+    labelDx: -12,
+    labelDy: 6,
+    labelAnchor: "end",
     nome: "Centro Sul",
     regiao: "Sul",
     x: 192,
