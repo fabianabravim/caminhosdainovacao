@@ -86,6 +86,31 @@ export function MapaVivo({
         filter="url(#softGlow)"
       />
 
+      {exibirPontos && (
+        <g aria-hidden="true">
+          {pontosTerritoriais.map((p, i) => (
+            <g key={`pt-${i}`}>
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r={p.r + 2.4}
+                fill="oklch(0.86 0.13 200 / 0.10)"
+                className="anim-spark"
+                style={{ animationDelay: p.delay, transformOrigin: `${p.x}px ${p.y}px` }}
+              />
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r={p.r}
+                fill="oklch(0.9 0.12 200 / 0.7)"
+                className="anim-spark"
+                style={{ animationDelay: p.delay, transformOrigin: `${p.x}px ${p.y}px` }}
+              />
+            </g>
+          ))}
+        </g>
+      )}
+
       {conexoesVisiveis && (
         <g>
           {conexoes.map((c) => {
