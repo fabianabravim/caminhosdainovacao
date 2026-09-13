@@ -215,6 +215,23 @@
   animation: halo 1.6s ease-out infinite;
 }
 
+@keyframes pulse-spark {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.35);
+  }
+}
+
+@utility anim-spark {
+  animation: pulse-spark 5.5s ease-in-out infinite;
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
