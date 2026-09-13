@@ -16,6 +16,7 @@ import { MapaVivo } from "@/components/MapaVivo";
 import { Button } from "@/components/ui/button";
 import { dimensoes } from "@/data/dimensoes";
 import { conexoes } from "@/data/nucleos";
+import { ES_VIEW_HEIGHT, ES_VIEW_WIDTH } from "@/lib/geoES";
 
 const conceitos = [
   { titulo: "Novas soluções", texto: "Ideias que resolvem problemas de novas maneiras.", Icon: Lightbulb },

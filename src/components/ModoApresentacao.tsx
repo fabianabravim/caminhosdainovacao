@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MapaVivo } from "@/components/MapaVivo";
 import { conexoes as conexoesBase, nucleos } from "@/data/nucleos";
 import { descobertas } from "@/data/descobertas";
+import { ES_VIEW_HEIGHT, ES_VIEW_WIDTH } from "@/lib/geoES";
 
 const etapas = [
   { id: 0, dur: 3200 },
