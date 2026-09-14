@@ -31,7 +31,7 @@ export function RedeCapixaba({ conexoes, selecionado, onSelecionar, destaque = "
     <svg viewBox="0 0 400 400" className="h-full w-full" role="img" aria-label="Rede capixaba de inovação">
       <defs>
         <radialGradient id="redeBg" cx="50%" cy="50%">
-          <stop offset="0%" stopColor="oklch(0.5 0.16 300 / 0.35)" />
+          <stop offset="0%" stopColor="var(--brand-secondary)" stopOpacity="0.3" />
           <stop offset="100%" stopColor="transparent" />
         </radialGradient>
       </defs>
@@ -43,7 +43,8 @@ export function RedeCapixaba({ conexoes, selecionado, onSelecionar, destaque = "
           cy="200"
           r={r}
           fill="none"
-          stroke="oklch(0.7 0.1 305 / 0.15)"
+          stroke="var(--brand-primary)"
+          strokeOpacity="0.15"
           strokeDasharray="3 7"
         />
       ))}
@@ -58,7 +59,8 @@ export function RedeCapixaba({ conexoes, selecionado, onSelecionar, destaque = "
             y1={a.y}
             x2={b.x}
             y2={b.y}
-            stroke={c.colaborativa ? "oklch(0.88 0.13 200 / 0.9)" : "oklch(0.8 0.1 305 / 0.3)"}
+            stroke={c.colaborativa ? "var(--brand-secondary)" : "var(--brand-primary)"}
+            strokeOpacity={c.colaborativa ? 0.9 : 0.3}
             strokeWidth={c.colaborativa ? 2 : 1}
             className={c.colaborativa ? "anim-flow" : undefined}
           />
@@ -76,7 +78,8 @@ export function RedeCapixaba({ conexoes, selecionado, onSelecionar, destaque = "
               cx={p.x}
               cy={p.y}
               r={r + 7}
-              fill={meu ? "oklch(0.86 0.13 200 / 0.2)" : "oklch(0.78 0.12 305 / 0.14)"}
+              fill="var(--brand-primary)"
+              fillOpacity={meu ? 0.2 : 0.14}
               className="anim-node"
               style={{ transformOrigin: `${p.x}px ${p.y}px` }}
             />
@@ -84,8 +87,8 @@ export function RedeCapixaba({ conexoes, selecionado, onSelecionar, destaque = "
               cx={p.x}
               cy={p.y}
               r={r}
-              fill={meu ? "oklch(0.9 0.11 200)" : ativo ? "oklch(0.9 0.09 305)" : "oklch(0.76 0.12 302)"}
-              stroke="oklch(0.2 0.06 295)"
+              fill={meu ? "var(--brand-primary)" : ativo ? "var(--brand-secondary)" : "var(--brand-primary)"}
+              stroke="var(--brand-dark)"
               strokeWidth="1.4"
             />
             <text
@@ -94,7 +97,7 @@ export function RedeCapixaba({ conexoes, selecionado, onSelecionar, destaque = "
               textAnchor="middle"
               fontSize="9.5"
               fontWeight={meu ? 700 : 500}
-              fill={meu || ativo ? "oklch(0.97 0.02 300)" : "oklch(0.82 0.04 300 / 0.75)"}
+              fill={meu || ativo ? "var(--foreground)" : "var(--muted-foreground)"}
             >
               {n.nome.length > 14 ? `${n.nome.slice(0, 13)}…` : n.nome}
             </text>
