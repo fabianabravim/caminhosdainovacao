@@ -85,12 +85,12 @@ export function MapaVivo({
     >
       <defs>
         <linearGradient id="mapaFill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="oklch(0.34 0.11 300)" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="oklch(0.22 0.08 285)" stopOpacity="0.9" />
+          <stop offset="0%" stopColor="var(--brand-secondary)" stopOpacity="0.72" />
+          <stop offset="100%" stopColor="var(--brand-dark)" stopOpacity="0.94" />
         </linearGradient>
         <linearGradient id="linkGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="oklch(0.8 0.12 305)" />
-          <stop offset="100%" stopColor="oklch(0.86 0.13 200)" />
+          <stop offset="0%" stopColor="var(--brand-primary)" />
+          <stop offset="100%" stopColor="var(--brand-secondary)" />
         </linearGradient>
         <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
           <feGaussianBlur stdDeviation="6" result="b" />
@@ -106,7 +106,8 @@ export function MapaVivo({
       <path
         d={contornoES}
         fill="none"
-        stroke="oklch(0.86 0.13 200 / 0.25)"
+        stroke="var(--brand-primary)"
+        strokeOpacity="0.22"
         strokeWidth="6"
         filter="url(#softGlow)"
         className="anim-mapa-fill"
@@ -114,7 +115,8 @@ export function MapaVivo({
       <path
         d={contornoES}
         fill="none"
-        stroke="oklch(0.78 0.12 305 / 0.75)"
+        stroke="var(--brand-primary)"
+        strokeOpacity="0.78"
         strokeWidth="1.4"
         className="anim-mapa-traco"
       />
@@ -127,7 +129,8 @@ export function MapaVivo({
                 cx={p.x}
                 cy={p.y}
                 r={p.r + 2.4}
-                fill="oklch(0.86 0.13 200 / 0.10)"
+                fill="var(--brand-primary)"
+                fillOpacity="0.1"
                 className="anim-spark"
                 style={{ animationDelay: p.delay, transformOrigin: `${p.x}px ${p.y}px` }}
               />
@@ -135,7 +138,8 @@ export function MapaVivo({
                 cx={p.x}
                 cy={p.y}
                 r={p.r}
-                fill="oklch(0.9 0.12 200 / 0.7)"
+                fill="var(--brand-primary)"
+                fillOpacity="0.7"
                 className="anim-spark"
                 style={{ animationDelay: p.delay, transformOrigin: `${p.x}px ${p.y}px` }}
               />
@@ -156,7 +160,7 @@ export function MapaVivo({
                 key={`${c.de}-${c.para}`}
                 d={curva(de, para)}
                 fill="none"
-                stroke={c.colaborativa ? "url(#linkGrad)" : "oklch(0.78 0.1 305 / 0.35)"}
+                stroke={c.colaborativa ? "url(#linkGrad)" : "var(--brand-primary)"}
                 strokeWidth={c.colaborativa ? 2.4 : 1.1}
                 strokeLinecap="round"
                 className={c.colaborativa ? "anim-flow" : undefined}
@@ -176,7 +180,7 @@ export function MapaVivo({
             if (!de || !para) return null;
             if (visiveis && (!visiveis.includes(c.de) || !visiveis.includes(c.para))) return null;
             return (
-              <circle key={`p-${c.de}-${c.para}`} r="1.9" fill="oklch(0.92 0.11 200 / 0.9)">
+              <circle key={`p-${c.de}-${c.para}`} r="1.9" fill="var(--brand-primary)" fillOpacity="0.9">
                 <animateMotion
                   dur={`${9 + (i % 5) * 1.6}s`}
                   begin={`${(i % 6) * 1.2}s`}
@@ -225,7 +229,8 @@ export function MapaVivo({
                 cx={n.x}
                 cy={n.y}
                 r={r + 8}
-                fill={meu ? "oklch(0.86 0.13 200 / 0.28)" : "oklch(0.78 0.12 305 / 0.18)"}
+                fill="var(--brand-primary)"
+                fillOpacity={meu ? 0.28 : 0.18}
                 className="anim-node pointer-events-none"
                 style={{
                   animationDelay: `${((n.x + n.y) % 30) / 10}s`,
@@ -238,7 +243,8 @@ export function MapaVivo({
                   cy={n.y}
                   r={r + 6}
                   fill="none"
-                  stroke="oklch(0.9 0.12 200 / 0.8)"
+                  stroke="var(--brand-primary)"
+                  strokeOpacity="0.8"
                   strokeWidth="1.2"
                   className="anim-halo pointer-events-none"
                   style={{ transformOrigin: `${n.x}px ${n.y}px` }}
@@ -248,8 +254,8 @@ export function MapaVivo({
                 cx={n.x}
                 cy={n.y}
                 r={ativo ? r + 2 : r}
-                fill={meu ? "oklch(0.9 0.11 200)" : ativo ? "oklch(0.95 0.06 305)" : "oklch(0.84 0.1 305)"}
-                stroke="oklch(0.2 0.06 295)"
+                fill={meu ? "var(--brand-primary)" : ativo ? "var(--brand-secondary)" : "var(--brand-primary)"}
+                stroke="var(--brand-dark)"
                 strokeWidth="1.4"
                 className="pointer-events-none transition-all duration-200"
               />
@@ -260,7 +266,7 @@ export function MapaVivo({
                   textAnchor={n.labelAnchor ?? "start"}
                   fontSize="10.5"
                   fontWeight={meu || ativo ? 700 : 500}
-                  fill={meu || ativo ? "oklch(0.97 0.02 300)" : "oklch(0.84 0.04 300 / 0.8)"}
+                  fill={meu || ativo ? "var(--foreground)" : "var(--muted-foreground)"}
                   className="pointer-events-none"
                 >
                   {n.nome.length > 16 ? `${n.nome.slice(0, 15)}…` : n.nome}

@@ -42,43 +42,53 @@
   --color-paper: var(--paper);
   --color-paper-foreground: var(--paper-foreground);
   --color-paper-muted: var(--paper-muted);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-dark: var(--brand-dark);
   --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.16 0.055 295);
-  --foreground: oklch(0.97 0.012 300);
-  --surface: oklch(0.22 0.062 295);
-  --surface-2: oklch(0.27 0.07 296);
-  --card: oklch(0.22 0.062 295);
-  --card-foreground: oklch(0.97 0.012 300);
-  --popover: oklch(0.22 0.062 295);
-  --popover-foreground: oklch(0.97 0.012 300);
-  --primary: oklch(0.66 0.19 300);
-  --primary-foreground: oklch(0.15 0.05 295);
-  --secondary: oklch(0.3 0.07 296);
-  --secondary-foreground: oklch(0.96 0.012 300);
-  --muted: oklch(0.27 0.06 296);
-  --muted-foreground: oklch(0.74 0.045 300);
-  --accent: oklch(0.78 0.13 305);
-  --accent-foreground: oklch(0.17 0.05 295);
+  /* Identidade oficial Caminhos da Inovação */
+  --brand-primary: oklch(0.573039 0.105868 296.945); /* #7F6AAF */
+  --brand-secondary: oklch(0.495148 0.126991 297.52); /* #6B4FA0 */
+  --brand-dark: oklch(0.378803 0.081002 295.725); /* #463868 */
+  --brand-primary-hover: color-mix(in oklab, var(--brand-primary) 88%, var(--brand-dark));
+  --brand-secondary-hover: color-mix(in oklab, var(--brand-secondary) 88%, white);
+
+  --background: var(--brand-dark);
+  --foreground: oklch(0.98 0.004 296);
+  --surface: color-mix(in oklab, var(--brand-dark) 86%, white);
+  --surface-2: color-mix(in oklab, var(--brand-dark) 74%, var(--brand-primary));
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--surface);
+  --popover-foreground: var(--foreground);
+  --primary: var(--brand-secondary);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: color-mix(in oklab, var(--brand-dark) 72%, var(--brand-primary));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in oklab, var(--brand-dark) 78%, var(--brand-primary));
+  --muted-foreground: oklch(0.84 0.025 297);
+  --accent: var(--brand-primary);
+  --accent-foreground: var(--brand-dark);
   --destructive: oklch(0.62 0.2 20);
   --destructive-foreground: oklch(0.98 0.01 300);
-  --border: oklch(0.36 0.07 297 / 55%);
-  --input: oklch(0.36 0.07 297 / 65%);
-  --ring: oklch(0.7 0.16 302);
-  --violet-mid: oklch(0.52 0.18 298);
-  --lilac: oklch(0.82 0.09 305);
-  --glow: oklch(0.86 0.13 200);
-  --dim-explorar: oklch(0.75 0.13 215);
-  --dim-conectar: oklch(0.72 0.16 300);
-  --dim-descobrir: oklch(0.85 0.14 90);
-  --dim-transformar: oklch(0.72 0.17 20);
-  --paper: oklch(0.975 0.012 295);
-  --paper-foreground: oklch(0.24 0.07 294);
-  --paper-muted: oklch(0.51 0.045 294);
+  --border: color-mix(in oklab, var(--brand-primary) 45%, transparent);
+  --input: color-mix(in oklab, var(--brand-primary) 60%, transparent);
+  --ring: var(--brand-primary);
+  --violet-mid: var(--brand-secondary);
+  --lilac: color-mix(in oklab, var(--brand-primary) 60%, white);
+  --glow: var(--brand-primary);
+  --dim-explorar: color-mix(in oklab, var(--brand-primary) 74%, white);
+  --dim-conectar: var(--brand-primary);
+  --dim-descobrir: color-mix(in oklab, var(--brand-primary) 82%, var(--brand-dark));
+  --dim-transformar: var(--brand-secondary);
+  --paper: oklch(0.975 0.006 297);
+  --paper-foreground: var(--brand-dark);
+  --paper-muted: color-mix(in oklab, var(--brand-dark) 78%, white);
 }
 
 @layer base {
@@ -94,10 +104,12 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image:
-      radial-gradient(1100px 620px at 12% -8%, oklch(0.4 0.16 300 / 0.45), transparent 70%),
-      radial-gradient(900px 560px at 100% 8%, oklch(0.35 0.14 250 / 0.35), transparent 70%),
-      radial-gradient(800px 500px at 50% 108%, oklch(0.35 0.13 320 / 0.3), transparent 70%);
+    background-image: linear-gradient(
+      145deg,
+      color-mix(in oklab, var(--brand-dark) 94%, var(--brand-secondary)),
+      var(--brand-dark) 58%,
+      color-mix(in oklab, var(--brand-dark) 92%, var(--brand-primary))
+    );
     background-attachment: fixed;
   }
 
@@ -113,28 +125,28 @@
 @utility panel {
   background: linear-gradient(
     160deg,
-    oklch(0.26 0.062 296 / 0.85),
-    oklch(0.2 0.055 295 / 0.8)
+    color-mix(in oklab, var(--brand-dark) 78%, var(--brand-primary)),
+    color-mix(in oklab, var(--brand-dark) 94%, transparent)
   );
-  border: 1px solid oklch(0.45 0.08 300 / 0.35);
+  border: 1px solid color-mix(in oklab, var(--brand-primary) 36%, transparent);
   backdrop-filter: blur(14px);
   box-shadow:
-    0 1px 0 0 oklch(0.75 0.1 305 / 0.12) inset,
-    0 24px 60px -34px oklch(0.1 0.05 295 / 0.9);
+    0 1px 0 0 color-mix(in oklab, var(--brand-primary) 18%, transparent) inset,
+    0 24px 60px -34px color-mix(in oklab, var(--brand-dark) 90%, transparent);
 }
 
 @utility panel-glow {
   box-shadow:
-    0 0 0 1px oklch(0.7 0.14 302 / 0.35),
-    0 0 42px -8px oklch(0.65 0.18 300 / 0.45);
+    0 0 0 1px color-mix(in oklab, var(--brand-primary) 42%, transparent),
+    0 12px 36px -18px color-mix(in oklab, var(--brand-primary) 45%, transparent);
 }
 
 @utility text-gradient {
   background: linear-gradient(
     100deg,
     var(--lilac),
-    oklch(0.86 0.09 265),
-    var(--glow)
+    var(--brand-primary),
+    color-mix(in oklab, var(--brand-primary) 72%, white)
   );
   -webkit-background-clip: text;
   background-clip: text;

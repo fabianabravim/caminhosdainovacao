@@ -15,8 +15,8 @@ export function Progresso({
         className="h-full rounded-full transition-[width] duration-700 ease-out"
         style={{
           width: `${Math.min(100, Math.max(0, valor))}%`,
-          background: `linear-gradient(90deg, ${cor}, var(--glow))`,
-          boxShadow: `0 0 12px -2px ${cor}`,
+          background: `linear-gradient(90deg, ${cor}, var(--brand-primary))`,
+          boxShadow: `0 4px 12px -6px ${cor}`,
         }}
       />
     </div>
