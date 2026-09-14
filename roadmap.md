@@ -1,6 +1,7 @@
 # Roadmap — Caminhos da Inovação
 
 - [x] Identidade cromática oficial aplicada: #7F6AAF / #6B4FA0 / #463868
+- [x] Tipografia oficial Amsi Pro aplicada ao corpo, interface e destaques condensados
 - [x] Home institucional com mapa protagonista
 - [x] Geometria oficial do ES (GEOBASES/IDAF) em todas as telas de mapa
 - [x] Nomenclatura padronizada: 14 Núcleos Territoriais / 28 Conectores / 1 Rede Capixaba
