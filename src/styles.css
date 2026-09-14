@@ -2,6 +2,46 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Amsi Pro";
+  src: url("/fonts/amsi-pro/amsi-pro-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amsi Pro";
+  src: url("/fonts/amsi-pro/amsi-pro-semibold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amsi Pro";
+  src: url("/fonts/amsi-pro/amsi-pro-bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amsi Pro Condensed";
+  src: url("/fonts/amsi-pro/amsi-pro-condensed-semibold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amsi Pro Condensed";
+  src: url("/fonts/amsi-pro/amsi-pro-condensed-bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -45,8 +85,10 @@
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);
   --color-brand-dark: var(--brand-dark);
-  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Amsi Pro", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-brand-condensed: "Amsi Pro Condensed", "Arial Narrow", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-brand-condensed);
+  --font-sans: var(--font-brand);
 }
 
 :root {
@@ -118,7 +160,20 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
+  }
+
+  button,
+  label,
+  [role="tab"] {
+    font-family: var(--font-brand);
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: var(--font-brand);
   }
 }
 
