@@ -49,7 +49,7 @@ function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <header className="absolute inset-x-0 top-0 z-40 border-b border-border/50 bg-surface/80 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5 lg:h-[4.5rem] lg:[&_img]:h-[3.125rem]">
           <ChancelaInstitucional />
           <span aria-hidden="true" className="hidden h-5 w-px bg-border/50 md:block" />
           <a href="#inicio" className="hidden text-xs font-semibold tracking-[0.12em] text-foreground md:block">Caminhos da Inovação</a>
@@ -88,7 +88,7 @@ function Home() {
           <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-4 px-5 pb-14 pt-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
             <div className="order-1 max-w-xl">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-primary">Caminhos da Inovação</p>
-              <h1 className="mt-5 font-brand-condensed text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
+              <h1 className="mt-5 font-brand text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
             </div>
 
             <div className="relative order-2 mx-auto w-full max-w-[600px] lg:row-span-2 lg:ml-auto"
