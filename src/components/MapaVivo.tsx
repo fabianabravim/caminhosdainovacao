@@ -85,8 +85,8 @@ export function MapaVivo({
     >
       <defs>
         <linearGradient id="mapaFill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--brand-secondary)" stopOpacity="0.72" />
-          <stop offset="100%" stopColor="var(--brand-dark)" stopOpacity="0.94" />
+          <stop offset="0%" stopColor="var(--map-fill-start)" stopOpacity="0.96" />
+          <stop offset="100%" stopColor="var(--map-fill-end)" stopOpacity="0.96" />
         </linearGradient>
         <linearGradient id="linkGrad" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="var(--brand-primary)" />
@@ -107,8 +107,8 @@ export function MapaVivo({
         d={contornoES}
         fill="none"
         stroke="var(--brand-primary)"
-        strokeOpacity="0.22"
-        strokeWidth="6"
+        strokeOpacity="0.12"
+        strokeWidth="5"
         filter="url(#softGlow)"
         className="anim-mapa-fill"
       />
@@ -116,7 +116,7 @@ export function MapaVivo({
         d={contornoES}
         fill="none"
         stroke="var(--brand-primary)"
-        strokeOpacity="0.78"
+        strokeOpacity="0.7"
         strokeWidth="1.4"
         className="anim-mapa-traco"
       />
@@ -255,7 +255,7 @@ export function MapaVivo({
                 cy={n.y}
                 r={ativo ? r + 2 : r}
                 fill={meu ? "var(--brand-primary)" : ativo ? "var(--brand-secondary)" : "var(--brand-primary)"}
-                stroke="var(--brand-dark)"
+                stroke="var(--surface)"
                 strokeWidth="1.4"
                 className="pointer-events-none transition-all duration-200"
               />

@@ -87,8 +87,8 @@
   --color-brand-dark: var(--brand-dark);
   --font-brand: "Amsi Pro", Arial, ui-sans-serif, system-ui, sans-serif;
   --font-brand-condensed: "Amsi Pro Condensed", "Arial Narrow", Arial, ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-brand-condensed);
-  --font-sans: var(--font-brand);
+  --font-display: Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: Arial, ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -100,37 +100,39 @@
   --brand-primary-hover: color-mix(in oklab, var(--brand-primary) 88%, var(--brand-dark));
   --brand-secondary-hover: color-mix(in oklab, var(--brand-secondary) 88%, white);
 
-  --background: var(--brand-dark);
-  --foreground: oklch(0.98 0.004 296);
-  --surface: color-mix(in oklab, var(--brand-dark) 86%, white);
-  --surface-2: color-mix(in oklab, var(--brand-dark) 74%, var(--brand-primary));
+  --background: oklch(0.985 0.003 296);
+  --foreground: var(--brand-dark);
+  --surface: oklch(1 0 0);
+  --surface-2: color-mix(in oklab, var(--brand-primary) 8%, white);
   --card: var(--surface);
   --card-foreground: var(--foreground);
   --popover: var(--surface);
   --popover-foreground: var(--foreground);
   --primary: var(--brand-secondary);
   --primary-foreground: oklch(1 0 0);
-  --secondary: color-mix(in oklab, var(--brand-dark) 72%, var(--brand-primary));
-  --secondary-foreground: var(--foreground);
-  --muted: color-mix(in oklab, var(--brand-dark) 78%, var(--brand-primary));
-  --muted-foreground: oklch(0.84 0.025 297);
+  --secondary: color-mix(in oklab, var(--brand-primary) 10%, white);
+  --secondary-foreground: var(--brand-dark);
+  --muted: color-mix(in oklab, var(--brand-primary) 6%, white);
+  --muted-foreground: color-mix(in oklab, var(--brand-dark) 72%, white 28%);
   --accent: var(--brand-primary);
   --accent-foreground: var(--brand-dark);
   --destructive: oklch(0.62 0.2 20);
   --destructive-foreground: oklch(0.98 0.01 300);
-  --border: color-mix(in oklab, var(--brand-primary) 45%, transparent);
-  --input: color-mix(in oklab, var(--brand-primary) 60%, transparent);
+  --border: color-mix(in oklab, var(--brand-primary) 22%, white);
+  --input: color-mix(in oklab, var(--brand-primary) 30%, white);
   --ring: var(--brand-primary);
   --violet-mid: var(--brand-secondary);
-  --lilac: color-mix(in oklab, var(--brand-primary) 60%, white);
-  --glow: var(--brand-primary);
+  --lilac: var(--brand-secondary);
+  --glow: var(--brand-secondary);
   --dim-explorar: color-mix(in oklab, var(--brand-primary) 74%, white);
   --dim-conectar: var(--brand-primary);
   --dim-descobrir: color-mix(in oklab, var(--brand-primary) 82%, var(--brand-dark));
   --dim-transformar: var(--brand-secondary);
-  --paper: oklch(0.975 0.006 297);
+  --paper: oklch(1 0 0);
   --paper-foreground: var(--brand-dark);
-  --paper-muted: color-mix(in oklab, var(--brand-dark) 78%, white);
+  --paper-muted: color-mix(in oklab, var(--brand-dark) 72%, white 28%);
+  --map-fill-start: color-mix(in oklab, var(--brand-primary) 13%, white);
+  --map-fill-end: color-mix(in oklab, var(--brand-secondary) 24%, white);
 }
 
 @layer base {
@@ -146,20 +148,17 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    background-image: linear-gradient(
-      145deg,
-      color-mix(in oklab, var(--brand-dark) 94%, var(--brand-secondary)),
-      var(--brand-dark) 58%,
-      color-mix(in oklab, var(--brand-dark) 92%, var(--brand-primary))
-    );
-    background-attachment: fixed;
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: var(--font-brand-condensed);
+    letter-spacing: 0;
+  }
+
   h3,
   h4 {
-    font-family: var(--font-display);
+    font-family: var(--font-sans);
     letter-spacing: 0;
   }
 
@@ -178,30 +177,30 @@
 }
 
 @utility panel {
-  background: linear-gradient(
-    160deg,
-    color-mix(in oklab, var(--brand-dark) 78%, var(--brand-primary)),
-    color-mix(in oklab, var(--brand-dark) 94%, transparent)
-  );
-  border: 1px solid color-mix(in oklab, var(--brand-primary) 36%, transparent);
-  backdrop-filter: blur(14px);
+  background: color-mix(in oklab, var(--surface) 97%, var(--brand-primary));
+  border: 1px solid color-mix(in oklab, var(--brand-primary) 18%, white);
   box-shadow:
-    0 1px 0 0 color-mix(in oklab, var(--brand-primary) 18%, transparent) inset,
-    0 24px 60px -34px color-mix(in oklab, var(--brand-dark) 90%, transparent);
+    0 1px 2px color-mix(in oklab, var(--brand-dark) 5%, transparent),
+    0 12px 32px -24px color-mix(in oklab, var(--brand-dark) 24%, transparent);
 }
 
 @utility panel-glow {
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--brand-primary) 42%, transparent),
-    0 12px 36px -18px color-mix(in oklab, var(--brand-primary) 45%, transparent);
+    0 0 0 1px color-mix(in oklab, var(--brand-primary) 24%, transparent),
+    0 12px 28px -20px color-mix(in oklab, var(--brand-secondary) 30%, transparent);
+}
+
+@utility institutional-dark {
+  background: var(--brand-dark);
+  color: var(--primary-foreground);
 }
 
 @utility text-gradient {
   background: linear-gradient(
     100deg,
-    var(--lilac),
-    var(--brand-primary),
-    color-mix(in oklab, var(--brand-primary) 72%, white)
+    var(--brand-dark),
+    var(--brand-secondary),
+    var(--brand-primary)
   );
   -webkit-background-clip: text;
   background-clip: text;

@@ -38,7 +38,7 @@ export function ProgressoNucleo() {
       <div className="mt-4 grid grid-cols-2 gap-2">
         {indicadoresTerritoriais.map((i) => (
           <div key={i.id} className="min-w-0 rounded-xl border border-border/60 bg-surface/60 px-3 py-2.5">
-            <p className="font-display text-xl font-semibold leading-none">{i.valor}</p>
+            <p className="text-xl font-semibold leading-none">{i.valor}</p>
             <p className="mt-1 break-words text-[0.68rem] uppercase tracking-wide text-muted-foreground">
               <span aria-hidden>{i.icone}</span> {i.rotulo}
             </p>

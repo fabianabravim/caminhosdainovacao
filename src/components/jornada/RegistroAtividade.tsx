@@ -44,7 +44,7 @@ export function BotaoRegistrarAtividade({
     <button
       type="button"
       onClick={() => abrir()}
-      className={`tap inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full px-4 py-2.5 font-display text-sm font-semibold ${
+      className={`tap inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold ${
         variante === "solido"
           ? "panel-glow bg-primary text-primary-foreground"
           : "border border-border/70 bg-surface/60 text-foreground"
@@ -64,7 +64,7 @@ export function AcaoFlutuanteAtividade() {
       type="button"
       onClick={() => abrir()}
       aria-label="Registrar atividade"
-      className="tap panel-glow fixed right-4 z-40 inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-4 py-3 font-display text-sm font-semibold text-primary-foreground shadow-lg lg:hidden"
+      className="tap panel-glow fixed right-4 z-40 inline-flex min-h-12 items-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg lg:hidden"
       style={{ bottom: "calc(5.75rem + env(safe-area-inset-bottom))" }}
     >
       <Plus className="h-4 w-4" strokeWidth={2.6} />
@@ -305,8 +305,8 @@ function FeedbackRegistro({
 
   return (
     <div className="mt-4 space-y-4">
-      <div className="rounded-2xl border border-emerald-300/30 bg-emerald-400/10 p-4">
-        <p className="flex items-center gap-2 font-display text-sm font-semibold text-emerald-200">
+      <div className="rounded-2xl border border-emerald-400/30 bg-emerald-50 p-4">
+        <p className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
           <Check className="h-4 w-4" /> ATIVIDADE REGISTRADA
         </p>
         <p className="mt-2 text-sm font-semibold">
@@ -340,7 +340,7 @@ function FeedbackRegistro({
       <div className="rounded-2xl border border-border/60 bg-surface/60 p-3.5 text-[0.74rem] text-muted-foreground">
         <p>
           Status:{" "}
-          <span className={emValidacao ? "font-semibold text-glow" : "font-semibold text-emerald-200"}>
+          <span className={emValidacao ? "font-semibold text-glow" : "font-semibold text-emerald-700"}>
             {emValidacao ? "Em validação" : "Aprovada"}
           </span>
         </p>
@@ -354,7 +354,7 @@ function FeedbackRegistro({
       <button
         type="button"
         onClick={onClose}
-        className="tap w-full rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 font-display text-sm font-semibold"
+        className="tap w-full rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 text-sm font-semibold"
       >
         Fechar
       </button>

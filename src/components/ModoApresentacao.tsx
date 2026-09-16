@@ -126,7 +126,7 @@ export function ModoApresentacao({ onSair }: { onSair: () => void }) {
       >
         <div key={`${ciclo}-${etapa}`} className="animate-fade-in">
           {legenda.titulo ? (
-            <h2 className="font-display text-4xl font-semibold leading-tight text-gradient sm:text-6xl">
+            <h2 className="font-brand-condensed text-4xl font-semibold leading-tight text-gradient sm:text-6xl">
               {legenda.titulo}
             </h2>
           ) : null}

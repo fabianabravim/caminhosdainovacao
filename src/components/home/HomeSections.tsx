@@ -47,7 +47,7 @@ export function HomeSections() {
           <p className="text-xs font-semibold uppercase tracking-[0.26em] text-violet">Inovação</p>
           <div className="mt-5 grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
-              <h2 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">O que é inovação?</h2>
+              <h2 className="font-brand-condensed text-4xl font-semibold leading-tight sm:text-5xl">O que é inovação?</h2>
               <p className="mt-6 max-w-lg text-xl leading-relaxed text-paper-muted">
                 Inovação é transformar conhecimento, ideias e necessidades em novas possibilidades.
               </p>
@@ -87,7 +87,7 @@ export function HomeSections() {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-glow">Ecossistema capixaba</p>
-            <h2 className="mt-5 font-display text-4xl font-semibold leading-tight sm:text-5xl">Onde a inovação acontece?</h2>
+            <h2 className="mt-5 font-brand-condensed text-4xl font-semibold leading-tight sm:text-5xl">Onde a inovação acontece?</h2>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
               A inovação não acontece de forma isolada. Ela surge quando diferentes atores compartilham conhecimento, identificam oportunidades e constroem soluções juntos.
             </p>
@@ -110,7 +110,7 @@ export function HomeSections() {
         <div className="mx-auto max-w-7xl px-5 py-20 sm:py-28">
           <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.26em] text-violet">Caminhos da Inovação</p>
-            <h2 className="mt-5 font-display text-4xl font-semibold leading-tight sm:text-5xl">
+            <h2 className="mt-5 font-brand-condensed text-4xl font-semibold leading-tight sm:text-5xl">
               Uma jornada para revelar, conectar e fortalecer a inovação capixaba.
             </h2>
           </div>
@@ -162,7 +162,7 @@ export function HomeSections() {
         </div>
         <div className="pointer-events-none relative mx-auto max-w-7xl px-5 pb-52 pt-24 sm:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-glow">Sua jornada começa aqui</p>
-          <h2 className="mt-5 max-w-2xl font-display text-4xl font-semibold leading-tight sm:text-6xl">Cada missão revela uma nova parte do ecossistema capixaba.</h2>
+          <h2 className="mt-5 max-w-2xl font-brand-condensed text-4xl font-semibold leading-tight sm:text-6xl">Cada missão revela uma nova parte do ecossistema capixaba.</h2>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">Entre na Jornada da Inovação Capixaba e ajude a revelar, conectar e fortalecer o ecossistema de inovação do seu território.</p>
         </div>
       </section>

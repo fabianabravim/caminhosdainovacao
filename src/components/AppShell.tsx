@@ -29,13 +29,13 @@ export function AppShell({
   return (
     <div className={jornadaResponsiva ? "min-h-screen min-w-0 overflow-x-clip pb-24" : "min-h-screen pb-24"}>
       <Celebracao />
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 px-4 pb-3 pt-4 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-border/60 bg-surface/90 px-4 pb-3 pt-4 backdrop-blur-xl">
         <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
           <div className="min-w-0">
             <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-lilac/80">
               Caminhos da Inovação
             </p>
-            <h1 className={`font-display text-xl font-semibold ${jornadaResponsiva ? "text-balance leading-tight" : "truncate"}`}>
+            <h1 className={`font-brand-condensed text-xl font-semibold ${jornadaResponsiva ? "text-balance leading-tight" : "truncate"}`}>
               {titulo}
             </h1>
             {subtitulo ? (

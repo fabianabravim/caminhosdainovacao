@@ -11,21 +11,21 @@ const itens = [
 
 export function BottomNav({ compacta = false }: { compacta?: boolean }) {
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-background/85 backdrop-blur-xl">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-surface/90 shadow-[0_-8px_24px_-20px_color-mix(in_oklab,var(--brand-dark)_28%,transparent)] backdrop-blur-xl">
       <ul className="mx-auto grid max-w-3xl grid-cols-5">
         {itens.map(({ to, label, Icon }) => (
           <li key={to}>
             <Link
               to={to}
-              className={`tap flex min-w-0 flex-col items-center gap-1 px-1 py-2.5 font-medium text-muted-foreground data-[status=active]:text-foreground ${compacta ? "text-[0.58rem] min-[390px]:text-[0.64rem] sm:text-[0.68rem]" : "text-[0.68rem]"}`}
-              activeProps={{ className: "text-foreground" }}
+              className={`tap flex min-w-0 flex-col items-center gap-1 px-1 py-2.5 font-medium text-muted-foreground data-[status=active]:text-primary ${compacta ? "text-[0.58rem] min-[390px]:text-[0.64rem] sm:text-[0.68rem]" : "text-[0.68rem]"}`}
+              activeProps={{ className: "text-primary" }}
             >
               {({ isActive }) => (
                 <>
                   <span
                     className={
                       isActive
-                        ? "panel-glow rounded-full bg-primary/25 p-1.5 text-lilac"
+                        ? "rounded-full bg-primary/10 p-1.5 text-primary"
                         : "rounded-full p-1.5"
                     }
                   >

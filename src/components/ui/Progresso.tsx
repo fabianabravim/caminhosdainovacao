@@ -32,7 +32,7 @@ export function Metrica({
 }) {
   return (
     <div className="min-w-0 rounded-xl border border-border/60 bg-surface/60 px-3 py-2.5 last:col-span-2 sm:last:col-span-1">
-      <p className="break-words font-display text-xl font-semibold leading-none">{valor}</p>
+      <p className="break-words text-xl font-semibold leading-none">{valor}</p>
       <p className="mt-1 break-words text-[0.7rem] uppercase tracking-wide text-muted-foreground">{label}</p>
     </div>
   );
