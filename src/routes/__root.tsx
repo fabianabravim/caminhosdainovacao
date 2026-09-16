@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Plataforma de inteligência territorial gamificada do IJSN e do Governo do Espírito Santo.",
       },
       { name: "author", content: "Instituto Jones dos Santos Neves (IJSN)" },
-      { name: "theme-color", content: "#463868" },
+      { name: "theme-color", content: "#FAFAFC" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -112,7 +112,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>

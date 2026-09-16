@@ -151,7 +151,11 @@
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: var(--font-brand-condensed);
+    letter-spacing: 0;
+  }
+
   h3,
   h4 {
     font-family: var(--font-sans);
@@ -184,6 +188,11 @@
   box-shadow:
     0 0 0 1px color-mix(in oklab, var(--brand-primary) 24%, transparent),
     0 12px 28px -20px color-mix(in oklab, var(--brand-secondary) 30%, transparent);
+}
+
+@utility institutional-dark {
+  background: var(--brand-dark);
+  color: var(--primary-foreground);
 }
 
 @utility text-gradient {
