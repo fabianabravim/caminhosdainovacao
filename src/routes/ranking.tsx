@@ -43,7 +43,7 @@ function Ranking() {
             onClick={() => setFiltro(f.id)}
             className={`tap shrink-0 rounded-full border px-3.5 py-2 text-xs font-medium ${
               filtro === f.id
-                ? "panel-glow border-transparent bg-primary/40 text-foreground"
+                ? "border-primary/30 bg-primary/10 text-primary"
                 : "border-border/70 bg-surface/60 text-muted-foreground"
             }`}
           >
@@ -75,7 +75,7 @@ function Ranking() {
           return (
             <div
               key={item.nucleoId}
-              className={`px-4 py-3 ${meu ? "bg-primary/15" : ""} ${
+              className={`px-4 py-3 ${meu ? "bg-primary/8" : ""} ${
                 i === 0 ? "rounded-t-3xl" : ""
               }`}
             >

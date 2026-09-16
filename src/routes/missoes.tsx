@@ -76,8 +76,7 @@ function Missoes() {
 
   return (
     <AppShell titulo="Missões do Território" subtitulo="Os 4 caminhos da jornada capixaba">
-      <section className="panel panel-glow relative overflow-hidden rounded-3xl p-5">
-        <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-glow/15 blur-2xl" />
+      <section className="panel relative overflow-hidden rounded-3xl border-primary/20 p-5">
         <p className="text-[0.62rem] uppercase tracking-[0.24em] text-glow">Desafio do mês</p>
         <h2 className="mt-1 font-display text-2xl font-semibold text-gradient">
           {desafioDoMes.titulo}
@@ -103,7 +102,7 @@ function Missoes() {
               onClick={() => setFiltro(d.id as DimensaoId | "todas")}
               className={`tap shrink-0 rounded-full border px-3.5 py-2 text-xs font-medium ${
                 ativo
-                  ? "panel-glow border-transparent bg-primary/40 text-foreground"
+                  ? "border-primary/30 bg-primary/10 text-primary"
                   : "border-border/70 bg-surface/60 text-muted-foreground"
               }`}
             >
@@ -127,7 +126,7 @@ function Missoes() {
                   +{m.pontos} pts
                 </span>
               </div>
-              <h3 className="mt-2 font-display text-base font-semibold">{m.titulo}</h3>
+              <h3 className="mt-2 text-base font-semibold">{m.titulo}</h3>
               <p className="mt-1 text-[0.75rem] leading-relaxed text-muted-foreground">
                 {m.descricao}
               </p>
@@ -167,7 +166,7 @@ function Missoes() {
       </section>
 
       <section className="mt-6">
-        <h2 className="font-display text-base font-semibold">Missões colaborativas</h2>
+        <h2 className="text-base font-semibold">Missões colaborativas</h2>
         <p className="mt-1 text-xs text-muted-foreground">
           Cada colaboração acende uma conexão luminosa entre territórios no Mapa Vivo.
         </p>
@@ -186,7 +185,7 @@ function Missoes() {
                   </Chip>
                   <span className="ml-auto text-xs font-semibold text-glow">+{mc.pontos} pts</span>
                 </div>
-                <h3 className="mt-2 font-display text-base font-semibold">{mc.titulo}</h3>
+                <h3 className="mt-2 text-base font-semibold">{mc.titulo}</h3>
                 <p className="mt-1 text-[0.75rem] leading-relaxed text-muted-foreground">
                   {mc.descricao}
                 </p>

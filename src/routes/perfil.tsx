@@ -38,13 +38,13 @@ function Perfil() {
 
   return (
     <AppShell titulo="Núcleo Serra" subtitulo="Região Metropolitana · Espírito Santo">
-      <section className="panel panel-glow rounded-3xl p-5">
+      <section className="panel rounded-3xl border-primary/20 p-5">
         <div className="flex items-center gap-3">
-          <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-primary/35 font-display text-lg font-bold">
+          <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-primary/20 bg-primary/10 text-lg font-semibold text-primary">
             SE
           </span>
           <div className="min-w-0">
-            <h2 className="font-display text-xl font-semibold">Núcleo Regional Serra</h2>
+            <h2 className="text-xl font-semibold">Núcleo Regional Serra</h2>
             <p className="text-xs text-muted-foreground">{nucleo.destaque}</p>
           </div>
         </div>
@@ -69,16 +69,16 @@ function Perfil() {
       </section>
 
       <section className="mt-5">
-        <h2 className="mb-3 font-display text-base font-semibold">Conectores do núcleo</h2>
+        <h2 className="mb-3 text-base font-semibold">Conectores do núcleo</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           {conectores.map((c) => (
             <div key={c.nome} className="panel rounded-2xl p-4">
               <div className="flex items-center gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/30 text-sm font-bold">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-primary/20 bg-primary/10 text-sm font-semibold text-primary">
                   {c.iniciais}
                 </span>
                 <div className="min-w-0">
-                  <p className="truncate font-display text-sm font-semibold">{c.nome}</p>
+                  <p className="truncate text-sm font-semibold">{c.nome}</p>
                   <p className="text-[0.7rem] text-muted-foreground">{c.papel}</p>
                 </div>
               </div>
@@ -89,7 +89,7 @@ function Perfil() {
       </section>
 
       <section className="mt-5">
-        <h2 className="mb-3 font-display text-base font-semibold">Atividades recentes</h2>
+        <h2 className="mb-3 text-base font-semibold">Atividades recentes</h2>
         <ul className="panel divide-y divide-border/60 rounded-2xl">
           {atividades.map((a) => {
             const d = dimensaoMap[a.dimensao];
