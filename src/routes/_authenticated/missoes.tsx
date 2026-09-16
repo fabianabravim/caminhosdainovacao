@@ -26,7 +26,7 @@ const statusStyle: Record<StatusProgressoMissao, string> = {
   concluida: "border-emerald-400/40 bg-emerald-50 text-emerald-700",
 };
 
-export const Route = createFileRoute("/missoes")({
+export const Route = createFileRoute("/_authenticated/missoes")({
   head: () => ({
     meta: [
       { title: "Missões do Território — Caminhos da Inovação" },

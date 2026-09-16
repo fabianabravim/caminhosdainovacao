@@ -15,12 +15,12 @@ import { Route as ConquistasRouteImport } from './routes/conquistas'
 import { Route as DescobertasRouteImport } from './routes/descobertas'
 import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as InteligenciaRouteImport } from './routes/inteligencia'
-import { Route as MapaRouteImport } from './routes/mapa'
-import { Route as MissoesRouteImport } from './routes/missoes'
-import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as RankingRouteImport } from './routes/ranking'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedJornadaRouteImport } from './routes/_authenticated/jornada'
+import { Route as AuthenticatedMapaRouteImport } from './routes/_authenticated/mapa'
+import { Route as AuthenticatedMissoesRouteImport } from './routes/_authenticated/missoes'
+import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedRelatoriosRouteImport } from './routes/_authenticated/relatorios'
 
 const IndexRoute = IndexRouteImport.update({
@@ -52,21 +52,6 @@ const InteligenciaRoute = InteligenciaRouteImport.update({
   path: '/inteligencia',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MapaRoute = MapaRouteImport.update({
-  id: '/mapa',
-  path: '/mapa',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MissoesRoute = MissoesRouteImport.update({
-  id: '/missoes',
-  path: '/missoes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PerfilRoute = PerfilRouteImport.update({
-  id: '/perfil',
-  path: '/perfil',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RankingRoute = RankingRouteImport.update({
   id: '/ranking',
   path: '/ranking',
@@ -82,6 +67,21 @@ const AuthenticatedJornadaRoute = AuthenticatedJornadaRouteImport.update({
   path: '/jornada',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMapaRoute = AuthenticatedMapaRouteImport.update({
+  id: '/mapa',
+  path: '/mapa',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMissoesRoute = AuthenticatedMissoesRouteImport.update({
+  id: '/missoes',
+  path: '/missoes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedRelatoriosRoute = AuthenticatedRelatoriosRouteImport.update({
   id: '/relatorios',
   path: '/relatorios',
@@ -94,12 +94,12 @@ export interface FileRoutesByFullPath {
   '/descobertas': typeof DescobertasRoute
   '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
-  '/mapa': typeof MapaRoute
-  '/missoes': typeof MissoesRoute
-  '/perfil': typeof PerfilRoute
   '/ranking': typeof RankingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/jornada': typeof AuthenticatedJornadaRoute
+  '/mapa': typeof AuthenticatedMapaRoute
+  '/missoes': typeof AuthenticatedMissoesRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
 }
 export interface FileRoutesByTo {
@@ -108,12 +108,12 @@ export interface FileRoutesByTo {
   '/descobertas': typeof DescobertasRoute
   '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
-  '/mapa': typeof MapaRoute
-  '/missoes': typeof MissoesRoute
-  '/perfil': typeof PerfilRoute
   '/ranking': typeof RankingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/jornada': typeof AuthenticatedJornadaRoute
+  '/mapa': typeof AuthenticatedMapaRoute
+  '/missoes': typeof AuthenticatedMissoesRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
 }
 export interface FileRoutesById {
@@ -124,12 +124,12 @@ export interface FileRoutesById {
   '/descobertas': typeof DescobertasRoute
   '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
-  '/mapa': typeof MapaRoute
-  '/missoes': typeof MissoesRoute
-  '/perfil': typeof PerfilRoute
   '/ranking': typeof RankingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/jornada': typeof AuthenticatedJornadaRoute
+  '/_authenticated/mapa': typeof AuthenticatedMapaRoute
+  '/_authenticated/missoes': typeof AuthenticatedMissoesRoute
+  '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/_authenticated/relatorios': typeof AuthenticatedRelatoriosRoute
 }
 export interface FileRouteTypes {
@@ -140,12 +140,12 @@ export interface FileRouteTypes {
     | '/descobertas'
     | '/entrar'
     | '/inteligencia'
-    | '/mapa'
-    | '/missoes'
-    | '/perfil'
     | '/ranking'
     | '/reset-password'
     | '/jornada'
+    | '/mapa'
+    | '/missoes'
+    | '/perfil'
     | '/relatorios'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -154,12 +154,12 @@ export interface FileRouteTypes {
     | '/descobertas'
     | '/entrar'
     | '/inteligencia'
-    | '/mapa'
-    | '/missoes'
-    | '/perfil'
     | '/ranking'
     | '/reset-password'
     | '/jornada'
+    | '/mapa'
+    | '/missoes'
+    | '/perfil'
     | '/relatorios'
   id:
     | '__root__'
@@ -169,12 +169,12 @@ export interface FileRouteTypes {
     | '/descobertas'
     | '/entrar'
     | '/inteligencia'
-    | '/mapa'
-    | '/missoes'
-    | '/perfil'
     | '/ranking'
     | '/reset-password'
     | '/_authenticated/jornada'
+    | '/_authenticated/mapa'
+    | '/_authenticated/missoes'
+    | '/_authenticated/perfil'
     | '/_authenticated/relatorios'
   fileRoutesById: FileRoutesById
 }
@@ -185,9 +185,6 @@ export interface RootRouteChildren {
   DescobertasRoute: typeof DescobertasRoute
   EntrarRoute: typeof EntrarRoute
   InteligenciaRoute: typeof InteligenciaRoute
-  MapaRoute: typeof MapaRoute
-  MissoesRoute: typeof MissoesRoute
-  PerfilRoute: typeof PerfilRoute
   RankingRoute: typeof RankingRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
 }
@@ -236,27 +233,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InteligenciaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mapa': {
-      id: '/mapa'
-      path: '/mapa'
-      fullPath: '/mapa'
-      preLoaderRoute: typeof MapaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/missoes': {
-      id: '/missoes'
-      path: '/missoes'
-      fullPath: '/missoes'
-      preLoaderRoute: typeof MissoesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/perfil': {
-      id: '/perfil'
-      path: '/perfil'
-      fullPath: '/perfil'
-      preLoaderRoute: typeof PerfilRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/ranking': {
       id: '/ranking'
       path: '/ranking'
@@ -278,6 +254,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedJornadaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/mapa': {
+      id: '/_authenticated/mapa'
+      path: '/mapa'
+      fullPath: '/mapa'
+      preLoaderRoute: typeof AuthenticatedMapaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/missoes': {
+      id: '/_authenticated/missoes'
+      path: '/missoes'
+      fullPath: '/missoes'
+      preLoaderRoute: typeof AuthenticatedMissoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/perfil': {
+      id: '/_authenticated/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/relatorios': {
       id: '/_authenticated/relatorios'
       path: '/relatorios'
@@ -290,11 +287,17 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedJornadaRoute: typeof AuthenticatedJornadaRoute
+  AuthenticatedMapaRoute: typeof AuthenticatedMapaRoute
+  AuthenticatedMissoesRoute: typeof AuthenticatedMissoesRoute
+  AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
   AuthenticatedRelatoriosRoute: typeof AuthenticatedRelatoriosRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedJornadaRoute: AuthenticatedJornadaRoute,
+  AuthenticatedMapaRoute: AuthenticatedMapaRoute,
+  AuthenticatedMissoesRoute: AuthenticatedMissoesRoute,
+  AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
   AuthenticatedRelatoriosRoute: AuthenticatedRelatoriosRoute,
 }
 
@@ -308,9 +311,6 @@ const rootRouteChildren: RootRouteChildren = {
   DescobertasRoute: DescobertasRoute,
   EntrarRoute: EntrarRoute,
   InteligenciaRoute: InteligenciaRoute,
-  MapaRoute: MapaRoute,
-  MissoesRoute: MissoesRoute,
-  PerfilRoute: PerfilRoute,
   RankingRoute: RankingRoute,
   ResetPasswordRoute: ResetPasswordRoute,
 }

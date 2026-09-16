@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { MapaMunicipalES } from "@/components/MapaMunicipalES";
 
-export const Route = createFileRoute("/mapa")({
+export const Route = createFileRoute("/_authenticated/mapa")({
   head: () => ({
     meta: [
       { title: "Territórios da Inovação — Espírito Santo" },
