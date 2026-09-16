@@ -64,3 +64,11 @@
 - [x] Aplicar superfícies claras e uso estratégico das cores oficiais
 - [x] Restringir Amsi Pro Condensed aos títulos principais e destaques numéricos
 - [x] Validar Home e Jornada em desktop e mobile sem alterar conteúdo ou funcionamento
+
+## Autenticação testável dos Conectores
+- [ ] Ativar autenticação e persistência de dados
+- [ ] Criar perfis autorizados e vínculos automáticos com Núcleos
+- [ ] Implementar Primeiro Acesso, Entrar, sessão e Sair
+- [ ] Proteger /jornada e carregar identidade do Conector
+- [ ] Separar atividades individuais do progresso coletivo
+- [ ] Criar e validar usuários demonstrativos
