@@ -52,3 +52,9 @@
 - [x] Derivar progresso, percentual e status exclusivamente dos registros vinculados
 - [x] Substituir avanço manual por formulário de atividade/evidência
 - [x] Validar envio, estado Em validação e ausência de avanço manual
+
+## Reorganização da Jornada
+- [ ] Reorganizar /jornada nas cinco áreas solicitadas
+- [ ] Aprimorar visão geral, atividades, missões, relatórios e Meu Núcleo
+- [ ] Corrigir terminologia na área autenticada
+- [ ] Validar 360px a 1440px e fluxos principais
