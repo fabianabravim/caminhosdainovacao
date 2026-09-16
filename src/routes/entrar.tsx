@@ -32,6 +32,16 @@ function caminhoSeguro(retorno?: string) {
   return retorno;
 }
 
+function mensagemErroPrimeiroAcesso(error: { code: unknown; message: string }) {
+  if (error.code === "weak_password" || error.message?.toLowerCase().includes("weak")) {
+    return "Esta senha é muito comum e foi bloqueada por segurança. Crie outra senha, combinando letras maiúsculas e minúsculas, números e símbolos.";
+  }
+  if (error.code === "user_already_exists") {
+    return "Este e-mail já possui acesso. Volte e use a opção Entrar na jornada.";
+  }
+  return "Não foi possível concluir o primeiro acesso. Verifique os dados informados.";
+}
+
 function Entrar() {
   const navigate = useNavigate({ from: "/entrar" });
   const { retorno } = Route.useSearch();
@@ -92,7 +102,7 @@ function Entrar() {
         password: senha,
         options: { emailRedirectTo: `${window.location.origin}/entrar` },
       });
-      if (error) throw new Error("Não foi possível concluir o primeiro acesso. Verifique os dados informados.");
+      if (error) throw new Error(mensagemErroPrimeiroAcesso(error));
       if (!data.session) {
         setMensagem("Confira seu e-mail e confirme o acesso. Depois, volte para entrar na Jornada.");
         return;
