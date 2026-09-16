@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
 import { ArrowRight, Compass, FileUp, Handshake, Lightbulb, LogOut, Rocket, User } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { MapaVivo } from "@/components/MapaVivo";
@@ -20,8 +21,9 @@ import { MeuNucleoProvider } from "@/context/MeuNucleoContext";
 import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { dimensoes } from "@/data/dimensoes";
 import { nucleoMap } from "@/data/nucleos";
+import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/jornada")({
+export const Route = createFileRoute("/_authenticated/jornada")({
   head: () => ({
     meta: [
       { title: "Minha Jornada — Caminhos da Inovação" },
@@ -74,6 +76,8 @@ function JornadaPage() {
 function JornadaConteudo() {
   const [aba, setAba] = useState<AbaId>("visao");
   const { participante, nucleoId } = useMeuNucleo();
+  const navigate = useNavigate({ from: "/jornada" });
+  const queryClient = useQueryClient();
   const nucleo = nucleoMap[nucleoId]!;
   const abaAtual = abas.find((a) => a.id === aba)!;
 
@@ -102,13 +106,21 @@ function JornadaConteudo() {
           >
             <User className="h-4 w-4" />
           </Link>
-          <Link
-            to="/entrar"
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
             aria-label="Sair"
             className="tap rounded-full border border-border/70 bg-surface/60 p-2.5 text-muted-foreground transition-colors hover:text-foreground"
+            onClick={async () => {
+              await queryClient.cancelQueries();
+              queryClient.clear();
+              await supabase.auth.signOut();
+              await navigate({ to: "/entrar", replace: true });
+            }}
           >
             <LogOut className="h-4 w-4" />
-          </Link>
+          </Button>
         </div>
       </section>
 

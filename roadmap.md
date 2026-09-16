@@ -66,9 +66,10 @@
 - [x] Validar Home e Jornada em desktop e mobile sem alterar conteúdo ou funcionamento
 
 ## Autenticação testável dos Conectores
-- [ ] Ativar autenticação e persistência de dados
-- [ ] Criar perfis autorizados e vínculos automáticos com Núcleos
-- [ ] Implementar Primeiro Acesso, Entrar, sessão e Sair
-- [ ] Proteger /jornada e carregar identidade do Conector
-- [ ] Separar atividades individuais do progresso coletivo
-- [ ] Criar e validar usuários demonstrativos
+- [x] Ativar autenticação e persistência de dados
+- [x] Criar perfis autorizados e vínculos automáticos com Núcleos
+- [x] Implementar Primeiro Acesso, Entrar, sessão e Sair
+- [x] Proteger /jornada e carregar identidade do Conector
+- [x] Separar atividades individuais do progresso coletivo
+- [x] Criar acessos demonstrativos autorizados para dois Conectores da Serra e uma Coordenação
+- [ ] Ativar e validar os usuários demonstrativos (aguarda e-mails reais capazes de receber a confirmação)

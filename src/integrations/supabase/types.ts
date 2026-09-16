@@ -14,7 +14,228 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      atividades_conectores: {
+        Row: {
+          atores: string
+          conector_id: string
+          created_at: string
+          data: string
+          demonstrativo: boolean
+          descricao: string
+          evidencia_documento: string | null
+          evidencia_foto: string | null
+          evidencia_link: string | null
+          fonte_contribuicao: string | null
+          id: string
+          local: string
+          localizacao: string
+          missao_id: string | null
+          missoes_relacionadas: string[]
+          municipio: string
+          nucleo_id: string
+          observacoes: string
+          resultados: string
+          status: string
+          tipo_id: string
+          titulo: string
+          updated_at: string
+        }
+        Insert: {
+          atores?: string
+          conector_id: string
+          created_at?: string
+          data: string
+          demonstrativo?: boolean
+          descricao: string
+          evidencia_documento?: string | null
+          evidencia_foto?: string | null
+          evidencia_link?: string | null
+          fonte_contribuicao?: string | null
+          id?: string
+          local?: string
+          localizacao?: string
+          missao_id?: string | null
+          missoes_relacionadas?: string[]
+          municipio?: string
+          nucleo_id: string
+          observacoes?: string
+          resultados?: string
+          status?: string
+          tipo_id: string
+          titulo: string
+          updated_at?: string
+        }
+        Update: {
+          atores?: string
+          conector_id?: string
+          created_at?: string
+          data?: string
+          demonstrativo?: boolean
+          descricao?: string
+          evidencia_documento?: string | null
+          evidencia_foto?: string | null
+          evidencia_link?: string | null
+          fonte_contribuicao?: string | null
+          id?: string
+          local?: string
+          localizacao?: string
+          missao_id?: string | null
+          missoes_relacionadas?: string[]
+          municipio?: string
+          nucleo_id?: string
+          observacoes?: string
+          resultados?: string
+          status?: string
+          tipo_id?: string
+          titulo?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "atividades_conectores_nucleo_id_fkey"
+            columns: ["nucleo_id"]
+            isOneToOne: false
+            referencedRelation: "nucleos_territoriais"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conectores_autorizados: {
+        Row: {
+          ativo: boolean
+          claimed_at: string | null
+          claimed_by: string | null
+          created_at: string
+          demonstrativo: boolean
+          email: string
+          id: string
+          nome: string
+          nucleo_id: string | null
+          role: Database["public"]["Enums"]["app_role"]
+          updated_at: string
+        }
+        Insert: {
+          ativo?: boolean
+          claimed_at?: string | null
+          claimed_by?: string | null
+          created_at?: string
+          demonstrativo?: boolean
+          email: string
+          id?: string
+          nome: string
+          nucleo_id?: string | null
+          role: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Update: {
+          ativo?: boolean
+          claimed_at?: string | null
+          claimed_by?: string | null
+          created_at?: string
+          demonstrativo?: boolean
+          email?: string
+          id?: string
+          nome?: string
+          nucleo_id?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conectores_autorizados_nucleo_id_fkey"
+            columns: ["nucleo_id"]
+            isOneToOne: false
+            referencedRelation: "nucleos_territoriais"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      nucleos_territoriais: {
+        Row: {
+          created_at: string
+          demonstrativo: boolean
+          id: string
+          nome: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          demonstrativo?: boolean
+          id: string
+          nome: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          demonstrativo?: boolean
+          id?: string
+          nome?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      perfis: {
+        Row: {
+          ativo: boolean
+          created_at: string
+          demonstrativo: boolean
+          email: string
+          nome: string
+          nucleo_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ativo?: boolean
+          created_at?: string
+          demonstrativo?: boolean
+          email: string
+          nome: string
+          nucleo_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ativo?: boolean
+          created_at?: string
+          demonstrativo?: boolean
+          email?: string
+          nome?: string
+          nucleo_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "perfis_nucleo_id_fkey"
+            columns: ["nucleo_id"]
+            isOneToOne: false
+            referencedRelation: "nucleos_territoriais"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +244,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role: "CONECTOR" | "COORDENACAO"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +371,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["CONECTOR", "COORDENACAO"],
+    },
   },
 } as const

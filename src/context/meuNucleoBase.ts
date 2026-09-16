@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import type { conectores } from "@/data/jornada";
 import type {
   AtividadeRegistrada,
   DadosAtividade,
@@ -7,6 +6,8 @@ import type {
   IndicadorConfig,
   MissaoTerritorialCalculada,
   RegistroJornada,
+  Conector,
+  PerfilConector,
 } from "@/types";
 
 /** Resultado devolvido ao registrar uma atividade. */
@@ -16,9 +17,10 @@ export interface ResultadoRegistro {
 }
 
 export interface MeuNucleoState {
+  perfil: PerfilConector;
   participante: { nome: string; papel: string; iniciais: string };
   nucleoId: string;
-  conectoresNucleo: typeof conectores;
+  conectoresNucleo: Conector[];
   atividades: AtividadeRegistrada[];
   registros: RegistroJornada[];
   missoes: MissaoTerritorialCalculada[];
@@ -34,7 +36,7 @@ export interface MeuNucleoState {
   indicadoresTerritoriais: (IndicadorConfig & { valor: number })[];
   indicadoresIndividuais: (IndicadorConfig & { valor: number })[];
   /** Registra a atividade e devolve o que ela poderá alimentar. */
-  registrarAtividade: (dados: DadosAtividade) => ResultadoRegistro;
+  registrarAtividade: (dados: DadosAtividade) => Promise<ResultadoRegistro>;
 }
 
 export const MeuNucleoContext = createContext<MeuNucleoState | null>(null);
