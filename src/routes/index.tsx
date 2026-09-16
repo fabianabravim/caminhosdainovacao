@@ -48,11 +48,11 @@ function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
-      <header className="absolute inset-x-0 top-0 z-40 border-b border-border/40 bg-background/65 backdrop-blur-xl">
+      <header className="absolute inset-x-0 top-0 z-40 border-b border-border/50 bg-surface/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5">
           <ChancelaInstitucional />
           <span aria-hidden="true" className="hidden h-5 w-px bg-border/50 md:block" />
-          <a href="#inicio" className="hidden font-brand-condensed text-xs font-semibold uppercase tracking-[0.2em] text-foreground md:block">Caminhos da Inovação</a>
+          <a href="#inicio" className="hidden text-xs font-semibold tracking-[0.12em] text-foreground md:block">Caminhos da Inovação</a>
           <nav aria-label="Navegação principal" className="ml-auto hidden items-center gap-6 lg:flex">
             <a href="#sobre" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Sobre</a>
             <a href="#inovacao" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Inovação</a>
@@ -87,7 +87,7 @@ function Home() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_45%,color-mix(in_oklab,var(--primary)_10%,transparent),transparent_38%)]" />
           <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-4 px-5 pb-14 pt-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
             <div className="order-1 max-w-xl">
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-lilac">Caminhos da Inovação</p>
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-primary">Caminhos da Inovação</p>
               <h1 className="mt-5 font-brand-condensed text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
             </div>
 
@@ -105,13 +105,13 @@ function Home() {
                 <p>A inovação acontece quando pessoas, ideias, conhecimento e territórios se conectam.</p>
                 <p>O Caminhos da Inovação percorre o Espírito Santo para revelar atores, iniciativas, vocações e oportunidades que fortalecem o ecossistema capixaba de inovação.</p>
               </div>
-              <div className="mt-7 grid grid-cols-2 gap-4 border-y border-border/60 py-5 sm:gap-7">
+              <div className="mt-7 grid grid-cols-2 gap-4 border-y border-border py-5 sm:gap-7">
                 <Stat valor="14" label="Núcleos Territoriais" /><Stat valor="28" label="Conectores" />
               </div>
               <p className="mt-5 max-w-lg text-sm text-lilac">Cada ponto é uma descoberta.<br />Cada conexão abre um novo caminho.</p>
               <div className="mt-7 flex flex-wrap gap-3">
-                <Button onClick={explorarMapa} size="lg" className="panel-glow h-12 rounded-md px-7 text-xs font-semibold uppercase tracking-[0.15em]">Explorar o mapa <ArrowDown aria-hidden="true" /></Button>
-                <Button asChild variant="outline" size="lg" className="h-12 rounded-md px-7 text-xs font-semibold uppercase tracking-[0.15em]"><a href="#sobre">Conheça o projeto</a></Button>
+                <Button onClick={explorarMapa} size="lg" className="h-12 rounded-md px-7 text-xs font-semibold tracking-[0.06em] shadow-lg shadow-primary/15">Explorar o mapa <ArrowDown aria-hidden="true" /></Button>
+                <Button asChild variant="outline" size="lg" className="h-12 rounded-md px-7 text-xs font-semibold tracking-[0.06em]"><a href="#sobre">Conheça o projeto</a></Button>
               </div>
             </div>
           </div>

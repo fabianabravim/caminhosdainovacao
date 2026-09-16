@@ -62,7 +62,7 @@ export function HomeSections() {
                   <span className="absolute left-5 top-6 grid h-8 w-8 place-items-center rounded-full border border-primary/30 bg-paper text-primary shadow-sm">
                     <Icon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <h3 className="text-sm font-semibold uppercase tracking-[0.1em]">{titulo}</h3>
+                  <h3 className="text-sm font-semibold">{titulo}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-paper-muted">{texto}</p>
                 </article>
               ))}
@@ -131,7 +131,7 @@ export function HomeSections() {
               <article key={dimensao.id} className="relative">
                 <span className="relative z-10 grid h-12 w-12 place-items-center rounded-full border border-primary/30 bg-paper text-lg shadow-sm">{dimensao.icone}</span>
                 <p className="mt-5 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-primary">0{index + 1}</p>
-                <h3 className="mt-2 text-lg font-semibold uppercase">{dimensao.nome}</h3>
+                 <h3 className="mt-2 text-lg font-semibold">{dimensao.nome}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-paper-muted">{dimensao.descricao}</p>
               </article>
             ))}
@@ -141,7 +141,7 @@ export function HomeSections() {
 
       <section className="relative overflow-hidden bg-background text-foreground">
         <div className="absolute inset-y-0 right-0 w-1/2">
-          <div className="h-full w-full opacity-30 transition-opacity hover:opacity-45 focus-within:opacity-45">
+           <div className="h-full w-full opacity-22 transition-opacity hover:opacity-38 focus-within:opacity-38">
             <MapaVivo
               conexoes={[]}
               selecionado={nucleoFinalSelecionado}
