@@ -133,7 +133,7 @@ export function MapaMunicipalES() {
         </div>
       </div>
 
-      <div className="relative mt-3 min-h-[36rem] overflow-hidden rounded-md border border-border/70 bg-surface/35 lg:min-h-[43rem]">
+      <div className="relative mt-3 min-h-[36rem] overflow-hidden rounded-lg border border-primary/15 bg-surface/60 shadow-xl shadow-primary/5 lg:min-h-[43rem]">
         <div className="pointer-events-none absolute inset-0 opacity-50 [background-image:linear-gradient(to_right,color-mix(in_oklab,var(--border)_30%,transparent)_1px,transparent_1px),linear-gradient(to_bottom,color-mix(in_oklab,var(--border)_30%,transparent)_1px,transparent_1px)] [background-size:42px_42px]" />
         <div className={cn("relative h-[36rem] w-full transition-opacity duration-500 lg:h-[43rem]", modo === "nucleos" && "opacity-35")}>
           <svg

@@ -86,7 +86,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Plataforma de inteligência territorial gamificada do IJSN e do Governo do Espírito Santo.",
       },
       { name: "author", content: "Instituto Jones dos Santos Neves (IJSN)" },
-      { name: "theme-color", content: "#FAFAFC" },
+      { name: "theme-color", content: "#463868" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import { Check, Plus, X } from "lucide-react";
+import { Camera, Check, FileText, Link as LinkIcon, MapPin, Plus, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { tipoAtividadeMap, tiposAtividade } from "@/data/atividades.config";
 import { useMeuNucleo, type ResultadoRegistro } from "@/context/meuNucleoBase";
 import { missaoTerritorialMap } from "@/data/missoes.config";
@@ -41,7 +42,7 @@ export function BotaoRegistrarAtividade({
 }) {
   const { abrir } = useRegistroAtividade();
   return (
-    <button
+    <Button
       type="button"
       onClick={() => abrir()}
       className={`tap inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold ${
@@ -52,7 +53,7 @@ export function BotaoRegistrarAtividade({
     >
       <Plus className="h-4 w-4" strokeWidth={2.4} />
       {rotulo}
-    </button>
+    </Button>
   );
 }
 
@@ -60,7 +61,7 @@ export function BotaoRegistrarAtividade({
 export function AcaoFlutuanteAtividade() {
   const { abrir } = useRegistroAtividade();
   return (
-    <button
+    <Button
       type="button"
       onClick={() => abrir()}
       aria-label="Registrar atividade"
@@ -69,12 +70,12 @@ export function AcaoFlutuanteAtividade() {
     >
       <Plus className="h-4 w-4" strokeWidth={2.6} />
       Registrar atividade
-    </button>
+    </Button>
   );
 }
 
 const campo =
-  "w-full rounded-xl border border-border/70 bg-surface/70 px-3.5 py-2.5 text-sm outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-glow/60";
+  "w-full rounded-md border border-border/80 bg-surface px-3.5 py-3 text-sm outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/10";
 const rotuloCls = "mb-1 block text-[0.68rem] font-medium uppercase tracking-wide text-muted-foreground";
 
 function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => void }) {
@@ -121,14 +122,14 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
 
   return (
     <div
-      className="fixed inset-0 z-50 flex min-w-0 items-end justify-center overflow-hidden bg-background/80 backdrop-blur-sm sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex min-w-0 items-end justify-center overflow-hidden bg-brand-dark/65 backdrop-blur-sm sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-label={novoRelatorio ? "Novo Relatório" : "Registrar atividade"}
       onClick={onClose}
     >
       <div
-        className="panel panel-glow max-h-[calc(100dvh-env(safe-area-inset-top))] w-full min-w-0 max-w-lg overflow-x-hidden overflow-y-auto rounded-t-3xl px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 sm:max-h-[92dvh] sm:rounded-3xl sm:p-5"
+        className="panel panel-glow max-h-[calc(100dvh-env(safe-area-inset-top))] w-full min-w-0 max-w-2xl overflow-x-hidden overflow-y-auto rounded-t-lg px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 sm:max-h-[92dvh] sm:rounded-lg sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-3">
@@ -145,14 +146,16 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
               </p>
             ) : null}
           </div>
-          <button
+           <Button
             type="button"
             onClick={onClose}
             aria-label="Fechar"
-            className="tap rounded-full border border-border/70 p-2 text-muted-foreground"
+             variant="outline"
+             size="icon"
+             className="tap rounded-full text-muted-foreground"
           >
             <X className="h-4 w-4" />
-          </button>
+           </Button>
         </div>
 
         {resultado ? (
@@ -235,29 +238,29 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
             <div>
               <span className={rotuloCls}>Evidências</span>
               <div className="space-y-2">
-                <label className="tap flex min-w-0 cursor-pointer items-center justify-center gap-2 break-words rounded-xl border border-dashed border-border/80 bg-surface/50 px-3.5 py-3 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
+                <label className="tap flex min-w-0 cursor-pointer items-center justify-center gap-2 break-words rounded-md border border-dashed border-primary/30 bg-primary/5 px-3.5 py-4 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
                   <input
                     type="file"
                     accept="image/*"
                     className="sr-only"
                     onChange={(e) => setFoto(e.target.files?.[0]?.name)}
                   />
-                  {foto ? `📷 ${foto}` : "📷 Anexar foto"}
+                   <Camera className="h-4 w-4 text-primary" /> {foto ? foto : "Anexar foto"}
                 </label>
-                <label className="tap flex min-w-0 cursor-pointer items-center justify-center gap-2 break-words rounded-xl border border-dashed border-border/80 bg-surface/50 px-3.5 py-3 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
+                <label className="tap flex min-w-0 cursor-pointer items-center justify-center gap-2 break-words rounded-md border border-dashed border-primary/30 bg-primary/5 px-3.5 py-4 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx"
                     className="sr-only"
                     onChange={(e) => setDocumento(e.target.files?.[0]?.name)}
                   />
-                  {documento ? `📎 ${documento}` : "📎 Anexar documento"}
+                   <FileText className="h-4 w-4 text-primary" /> {documento ? documento : "Anexar documento"}
                 </label>
                 <input
                   className={campo}
                   value={form.evidenciaLink}
                   onChange={set("evidenciaLink")}
-                  placeholder="🔗 Link (notícia, publicação, vídeo)"
+                   placeholder="Link de notícia, publicação ou vídeo"
                   aria-label="Link de evidência"
                 />
               </div>
@@ -270,25 +273,19 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
               <label className={rotuloCls} htmlFor="atv-localizacao">
                 Localização geográfica (opcional)
               </label>
-              <input
-                id="atv-localizacao"
-                className={campo}
-                value={form.localizacao}
-                onChange={set("localizacao")}
-                placeholder="Coordenadas ou ponto de referência"
-              />
+               <div className="relative"><MapPin className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-primary" /><input id="atv-localizacao" className={`${campo} pl-9`} value={form.localizacao} onChange={set("localizacao")} placeholder="Coordenadas ou ponto de referência" /></div>
               <p className="mt-1 text-[0.66rem] text-muted-foreground">
                 Preparado para integração territorial futura com o mapa.
               </p>
             </div>
 
-            <button
+            <Button
               type="submit"
               disabled={!valido || enviando}
-              className="tap panel-glow w-full rounded-2xl bg-primary px-5 py-3.5 font-display text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
+              className="tap panel-glow h-auto w-full rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
             >
               {enviando ? "ENVIANDO…" : novoRelatorio ? "ENVIAR RELATÓRIO" : "ENVIAR REGISTRO"}
-            </button>
+            </Button>
             {erroEnvio ? <p role="alert" className="text-center text-sm text-destructive">{erroEnvio}</p> : null}
             <p className="text-center text-[0.68rem] text-muted-foreground">
               {tipo && tipo.fontes.length > 0
@@ -362,13 +359,14 @@ function FeedbackRegistro({
         </p>
       </div>
 
-      <button
+      <Button
         type="button"
         onClick={onClose}
-        className="tap w-full rounded-2xl border border-border/70 bg-surface/60 px-5 py-3 text-sm font-semibold"
+        variant="outline"
+        className="tap h-auto w-full rounded-full px-5 py-3 text-sm font-semibold"
       >
         Fechar
-      </button>
+      </Button>
     </div>
   );
 }

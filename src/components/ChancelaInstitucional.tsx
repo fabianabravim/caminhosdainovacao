@@ -72,7 +72,7 @@ export function ChancelaInstitucional({ tamanho = "header" }: { tamanho?: "heade
   }
 
   return (
-    <div className="institutional-dark flex items-center rounded-md px-2 py-1" aria-label="Marcas institucionais">
+    <div className="institutional-dark flex items-center rounded-md px-2.5 py-1.5 shadow-sm" aria-label="Marcas institucionais">
       <Marca
         src="/marcas/assinatura-ijsn-governo.png"
         alt="Instituto Jones dos Santos Neves — IJSN | Governo do Estado do Espírito Santo"

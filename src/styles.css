@@ -85,6 +85,8 @@
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);
   --color-brand-dark: var(--brand-dark);
+  --color-energy: var(--energy);
+  --color-energy-soft: var(--energy-soft);
   --font-brand: "Amsi Pro", Arial, ui-sans-serif, system-ui, sans-serif;
   --font-brand-condensed: "Amsi Pro Condensed", "Arial Narrow", Arial, ui-sans-serif, system-ui, sans-serif;
   --font-display: "Amsi Pro", Arial, ui-sans-serif, system-ui, sans-serif;
@@ -92,18 +94,20 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.75rem;
   /* Identidade oficial Caminhos da Inovação */
   --brand-primary: oklch(0.573039 0.105868 296.945); /* #7F6AAF */
   --brand-secondary: oklch(0.495148 0.126991 297.52); /* #6B4FA0 */
   --brand-dark: oklch(0.378803 0.081002 295.725); /* #463868 */
   --brand-primary-hover: color-mix(in oklab, var(--brand-primary) 88%, var(--brand-dark));
   --brand-secondary-hover: color-mix(in oklab, var(--brand-secondary) 88%, white);
+  --energy: oklch(0.82 0.17 83); /* âmbar de energia, uso pontual */
+  --energy-soft: oklch(0.96 0.045 88);
 
-  --background: oklch(0.985 0.002 285);
+  --background: oklch(0.985 0.004 295);
   --foreground: oklch(0.29 0.018 290);
   --surface: oklch(1 0 0);
-  --surface-2: color-mix(in oklab, var(--brand-primary) 4%, white);
+  --surface-2: color-mix(in oklab, var(--brand-primary) 5%, white);
   --card: var(--surface);
   --card-foreground: var(--foreground);
   --popover: var(--surface);
@@ -112,7 +116,7 @@
   --primary-foreground: oklch(1 0 0);
   --secondary: color-mix(in oklab, var(--brand-primary) 7%, white);
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.965 0.004 285);
+  --muted: oklch(0.96 0.006 295);
   --muted-foreground: oklch(0.52 0.025 290);
   --accent: var(--brand-primary);
   --accent-foreground: var(--brand-dark);
@@ -173,11 +177,11 @@
 }
 
 @utility panel {
-  background: color-mix(in oklab, var(--surface) 99%, var(--brand-primary));
-  border: 1px solid color-mix(in oklab, var(--brand-primary) 11%, oklch(0.91 0.004 285));
+  background: color-mix(in oklab, var(--surface) 98%, var(--brand-primary));
+  border: 1px solid color-mix(in oklab, var(--brand-primary) 13%, oklch(0.91 0.004 285));
   box-shadow:
     0 1px 2px color-mix(in oklab, var(--brand-dark) 4%, transparent),
-    0 14px 38px -30px color-mix(in oklab, var(--brand-dark) 20%, transparent);
+    0 18px 44px -34px color-mix(in oklab, var(--brand-dark) 28%, transparent);
 }
 
 @utility panel-glow {
@@ -189,6 +193,25 @@
 @utility institutional-dark {
   background: var(--brand-dark);
   color: var(--primary-foreground);
+}
+
+@utility topo-lines {
+  background-image:
+    radial-gradient(circle at 12% 35%, color-mix(in oklab, var(--brand-primary) 18%, transparent) 0 1px, transparent 1.5px),
+    repeating-radial-gradient(ellipse at 88% 42%, transparent 0 38px, color-mix(in oklab, var(--brand-primary) 8%, transparent) 39px 40px);
+  background-size: 28px 28px, auto;
+}
+
+@utility route-line {
+  background-image: linear-gradient(to right, var(--brand-primary) 45%, transparent 45%);
+  background-size: 10px 2px;
+  background-repeat: repeat-x;
+}
+
+@utility surface-territory {
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--brand-primary) 7%, white), white 48%),
+    var(--surface);
 }
 
 @utility text-gradient {

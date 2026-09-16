@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { ArrowLeft, ArrowRight, LockKeyhole, MapPinned } from "lucide-react";
 import { z } from "zod";
 import { MapaVivo } from "@/components/MapaVivo";
+import { ChancelaInstitucional } from "@/components/ChancelaInstitucional";
 import { Button } from "@/components/ui/button";
 import { conexoes } from "@/data/nucleos";
 import { totaisEstado } from "@/data/ranking";
 import { supabase } from "@/integrations/supabase/client";
 import { verificarAcessoAutorizado, vincularPerfilAutorizado } from "@/lib/acesso.functions";
+import caparao from "@/assets/caparao.jpg";
 
 const searchSchema = z.object({ retorno: z.string().optional().catch(undefined) });
 
@@ -133,36 +136,37 @@ function Entrar() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 opacity-45">
-        <div className="absolute left-1/2 top-1/2 h-[130vh] w-[130vh] -translate-x-1/2 -translate-y-1/2">
-          <MapaVivo conexoes={conexoes} labels={false} interativo={false} particulas />
-        </div>
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
+    <div className="relative min-h-screen overflow-hidden bg-brand-dark">
+      <img src={caparao} alt="Paisagem do território capixaba" className="absolute inset-0 h-full w-full object-cover opacity-48" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--brand-dark)_0%,color-mix(in_oklab,var(--brand-dark)_88%,transparent)_48%,color-mix(in_oklab,var(--brand-dark)_48%,transparent))]" />
+      <div className="topo-lines absolute inset-0 opacity-35" />
+      <div className="pointer-events-none absolute -right-24 top-1/2 hidden h-[90vh] w-[70vh] -translate-y-1/2 opacity-45 lg:block"><MapaVivo conexoes={conexoes} labels={false} interativo={false} particulas /></div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-md flex-col justify-between px-6 py-10">
-        <div>
-          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-lilac/80">IJSN · Governo do Espírito Santo</p>
-          <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.05]"><span className="text-gradient">Caminhos</span><br />da Inovação</h1>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">A jornada da inovação capixaba: inteligência territorial construída com escuta, conexões e transformação nos 14 Núcleos Territoriais.</p>
+      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-5 py-8 lg:grid-cols-[minmax(0,1fr)_28rem] lg:px-8">
+        <div className="text-primary-foreground">
+          <ChancelaInstitucional />
+          <p className="mt-12 flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-energy"><MapPinned className="h-4 w-4" /> Jornada da Inovação Capixaba</p>
+          <h1 className="mt-5 max-w-2xl font-brand-condensed text-5xl font-semibold leading-none sm:text-6xl">Seu território.<br />Sua Jornada.</h1>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-primary-foreground/72">Entre para registrar atividades reais, acompanhar missões e fortalecer o Núcleo ao qual você já está vinculado.</p>
+          <div className="mt-8 hidden max-w-lg grid-cols-3 gap-px overflow-hidden rounded-md bg-primary-foreground/15 sm:grid">
+            {[[totaisEstado.nucleos, "Núcleos"], ["28", "Conectores"], ["ES", "Território"]].map(([v, l]) => <div key={l as string} className="bg-brand-dark/80 p-4"><p className="font-brand-condensed text-3xl font-semibold">{v}</p><p className="text-[0.62rem] uppercase tracking-[0.12em] text-primary-foreground/55">{l}</p></div>)}
+          </div>
         </div>
 
-        <div className="panel panel-glow rounded-3xl p-5">
+        <div className="panel panel-glow rounded-lg p-5 sm:p-7">
           {modo === "escolha" ? (
             <>
-              <div className="grid grid-cols-3 gap-2 text-center">
-                {[[totaisEstado.nucleos, "núcleos"], [totaisEstado.escutas, "escutas"], [totaisEstado.inovacoes, "inovações"]].map(([v, l]) => (
-                  <div key={l as string}><p className="font-display text-lg font-semibold">{v}</p><p className="text-[0.62rem] uppercase tracking-wide text-muted-foreground">{l}</p></div>
-                ))}
-              </div>
-              <div className="mt-5 rounded-2xl border border-border/60 bg-surface/60 p-3.5">
+              <LockKeyhole className="h-6 w-6 text-primary" />
+              <p className="mt-4 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-primary">Acesso institucional</p>
+              <h2 className="mt-1 text-2xl font-semibold">Entrar na Jornada</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Seu perfil e seu Núcleo são identificados automaticamente após o acesso.</p>
+              <div className="mt-5 rounded-md border border-primary/15 bg-primary/5 p-3.5">
                 <p className="text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground">Vínculo territorial</p>
                 <p className="mt-1 font-display text-lg font-semibold">Seu Núcleo Territorial</p>
                 <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Será identificado automaticamente após o acesso do Conector.</p>
               </div>
-              <Button type="button" onClick={() => mudarModo("entrar")} className="panel-glow mt-5 h-auto w-full rounded-2xl px-5 py-3.5 font-display text-sm font-semibold">Entrar na jornada</Button>
-              <Button type="button" variant="outline" onClick={() => mudarModo("primeiro")} className="mt-2 h-auto w-full rounded-2xl border-border/70 bg-surface/60 px-5 py-3 text-xs font-semibold text-lilac">Primeiro acesso</Button>
+               <Button type="button" onClick={() => mudarModo("entrar")} className="panel-glow mt-5 h-auto w-full rounded-full px-5 py-3.5 text-sm font-semibold">Entrar na Jornada <ArrowRight /></Button>
+               <Button type="button" variant="outline" onClick={() => mudarModo("primeiro")} className="mt-2 h-auto w-full rounded-full px-5 py-3 text-xs font-semibold text-primary">Primeiro acesso</Button>
             </>
           ) : (
             <form className="space-y-3" onSubmit={(event) => { event.preventDefault(); void (modo === "entrar" ? entrar() : modo === "primeiro" ? primeiroAcesso() : recuperarSenha()); }}>
@@ -184,12 +188,12 @@ function Entrar() {
               ) : null}
               {erro ? <p role="alert" className="rounded-xl border border-destructive/20 bg-destructive/5 p-3 text-xs text-destructive">{erro}</p> : null}
               {mensagem ? <p role="status" className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-foreground">{mensagem}</p> : null}
-              <Button type="submit" disabled={carregando || Boolean(mensagem)} className="panel-glow h-auto w-full rounded-2xl px-5 py-3.5 font-display text-sm font-semibold">{carregando ? "Aguarde…" : modo === "entrar" ? "Entrar" : modo === "primeiro" ? "Criar acesso" : "Enviar instruções"}</Button>
+               <Button type="submit" disabled={carregando || Boolean(mensagem)} className="panel-glow h-auto w-full rounded-full px-5 py-3.5 text-sm font-semibold">{carregando ? "Aguarde…" : modo === "entrar" ? "Entrar na Jornada" : modo === "primeiro" ? "Criar acesso" : "Enviar instruções"}</Button>
               {modo === "entrar" ? <Button type="button" variant="link" onClick={() => mudarModo("recuperar")} className="h-auto w-full py-1 text-xs">Esqueci minha senha</Button> : null}
               <Button type="button" variant="ghost" onClick={() => mudarModo("escolha")} className="h-auto w-full py-2 text-xs text-muted-foreground">Voltar</Button>
             </form>
           )}
-          <Link to="/" className="tap mt-2 flex w-full items-center justify-center px-5 py-2 text-xs font-semibold text-muted-foreground">Voltar à página inicial</Link>
+           <Link to="/" className="tap mt-2 flex w-full items-center justify-center gap-1.5 px-5 py-2 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
       </div>
     </div>

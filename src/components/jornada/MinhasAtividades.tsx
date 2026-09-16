@@ -30,7 +30,8 @@ export function MinhasAtividades() {
     <section className="min-w-0 space-y-4">
       <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <h3 className="font-display text-lg font-bold uppercase">Minhas atividades</h3>
+          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-primary">Trabalho no território</p>
+          <h3 className="mt-1 text-xl font-semibold">Minhas atividades</h3>
           <p className="mt-0.5 text-sm text-muted-foreground">
             Registre e acompanhe as ações realizadas no território.
           </p>
@@ -55,7 +56,7 @@ export function MinhasAtividades() {
       </div>
 
       {minhasAtividades.length === 0 ? (
-        <div className="panel rounded-2xl border-dashed p-6 text-center">
+        <div className="panel topo-lines rounded-lg border-dashed p-8 text-center">
           <p className="font-display text-sm font-semibold">Nenhuma atividade registrada ainda</p>
           <p className="mx-auto mt-1.5 max-w-md text-[0.78rem] leading-relaxed text-muted-foreground">
             Registre uma visita, escuta, articulação ou mapeamento. A plataforma calcula sozinha o
@@ -66,11 +67,11 @@ export function MinhasAtividades() {
           </div>
         </div>
       ) : atividadesVisiveis.length === 0 ? (
-        <div className="panel rounded-2xl border-dashed p-5 text-center text-sm text-muted-foreground">
+        <div className="panel rounded-lg border-dashed p-5 text-center text-sm text-muted-foreground">
           Nenhuma atividade encontrada neste status.
         </div>
       ) : (
-        <div className="panel min-w-0 overflow-hidden rounded-2xl">
+        <div className="panel min-w-0 overflow-hidden rounded-lg">
           <div className="hidden grid-cols-[6rem_9rem_minmax(10rem,1fr)_8rem_8rem_minmax(10rem,1fr)] gap-3 border-b border-border/60 bg-surface/60 px-4 py-2.5 text-[0.64rem] font-semibold uppercase tracking-wide text-muted-foreground lg:grid">
             <span>Data</span><span>Tipo</span><span>Título</span><span>Município</span><span>Status</span><span>Missão relacionada</span>
           </div>

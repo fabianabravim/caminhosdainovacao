@@ -6,7 +6,7 @@ import { atividades, conectores } from "@/data/jornada";
 import { dimensaoMap } from "@/data/dimensoes";
 import { nucleoAtualId, nucleoMap } from "@/data/nucleos";
 
-export const Route = createFileRoute("/perfil")({
+export const Route = createFileRoute("/_authenticated/perfil")({
   head: () => ({
     meta: [
       { title: "Perfil do Núcleo Serra — Caminhos da Inovação" },
