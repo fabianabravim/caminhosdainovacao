@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, FileUp, LogOut, User } from "lucide-react";
+import { ArrowRight, Compass, FileUp, Handshake, Lightbulb, LogOut, Rocket, User } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { MapaVivo } from "@/components/MapaVivo";
 import { MinhasAtividades } from "@/components/jornada/MinhasAtividades";
@@ -157,6 +157,12 @@ function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
   } = useMeuNucleo();
   const { abrir } = useRegistroAtividade();
   const proximas = missoes.filter((m) => m.status !== "concluida").slice(0, 3);
+  const iconesDimensoes = {
+    explorar: Compass,
+    conectar: Handshake,
+    descobrir: Lightbulb,
+    transformar: Rocket,
+  };
 
   return (
     <div className="min-w-0 space-y-5">
@@ -206,16 +212,19 @@ function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
       <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
         <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Continuar minha jornada</p>
         <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {dimensoes.map((d) => (
-            <div key={d.id} className="min-w-0 rounded-2xl border border-border/60 bg-surface/60 p-3">
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
-                <span className="shrink-0" aria-hidden>{d.icone}</span>
-                <span className="truncate text-sm font-semibold">{d.nome}</span>
-                <span className="shrink-0 text-xs text-muted-foreground">{progressoPorDimensao[d.id]}%</span>
+          {dimensoes.map((d) => {
+            const Icone = iconesDimensoes[d.id];
+            return (
+              <div key={d.id} className="min-w-0 rounded-2xl border border-border/60 bg-surface/60 p-3">
+                <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
+                  <Icone className="h-4 w-4 shrink-0 text-lilac" aria-hidden />
+                  <span className="truncate text-sm font-semibold">{d.nome}</span>
+                  <span className="shrink-0 text-xs text-muted-foreground">{progressoPorDimensao[d.id]}%</span>
+                </div>
+                <Progresso valor={progressoPorDimensao[d.id]} cor={d.colorVar} className="mt-2" />
               </div>
-              <Progresso valor={progressoPorDimensao[d.id]} cor={d.colorVar} className="mt-2" />
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
