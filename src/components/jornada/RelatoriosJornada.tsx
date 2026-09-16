@@ -26,7 +26,8 @@ export function RelatoriosJornada() {
     <section className="min-w-0 space-y-4">
       <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="min-w-0">
-          <h3 className="font-display text-lg font-bold">Relatórios e entregas</h3>
+          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-primary">Entregas formais</p>
+          <h3 className="mt-1 text-xl font-semibold">Relatórios e entregas</h3>
           <p className="mt-0.5 text-sm text-muted-foreground">
             O que precisa ser entregue à Coordenação. As entregas seguem o mesmo fluxo de validação.
           </p>
@@ -34,7 +35,7 @@ export function RelatoriosJornada() {
         <Button
           type="button"
           onClick={() => abrir({ tipoId: "relatorio" })}
-          className="tap panel-glow h-auto w-full rounded-full px-4 py-2.5 font-display text-sm font-semibold sm:w-auto"
+          className="tap panel-glow h-auto w-full rounded-full px-4 py-2.5 text-sm font-semibold sm:w-auto"
         >
           + Novo Relatório
         </Button>
@@ -42,7 +43,7 @@ export function RelatoriosJornada() {
 
       <div className="grid min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-3">
         {indicadoresIndividuais.slice(0, 3).map((i) => (
-          <div key={i.id} className="panel min-w-0 rounded-2xl p-3.5">
+          <div key={i.id} className="panel min-w-0 rounded-lg border-l-4 border-l-primary/30 p-3.5">
             <p className="text-[0.72rem] text-muted-foreground [overflow-wrap:anywhere]">
               {i.icone} {i.rotulo}
             </p>
@@ -55,7 +56,7 @@ export function RelatoriosJornada() {
       </div>
 
       {relatorios.length === 0 ? (
-        <div className="panel rounded-2xl border-dashed p-6 text-center">
+        <div className="panel topo-lines rounded-lg border-dashed p-8 text-center">
           <p className="font-display text-sm font-semibold">Nenhuma entrega registrada ainda</p>
           <p className="mx-auto mt-1.5 max-w-md text-[0.78rem] leading-relaxed text-muted-foreground">
             Ao enviar um relatório, ele fica em validação e, quando aprovado, atualiza sozinho as
@@ -63,7 +64,7 @@ export function RelatoriosJornada() {
           </p>
         </div>
       ) : (
-        <div className="panel min-w-0 overflow-hidden rounded-2xl">
+        <div className="panel min-w-0 overflow-hidden rounded-lg">
           <div className="hidden grid-cols-[minmax(8rem,1fr)_7rem_8rem_minmax(10rem,1.5fr)] gap-3 border-b border-border/60 bg-surface/60 px-4 py-2.5 text-[0.64rem] font-semibold uppercase tracking-wide text-muted-foreground md:grid">
             <span>Competência / Período</span><span>Data de envio</span><span>Status</span><span>Resultado da análise</span>
           </div>

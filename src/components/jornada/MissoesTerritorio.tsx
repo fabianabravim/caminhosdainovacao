@@ -39,10 +39,10 @@ export function MissoesTerritorio() {
               {missoesPorDimensao(dimId).map((m) => {
                 const concluida = m.status === "concluida";
                 return (
-                  <article key={m.id} className="panel flex min-w-0 flex-col rounded-2xl p-3.5">
+                    <article key={m.id} className="panel flex min-w-0 flex-col rounded-lg border-t-2 p-4" style={{ borderTopColor: dim.colorVar }}>
                     <div className="flex min-w-0 items-start gap-2.5">
                       <span
-                        className="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base"
+                        className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-base"
                         style={{ backgroundColor: `color-mix(in oklab, ${dim.colorVar} 16%, transparent)` }}
                         aria-hidden
                       >
@@ -93,7 +93,7 @@ export function MissoesTerritorio() {
                             tipoId: tipoAtividadePorFonte(m.fonteProgresso)?.id,
                           })
                         }
-                        className="tap mt-3 min-h-11 w-full rounded-xl bg-primary px-3.5 py-2 text-[0.74rem] font-semibold text-primary-foreground transition-opacity sm:min-h-0"
+                        className="tap mt-3 min-h-11 w-full rounded-full bg-primary px-3.5 py-2 text-[0.74rem] font-semibold text-primary-foreground transition-opacity sm:min-h-0"
                       >
                         {m.cta}
                       </button>
