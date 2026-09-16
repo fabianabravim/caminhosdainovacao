@@ -88,7 +88,7 @@ function Home() {
           <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-4 px-5 pb-14 pt-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
             <div className="order-1 max-w-xl">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-primary">Caminhos da Inovação</p>
-              <h1 className="mt-5 font-brand text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
+              <h1 className="mt-5 font-brand text-4xl font-semibold leading-[1.04] sm:text-6xl"><span className="block whitespace-nowrap">A inovação capixaba</span><span className="text-gradient block whitespace-nowrap">está em movimento.</span></h1>
             </div>
 
             <div className="relative order-2 mx-auto w-full max-w-[600px] lg:row-span-2 lg:ml-auto"
