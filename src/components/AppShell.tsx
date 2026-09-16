@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { MapPinned } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "@/components/BottomNav";
 import { Celebracao } from "@/components/Celebracao";
@@ -27,13 +28,13 @@ export function AppShell({
   const nucleo = nucleoMap[nucleoAtualId]!;
 
   return (
-    <div className={jornadaResponsiva ? "min-h-screen min-w-0 overflow-x-clip pb-24" : "min-h-screen pb-24"}>
+    <div className={jornadaResponsiva ? "topo-lines min-h-screen min-w-0 overflow-x-clip bg-background pb-24" : "topo-lines min-h-screen bg-background pb-24"}>
       <Celebracao />
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-surface/90 px-4 pb-3 pt-4 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-border/60 bg-surface/94 px-4 py-3 backdrop-blur-xl">
         <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
           <div className="min-w-0">
-            <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-lilac/80">
-              Caminhos da Inovação
+            <p className="flex items-center gap-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-lilac/80">
+              <MapPinned className="h-3.5 w-3.5" aria-hidden="true" /> Caminhos da Inovação
             </p>
             <h1 className={`font-brand-condensed text-xl font-semibold ${jornadaResponsiva ? "text-balance leading-tight" : "truncate"}`}>
               {titulo}
@@ -58,13 +59,13 @@ export function AppShell({
               </span>
             </Link>
           ) : (
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border/70 bg-surface/70 text-xs font-bold text-glow">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-primary/20 bg-primary/10 text-xs font-bold text-primary">
               {nucleo.nome.slice(0, 2).toUpperCase()}
             </span>
           )}
         </div>
       </header>
-      <main className={`mx-auto ${jornadaResponsiva ? "w-full min-w-0 px-4 py-5 sm:px-5 lg:px-8" : "px-4 py-5"} ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
+      <main className={`mx-auto ${jornadaResponsiva ? "w-full min-w-0 px-4 py-5 sm:px-6 lg:px-8 lg:py-7" : "px-4 py-5"} ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
         {children}
       </main>
       <BottomNav compacta={jornadaResponsiva} />
