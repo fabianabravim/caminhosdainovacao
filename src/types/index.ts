@@ -168,10 +168,27 @@ export interface RankingItem {
 }
 
 export interface Conector {
+  id?: string;
   nome: string;
   papel: string;
   iniciais: string;
   foco: string;
+  email?: string;
+  nucleoId?: string;
+  ativo?: boolean;
+  demonstrativo?: boolean;
+}
+
+export type PerfilAcesso = "CONECTOR" | "COORDENACAO";
+
+export interface PerfilConector {
+  userId: string;
+  nome: string;
+  email: string;
+  nucleoId: string | null;
+  perfil: PerfilAcesso;
+  ativo: boolean;
+  demonstrativo: boolean;
 }
 
 /** Status possíveis de uma missão do território (calculados pelo sistema). */
@@ -315,6 +332,8 @@ export interface DadosAtividade {
 /** Atividade real registrada — única coisa que o Conector cria. */
 export interface AtividadeRegistrada extends DadosAtividade {
   id: string;
+  conectorId?: string;
+  nucleoId?: string;
   status: StatusAtividade;
   criadoEm: string;
   /** Fonte efetivamente contabilizada (sem duplicar contribuições). */
