@@ -32,7 +32,7 @@ function caminhoSeguro(retorno?: string) {
   return retorno;
 }
 
-function mensagemErroPrimeiroAcesso(error: { code?: string; message?: string }) {
+function mensagemErroPrimeiroAcesso(error: { code: unknown; message: string }) {
   if (error.code === "weak_password" || error.message?.toLowerCase().includes("weak")) {
     return "Esta senha é muito comum e foi bloqueada por segurança. Crie outra senha, combinando letras maiúsculas e minúsculas, números e símbolos.";
   }
