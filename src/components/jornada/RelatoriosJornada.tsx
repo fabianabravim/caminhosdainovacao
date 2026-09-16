@@ -1,5 +1,7 @@
 import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
+import { Button } from "@/components/ui/button";
+import { estiloStatusAtividade, statusAtividadeLabel } from "@/data/atividades.config";
 
 /**
  * "O que preciso entregar" — entregas do Conector.
@@ -20,13 +22,13 @@ export function RelatoriosJornada() {
             O que precisa ser entregue à Coordenação. As entregas seguem o mesmo fluxo de validação.
           </p>
         </div>
-        <button
+        <Button
           type="button"
           onClick={() => abrir({ tipoId: "relatorio" })}
-          className="tap panel-glow w-full rounded-full bg-primary px-4 py-2.5 font-display text-sm font-semibold text-primary-foreground sm:w-auto"
+          className="tap panel-glow h-auto w-full rounded-full px-4 py-2.5 font-display text-sm font-semibold sm:w-auto"
         >
-          Enviar relatório
-        </button>
+          + Enviar relatório
+        </Button>
       </div>
 
       <div className="grid min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-3">
@@ -52,16 +54,27 @@ export function RelatoriosJornada() {
           </p>
         </div>
       ) : (
-        <ul className="min-w-0 space-y-2.5">
+        <div className="panel min-w-0 overflow-hidden rounded-2xl">
+          <div className="hidden grid-cols-[minmax(8rem,1fr)_7rem_8rem_minmax(10rem,1.5fr)] gap-3 border-b border-border/60 bg-surface/60 px-4 py-2.5 text-[0.64rem] font-semibold uppercase tracking-wide text-muted-foreground md:grid">
+            <span>Competência / Período</span><span>Data de envio</span><span>Status</span><span>Resultado da análise</span>
+          </div>
+          <ul className="min-w-0 divide-y divide-border/50">
           {relatorios.map((r) => (
-            <li key={r.id} className="panel min-w-0 rounded-2xl p-3.5">
-              <p className="text-[0.68rem] text-muted-foreground">
+            <li key={r.id} className="grid min-w-0 grid-cols-1 gap-2 p-4 md:grid-cols-[minmax(8rem,1fr)_7rem_8rem_minmax(10rem,1.5fr)] md:items-center md:gap-3">
+              <p className="font-display text-sm font-semibold [overflow-wrap:anywhere]">{r.titulo}</p>
+              <p className="text-[0.72rem] text-muted-foreground">
                 {r.data ? new Date(`${r.data}T12:00:00`).toLocaleDateString("pt-BR") : "—"}
               </p>
-              <p className="font-display text-sm font-semibold [overflow-wrap:anywhere]">{r.titulo}</p>
+              <span className={`w-fit rounded-full border px-2.5 py-0.5 text-[0.64rem] font-semibold ${estiloStatusAtividade[r.status]}`}>
+                {statusAtividadeLabel[r.status]}
+              </span>
+              <p className="text-[0.72rem] text-muted-foreground">
+                {r.status === "ajustes_solicitados" ? "Ajustes indicados pela Coordenação" : r.status === "aprovada" ? "Relatório aprovado" : "Aguardando análise"}
+              </p>
             </li>
           ))}
-        </ul>
+          </ul>
+        </div>
       )}
     </section>
   );

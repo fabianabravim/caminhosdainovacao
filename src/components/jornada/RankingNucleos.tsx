@@ -23,7 +23,7 @@ export function RankingNucleos() {
         </span>
       </div>
       <p className="mt-1 text-[0.72rem] text-muted-foreground">
-        Os 14 Núcleos Territoriais da rede capixaba. Valores fictícios para prototipação.
+        Os 14 Núcleos Territoriais do Caminhos da Inovação. Valores fictícios para prototipação.
       </p>
 
       <ol className="mt-3.5 space-y-1.5">

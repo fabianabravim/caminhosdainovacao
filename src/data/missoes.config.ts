@@ -108,7 +108,7 @@ export const missoesTerritorio: MissaoTerritorialConfig[] = [
     id: "con-outro-nucleo",
     dimensao: "conectar",
     titulo: "Colaborar com outro Núcleo Territorial",
-    descricao: "Realize ações conjuntas com conectores de outro núcleo da rede capixaba.",
+    descricao: "Realize ações conjuntas com conectores de outro Núcleo Territorial do Caminhos da Inovação.",
     icone: "🌉",
     tipoMissao: "validacao",
     metaTotal: 2,
