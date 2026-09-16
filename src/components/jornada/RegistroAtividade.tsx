@@ -80,6 +80,7 @@ const rotuloCls = "mb-1 block text-[0.68rem] font-medium uppercase tracking-wide
 function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => void }) {
   const { registrarAtividade } = useMeuNucleo();
   const missaoOrigem = preset.missaoId ? missaoTerritorialMap[preset.missaoId] : undefined;
+  const novoRelatorio = preset.tipoId === "relatorio";
   const [resultado, setResultado] = useState<ResultadoRegistro | null>(null);
   const [enviando, setEnviando] = useState(false);
   const [erroEnvio, setErroEnvio] = useState<string | null>(null);
@@ -123,7 +124,7 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
       className="fixed inset-0 z-50 flex min-w-0 items-end justify-center overflow-hidden bg-background/80 backdrop-blur-sm sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
-      aria-label="Registrar atividade"
+      aria-label={novoRelatorio ? "Novo Relatório" : "Registrar atividade"}
       onClick={onClose}
     >
       <div
@@ -133,10 +134,10 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
-              {resultado ? "Registro enviado" : "Trabalho realizado no território"}
+              {resultado ? "Registro enviado" : novoRelatorio ? "Entrega formal do Conector" : "Trabalho realizado no território"}
             </p>
             <h3 className="break-words font-display text-lg font-semibold [overflow-wrap:anywhere]">
-              {resultado ? "Atividade registrada" : "Registrar atividade"}
+              {resultado ? (novoRelatorio ? "Relatório enviado" : "Atividade registrada") : novoRelatorio ? "Novo Relatório" : "Registrar atividade"}
             </h3>
             {missaoOrigem && !resultado ? (
               <p className="mt-1 text-[0.7rem] text-muted-foreground">
@@ -286,7 +287,7 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
               disabled={!valido || enviando}
               className="tap panel-glow w-full rounded-2xl bg-primary px-5 py-3.5 font-display text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {enviando ? "ENVIANDO…" : "ENVIAR REGISTRO"}
+              {enviando ? "ENVIANDO…" : novoRelatorio ? "ENVIAR RELATÓRIO" : "ENVIAR REGISTRO"}
             </button>
             {erroEnvio ? <p role="alert" className="text-center text-sm text-destructive">{erroEnvio}</p> : null}
             <p className="text-center text-[0.68rem] text-muted-foreground">
