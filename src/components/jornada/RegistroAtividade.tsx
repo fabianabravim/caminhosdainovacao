@@ -81,6 +81,8 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
   const { registrarAtividade } = useMeuNucleo();
   const missaoOrigem = preset.missaoId ? missaoTerritorialMap[preset.missaoId] : undefined;
   const [resultado, setResultado] = useState<ResultadoRegistro | null>(null);
+  const [enviando, setEnviando] = useState(false);
+  const [erroEnvio, setErroEnvio] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     tipoId: preset.tipoId ?? tiposAtividade[0]!.id,
@@ -157,11 +159,13 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
         ) : (
           <form
             className="mt-4 space-y-3.5"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
               if (!valido) return;
-              setResultado(
-                registrarAtividade({
+              setEnviando(true);
+              setErroEnvio(null);
+              try {
+                const salvo = await registrarAtividade({
                   tipoId: form.tipoId,
                   data: form.data,
                   municipio: form.municipio,
@@ -176,8 +180,13 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
                   evidenciaDocumento: documento,
                   evidenciaLink: form.evidenciaLink || undefined,
                   missaoId: preset.missaoId,
-                }),
-              );
+                });
+                setResultado(salvo);
+              } catch (error) {
+                setErroEnvio(error instanceof Error ? error.message : "Não foi possível enviar o registro.");
+              } finally {
+                setEnviando(false);
+              }
             }}
           >
             <div>
@@ -274,11 +283,12 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
 
             <button
               type="submit"
-              disabled={!valido}
+              disabled={!valido || enviando}
               className="tap panel-glow w-full rounded-2xl bg-primary px-5 py-3.5 font-display text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
             >
-              ENVIAR REGISTRO
+              {enviando ? "ENVIANDO…" : "ENVIAR REGISTRO"}
             </button>
+            {erroEnvio ? <p role="alert" className="text-center text-sm text-destructive">{erroEnvio}</p> : null}
             <p className="text-center text-[0.68rem] text-muted-foreground">
               {tipo && tipo.fontes.length > 0
                 ? "O sistema calcula sozinho o progresso das missões a partir deste registro."

@@ -10,20 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as ConquistasRouteImport } from './routes/conquistas'
 import { Route as DescobertasRouteImport } from './routes/descobertas'
 import { Route as EntrarRouteImport } from './routes/entrar'
 import { Route as InteligenciaRouteImport } from './routes/inteligencia'
-import { Route as JornadaRouteImport } from './routes/jornada'
 import { Route as MapaRouteImport } from './routes/mapa'
 import { Route as MissoesRouteImport } from './routes/missoes'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as RankingRouteImport } from './routes/ranking'
 import { Route as RedeRouteImport } from './routes/rede'
+import { Route as AuthenticatedJornadaRouteImport } from './routes/_authenticated/jornada'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConquistasRoute = ConquistasRouteImport.update({
@@ -44,11 +49,6 @@ const EntrarRoute = EntrarRouteImport.update({
 const InteligenciaRoute = InteligenciaRouteImport.update({
   id: '/inteligencia',
   path: '/inteligencia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JornadaRoute = JornadaRouteImport.update({
-  id: '/jornada',
-  path: '/jornada',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MapaRoute = MapaRouteImport.update({
@@ -76,6 +76,11 @@ const RedeRoute = RedeRouteImport.update({
   path: '/rede',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedJornadaRoute = AuthenticatedJornadaRouteImport.update({
+  id: '/jornada',
+  path: '/jornada',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -83,12 +88,12 @@ export interface FileRoutesByFullPath {
   '/descobertas': typeof DescobertasRoute
   '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
-  '/jornada': typeof JornadaRoute
   '/mapa': typeof MapaRoute
   '/missoes': typeof MissoesRoute
   '/perfil': typeof PerfilRoute
   '/ranking': typeof RankingRoute
   '/rede': typeof RedeRoute
+  '/jornada': typeof AuthenticatedJornadaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -96,26 +101,27 @@ export interface FileRoutesByTo {
   '/descobertas': typeof DescobertasRoute
   '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
-  '/jornada': typeof JornadaRoute
   '/mapa': typeof MapaRoute
   '/missoes': typeof MissoesRoute
   '/perfil': typeof PerfilRoute
   '/ranking': typeof RankingRoute
   '/rede': typeof RedeRoute
+  '/jornada': typeof AuthenticatedJornadaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/conquistas': typeof ConquistasRoute
   '/descobertas': typeof DescobertasRoute
   '/entrar': typeof EntrarRoute
   '/inteligencia': typeof InteligenciaRoute
-  '/jornada': typeof JornadaRoute
   '/mapa': typeof MapaRoute
   '/missoes': typeof MissoesRoute
   '/perfil': typeof PerfilRoute
   '/ranking': typeof RankingRoute
   '/rede': typeof RedeRoute
+  '/_authenticated/jornada': typeof AuthenticatedJornadaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -125,12 +131,12 @@ export interface FileRouteTypes {
     | '/descobertas'
     | '/entrar'
     | '/inteligencia'
-    | '/jornada'
     | '/mapa'
     | '/missoes'
     | '/perfil'
     | '/ranking'
     | '/rede'
+    | '/jornada'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -138,34 +144,35 @@ export interface FileRouteTypes {
     | '/descobertas'
     | '/entrar'
     | '/inteligencia'
-    | '/jornada'
     | '/mapa'
     | '/missoes'
     | '/perfil'
     | '/ranking'
     | '/rede'
+    | '/jornada'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/conquistas'
     | '/descobertas'
     | '/entrar'
     | '/inteligencia'
-    | '/jornada'
     | '/mapa'
     | '/missoes'
     | '/perfil'
     | '/ranking'
     | '/rede'
+    | '/_authenticated/jornada'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   ConquistasRoute: typeof ConquistasRoute
   DescobertasRoute: typeof DescobertasRoute
   EntrarRoute: typeof EntrarRoute
   InteligenciaRoute: typeof InteligenciaRoute
-  JornadaRoute: typeof JornadaRoute
   MapaRoute: typeof MapaRoute
   MissoesRoute: typeof MissoesRoute
   PerfilRoute: typeof PerfilRoute
@@ -180,6 +187,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/conquistas': {
@@ -208,13 +222,6 @@ declare module '@tanstack/react-router' {
       path: '/inteligencia'
       fullPath: '/inteligencia'
       preLoaderRoute: typeof InteligenciaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/jornada': {
-      id: '/jornada'
-      path: '/jornada'
-      fullPath: '/jornada'
-      preLoaderRoute: typeof JornadaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mapa': {
@@ -252,16 +259,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/jornada': {
+      id: '/_authenticated/jornada'
+      path: '/jornada'
+      fullPath: '/jornada'
+      preLoaderRoute: typeof AuthenticatedJornadaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedJornadaRoute: typeof AuthenticatedJornadaRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedJornadaRoute: AuthenticatedJornadaRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   ConquistasRoute: ConquistasRoute,
   DescobertasRoute: DescobertasRoute,
   EntrarRoute: EntrarRoute,
   InteligenciaRoute: InteligenciaRoute,
-  JornadaRoute: JornadaRoute,
   MapaRoute: MapaRoute,
   MissoesRoute: MissoesRoute,
   PerfilRoute: PerfilRoute,

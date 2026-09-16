@@ -21,9 +21,10 @@ const filtros: { id: Filtro; rotulo: string }[] = [
 
 /** "O que eu já fiz" — histórico do trabalho real registrado pelo Conector. */
 export function MinhasAtividades() {
-  const { atividades } = useMeuNucleo();
+  const { atividades, perfil } = useMeuNucleo();
+  const minhasAtividades = atividades.filter((atividade) => atividade.conectorId === perfil.userId);
   const [filtro, setFiltro] = useState<Filtro>("todas");
-  const atividadesVisiveis = filtro === "todas" ? atividades : atividades.filter((a) => a.status === filtro);
+  const atividadesVisiveis = filtro === "todas" ? minhasAtividades : minhasAtividades.filter((a) => a.status === filtro);
 
   return (
     <section className="min-w-0 space-y-4">
@@ -53,7 +54,7 @@ export function MinhasAtividades() {
         ))}
       </div>
 
-      {atividades.length === 0 ? (
+      {minhasAtividades.length === 0 ? (
         <div className="panel rounded-2xl border-dashed p-6 text-center">
           <p className="font-display text-sm font-semibold">Nenhuma atividade registrada ainda</p>
           <p className="mx-auto mt-1.5 max-w-md text-[0.78rem] leading-relaxed text-muted-foreground">

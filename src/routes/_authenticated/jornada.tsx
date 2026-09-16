@@ -21,7 +21,7 @@ import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { dimensoes } from "@/data/dimensoes";
 import { nucleoMap } from "@/data/nucleos";
 
-export const Route = createFileRoute("/jornada")({
+export const Route = createFileRoute("/_authenticated/jornada")({
   head: () => ({
     meta: [
       { title: "Minha Jornada — Caminhos da Inovação" },

@@ -9,9 +9,9 @@ import { estiloStatusAtividade, statusAtividadeLabel } from "@/data/atividades.c
  * pelos registros de atividade do tipo relatório.
  */
 export function RelatoriosJornada() {
-  const { atividades, indicadoresIndividuais } = useMeuNucleo();
+  const { atividades, indicadoresIndividuais, perfil } = useMeuNucleo();
   const { abrir } = useRegistroAtividade();
-  const relatorios = atividades.filter((a) => a.tipoId === "relatorio");
+  const relatorios = atividades.filter((a) => a.conectorId === perfil.userId && a.tipoId === "relatorio");
 
   return (
     <section className="min-w-0 space-y-4">
