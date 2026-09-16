@@ -79,3 +79,12 @@
 - [x] Criar a página autenticada de Relatórios com os cinco status solicitados
 - [x] Substituir Rede por Relatórios na ordem exata da navegação inferior
 - [x] Validar a nova página e a navegação em desktop e celular
+
+## Reconstrução visual e experiência territorial
+- [ ] Reconstruir visualmente a Home com narrativa institucional, territorial e humana
+- [ ] Integrar o mapa oficial e as fotografias existentes sem alterar geometria ou dados
+- [ ] Criar a seção de alto impacto das quatro dimensões e atualizar CTAs para “Entrar na Jornada”
+- [ ] Renovar login e shell interno preservando autenticação, sessão e vínculo automático ao Núcleo
+- [ ] Priorizar a Jornada com saudação territorial, trilha real, resumo, missões, atividades, Núcleo e pendências
+- [ ] Harmonizar Territórios, Missões, Relatórios, Perfil, formulários e navegação inferior
+- [ ] Validar rotas, fluxos, providers, dados demonstrativos e responsividade em desktop e celular
