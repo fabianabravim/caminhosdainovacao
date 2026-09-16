@@ -78,4 +78,4 @@
 - [x] Remover a tela, rota e navegação da antiga Rede
 - [x] Criar a página autenticada de Relatórios com os cinco status solicitados
 - [x] Substituir Rede por Relatórios na ordem exata da navegação inferior
-- [ ] Validar a nova página e a navegação em desktop e celular
+- [x] Validar a nova página e a navegação em desktop e celular
