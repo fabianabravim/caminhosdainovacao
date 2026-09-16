@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { LogOut, User } from "lucide-react";
+import { ArrowRight, FileUp, LogOut, User } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { MapaVivo } from "@/components/MapaVivo";
-import { JornadaDimensoes } from "@/components/jornada/JornadaDimensoes";
-import { MeuDesempenho } from "@/components/jornada/MeuDesempenho";
 import { MinhasAtividades } from "@/components/jornada/MinhasAtividades";
 import { MissoesTerritorio } from "@/components/jornada/MissoesTerritorio";
 import { ProgressoNucleo } from "@/components/jornada/ProgressoNucleo";
@@ -15,8 +13,12 @@ import {
   BotaoRegistrarAtividade,
   RegistroAtividadeProvider,
 } from "@/components/jornada/RegistroAtividade";
+import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
+import { Progresso } from "@/components/ui/Progresso";
+import { Button } from "@/components/ui/button";
 import { MeuNucleoProvider } from "@/context/MeuNucleoContext";
 import { useMeuNucleo } from "@/context/meuNucleoBase";
+import { dimensoes } from "@/data/dimensoes";
 import { nucleoMap } from "@/data/nucleos";
 
 export const Route = createFileRoute("/jornada")({
@@ -77,10 +79,12 @@ function JornadaConteudo() {
 
   return (
     <div className="min-w-0 space-y-5 sm:space-y-6">
-      {/* Identificação + ação principal */}
-      <section className="anim-rise flex min-w-0 flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <section className="anim-rise grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
         <div className="min-w-0">
-          <h2 className="font-display text-xl font-bold sm:text-2xl">
+          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-lilac/80">
+            Jornada da Inovação Capixaba
+          </p>
+          <h2 className="mt-1 truncate font-display text-xl font-bold sm:text-2xl">
             Olá, {participante.nome.split(" ")[0]}
           </h2>
           <p className="mt-0.5 break-words text-sm text-muted-foreground">
@@ -90,8 +94,7 @@ function JornadaConteudo() {
             </span>
           </p>
         </div>
-        <div className="flex w-full shrink-0 items-center gap-1.5 sm:w-auto">
-          <BotaoRegistrarAtividade className="flex-1 sm:flex-none" />
+        <div className="flex shrink-0 items-center gap-1.5">
           <Link
             to="/perfil"
             aria-label="Meu perfil"
@@ -111,22 +114,23 @@ function JornadaConteudo() {
 
       {/* Navegação da área do Conector */}
       <nav aria-label="Seções da área do Conector" className="anim-rise min-w-0">
-        <div className="-mx-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
-          <ul className="flex min-w-max items-center gap-1.5 sm:min-w-0 sm:flex-wrap">
+        <div className="min-w-0">
+          <ul className="grid min-w-0 grid-cols-2 gap-1.5 sm:grid-cols-5">
             {abas.map((a) => (
-              <li key={a.id}>
-                <button
+              <li key={a.id} className={a.id === "nucleo" ? "col-span-2 sm:col-span-1" : "min-w-0"}>
+                <Button
                   type="button"
+                  variant="outline"
                   onClick={() => setAba(a.id)}
                   aria-current={aba === a.id ? "page" : undefined}
-                  className={`tap min-h-10 whitespace-nowrap rounded-full border px-3.5 py-2 text-[0.76rem] font-semibold transition-colors ${
+                  className={`tap h-auto min-h-10 w-full min-w-0 whitespace-normal rounded-full px-2 py-2 text-center text-[0.7rem] font-semibold leading-tight transition-colors min-[390px]:text-[0.76rem] ${
                     aba === a.id
                       ? "panel-glow border-lilac/50 bg-primary/25 text-foreground"
                       : "border-border/70 bg-surface/60 text-muted-foreground"
                   }`}
                 >
                   {a.rotulo}
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
@@ -134,7 +138,7 @@ function JornadaConteudo() {
         <p className="mt-2 text-[0.72rem] text-muted-foreground">{abaAtual.pergunta}</p>
       </nav>
 
-      {aba === "visao" ? <SecaoVisaoGeral /> : null}
+      {aba === "visao" ? <SecaoVisaoGeral irPara={setAba} /> : null}
       {aba === "atividades" ? <MinhasAtividades /> : null}
       {aba === "missoes" ? <SecaoMissoes /> : null}
       {aba === "relatorios" ? <RelatoriosJornada /> : null}
@@ -143,60 +147,131 @@ function JornadaConteudo() {
   );
 }
 
-function SecaoVisaoGeral() {
-  const { atividades, atividadesEmValidacao, missoesConcluidas, progressoNucleo } = useMeuNucleo();
+function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
+  const {
+    conectoresNucleo,
+    indicadoresTerritoriais,
+    missoes,
+    progressoNucleo,
+    progressoPorDimensao,
+  } = useMeuNucleo();
+  const { abrir } = useRegistroAtividade();
+  const proximas = missoes.filter((m) => m.status !== "concluida").slice(0, 3);
 
   return (
     <div className="min-w-0 space-y-5">
-      {/* Como funciona: o fluxo do trabalho real */}
-      <div className="panel panel-glow anim-rise min-w-0 rounded-3xl p-5">
-        <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Como funciona</p>
-        <h3 className="mt-1 font-display text-lg font-bold">
-          Você registra o que fez. A plataforma faz o resto.
-        </h3>
-        <ol className="mt-3 grid min-w-0 grid-cols-1 gap-2 text-[0.76rem] text-muted-foreground sm:grid-cols-3">
-          <li className="rounded-2xl border border-border/60 bg-surface/60 p-3">
-            <span className="font-semibold text-foreground">1. Registro</span>
-            <br />
-            atividade realizada no território, com evidência
-          </li>
-          <li className="rounded-2xl border border-border/60 bg-surface/60 p-3">
-            <span className="font-semibold text-foreground">2. Validação</span>
-            <br />
-            a Coordenação confere o registro
-          </li>
-          <li className="rounded-2xl border border-border/60 bg-surface/60 p-3">
-            <span className="font-semibold text-foreground">3. Progresso</span>
-            <br />
-            missão, Núcleo, conquista e pontos avançam sozinhos
-          </li>
-        </ol>
-        <div className="mt-4">
-          <BotaoRegistrarAtividade className="w-full sm:w-auto" />
+      <section className="panel panel-glow anim-rise min-w-0 rounded-3xl p-4 sm:p-5">
+        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-lilac/80">
+          O que você quer fazer hoje?
+        </p>
+        <div className="mt-3 grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
+          <BotaoRegistrarAtividade rotulo="Registrar atividade" />
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => abrir({ tipoId: "relatorio" })}
+            className="h-11 rounded-full border-border/70 bg-surface/60 font-display font-semibold"
+          >
+            <FileUp /> Enviar relatório
+          </Button>
         </div>
+      </section>
+
+      <div className="grid min-w-0 gap-4 lg:grid-cols-2">
+        <ResumoDesempenho onAbrir={() => irPara("atividades")} />
+        <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
+            <div className="min-w-0">
+              <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Meu Núcleo</p>
+              <h3 className="mt-1 font-display text-lg font-bold">Núcleo Serra</h3>
+              <p className="mt-1 text-[0.72rem] text-muted-foreground">
+                {conectoresNucleo.map((c) => c.nome).join(" e ")}
+              </p>
+            </div>
+            <span className="shrink-0 font-display text-2xl font-bold">{progressoNucleo}%</span>
+          </div>
+          <Progresso valor={progressoNucleo} className="mt-3 h-2" />
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            {indicadoresTerritoriais.map((i) => (
+              <div key={i.id} className="min-w-0 rounded-xl border border-border/60 bg-surface/60 p-2.5">
+                <p className="font-display text-lg font-bold">{i.valor}</p>
+                <p className="text-[0.66rem] text-muted-foreground [overflow-wrap:anywhere]">{i.rotulo}</p>
+              </div>
+            ))}
+          </div>
+          <BotaoLink rotulo="Ver Meu Núcleo" onClick={() => irPara("nucleo")} />
+        </section>
       </div>
 
-      <div className="grid min-w-0 grid-cols-2 gap-2.5 sm:grid-cols-4">
-        {[
-          { rotulo: "Atividades registradas", valor: atividades.length },
-          { rotulo: "Em validação", valor: atividadesEmValidacao },
-          { rotulo: "Missões concluídas", valor: missoesConcluidas },
-          { rotulo: "Progresso do Núcleo", valor: `${progressoNucleo}%` },
-        ].map((c) => (
-          <div key={c.rotulo} className="panel min-w-0 rounded-2xl p-3.5">
-            <p className="font-display text-xl font-bold">{c.valor}</p>
-            <p className="mt-0.5 text-[0.68rem] text-muted-foreground [overflow-wrap:anywhere]">
-              {c.rotulo}
-            </p>
+      <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
+        <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Continuar minha jornada</p>
+        <div className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {dimensoes.map((d) => (
+            <div key={d.id} className="min-w-0 rounded-2xl border border-border/60 bg-surface/60 p-3">
+              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
+                <span className="shrink-0" aria-hidden>{d.icone}</span>
+                <span className="truncate text-sm font-semibold">{d.nome}</span>
+                <span className="shrink-0 text-xs text-muted-foreground">{progressoPorDimensao[d.id]}%</span>
+              </div>
+              <Progresso valor={progressoPorDimensao[d.id]} cor={d.colorVar} className="mt-2" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="min-w-0">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3">
+          <div className="min-w-0">
+            <h3 className="font-display text-lg font-bold uppercase">Próximas missões</h3>
+            <p className="text-sm text-muted-foreground">Prioridades para continuar avançando no território.</p>
+          </div>
+          <BotaoLink rotulo="Ver todas" onClick={() => irPara("missoes")} />
+        </div>
+        <div className="mt-3 grid min-w-0 grid-cols-1 gap-2.5 md:grid-cols-3">
+          {proximas.map((m) => (
+            <article key={m.id} className="panel min-w-0 rounded-2xl p-3.5">
+              <p className="font-display text-sm font-semibold [overflow-wrap:anywhere]">{m.icone} {m.titulo}</p>
+              <p className="mt-2 text-[0.7rem] text-muted-foreground">{m.progressoAtual} de {m.metaTotal} {m.unidade}</p>
+              <Progresso valor={m.percentualProgresso} className="mt-2" />
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ResumoDesempenho({ onAbrir }: { onAbrir: () => void }) {
+  const metricas = [
+    { rotulo: "Reuniões", valor: "4/5" },
+    { rotulo: "Relatórios", valor: "2/3" },
+    { rotulo: "Metas individuais", valor: "75%" },
+    { rotulo: "Pendências", valor: "2" },
+  ];
+  return (
+    <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2">
+        <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Meu desempenho</p>
+        <span className="rounded-full border border-border/70 px-2 py-0.5 text-[0.58rem] text-muted-foreground">Demonstrativo</span>
+      </div>
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        {metricas.map((m) => (
+          <div key={m.rotulo} className="min-w-0 rounded-xl border border-border/60 bg-surface/60 p-3">
+            <p className="font-display text-xl font-bold">{m.valor}</p>
+            <p className="text-[0.68rem] text-muted-foreground [overflow-wrap:anywhere]">{m.rotulo}</p>
           </div>
         ))}
       </div>
+      <BotaoLink rotulo="Ver meu desempenho" onClick={onAbrir} />
+    </section>
+  );
+}
 
-      <div className="grid min-w-0 gap-4 lg:grid-cols-2">
-        <MeuDesempenho />
-        <JornadaDimensoes />
-      </div>
-    </div>
+function BotaoLink({ rotulo, onClick }: { rotulo: string; onClick: () => void }) {
+  return (
+    <Button type="button" variant="ghost" onClick={onClick} className="mt-3 h-auto p-0 text-xs text-lilac hover:bg-transparent hover:text-foreground">
+      {rotulo} <ArrowRight />
+    </Button>
   );
 }
 
@@ -215,7 +290,7 @@ function SecaoMissoes() {
 }
 
 function SecaoNucleo() {
-  const { nucleoId, conectoresNucleo } = useMeuNucleo();
+  const { atividades, missoes, nucleoId, conectoresNucleo } = useMeuNucleo();
   const nucleo = nucleoMap[nucleoId]!;
 
   return (
@@ -273,6 +348,33 @@ function SecaoNucleo() {
       </div>
 
       <ProgressoNucleo />
+      <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
+        <h3 className="font-display text-lg font-bold">Metas e missões da dupla</h3>
+        <p className="mt-1 text-sm text-muted-foreground">O trabalho dos dois Conectores contribui para as mesmas metas territoriais.</p>
+        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {missoes.slice(0, 6).map((m) => (
+            <div key={m.id} className="min-w-0 rounded-xl border border-border/60 bg-surface/60 p-3">
+              <p className="text-sm font-semibold [overflow-wrap:anywhere]">{m.icone} {m.titulo}</p>
+              <p className="mt-1 text-[0.68rem] text-muted-foreground">{m.progressoAtual}/{m.metaTotal} {m.unidade}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
+        <h3 className="font-display text-lg font-bold">Atividades recentes do Núcleo</h3>
+        {atividades.length > 0 ? (
+          <ul className="mt-3 divide-y divide-border/50">
+            {atividades.slice(0, 5).map((a) => (
+              <li key={a.id} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 py-3">
+                <span className="min-w-0 break-words text-sm font-medium">{a.titulo}</span>
+                <span className="shrink-0 text-xs text-muted-foreground">{a.municipio || "Território"}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-3 text-sm text-muted-foreground">As atividades registradas pela dupla aparecerão aqui.</p>
+        )}
+      </section>
       <RankingNucleos />
     </div>
   );
