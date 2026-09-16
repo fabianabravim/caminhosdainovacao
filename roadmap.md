@@ -75,7 +75,7 @@
 - [ ] Ativar e validar os usuários demonstrativos (aguarda e-mails reais capazes de receber a confirmação)
 
 ## Navegação autenticada — Relatórios
-- [ ] Remover a tela, rota e navegação da antiga Rede
-- [ ] Criar a página autenticada de Relatórios com os cinco status solicitados
-- [ ] Substituir Rede por Relatórios na ordem exata da navegação inferior
+- [x] Remover a tela, rota e navegação da antiga Rede
+- [x] Criar a página autenticada de Relatórios com os cinco status solicitados
+- [x] Substituir Rede por Relatórios na ordem exata da navegação inferior
 - [ ] Validar a nova página e a navegação em desktop e celular
