@@ -25,7 +25,7 @@ export const Route = createFileRoute("/entrar")({
   component: Entrar,
 });
 
-type Modo = "escolha" | "entrar" | "primeiro";
+type Modo = "escolha" | "entrar" | "primeiro" | "recuperar";
 
 function caminhoSeguro(retorno?: string) {
   if (!retorno || !retorno.startsWith("/") || retorno.startsWith("//")) return "/jornada";
@@ -106,6 +106,22 @@ function Entrar() {
     }
   }
 
+  async function recuperarSenha() {
+    setCarregando(true);
+    setErro(null);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (error) throw error;
+      setMensagem("Se o e-mail estiver cadastrado, você receberá as instruções para criar uma nova senha.");
+    } catch {
+      setErro("Não foi possível solicitar a recuperação agora.");
+    } finally {
+      setCarregando(false);
+    }
+  }
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0 opacity-45">
@@ -139,18 +155,18 @@ function Entrar() {
               <Button type="button" variant="outline" onClick={() => mudarModo("primeiro")} className="mt-2 h-auto w-full rounded-2xl border-border/70 bg-surface/60 px-5 py-3 text-xs font-semibold text-lilac">Primeiro acesso</Button>
             </>
           ) : (
-            <form className="space-y-3" onSubmit={(event) => { event.preventDefault(); void (modo === "entrar" ? entrar() : primeiroAcesso()); }}>
+            <form className="space-y-3" onSubmit={(event) => { event.preventDefault(); void (modo === "entrar" ? entrar() : modo === "primeiro" ? primeiroAcesso() : recuperarSenha()); }}>
               <div>
-                <p className="text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground">{modo === "entrar" ? "Acesso do Conector" : "Ativar acesso"}</p>
-                <h2 className="mt-1 font-display text-xl font-semibold">{modo === "entrar" ? "Entrar na Jornada" : "Primeiro acesso"}</h2>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{modo === "entrar" ? "Use o e-mail e a senha cadastrados." : "Use seu e-mail previamente autorizado e crie sua senha."}</p>
+                <p className="text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground">{modo === "entrar" ? "Acesso do Conector" : modo === "primeiro" ? "Ativar acesso" : "Recuperar acesso"}</p>
+                <h2 className="mt-1 font-display text-xl font-semibold">{modo === "entrar" ? "Entrar na Jornada" : modo === "primeiro" ? "Primeiro acesso" : "Esqueci minha senha"}</h2>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{modo === "entrar" ? "Use o e-mail e a senha cadastrados." : modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : "Informe seu e-mail para receber as instruções de recuperação."}</p>
               </div>
               <label className="block text-xs font-semibold text-muted-foreground">E-mail
                 <input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} className="mt-1 w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm outline-none focus:border-primary" />
               </label>
-              <label className="block text-xs font-semibold text-muted-foreground">Senha
+              {modo !== "recuperar" ? <label className="block text-xs font-semibold text-muted-foreground">Senha
                 <input type="password" autoComplete={modo === "entrar" ? "current-password" : "new-password"} minLength={8} required value={senha} onChange={(event) => setSenha(event.target.value)} className="mt-1 w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm outline-none focus:border-primary" />
-              </label>
+              </label> : null}
               {modo === "primeiro" ? (
                 <label className="block text-xs font-semibold text-muted-foreground">Confirmar senha
                   <input type="password" autoComplete="new-password" minLength={8} required value={confirmacao} onChange={(event) => setConfirmacao(event.target.value)} className="mt-1 w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm outline-none focus:border-primary" />
@@ -158,7 +174,8 @@ function Entrar() {
               ) : null}
               {erro ? <p role="alert" className="rounded-xl border border-destructive/20 bg-destructive/5 p-3 text-xs text-destructive">{erro}</p> : null}
               {mensagem ? <p role="status" className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-foreground">{mensagem}</p> : null}
-              <Button type="submit" disabled={carregando || Boolean(mensagem)} className="panel-glow h-auto w-full rounded-2xl px-5 py-3.5 font-display text-sm font-semibold">{carregando ? "Aguarde…" : modo === "entrar" ? "Entrar" : "Criar acesso"}</Button>
+              <Button type="submit" disabled={carregando || Boolean(mensagem)} className="panel-glow h-auto w-full rounded-2xl px-5 py-3.5 font-display text-sm font-semibold">{carregando ? "Aguarde…" : modo === "entrar" ? "Entrar" : modo === "primeiro" ? "Criar acesso" : "Enviar instruções"}</Button>
+              {modo === "entrar" ? <Button type="button" variant="link" onClick={() => mudarModo("recuperar")} className="h-auto w-full py-1 text-xs">Esqueci minha senha</Button> : null}
               <Button type="button" variant="ghost" onClick={() => mudarModo("escolha")} className="h-auto w-full py-2 text-xs text-muted-foreground">Voltar</Button>
             </form>
           )}
