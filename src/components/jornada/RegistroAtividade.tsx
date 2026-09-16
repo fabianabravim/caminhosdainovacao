@@ -305,7 +305,7 @@ function FeedbackRegistro({
 
   return (
     <div className="mt-4 space-y-4">
-      <div className="rounded-2xl border border-emerald-300/30 bg-emerald-400/10 p-4">
+      <div className="rounded-2xl border border-emerald-400/30 bg-emerald-50 p-4">
         <p className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
           <Check className="h-4 w-4" /> ATIVIDADE REGISTRADA
         </p>

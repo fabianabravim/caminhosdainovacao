@@ -52,7 +52,7 @@ function Home() {
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-5">
           <ChancelaInstitucional />
           <span aria-hidden="true" className="hidden h-5 w-px bg-border/50 md:block" />
-          <a href="#inicio" className="hidden font-display text-xs font-semibold uppercase tracking-[0.2em] text-foreground md:block">Caminhos da Inovação</a>
+          <a href="#inicio" className="hidden font-brand-condensed text-xs font-semibold uppercase tracking-[0.2em] text-foreground md:block">Caminhos da Inovação</a>
           <nav aria-label="Navegação principal" className="ml-auto hidden items-center gap-6 lg:flex">
             <a href="#sobre" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Sobre</a>
             <a href="#inovacao" className="text-xs text-muted-foreground transition-colors hover:text-foreground">Inovação</a>
@@ -88,7 +88,7 @@ function Home() {
           <div className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-4 px-5 pb-14 pt-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
             <div className="order-1 max-w-xl">
               <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-lilac">Caminhos da Inovação</p>
-              <h1 className="mt-5 font-display text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
+              <h1 className="mt-5 font-brand-condensed text-[2.7rem] font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">A inovação capixaba<br /><span className="text-gradient">está em movimento.</span></h1>
             </div>
 
             <div className="relative order-2 mx-auto w-full max-w-[600px] lg:row-span-2 lg:ml-auto"
@@ -121,7 +121,7 @@ function Home() {
           <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.26em] text-violet">Mapa da Inovação Capixaba</p>
-              <h2 className="mt-5 font-display text-4xl font-semibold leading-tight sm:text-5xl">Todo território guarda possibilidades.</h2>
+              <h2 className="mt-5 font-brand-condensed text-4xl font-semibold leading-tight sm:text-5xl">Todo território guarda possibilidades.</h2>
               <p className="mt-6 max-w-xl text-base leading-relaxed text-paper-muted">Explore o Espírito Santo e descubra como diferentes atores, iniciativas e conexões formam o nosso ecossistema de inovação.</p>
               <p className="mt-6 text-sm font-medium text-primary">Passe, toque ou use o teclado para conhecer os núcleos.</p>
             </div>

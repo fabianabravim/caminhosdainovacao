@@ -23,7 +23,7 @@ const statusStyle: Record<StatusProgressoMissao, string> = {
   andamento: "border-lilac/50 bg-primary/15 text-lilac",
   em_validacao: "border-glow/50 bg-glow/10 text-glow",
   ajustes_solicitados: "border-destructive/50 bg-destructive/10 text-destructive",
-  concluida: "border-emerald-300/40 bg-emerald-400/10 text-emerald-200",
+  concluida: "border-emerald-400/40 bg-emerald-50 text-emerald-700",
 };
 
 export const Route = createFileRoute("/missoes")({
