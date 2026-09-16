@@ -10,8 +10,8 @@ const estiloStatus: Record<StatusMissao, string> = {
   nao_iniciada: "border-border/70 bg-surface/60 text-muted-foreground",
   andamento: "border-lilac/50 bg-primary/15 text-lilac",
   validacao: "border-glow/50 bg-glow/10 text-glow",
-  ajustes: "border-amber-300/40 bg-amber-400/10 text-amber-200",
-  concluida: "border-emerald-300/40 bg-emerald-400/10 text-emerald-200",
+  ajustes: "border-amber-400/40 bg-amber-50 text-amber-700",
+  concluida: "border-emerald-400/40 bg-emerald-50 text-emerald-700",
 };
 
 /**
@@ -49,7 +49,7 @@ export function MissoesTerritorio() {
                         {m.icone}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <h3 className="font-display text-sm font-semibold [overflow-wrap:anywhere]">
+                        <h3 className="text-sm font-semibold [overflow-wrap:anywhere]">
                           {m.titulo}
                         </h3>
                         <p className="mt-1 break-words text-[0.72rem] leading-relaxed text-muted-foreground [overflow-wrap:anywhere]">
@@ -59,7 +59,7 @@ export function MissoesTerritorio() {
                     </div>
 
                     {/* Impacto / progresso — elemento principal do card */}
-                    <p className="mt-3 font-display text-sm font-semibold">
+                    <p className="mt-3 text-sm font-semibold">
                       {m.progressoAtual} de {m.metaTotal} {m.unidade}
                     </p>
                     <div className="mt-1.5 flex items-center gap-2">

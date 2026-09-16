@@ -91,6 +91,6 @@ export const estiloStatusAtividade: Record<StatusAtividade, string> = {
   rascunho: "border-border/70 bg-surface/60 text-muted-foreground",
   enviada: "border-lilac/50 bg-primary/15 text-lilac",
   em_validacao: "border-glow/50 bg-glow/10 text-glow",
-  aprovada: "border-emerald-300/40 bg-emerald-400/10 text-emerald-200",
-  ajustes_solicitados: "border-amber-300/40 bg-amber-400/10 text-amber-200",
+  aprovada: "border-emerald-400/40 bg-emerald-50 text-emerald-700",
+  ajustes_solicitados: "border-amber-400/40 bg-amber-50 text-amber-700",
 };
