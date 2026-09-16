@@ -120,17 +120,20 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
           ativo: perfilResult.data.ativo,
           demonstrativo: perfilResult.data.demonstrativo,
         });
-        setConectoresNucleo((equipeResult.data ?? []).map((membro) => ({
-          id: membro.user_id,
-          nome: membro.nome,
-          papel: "Conector Territorial",
-          iniciais: iniciais(membro.nome),
-          foco: "Atuação territorial",
-          email: membro.email,
-          nucleoId: membro.nucleo_id ?? undefined,
-          ativo: membro.ativo,
-          demonstrativo: membro.demonstrativo,
-        })));
+        setConectoresNucleo((equipeResult.data ?? []).map((membro) => {
+          const conector: Conector = {
+            id: membro.user_id,
+            nome: membro.nome,
+            papel: "Conector Territorial",
+            iniciais: iniciais(membro.nome),
+            foco: "Atuação territorial",
+            email: membro.email,
+            ativo: membro.ativo,
+            demonstrativo: membro.demonstrativo,
+          };
+          if (membro.nucleo_id) conector.nucleoId = membro.nucleo_id;
+          return conector;
+        }));
         setAtividades((atividadesResult.data ?? []).map(mapearAtividade));
       } catch (error) {
         if (ativo) setErro(error instanceof Error ? error.message : "Não foi possível carregar a Jornada.");
