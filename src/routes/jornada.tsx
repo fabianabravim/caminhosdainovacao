@@ -125,7 +125,7 @@ function JornadaConteudo() {
                   aria-current={aba === a.id ? "page" : undefined}
                   className={`tap h-auto min-h-10 w-full min-w-0 whitespace-normal rounded-full px-2 py-2 text-center text-[0.7rem] font-semibold leading-tight transition-colors min-[390px]:text-[0.76rem] ${
                     aba === a.id
-                      ? "panel-glow border-lilac/50 bg-primary/25 text-foreground"
+                      ? "panel-glow border-lilac/35 bg-primary/10 text-primary"
                       : "border-border/70 bg-surface/60 text-muted-foreground"
                   }`}
                 >
@@ -176,7 +176,7 @@ function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
             type="button"
             variant="outline"
             onClick={() => abrir({ tipoId: "relatorio" })}
-            className="h-11 rounded-full border-border/70 bg-surface/60 font-display font-semibold"
+            className="h-11 rounded-full border-border/70 bg-surface font-semibold"
           >
             <FileUp /> Enviar relatório
           </Button>
@@ -189,7 +189,7 @@ function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
             <div className="min-w-0">
               <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Meu Núcleo</p>
-              <h3 className="mt-1 font-display text-lg font-bold">Núcleo Serra</h3>
+              <h3 className="mt-1 text-lg font-semibold">Núcleo Serra</h3>
               <p className="mt-1 text-[0.72rem] text-muted-foreground">
                 {conectoresNucleo.map((c) => c.nome).join(" e ")}
               </p>
@@ -218,7 +218,7 @@ function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
               <div key={d.id} className="min-w-0 rounded-2xl border border-border/60 bg-surface/60 p-3">
                 <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
                   <Icone className="h-4 w-4 shrink-0 text-lilac" aria-hidden />
-                  <span className="truncate text-sm font-semibold">{d.nome}</span>
+                   <span className="truncate text-sm font-medium">{d.nome}</span>
                   <span className="shrink-0 text-xs text-muted-foreground">{progressoPorDimensao[d.id]}%</span>
                 </div>
                 <Progresso valor={progressoPorDimensao[d.id]} cor={d.colorVar} className="mt-2" />
@@ -231,7 +231,7 @@ function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
       <section className="min-w-0">
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3">
           <div className="min-w-0">
-            <h3 className="font-display text-lg font-bold uppercase">Próximas missões</h3>
+            <h3 className="text-lg font-semibold">Próximas missões</h3>
             <p className="text-sm text-muted-foreground">Prioridades para continuar avançando no território.</p>
           </div>
           <BotaoLink rotulo="Ver todas" onClick={() => irPara("missoes")} />
@@ -239,7 +239,7 @@ function SecaoVisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
         <div className="mt-3 grid min-w-0 grid-cols-1 gap-2.5 md:grid-cols-3">
           {proximas.map((m) => (
             <article key={m.id} className="panel min-w-0 rounded-2xl p-3.5">
-              <p className="font-display text-sm font-semibold [overflow-wrap:anywhere]">{m.icone} {m.titulo}</p>
+              <p className="text-sm font-medium [overflow-wrap:anywhere]">{m.icone} {m.titulo}</p>
               <p className="mt-2 text-[0.7rem] text-muted-foreground">{m.progressoAtual} de {m.metaTotal} {m.unidade}</p>
               <Progresso valor={m.percentualProgresso} className="mt-2" />
             </article>
@@ -288,7 +288,7 @@ function SecaoMissoes() {
   return (
     <div className="min-w-0 space-y-3">
       <div>
-        <h3 className="font-display text-lg font-bold">Missões do Território</h3>
+        <h3 className="text-lg font-semibold">Missões do Território</h3>
         <p className="mt-0.5 text-sm text-muted-foreground">
           O que o Núcleo precisa alcançar. Cada missão avança quando suas atividades são validadas.
         </p>
@@ -306,7 +306,7 @@ function SecaoNucleo() {
     <div className="min-w-0 space-y-5">
       <div className="panel panel-glow overflow-hidden rounded-3xl p-5">
         <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">Meu Núcleo</p>
-        <h3 className="mt-1 font-display text-lg font-bold">Núcleo {nucleo.nome}</h3>
+        <h3 className="mt-1 text-lg font-semibold">Núcleo {nucleo.nome}</h3>
         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
           “Cada descoberta ajuda a revelar o ecossistema de inovação do seu território.”
         </p>
@@ -318,7 +318,7 @@ function SecaoNucleo() {
           {conectoresNucleo.map((c) => (
             <div key={c.nome} className="min-w-0 rounded-2xl border border-border/70 bg-surface/60 p-3">
               <div className="flex items-center gap-2.5">
-                <span className="panel-glow grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/40 font-display text-xs font-bold text-glow">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-primary/20 bg-primary/10 text-xs font-semibold text-primary">
                   {c.iniciais}
                 </span>
                 <div className="min-w-0">
@@ -358,7 +358,7 @@ function SecaoNucleo() {
 
       <ProgressoNucleo />
       <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
-        <h3 className="font-display text-lg font-bold">Metas e missões da dupla</h3>
+        <h3 className="text-lg font-semibold">Metas e missões da dupla</h3>
         <p className="mt-1 text-sm text-muted-foreground">O trabalho dos dois Conectores contribui para as mesmas metas territoriais.</p>
         <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {missoes.slice(0, 6).map((m) => (
@@ -370,7 +370,7 @@ function SecaoNucleo() {
         </div>
       </section>
       <section className="panel min-w-0 rounded-3xl p-4 sm:p-5">
-        <h3 className="font-display text-lg font-bold">Atividades recentes do Núcleo</h3>
+        <h3 className="text-lg font-semibold">Atividades recentes do Núcleo</h3>
         {atividades.length > 0 ? (
           <ul className="mt-3 divide-y divide-border/50">
             {atividades.slice(0, 5).map((a) => (

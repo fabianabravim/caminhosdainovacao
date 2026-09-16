@@ -87,8 +87,8 @@
   --color-brand-dark: var(--brand-dark);
   --font-brand: "Amsi Pro", Arial, ui-sans-serif, system-ui, sans-serif;
   --font-brand-condensed: "Amsi Pro Condensed", "Arial Narrow", Arial, ui-sans-serif, system-ui, sans-serif;
-  --font-display: Arial, ui-sans-serif, system-ui, sans-serif;
-  --font-sans: Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Amsi Pro", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Amsi Pro", Arial, ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -100,26 +100,26 @@
   --brand-primary-hover: color-mix(in oklab, var(--brand-primary) 88%, var(--brand-dark));
   --brand-secondary-hover: color-mix(in oklab, var(--brand-secondary) 88%, white);
 
-  --background: oklch(0.985 0.003 296);
-  --foreground: var(--brand-dark);
+  --background: oklch(0.985 0.002 285);
+  --foreground: oklch(0.29 0.018 290);
   --surface: oklch(1 0 0);
-  --surface-2: color-mix(in oklab, var(--brand-primary) 8%, white);
+  --surface-2: color-mix(in oklab, var(--brand-primary) 4%, white);
   --card: var(--surface);
   --card-foreground: var(--foreground);
   --popover: var(--surface);
   --popover-foreground: var(--foreground);
   --primary: var(--brand-secondary);
   --primary-foreground: oklch(1 0 0);
-  --secondary: color-mix(in oklab, var(--brand-primary) 10%, white);
-  --secondary-foreground: var(--brand-dark);
-  --muted: color-mix(in oklab, var(--brand-primary) 6%, white);
-  --muted-foreground: color-mix(in oklab, var(--brand-dark) 72%, white 28%);
+  --secondary: color-mix(in oklab, var(--brand-primary) 7%, white);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(0.965 0.004 285);
+  --muted-foreground: oklch(0.52 0.025 290);
   --accent: var(--brand-primary);
   --accent-foreground: var(--brand-dark);
   --destructive: oklch(0.62 0.2 20);
   --destructive-foreground: oklch(0.98 0.01 300);
-  --border: color-mix(in oklab, var(--brand-primary) 22%, white);
-  --input: color-mix(in oklab, var(--brand-primary) 30%, white);
+  --border: color-mix(in oklab, var(--brand-primary) 13%, oklch(0.91 0.004 285));
+  --input: color-mix(in oklab, var(--brand-primary) 18%, oklch(0.9 0.004 285));
   --ring: var(--brand-primary);
   --violet-mid: var(--brand-secondary);
   --lilac: var(--brand-secondary);
@@ -129,10 +129,10 @@
   --dim-descobrir: color-mix(in oklab, var(--brand-primary) 82%, var(--brand-dark));
   --dim-transformar: var(--brand-secondary);
   --paper: oklch(1 0 0);
-  --paper-foreground: var(--brand-dark);
-  --paper-muted: color-mix(in oklab, var(--brand-dark) 72%, white 28%);
-  --map-fill-start: color-mix(in oklab, var(--brand-primary) 13%, white);
-  --map-fill-end: color-mix(in oklab, var(--brand-secondary) 24%, white);
+  --paper-foreground: var(--foreground);
+  --paper-muted: var(--muted-foreground);
+  --map-fill-start: color-mix(in oklab, var(--brand-primary) 9%, white);
+  --map-fill-end: color-mix(in oklab, var(--brand-secondary) 17%, white);
 }
 
 @layer base {
@@ -151,11 +151,7 @@
   }
 
   h1,
-  h2 {
-    font-family: var(--font-brand-condensed);
-    letter-spacing: 0;
-  }
-
+  h2,
   h3,
   h4 {
     font-family: var(--font-sans);
@@ -165,29 +161,29 @@
   button,
   label,
   [role="tab"] {
-    font-family: var(--font-brand);
+    font-family: var(--font-sans);
     font-weight: 600;
   }
 
   input,
   select,
   textarea {
-    font-family: var(--font-brand);
+    font-family: var(--font-sans);
   }
 }
 
 @utility panel {
-  background: color-mix(in oklab, var(--surface) 97%, var(--brand-primary));
-  border: 1px solid color-mix(in oklab, var(--brand-primary) 18%, white);
+  background: color-mix(in oklab, var(--surface) 99%, var(--brand-primary));
+  border: 1px solid color-mix(in oklab, var(--brand-primary) 11%, oklch(0.91 0.004 285));
   box-shadow:
-    0 1px 2px color-mix(in oklab, var(--brand-dark) 5%, transparent),
-    0 12px 32px -24px color-mix(in oklab, var(--brand-dark) 24%, transparent);
+    0 1px 2px color-mix(in oklab, var(--brand-dark) 4%, transparent),
+    0 14px 38px -30px color-mix(in oklab, var(--brand-dark) 20%, transparent);
 }
 
 @utility panel-glow {
   box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--brand-primary) 24%, transparent),
-    0 12px 28px -20px color-mix(in oklab, var(--brand-secondary) 30%, transparent);
+    0 0 0 1px color-mix(in oklab, var(--brand-primary) 16%, transparent),
+    0 14px 32px -24px color-mix(in oklab, var(--brand-secondary) 22%, transparent);
 }
 
 @utility institutional-dark {

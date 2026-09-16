@@ -34,10 +34,10 @@ export function RankingNucleos() {
               key={item.nucleoId}
               className={`grid min-w-0 grid-cols-[2rem_minmax(0,1fr)] items-center gap-x-2 gap-y-1 rounded-xl border px-3 py-2.5 sm:grid-cols-[2rem_minmax(0,1fr)_auto] sm:gap-x-3 ${
                 meu
-                  ? "panel-glow border-glow/50 bg-primary/20"
+                  ? "border-primary/30 bg-primary/8 shadow-sm"
                   : i < 3
-                    ? "border-border/70 bg-surface/70"
-                    : "border-transparent bg-surface/40"
+                    ? "border-border/70 bg-surface"
+                    : "border-transparent bg-muted/45"
               }`}
             >
               <span className="row-span-2 w-7 shrink-0 text-center text-sm font-bold sm:row-span-1">

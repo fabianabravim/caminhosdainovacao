@@ -38,7 +38,7 @@ function Conquistas() {
         return (
           <section key={g.estado} className="mb-6">
             <div className="mb-3 flex items-center gap-2">
-              <h2 className="font-display text-base font-semibold">{g.titulo}</h2>
+              <h2 className="text-base font-semibold">{g.titulo}</h2>
               <span className="rounded-full bg-secondary px-2 py-0.5 text-[0.66rem] text-muted-foreground">
                 {lista.length}
               </span>
@@ -57,13 +57,13 @@ function Conquistas() {
                     <div className="flex items-center gap-3">
                       <span
                         className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl text-lg ${
-                          bloqueada ? "bg-secondary grayscale" : "bg-primary/30"
+                          bloqueada ? "bg-secondary grayscale" : "border border-primary/20 bg-primary/10 text-primary"
                         }`}
                       >
                         {bloqueada ? "🔒" : b.icone}
                       </span>
                       <div className="min-w-0">
-                        <p className="truncate font-display text-sm font-semibold">{b.nome}</p>
+                        <p className="truncate text-sm font-semibold">{b.nome}</p>
                         <Chip cor={d.colorVar} className="mt-1">
                           {d.icone} {d.nome}
                         </Chip>

@@ -22,7 +22,7 @@ export function Celebracao() {
         key={celebracao.id}
         className="anim-celebrate panel panel-glow relative flex max-w-sm items-center gap-3 rounded-2xl px-4 py-3"
       >
-        <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary/30 text-lg">
+        <span className="relative grid h-11 w-11 shrink-0 place-items-center rounded-full border border-primary/20 bg-primary/10 text-lg">
           {celebracao.tipo === "missao" ? "🏅" : "✨"}
           <span className="anim-halo absolute inset-0 rounded-full border border-glow/60" />
         </span>
