@@ -58,3 +58,9 @@
 - [x] Aprimorar visão geral, atividades, missões, relatórios e Meu Núcleo
 - [x] Corrigir terminologia na área autenticada
 - [x] Validar 360px a 1440px e fluxos principais
+
+## Refinamento visual claro e tipográfico
+- [ ] Definir direção visual clara preservando estrutura e identidade oficial
+- [ ] Aplicar superfícies claras e uso estratégico das cores oficiais
+- [ ] Restringir Amsi Pro Condensed aos títulos principais e destaques numéricos
+- [ ] Validar Home e Jornada em desktop e mobile sem alterar conteúdo ou funcionamento
