@@ -1,7 +1,16 @@
 import { useMeuNucleo } from "@/context/meuNucleoBase";
 import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
 import { Button } from "@/components/ui/button";
-import { estiloStatusAtividade, statusAtividadeLabel } from "@/data/atividades.config";
+import { estiloStatusAtividade } from "@/data/atividades.config";
+import type { StatusAtividade } from "@/types";
+
+const statusRelatorioLabel: Record<StatusAtividade, string> = {
+  rascunho: "Pendente",
+  enviada: "Enviado",
+  em_validacao: "Em análise",
+  aprovada: "Aprovado",
+  ajustes_solicitados: "Ajustes solicitados",
+};
 
 /**
  * "O que preciso entregar" — entregas do Conector.
@@ -27,7 +36,7 @@ export function RelatoriosJornada() {
           onClick={() => abrir({ tipoId: "relatorio" })}
           className="tap panel-glow h-auto w-full rounded-full px-4 py-2.5 font-display text-sm font-semibold sm:w-auto"
         >
-          + Enviar relatório
+          + Novo Relatório
         </Button>
       </div>
 
@@ -66,10 +75,18 @@ export function RelatoriosJornada() {
                 {r.data ? new Date(`${r.data}T12:00:00`).toLocaleDateString("pt-BR") : "—"}
               </p>
               <span className={`w-fit rounded-full border px-2.5 py-0.5 text-[0.64rem] font-semibold ${estiloStatusAtividade[r.status]}`}>
-                {statusAtividadeLabel[r.status]}
+                {statusRelatorioLabel[r.status]}
               </span>
               <p className="text-[0.72rem] text-muted-foreground">
-                {r.status === "ajustes_solicitados" ? "Ajustes indicados pela Coordenação" : r.status === "aprovada" ? "Relatório aprovado" : "Aguardando análise"}
+                {r.status === "rascunho"
+                  ? "Aguardando envio"
+                  : r.status === "enviada"
+                    ? "Enviado para acompanhamento"
+                    : r.status === "ajustes_solicitados"
+                      ? "Ajustes indicados pela Coordenação"
+                      : r.status === "aprovada"
+                        ? "Relatório aprovado"
+                        : "Aguardando análise"}
               </p>
             </li>
           ))}
