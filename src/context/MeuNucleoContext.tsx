@@ -230,7 +230,7 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
     };
   }, [atividades, conectoresNucleo, perfil, registrarAtividade]);
 
-  if (carregando) return <div className="grid min-h-[60vh] place-items-center text-sm text-muted-foreground">Carregando sua Jornada…</div>;
-  if (erro || !value) return <div className="mx-auto mt-16 max-w-md rounded-2xl border border-border bg-surface p-6 text-center"><h2 className="font-display text-lg font-semibold">Acesso não disponível</h2><p className="mt-2 text-sm text-muted-foreground">{erro ?? "Este perfil não possui um Núcleo Territorial vinculado."}</p></div>;
+  if (carregando) return <div className="topo-lines grid min-h-[60vh] place-items-center text-sm text-muted-foreground"><div className="text-center"><span className="mx-auto mb-3 block h-8 w-8 animate-spin rounded-full border-2 border-primary/20 border-t-primary" /><p>Carregando sua Jornada…</p></div></div>;
+  if (erro || !value) return <div className="topo-lines min-h-[70vh] px-5 py-16"><div className="panel mx-auto max-w-md rounded-lg p-6 text-center"><h2 className="text-lg font-semibold">Acesso não disponível</h2><p className="mt-2 text-sm text-muted-foreground">{erro ?? "Este perfil não possui um Núcleo Territorial vinculado."}</p></div></div>;
   return <MeuNucleoContext.Provider value={value}>{children}</MeuNucleoContext.Provider>;
 }
