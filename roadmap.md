@@ -81,15 +81,15 @@
 - [x] Validar a nova página e a navegação em desktop e celular
 
 ## Reconstrução visual e experiência territorial
-- [ ] Reconstruir visualmente a Home com narrativa institucional, territorial e humana
-- [ ] Integrar o mapa oficial e as fotografias existentes sem alterar geometria ou dados
-- [ ] Criar a seção de alto impacto das quatro dimensões e atualizar CTAs para “Entrar na Jornada”
-- [ ] Renovar login e shell interno preservando autenticação, sessão e vínculo automático ao Núcleo
-- [ ] Priorizar a Jornada com saudação territorial, trilha real, resumo, missões, atividades, Núcleo e pendências
-- [ ] Harmonizar Territórios, Missões, Relatórios, Perfil, formulários e navegação inferior
-- [ ] Validar rotas, fluxos, providers, dados demonstrativos e responsividade em desktop e celular
+- [x] Reconstruir visualmente a Home com narrativa institucional, territorial e humana
+- [x] Integrar o mapa oficial e as fotografias existentes sem alterar geometria ou dados
+- [x] Criar a seção de alto impacto das quatro dimensões e atualizar CTAs para “Entrar na Jornada”
+- [x] Renovar login e shell interno preservando autenticação, sessão e vínculo automático ao Núcleo
+- [x] Priorizar a Jornada com saudação territorial, trilha real, resumo, missões, atividades, Núcleo e pendências
+- [x] Harmonizar Territórios, Missões, Relatórios, Perfil, formulários e navegação inferior
+- [x] Validar rotas, fluxos, providers, dados demonstrativos e responsividade em desktop e celular
 
 ## Retomada após interrupção
 - [x] Auditar o que já estava concluído sem reiniciar a reconstrução
-- [ ] Concluir somente Missões, Perfil, estados compartilhados e validações pendentes
-- [ ] Confirmar preservação de banco, autenticação, vínculo usuário → Núcleo, providers e GeoJSON
+- [x] Concluir somente Missões, Perfil, estados compartilhados e validações pendentes
+- [x] Confirmar preservação de banco, autenticação, vínculo usuário → Núcleo, providers e GeoJSON
