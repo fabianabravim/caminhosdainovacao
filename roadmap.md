@@ -88,3 +88,8 @@
 - [ ] Priorizar a Jornada com saudação territorial, trilha real, resumo, missões, atividades, Núcleo e pendências
 - [ ] Harmonizar Territórios, Missões, Relatórios, Perfil, formulários e navegação inferior
 - [ ] Validar rotas, fluxos, providers, dados demonstrativos e responsividade em desktop e celular
+
+## Retomada após interrupção
+- [x] Auditar o que já estava concluído sem reiniciar a reconstrução
+- [ ] Concluir somente Missões, Perfil, estados compartilhados e validações pendentes
+- [ ] Confirmar preservação de banco, autenticação, vínculo usuário → Núcleo, providers e GeoJSON
