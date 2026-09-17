@@ -10,7 +10,6 @@ import { dimensoes } from "@/data/dimensoes";
 export function ProgressoNucleo() {
   const {
     progressoNucleo,
-    pontuacaoTotal,
     missoesConcluidas,
     missoesEmValidacao,
     progressoPorDimensao,
@@ -18,7 +17,7 @@ export function ProgressoNucleo() {
   } = useMeuNucleo();
 
   return (
-    <div className="panel panel-glow h-full min-w-0 rounded-3xl p-4 sm:p-5">
+    <div className="panel panel-glow h-full min-w-0 rounded-lg p-4 sm:p-5">
       <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
           👥 Meu Núcleo · Progresso territorial
@@ -62,12 +61,9 @@ export function ProgressoNucleo() {
         ))}
       </div>
 
-      {/* Gamificação em posição secundária */}
+       {/* Estado operacional derivado dos registros; pontuação segue em validação. */}
       <p className="mt-4 border-t border-border/50 pt-2.5 text-[0.7rem] text-muted-foreground">
-        {missoesConcluidas} missões concluídas · {missoesEmValidacao} em validação ·{" "}
-        <span className="font-semibold text-foreground/80">
-          {pontuacaoTotal.toLocaleString("pt-BR")} pts
-        </span>
+         {missoesConcluidas} missões concluídas · {missoesEmValidacao} em validação
       </p>
     </div>
   );
