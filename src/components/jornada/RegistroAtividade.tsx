@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react
 import { Camera, Check, FileText, Link as LinkIcon, MapPin, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { tipoAtividadeMap, tiposAtividade } from "@/data/atividades.config";
+import { AjudaInovacao } from "@/components/jornada/AjudaInovacao";
 import { useMeuNucleo, type ResultadoRegistro } from "@/context/meuNucleoBase";
 import { missaoTerritorialMap } from "@/data/missoes.config";
 import {
@@ -203,6 +204,7 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
                 ))}
               </select>
             </div>
+            {form.tipoId === "identificacao_iniciativa" ? <AjudaInovacao className="pt-0.5" /> : null}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
                 <label className={rotuloCls} htmlFor="atv-data">Data</label>
