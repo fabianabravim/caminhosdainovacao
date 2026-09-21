@@ -1,4 +1,5 @@
 import { Progresso } from "@/components/ui/Progresso";
+import { AjudaInovacao } from "@/components/jornada/AjudaInovacao";
 import { tipoAtividadePorFonte } from "@/data/atividades.config";
 import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
 import { useMeuNucleo } from "@/context/meuNucleoBase";
@@ -29,12 +30,15 @@ export function MissoesTerritorio() {
         const dim = dimensaoMap[dimId]!;
         return (
           <div key={dimId}>
-            <p
-              className="mb-2.5 flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em]"
-              style={{ color: dim.colorVar }}
-            >
-              <span aria-hidden>{dim.icone}</span> {dim.nome}
-            </p>
+            <div className="mb-2.5 flex flex-wrap items-center justify-between gap-2">
+              <p
+                className="flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em]"
+                style={{ color: dim.colorVar }}
+              >
+                <span aria-hidden>{dim.icone}</span> {dim.nome}
+              </p>
+              {dimId === "descobrir" ? <AjudaInovacao /> : null}
+            </div>
             <div className="grid min-w-0 grid-cols-1 gap-2.5 md:grid-cols-2 xl:grid-cols-3">
               {missoesPorDimensao(dimId).map((m) => {
                 const concluida = m.status === "concluida";

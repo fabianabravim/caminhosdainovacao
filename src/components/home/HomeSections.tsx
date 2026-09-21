@@ -28,21 +28,34 @@ const textosDimensao = [
   ["Converter conhecimento e articulação em ação.", "Mobilização, oficinas e resultados."],
 ] as const;
 
+/** Destaque aplicado às expressões-chave da definição institucional de inovação. */
+const destaque = "font-semibold text-foreground underline decoration-energy decoration-2 underline-offset-[5px]";
+
 export function HomeSections() {
   return (
     <>
-      <section id="inovacao" className="bg-surface text-foreground">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="relative overflow-hidden rounded-lg">
-            <img src={comunidade} alt="Pessoas colaborando em um ambiente de inovação" className="aspect-[4/3] h-full w-full object-cover" loading="lazy" />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,color-mix(in_oklab,var(--brand-dark)_88%,transparent))]" />
-            <p className="absolute bottom-5 left-5 max-w-xs text-xl font-semibold leading-tight text-primary-foreground">A inovação ganha forma quando pessoas e territórios trabalham juntos.</p>
+      <section id="inovacao" className="relative overflow-hidden bg-surface text-foreground">
+        <div className="topo-lines absolute inset-0 opacity-30" />
+        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:py-28">
+          <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div className="min-w-0">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet">Inovação com propósito</p>
+              <h2 className="mt-5 font-brand-condensed text-5xl font-semibold leading-[0.98] sm:text-6xl">O que entendemos por inovação?</h2>
+              <div className="mt-7 max-w-xl space-y-5 text-lg leading-relaxed text-muted-foreground">
+                <p>Para o Caminhos da Inovação, inovar é <span className={destaque}>transformar ou incorporar conhecimentos</span> em práticas, produtos, serviços e processos capazes de gerar valor para os territórios.</p>
+                <p>A inovação, <span className={destaque}>além da tecnologia</span>, abrange soluções organizacionais, metodológicas, institucionais e novos modelos de negócio, com potencial de produzir <span className={destaque}>impactos sociais, econômicos, culturais e/ou ambientais</span>.</p>
+              </div>
+            </div>
+            <div className="relative overflow-hidden rounded-lg">
+              <img src={comunidade} alt="Pessoas colaborando em um ambiente de inovação" className="aspect-[4/3] h-full w-full object-cover" loading="lazy" />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,color-mix(in_oklab,var(--brand-dark)_88%,transparent))]" />
+              <p className="absolute bottom-5 left-5 max-w-xs text-xl font-semibold leading-tight text-primary-foreground">A inovação ganha forma quando pessoas e territórios trabalham juntos.</p>
+            </div>
           </div>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet">Inovação com propósito</p>
-            <h2 className="mt-5 font-brand-condensed text-5xl font-semibold leading-[0.98] sm:text-6xl">Mais que ideias.<br />Um movimento de pessoas.</h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">Inovação é transformar conhecimento, ideias e necessidades em novas possibilidades para o Espírito Santo.</p>
-            <div className="mt-8 grid gap-x-6 sm:grid-cols-2">
+
+          <div className="mt-14">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Desdobramentos do conceito</p>
+            <div className="mt-4 grid gap-x-6 gap-y-1 sm:grid-cols-2 lg:grid-cols-5">
               {conceitos.map(({ titulo, texto, Icon }) => (
                 <div key={titulo} className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-3 border-t border-border py-4">
                   <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary"><Icon className="h-4 w-4" /></span>
