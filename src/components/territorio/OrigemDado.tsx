@@ -53,7 +53,7 @@ export function BlocoTerritorial({
   titulo: string;
   descricao?: string;
   origem?: Origem;
-  fonte?: string;
+  fonte?: string | undefined;
   children: ReactNode;
   className?: string;
 }) {
