@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { FONTE_CAMINHOS, FONTE_REFERENCIA_PADRAO, type OrigemDado as Origem } from "@/data/territorios.config";
 
 /** Selo discreto que identifica a origem da informação exibida. */
-export function SeloOrigem({ origem, fonte, className }: { origem: Origem; fonte?: string; className?: string }) {
+export function SeloOrigem({ origem, fonte, className }: { origem: Origem; fonte?: string | undefined; className?: string }) {
   const referencia = origem === "referencia";
   const Icone = referencia ? BookOpen : Compass;
   const texto = fonte ?? (referencia ? FONTE_REFERENCIA_PADRAO : FONTE_CAMINHOS);
