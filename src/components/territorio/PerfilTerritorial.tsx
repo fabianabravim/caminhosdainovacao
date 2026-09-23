@@ -184,10 +184,7 @@ function ListaTerritorial({ itens }: { itens: string[] }) {
   );
 }
 
-type Dados = NonNullable<ReturnType<typeof useDadosTipo>>;
-function useDadosTipo() {
-  return useContext(MeuNucleoContext);
-}
+type Dados = MeuNucleoState;
 
 function VisaoGeral({
   nucleoNome,
