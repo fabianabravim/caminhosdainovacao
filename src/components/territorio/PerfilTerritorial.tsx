@@ -2,7 +2,7 @@ import { useContext, useMemo, useState } from "react";
 import { MapPinned } from "lucide-react";
 import { BlocoTerritorial, SeloOrigem, SemDados } from "@/components/territorio/OrigemDado";
 import { Button } from "@/components/ui/button";
-import { MeuNucleoContext } from "@/context/meuNucleoBase";
+import { MeuNucleoContext, type MeuNucleoState } from "@/context/meuNucleoBase";
 import { nucleoMap } from "@/data/nucleos";
 import {
   areasPerfilTerritorial,
