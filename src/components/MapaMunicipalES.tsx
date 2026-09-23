@@ -1,4 +1,5 @@
-import { Database, Layers3, MapPinned, Search, X } from "lucide-react";
+import { Layers3, MapPinned, Search, X } from "lucide-react";
+import { MapaNucleosTerritorios } from "@/components/territorio/MapaNucleosTerritorios";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -186,15 +187,7 @@ export function MapaMunicipalES() {
           </svg>
         </div>
 
-        {modo === "nucleos" ? (
-          <div className="absolute inset-0 z-20 grid place-items-center px-5 text-center">
-            <div className="max-w-md rounded-md border border-border bg-background/90 p-6 shadow-2xl backdrop-blur-xl">
-              <Database aria-hidden="true" className="mx-auto h-6 w-6 text-lilac" />
-              <h2 className="mt-4 font-display text-lg font-semibold">Camada preparada</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">A composição oficial município → Núcleo Territorial ainda será incorporada. Nenhum agrupamento provisório é exibido.</p>
-            </div>
-          </div>
-        ) : null}
+        {modo === "nucleos" ? <MapaNucleosTerritorios /> : null}
 
         {foco && modo === "municipios" ? (
           <div className="pointer-events-none absolute left-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-md border border-lilac/30 bg-background/90 px-4 py-3 shadow-xl backdrop-blur-xl sm:left-6 sm:top-6">

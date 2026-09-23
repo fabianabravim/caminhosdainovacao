@@ -22,6 +22,7 @@ import { Route as AuthenticatedMapaRouteImport } from './routes/_authenticated/m
 import { Route as AuthenticatedMissoesRouteImport } from './routes/_authenticated/missoes'
 import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as AuthenticatedRelatoriosRouteImport } from './routes/_authenticated/relatorios'
+import { Route as AuthenticatedTerritorioNucleoIdRouteImport } from './routes/_authenticated/territorio.$nucleoId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -87,6 +88,12 @@ const AuthenticatedRelatoriosRoute = AuthenticatedRelatoriosRouteImport.update({
   path: '/relatorios',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedTerritorioNucleoIdRoute =
+  AuthenticatedTerritorioNucleoIdRouteImport.update({
+    id: '/territorio/$nucleoId',
+    path: '/territorio/$nucleoId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/missoes': typeof AuthenticatedMissoesRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/territorio/$nucleoId': typeof AuthenticatedTerritorioNucleoIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -115,6 +123,7 @@ export interface FileRoutesByTo {
   '/missoes': typeof AuthenticatedMissoesRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/territorio/$nucleoId': typeof AuthenticatedTerritorioNucleoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -131,6 +140,7 @@ export interface FileRoutesById {
   '/_authenticated/missoes': typeof AuthenticatedMissoesRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/_authenticated/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/_authenticated/territorio/$nucleoId': typeof AuthenticatedTerritorioNucleoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/missoes'
     | '/perfil'
     | '/relatorios'
+    | '/territorio/$nucleoId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/missoes'
     | '/perfil'
     | '/relatorios'
+    | '/territorio/$nucleoId'
   id:
     | '__root__'
     | '/'
@@ -176,6 +188,7 @@ export interface FileRouteTypes {
     | '/_authenticated/missoes'
     | '/_authenticated/perfil'
     | '/_authenticated/relatorios'
+    | '/_authenticated/territorio/$nucleoId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -282,6 +295,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRelatoriosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/territorio/$nucleoId': {
+      id: '/_authenticated/territorio/$nucleoId'
+      path: '/territorio/$nucleoId'
+      fullPath: '/territorio/$nucleoId'
+      preLoaderRoute: typeof AuthenticatedTerritorioNucleoIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -291,6 +311,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedMissoesRoute: typeof AuthenticatedMissoesRoute
   AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
   AuthenticatedRelatoriosRoute: typeof AuthenticatedRelatoriosRoute
+  AuthenticatedTerritorioNucleoIdRoute: typeof AuthenticatedTerritorioNucleoIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -299,6 +320,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMissoesRoute: AuthenticatedMissoesRoute,
   AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
   AuthenticatedRelatoriosRoute: AuthenticatedRelatoriosRoute,
+  AuthenticatedTerritorioNucleoIdRoute: AuthenticatedTerritorioNucleoIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
