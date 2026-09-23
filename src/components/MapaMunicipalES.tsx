@@ -1,4 +1,5 @@
-import { Database, Layers3, MapPinned, Search, X } from "lucide-react";
+import { Layers3, MapPinned, Search, X } from "lucide-react";
+import { MapaNucleosTerritorios } from "@/components/territorio/MapaNucleosTerritorios";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
