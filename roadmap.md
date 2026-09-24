@@ -96,5 +96,5 @@
 
 ## Territórios 2.0 — dados de referência
 - [x] Incorporar os dados DRS/IJSN e PDUI/IJSN fornecidos para os 14 Núcleos
-- [ ] Validar os 14 perfis, o mapa e “Conhecer território” em desktop e celular
-- [ ] Confirmar que Descobertas permanece vinculada somente às atividades dos Conectores
+- [x] Validar os 14 perfis, o mapa e “Conhecer território” em desktop e celular
+- [x] Confirmar que Descobertas permanece vinculada somente às atividades dos Conectores

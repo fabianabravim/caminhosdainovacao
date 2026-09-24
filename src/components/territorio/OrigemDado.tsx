@@ -11,15 +11,15 @@ export function SeloOrigem({ origem, fonte, className }: { origem: Origem; fonte
   return (
     <span
       className={cn(
-        "inline-flex max-w-full items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.6rem] font-medium leading-4 tracking-[0.04em]",
+        "inline-flex max-w-full items-start gap-1.5 rounded-md border px-2.5 py-1 text-[0.6rem] font-medium leading-4 tracking-[0.04em]",
         referencia
           ? "border-border/70 bg-surface/70 text-muted-foreground"
           : "border-energy/45 bg-energy/10 text-brand-dark",
         className,
       )}
     >
-      <Icone aria-hidden="true" className="h-3 w-3 shrink-0" />
-      <span className="truncate">
+      <Icone aria-hidden="true" className="mt-0.5 h-3 w-3 shrink-0" />
+      <span className="min-w-0 whitespace-normal break-words">
         {referencia ? "Dado de referência" : "Produzido pelo Caminhos"} · {texto}
       </span>
     </span>
