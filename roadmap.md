@@ -93,3 +93,8 @@
 - [x] Auditar o que já estava concluído sem reiniciar a reconstrução
 - [x] Concluir somente Missões, Perfil, estados compartilhados e validações pendentes
 - [x] Confirmar preservação de banco, autenticação, vínculo usuário → Núcleo, providers e GeoJSON
+
+## Territórios 2.0 — dados de referência
+- [x] Incorporar os dados DRS/IJSN e PDUI/IJSN fornecidos para os 14 Núcleos
+- [x] Validar os 14 perfis, o mapa e “Conhecer território” em desktop e celular
+- [x] Confirmar que Descobertas permanece vinculada somente às atividades dos Conectores
