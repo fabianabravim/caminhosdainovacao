@@ -125,7 +125,14 @@ export function PerfilTerritorial({ nucleoId }: { nucleoId: string }) {
                 Pontos fortes identificados
               </p>
               <div className="mt-2.5">
-                <ListaTerritorial itens={referencia.inovacaoPontosFortes} />
+                <ListaTerritorial
+                  itens={referencia.inovacaoPontosFortes}
+                  notaVazia={
+                    referencia.inovacaoEmConsolidacao
+                      ? "Pontos fortes identificados — dados de referência em consolidação"
+                      : undefined
+                  }
+                />
               </div>
             </div>
             <div>
@@ -133,7 +140,14 @@ export function PerfilTerritorial({ nucleoId }: { nucleoId: string }) {
                 Pontos a investigar
               </p>
               <div className="mt-2.5">
-                <ListaTerritorial itens={referencia.inovacaoPontosAInvestigar} />
+                <ListaTerritorial
+                  itens={referencia.inovacaoPontosAInvestigar}
+                  notaVazia={
+                    referencia.inovacaoEmConsolidacao
+                      ? "Pontos a investigar — dados de referência em consolidação"
+                      : undefined
+                  }
+                />
               </div>
             </div>
           </div>
@@ -170,8 +184,15 @@ function Municipios({ municipios, escuro = false }: { municipios: string[]; escu
   );
 }
 
-function ListaTerritorial({ itens }: { itens: string[] }) {
-  if (!itens.length) return <SemDados nota="Conteúdo a ser incorporado a partir dos documentos de referência." />;
+function ListaTerritorial({ itens, notaVazia }: { itens: string[]; notaVazia?: string }) {
+  if (!itens.length) {
+    return (
+      <SemDados
+        texto={notaVazia ?? "Dados de referência em consolidação"}
+        nota={notaVazia ? "" : "Conteúdo a ser incorporado a partir dos documentos de referência."}
+      />
+    );
+  }
   return (
     <ul className="space-y-2">
       {itens.map((item) => (
