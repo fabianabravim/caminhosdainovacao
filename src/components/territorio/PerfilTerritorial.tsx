@@ -184,7 +184,7 @@ function Municipios({ municipios, escuro = false }: { municipios: string[]; escu
   );
 }
 
-function ListaTerritorial({ itens, notaVazia }: { itens: string[]; notaVazia?: string }) {
+function ListaTerritorial({ itens, notaVazia }: { itens: string[]; notaVazia?: string | undefined }) {
   if (!itens.length) {
     return (
       <SemDados
