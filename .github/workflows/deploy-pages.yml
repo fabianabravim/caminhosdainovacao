@@ -40,52 +40,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Verificar build
+      - name: Verificar arquivos para publicacao
         run: |
-          echo "========================================="
-          echo "DIRETORIO ATUAL"
-          echo "========================================="
-          pwd
+          echo "Publicando conteudo de .output/public"
+          ls -la .output/public
 
-          echo ""
-          echo "========================================="
-          echo "ARQUIVOS DA RAIZ"
-          echo "========================================="
-          ls -la
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .output/public
 
-          echo ""
-          echo "========================================="
-          echo "CONTEUDO DE .output"
-          echo "========================================="
-          if [ -d ".output" ]; then
-            find .output -maxdepth 4 -type f | head -100
-          else
-            echo "A pasta .output nao existe."
-          fi
-
-          echo ""
-          echo "========================================="
-          echo "PASTAS DENTRO DE .output"
-          echo "========================================="
-          if [ -d ".output" ]; then
-            find .output -maxdepth 3 -type d
-          fi
-
-      - name: Verificar pasta publica
-        run: |
-          echo "Procurando possiveis diretorios de publicacao..."
-
-          if [ -d ".output/public" ]; then
-            echo "ENCONTRADO: .output/public"
-            ls -la .output/public
-          fi
-
-          if [ -d "dist" ]; then
-            echo "ENCONTRADO: dist"
-            ls -la dist
-          fi
-
-          if [ -d "build" ]; then
-            echo "ENCONTRADO: build"
-            ls -la build
-          fi
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
