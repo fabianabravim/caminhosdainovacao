@@ -1,5 +1,5 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { CheckCircle2, LockKeyhole, LogOut, Mail, MapPinned, UserRound } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { CheckCircle2, LockKeyhole, ShieldCheck, LogOut, Mail, MapPinned, UserRound } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -51,6 +51,7 @@ function PerfilConteudo() {
         <div className="space-y-5">
           <section className="panel overflow-hidden rounded-lg"><div className="border-b border-border px-5 py-4"><h3 className="text-lg font-semibold">Informações do acesso</h3><p className="mt-1 text-sm text-muted-foreground">Dados vinculados à sua identificação na plataforma.</p></div><dl className="divide-y divide-border/60">{linhas.map(({ Icon, rotulo, valor }) => <div key={rotulo} className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-3 px-5 py-4"><span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary"><Icon className="h-4 w-4" /></span><div className="min-w-0"><dt className="text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-muted-foreground">{rotulo}</dt><dd className="mt-1 break-words text-sm font-semibold">{valor}</dd></div></div>)}</dl></section>
           <section className="panel rounded-lg p-5"><h3 className="text-lg font-semibold">Equipe do Núcleo</h3><p className="mt-1 text-sm text-muted-foreground">Os Conectores colaboram nas metas coletivas sem competir entre si.</p><div className="mt-4 grid gap-2 sm:grid-cols-2">{conectoresNucleo.map((c) => <div key={c.id} className="rounded-md border border-border bg-secondary/50 p-3"><p className="text-sm font-semibold">{c.nome}</p><p className="mt-1 text-xs text-muted-foreground">{c.email}</p></div>)}</div></section>
+          {perfil.perfil === "ADMINISTRADOR" ? <Button asChild className="mr-2 rounded-full"><Link to="/admin"><ShieldCheck /> Administração de usuários</Link></Button> : null}
           <Button type="button" variant="outline" className="rounded-full" onClick={async () => { await queryClient.cancelQueries(); queryClient.clear(); await supabase.auth.signOut(); await navigate({ to: "/entrar", replace: true }); }}><LogOut /> Sair da plataforma</Button>
         </div>
       </div>

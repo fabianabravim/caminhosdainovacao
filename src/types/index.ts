@@ -179,7 +179,7 @@ export interface Conector {
   demonstrativo?: boolean;
 }
 
-export type PerfilAcesso = "CONECTOR" | "COORDENACAO";
+export type PerfilAcesso = "CONECTOR" | "COORDENACAO" | "ADMINISTRADOR";
 
 export interface PerfilConector {
   userId: string;
