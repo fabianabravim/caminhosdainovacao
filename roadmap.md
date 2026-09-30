@@ -98,3 +98,7 @@
 - [x] Incorporar os dados DRS/IJSN e PDUI/IJSN fornecidos para os 14 Núcleos
 - [x] Validar os 14 perfis, o mapa e “Conhecer território” em desktop e celular
 - [x] Confirmar que Descobertas permanece vinculada somente às atividades dos Conectores
+
+## Administração de usuários
+- [x] Papel Administrador, área /admin, promoção de fabianabravim@gmail.com
+- [ ] Conta de teste da Coordenação — aguardando e-mail
