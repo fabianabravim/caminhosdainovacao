@@ -210,7 +210,7 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
     const individuais = atividades.filter((a) => a.conectorId === perfil.userId);
     return {
       perfil,
-      participante: { nome: perfil.nome, papel: perfil.perfil === "COORDENACAO" ? "Coordenação" : "Conector Territorial", iniciais: iniciais(perfil.nome) },
+      participante: { nome: perfil.nome, papel: perfil.perfil === "COORDENACAO" ? "Coordenação" : perfil.perfil === "ADMINISTRADOR" ? "Administrador" : "Conector Territorial", iniciais: iniciais(perfil.nome) },
       nucleoId: perfil.nucleoId,
       conectoresNucleo,
       atividades,

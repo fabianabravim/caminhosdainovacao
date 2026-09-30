@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Admin actions run only in src/lib/admin.functions.ts: server checks ADMINISTRADOR in user_roles before using the privileged client — why: the admin area must be enforced server-side, not by hiding menus.
+- perfis trigger blocks user edits to email/nucleo_id/ativo — why: users must not reassign their own Núcleo or reactivate themselves.
