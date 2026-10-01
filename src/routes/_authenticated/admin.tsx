@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { alterarStatusUsuario, enviarRedefinicaoSenha, listarUsuarios, salvarUsuario, souAdministrador } from "@/lib/admin.functions";
+import { alterarStatusUsuario, definirSenhaCoordenacao, enviarRedefinicaoSenha, listarUsuarios, salvarUsuario, souAdministrador } from "@/lib/admin.functions";
+
+const EMAIL_COORDENACAO = "projeto.caminhosdainovacao@gmail.com";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [
@@ -44,6 +46,8 @@ function AdminConteudo() {
   const salvar = useServerFn(salvarUsuario);
   const alterarStatus = useServerFn(alterarStatusUsuario);
   const redefinir = useServerFn(enviarRedefinicaoSenha);
+  const definirSenha = useServerFn(definirSenhaCoordenacao);
+  const [senhaCoord, setSenhaCoord] = useState<Usuario | null>(null);
   const qc = useQueryClient();
   const { data, isLoading, error } = useQuery({ queryKey: ["admin", "usuarios"], queryFn: () => listar() });
   const [busca, setBusca] = useState("");
@@ -113,7 +117,9 @@ function AdminConteudo() {
                   <div className="text-xs"><p className={u.ativo ? "font-semibold text-primary" : "font-semibold text-destructive"}>{u.ativo ? "Ativo" : "Inativo"}</p><p className="text-muted-foreground">{u.acessoCriado ? "Senha criada" : "Aguardando 1º acesso"} · {new Date(u.criadoEm).toLocaleDateString("pt-BR")}</p></div>
                   <div className="flex flex-wrap gap-1.5">
                     <Button size="sm" variant="outline" onClick={() => setEditando(u)}><Pencil /> Editar</Button>
-                    <Button size="sm" variant="outline" onClick={() => onRedefinir(u)} title="Primeiro acesso / redefinir senha"><KeyRound /> Senha</Button>
+                    {u.email === EMAIL_COORDENACAO && u.papel === "COORDENACAO"
+                      ? <Button size="sm" variant="outline" onClick={() => setSenhaCoord(u)}><KeyRound /> Definir senha da Coordenação</Button>
+                      : <Button size="sm" variant="outline" onClick={() => onRedefinir(u)} title="Primeiro acesso / redefinir senha"><KeyRound /> Senha</Button>}
                     {!u.souEu ? <Button size="sm" variant="outline" onClick={() => executar(() => alterarStatus({ data: { id: u.id, ativo: !u.ativo } }), u.ativo ? "Acesso desativado." : "Acesso reativado.")}><Power /> {u.ativo ? "Desativar" : "Ativar"}</Button> : null}
                   </div>
                 </li>
@@ -130,7 +136,37 @@ function AdminConteudo() {
           {editando !== null ? <FormUsuario key={editando === "novo" ? "novo" : editando.id} usuario={editando === "novo" ? null : editando} nucleos={nucleos} onSalvar={async (v) => { const ok = await executar(() => salvar({ data: v }), editando === "novo" ? "Usuário autorizado. Ele já pode fazer o Primeiro acesso." : "Alterações salvas."); if (ok) setEditando(null); }} /> : null}
         </DialogContent>
       </Dialog>
+
+      <Dialog open={senhaCoord !== null} onOpenChange={(o) => !o && setSenhaCoord(null)}>
+        <DialogContent>
+          {senhaCoord ? <FormSenhaCoordenacao onSalvar={async (senha) => { const ok = await executar(() => definirSenha({ data: { id: senhaCoord.id, senha } }), `Senha da Coordenação definida. ${senhaCoord.email} já pode entrar.`); if (ok) setSenhaCoord(null); }} /> : null}
+        </DialogContent>
+      </Dialog>
     </AppShell>
+  );
+}
+
+function FormSenhaCoordenacao({ onSalvar }: { onSalvar: (senha: string) => Promise<void> }) {
+  const [senha, setSenha] = useState("");
+  const [conf, setConf] = useState("");
+  const [erro, setErro] = useState<string | null>(null);
+  const [enviando, setEnviando] = useState(false);
+  async function submit(e: FormEvent) {
+    e.preventDefault();
+    if (senha.length < 10) return setErro("Use pelo menos 10 caracteres.");
+    if (senha !== conf) return setErro("As senhas não coincidem.");
+    setErro(null); setEnviando(true);
+    await onSalvar(senha);
+    setEnviando(false);
+  }
+  return (
+    <form onSubmit={submit} className="space-y-4" autoComplete="off">
+      <DialogHeader><DialogTitle>Definir senha da Coordenação</DialogTitle><DialogDescription>Conta institucional compartilhada. A senha vai direto para o sistema de autenticação e não é guardada nem exibida pela plataforma. A senha anterior deixa de funcionar.</DialogDescription></DialogHeader>
+      <div className="space-y-1.5"><Label htmlFor="nova-senha">Nova senha</Label><Input id="nova-senha" type="password" autoComplete="new-password" required minLength={10} value={senha} onChange={(e) => setSenha(e.target.value)} /></div>
+      <div className="space-y-1.5"><Label htmlFor="conf-senha">Confirmar senha</Label><Input id="conf-senha" type="password" autoComplete="new-password" required minLength={10} value={conf} onChange={(e) => setConf(e.target.value)} /></div>
+      {erro ? <p className="text-xs text-destructive">{erro}</p> : null}
+      <Button type="submit" className="w-full rounded-full" disabled={enviando}>{enviando ? "Salvando…" : "Definir senha"}</Button>
+    </form>
   );
 }
 
