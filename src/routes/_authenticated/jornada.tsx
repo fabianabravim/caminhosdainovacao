@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { AlertCircle, ArrowRight, CheckCircle2, Compass, FileClock, FileUp, Handshake, Lightbulb, LogOut, MapPinned, Rocket, User } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
@@ -44,7 +44,7 @@ function JornadaPage() {
   return (
     <MeuNucleoProvider>
       <RegistroAtividadeProvider>
-        <AppShell titulo="Jornada da Inovação Capixaba" subtitulo="Área do Conector" mostrarPontos={false} ampla jornadaResponsiva>
+        <AppShell titulo="Jornada da Inovação Capixaba" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva>
           <JornadaConteudo />
         </AppShell>
         <AcaoFlutuanteAtividade />
@@ -53,13 +53,20 @@ function JornadaPage() {
   );
 }
 
+function SubtituloPapel() {
+  const { perfil } = useMeuNucleo();
+  return <>{perfil.perfil === "ADMINISTRADOR" ? "Administração" : perfil.perfil === "COORDENACAO" ? "Área da Coordenação" : "Área do Conector"}</>;
+}
+
 function JornadaConteudo() {
   const [aba, setAba] = useState<AbaId>("visao");
   const { participante, nucleoId, perfil } = useMeuNucleo();
   const navigate = useNavigate({ from: "/jornada" });
   const queryClient = useQueryClient();
   const nucleo = nucleoMap[nucleoId];
-  if (!nucleo) return null;
+  // Coordenação tem atuação transversal: usa a área própria, sem depender de Núcleo.
+  if (perfil.perfil === "COORDENACAO") return <Navigate to="/coordenacao" replace />;
+  if (!nucleo) return <p className="panel rounded-lg p-6 text-sm text-muted-foreground">Este perfil não possui um Núcleo Territorial vinculado. Use a Administração para gerenciar a plataforma.</p>;
 
   return (
     <div className="min-w-0 space-y-5 sm:space-y-6">
@@ -181,6 +188,8 @@ function CabecalhoSecao({ titulo, texto, compacto = false }: { titulo: string; t
 function MeuNucleo() {
   const { atividades, missoes, nucleoId, conectoresNucleo } = useMeuNucleo();
   const nucleo = nucleoMap[nucleoId];
-  if (!nucleo) return null;
+  // Coordenação tem atuação transversal: usa a área própria, sem depender de Núcleo.
+  if (perfil.perfil === "COORDENACAO") return <Navigate to="/coordenacao" replace />;
+  if (!nucleo) return <p className="panel rounded-lg p-6 text-sm text-muted-foreground">Este perfil não possui um Núcleo Territorial vinculado. Use a Administração para gerenciar a plataforma.</p>;
   return <div className="space-y-5"><section className="relative overflow-hidden rounded-lg bg-brand-dark p-5 text-primary-foreground"><div className="topo-lines absolute inset-0 opacity-35" /><div className="relative"><p className="text-[0.62rem] uppercase tracking-[0.18em] text-energy">Meu Núcleo</p><h3 className="mt-2 text-2xl font-semibold">{nucleo ? `Núcleo ${nucleo.nome}` : "Atuação transversal"}</h3><p className="mt-2 max-w-xl text-sm text-primary-foreground/65">O trabalho dos Conectores contribui para as mesmas metas territoriais. Cada atividade mantém a rastreabilidade do responsável.</p><div className="mt-5 grid gap-2 sm:grid-cols-2">{conectoresNucleo.map((c) => <div key={c.nome} className="flex items-center gap-3 rounded-md border border-primary-foreground/15 bg-primary-foreground/8 p-3"><span className="grid h-10 w-10 place-items-center rounded-full bg-energy/15 text-sm font-semibold text-energy">{c.iniciais}</span><div><p className="text-sm font-semibold">{c.nome}</p><p className="text-xs text-primary-foreground/60">{c.papel}</p></div></div>)}</div></div></section><div className="panel overflow-hidden rounded-lg"><div className="border-b border-border px-5 py-4"><h3 className="font-semibold">Mapa do território</h3><p className="mt-1 text-sm text-muted-foreground">Seu Núcleo em destaque sobre a geometria oficial do Espírito Santo.</p></div><MapaVivo destaque={nucleoId} conexoes={[]} pontosTerritoriais labels interativo={false} className="mx-auto block h-auto max-h-[42rem] w-full max-w-[30rem]" /><p className="pb-4 text-center text-[0.58rem] uppercase tracking-[0.1em] text-muted-foreground">Fonte cartográfica: GEOBASES / IDAF</p></div><ProgressoNucleo /><section><CabecalhoSecao titulo="Metas coletivas" texto="Missões territoriais compartilhadas pela dupla." /><div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{missoes.slice(0, 6).map((m) => <div key={m.id} className="panel rounded-lg p-4"><p className="text-sm font-semibold">{m.icone} {m.titulo}</p><p className="mt-2 text-xs text-muted-foreground">{m.progressoAtual}/{m.metaTotal} {m.unidade}</p></div>)}</div></section><section><CabecalhoSecao titulo="Atividades recentes do Núcleo" texto="Registros dos Conectores deste território." />{atividades.length ? <ul className="panel mt-3 divide-y divide-border rounded-lg">{atividades.slice(0, 5).map((a) => <li key={a.id} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 p-4"><span className="truncate text-sm font-medium">{a.titulo}</span><span className="text-xs text-muted-foreground">{a.municipio || "Território"}</span></li>)}</ul> : <p className="panel mt-3 rounded-lg p-5 text-sm text-muted-foreground">As atividades registradas aparecerão aqui.</p>}</section><RankingNucleos /></div>;
 }
