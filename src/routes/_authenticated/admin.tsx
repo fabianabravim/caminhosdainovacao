@@ -115,7 +115,7 @@ function AdminConteudo() {
                   <div className="flex flex-wrap gap-1.5">
                     <Button size="sm" variant="outline" onClick={() => setEditando(u)}><Pencil /> Editar</Button>
                     {(u.email === EMAIL_COORDENACAO && u.papel === "COORDENACAO") || (u.email === EMAIL_CONECTOR_TESTE && u.papel === "CONECTOR")
-                      ? <Button size="sm" variant="outline" onClick={() => setSenhaCoord(u)}><KeyRound /> Definir senha</Button>
+                      ? <Button size="sm" onClick={() => setSenhaCoord(u)}><KeyRound /> {u.acessoCriado ? "Redefinir senha" : u.email === EMAIL_COORDENACAO ? "Definir senha da Coordenação" : "Definir senha"}</Button>
                       : <Button size="sm" variant="outline" onClick={() => onRedefinir(u)} title="Primeiro acesso / redefinir senha"><KeyRound /> Senha</Button>}
                     {!u.souEu ? <Button size="sm" variant="outline" onClick={() => executar(() => alterarStatus({ data: { id: u.id, ativo: !u.ativo } }), u.ativo ? "Acesso desativado." : "Acesso reativado.")}><Power /> {u.ativo ? "Desativar" : "Ativar"}</Button> : null}
                   </div>
@@ -136,14 +136,14 @@ function AdminConteudo() {
 
       <Dialog open={senhaCoord !== null} onOpenChange={(o) => !o && setSenhaCoord(null)}>
         <DialogContent>
-          {senhaCoord ? <FormSenhaCoordenacao onSalvar={async (senha) => { const ok = await executar(() => definirSenha({ data: { id: senhaCoord.id, senha } }), `Senha definida. ${senhaCoord.email} já pode entrar.`); if (ok) setSenhaCoord(null); }} /> : null}
+          {senhaCoord ? <FormSenhaCoordenacao titulo={`${senhaCoord.acessoCriado ? "Redefinir" : "Definir"} senha — ${senhaCoord.nome}`} email={senhaCoord.email} onCancelar={() => setSenhaCoord(null)} onSalvar={async (senha) => { const ok = await executar(() => definirSenha({ data: { id: senhaCoord.id, senha } }), `Senha definida. ${senhaCoord.email} já pode entrar.`); if (ok) setSenhaCoord(null); }} /> : null}
         </DialogContent>
       </Dialog>
     </AppShell>
   );
 }
 
-function FormSenhaCoordenacao({ onSalvar }: { onSalvar: (senha: string) => Promise<void> }) {
+function FormSenhaCoordenacao({ titulo, email, onSalvar, onCancelar }: { titulo: string; email: string; onSalvar: (senha: string) => Promise<void>; onCancelar: () => void }) {
   const [senha, setSenha] = useState("");
   const [conf, setConf] = useState("");
   const [erro, setErro] = useState<string | null>(null);
@@ -158,11 +158,14 @@ function FormSenhaCoordenacao({ onSalvar }: { onSalvar: (senha: string) => Promi
   }
   return (
     <form onSubmit={submit} className="space-y-4" autoComplete="off">
-      <DialogHeader><DialogTitle>Definir senha da Coordenação</DialogTitle><DialogDescription>Conta institucional compartilhada. A senha vai direto para o sistema de autenticação e não é guardada nem exibida pela plataforma. A senha anterior deixa de funcionar.</DialogDescription></DialogHeader>
+      <DialogHeader><DialogTitle>{titulo}</DialogTitle><DialogDescription>{email} — conta de teste/institucional. A senha vai direto para o sistema de autenticação e não é guardada nem exibida pela plataforma. A senha anterior deixa de funcionar.</DialogDescription></DialogHeader>
       <div className="space-y-1.5"><Label htmlFor="nova-senha">Nova senha</Label><Input id="nova-senha" type="password" autoComplete="new-password" required minLength={10} value={senha} onChange={(e) => setSenha(e.target.value)} /></div>
-      <div className="space-y-1.5"><Label htmlFor="conf-senha">Confirmar senha</Label><Input id="conf-senha" type="password" autoComplete="new-password" required minLength={10} value={conf} onChange={(e) => setConf(e.target.value)} /></div>
+      <div className="space-y-1.5"><Label htmlFor="conf-senha">Confirmar nova senha</Label><Input id="conf-senha" type="password" autoComplete="new-password" required minLength={10} value={conf} onChange={(e) => setConf(e.target.value)} /></div>
       {erro ? <p className="text-xs text-destructive">{erro}</p> : null}
-      <Button type="submit" className="w-full rounded-full" disabled={enviando}>{enviando ? "Salvando…" : "Definir senha"}</Button>
+      <div className="flex gap-2">
+        <Button type="button" variant="outline" className="flex-1 rounded-full" onClick={onCancelar}>Cancelar</Button>
+        <Button type="submit" className="flex-1 rounded-full" disabled={enviando}>{enviando ? "Salvando…" : "Salvar senha"}</Button>
+      </div>
     </form>
   );
 }
