@@ -18,6 +18,7 @@ import { Route as InteligenciaRouteImport } from './routes/inteligencia'
 import { Route as RankingRouteImport } from './routes/ranking'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedCoordenacaoRouteImport } from './routes/_authenticated/coordenacao'
 import { Route as AuthenticatedJornadaRouteImport } from './routes/_authenticated/jornada'
 import { Route as AuthenticatedMapaRouteImport } from './routes/_authenticated/mapa'
 import { Route as AuthenticatedMissoesRouteImport } from './routes/_authenticated/missoes'
@@ -69,6 +70,12 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedCoordenacaoRoute =
+  AuthenticatedCoordenacaoRouteImport.update({
+    id: '/coordenacao',
+    path: '/coordenacao',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedJornadaRoute = AuthenticatedJornadaRouteImport.update({
   id: '/jornada',
   path: '/jornada',
@@ -110,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/ranking': typeof RankingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/coordenacao': typeof AuthenticatedCoordenacaoRoute
   '/jornada': typeof AuthenticatedJornadaRoute
   '/mapa': typeof AuthenticatedMapaRoute
   '/missoes': typeof AuthenticatedMissoesRoute
@@ -126,6 +134,7 @@ export interface FileRoutesByTo {
   '/ranking': typeof RankingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/coordenacao': typeof AuthenticatedCoordenacaoRoute
   '/jornada': typeof AuthenticatedJornadaRoute
   '/mapa': typeof AuthenticatedMapaRoute
   '/missoes': typeof AuthenticatedMissoesRoute
@@ -144,6 +153,7 @@ export interface FileRoutesById {
   '/ranking': typeof RankingRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/coordenacao': typeof AuthenticatedCoordenacaoRoute
   '/_authenticated/jornada': typeof AuthenticatedJornadaRoute
   '/_authenticated/mapa': typeof AuthenticatedMapaRoute
   '/_authenticated/missoes': typeof AuthenticatedMissoesRoute
@@ -162,6 +172,7 @@ export interface FileRouteTypes {
     | '/ranking'
     | '/reset-password'
     | '/admin'
+    | '/coordenacao'
     | '/jornada'
     | '/mapa'
     | '/missoes'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/ranking'
     | '/reset-password'
     | '/admin'
+    | '/coordenacao'
     | '/jornada'
     | '/mapa'
     | '/missoes'
@@ -195,6 +207,7 @@ export interface FileRouteTypes {
     | '/ranking'
     | '/reset-password'
     | '/_authenticated/admin'
+    | '/_authenticated/coordenacao'
     | '/_authenticated/jornada'
     | '/_authenticated/mapa'
     | '/_authenticated/missoes'
@@ -279,6 +292,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/coordenacao': {
+      id: '/_authenticated/coordenacao'
+      path: '/coordenacao'
+      fullPath: '/coordenacao'
+      preLoaderRoute: typeof AuthenticatedCoordenacaoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/jornada': {
       id: '/_authenticated/jornada'
       path: '/jornada'
@@ -326,6 +346,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedCoordenacaoRoute: typeof AuthenticatedCoordenacaoRoute
   AuthenticatedJornadaRoute: typeof AuthenticatedJornadaRoute
   AuthenticatedMapaRoute: typeof AuthenticatedMapaRoute
   AuthenticatedMissoesRoute: typeof AuthenticatedMissoesRoute
@@ -336,6 +357,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedCoordenacaoRoute: AuthenticatedCoordenacaoRoute,
   AuthenticatedJornadaRoute: AuthenticatedJornadaRoute,
   AuthenticatedMapaRoute: AuthenticatedMapaRoute,
   AuthenticatedMissoesRoute: AuthenticatedMissoesRoute,
