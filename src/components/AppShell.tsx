@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { MapPinned } from "lucide-react";
+import { MapPinned, UserRound } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "@/components/BottomNav";
 import { LinkAdministracao } from "@/components/LinkAdministracao";
