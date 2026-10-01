@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Navigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState, type FormEvent } from "react";
@@ -33,11 +33,7 @@ function AdminPage() {
   const checar = useServerFn(souAdministrador);
   const acesso = useQuery({ queryKey: ["admin", "acesso"], queryFn: () => checar() });
   if (acesso.isLoading) return <AppShell titulo="Administração" mostrarPontos={false} ampla><p className="py-16 text-center text-sm text-muted-foreground">Verificando permissões…</p></AppShell>;
-  if (!acesso.data?.admin) return (
-    <AppShell titulo="Administração" mostrarPontos={false} ampla>
-      <div className="panel mx-auto mt-10 max-w-md rounded-lg p-6 text-center"><h2 className="text-lg font-semibold">Acesso restrito</h2><p className="mt-2 text-sm text-muted-foreground">Esta área é exclusiva para Administradores.</p><Button asChild className="mt-5 rounded-full"><Link to="/jornada">Voltar à Jornada</Link></Button></div>
-    </AppShell>
-  );
+  if (!acesso.data?.admin) return <Navigate to="/jornada" replace />;
   return <AdminConteudo />;
 }
 
