@@ -122,3 +122,51 @@ export const enviarRedefinicaoSenha = createServerFn({ method: "POST" })
     if (error) throw new Error("Não foi possível enviar o e-mail de redefinição.");
     return { tipo: "redefinicao" as const };
   });
+
+/** Exceção: conta institucional compartilhada da Coordenação. Única conta cuja senha é definida pelo Administrador. */
+const EMAIL_COORDENACAO_INSTITUCIONAL = "projeto.caminhosdainovacao@gmail.com";
+
+export const definirSenhaCoordenacao = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => z.object({ id: z.string().uuid(), senha: z.string().min(10).max(72) }).parse(d))
+  .handler(async ({ data, context }) => {
+    const admin = await exigirAdministrador(context);
+    const { data: a } = await admin.from("conectores_autorizados").select("id,nome,email,nucleo_id,role,ativo,demonstrativo,claimed_by").eq("id", data.id).maybeSingle();
+    if (!a || a.email !== EMAIL_COORDENACAO_INSTITUCIONAL || a.role !== "COORDENACAO") {
+      throw new Error("Esta ação é permitida somente para a conta institucional da Coordenação.");
+    }
+    if (!a.ativo) throw new Error("Ative o acesso antes de definir a senha.");
+
+    let userId = a.claimed_by as string | null;
+    if (!userId) {
+      // Procura conta de autenticação já existente (ex.: cadastro iniciado e não confirmado), para não duplicar.
+      for (let page = 1; page <= 10 && !userId; page++) {
+        const { data: lista, error } = await admin.auth.admin.listUsers({ page, perPage: 200 });
+        if (error) throw new Error("Não foi possível consultar as contas de acesso.");
+        userId = lista.users.find((u) => u.email?.toLowerCase() === a.email)?.id ?? null;
+        if (lista.users.length < 200) break;
+      }
+    }
+
+    if (userId) {
+      const { error } = await admin.auth.admin.updateUserById(userId, { password: data.senha, email_confirm: true });
+      if (error) throw new Error(error.message?.toLowerCase().includes("weak") ? "Senha muito fraca. Use letras, números e símbolos." : "Não foi possível definir a senha.");
+    } else {
+      const { data: criado, error } = await admin.auth.admin.createUser({ email: a.email, password: data.senha, email_confirm: true });
+      if (error || !criado.user) throw new Error(error?.message?.toLowerCase().includes("weak") ? "Senha muito fraca. Use letras, números e símbolos." : "Não foi possível criar o acesso.");
+      userId = criado.user.id;
+    }
+
+    if (!a.claimed_by) {
+      const { data: perfil } = await admin.from("perfis").select("user_id").eq("user_id", userId).maybeSingle();
+      if (!perfil) {
+        const { error } = await admin.from("perfis").insert({ user_id: userId, nome: a.nome, email: a.email, nucleo_id: a.nucleo_id, demonstrativo: a.demonstrativo });
+        if (error) throw new Error("Não foi possível criar o perfil.");
+      }
+      await admin.from("user_roles").delete().eq("user_id", userId);
+      const { error: rErr } = await admin.from("user_roles").insert({ user_id: userId, role: "COORDENACAO" });
+      if (rErr) throw new Error("Não foi possível atribuir o papel.");
+      await admin.from("conectores_autorizados").update({ claimed_by: userId, claimed_at: new Date().toISOString() }).eq("id", a.id);
+    }
+    return { ok: true };
+  });
