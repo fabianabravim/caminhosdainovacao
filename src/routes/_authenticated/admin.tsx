@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { alterarStatusUsuario, definirSenhaCoordenacao, enviarRedefinicaoSenha, listarUsuarios, salvarUsuario, souAdministrador } from "@/lib/admin.functions";
 
 const EMAIL_COORDENACAO = "projeto.caminhosdainovacao@gmail.com";
+const EMAIL_CONECTOR_TESTE = "conector.caminhosdainovacao@gmail.com";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [
@@ -113,8 +114,8 @@ function AdminConteudo() {
                   <div className="text-xs"><p className={u.ativo ? "font-semibold text-primary" : "font-semibold text-destructive"}>{u.ativo ? "Ativo" : "Inativo"}</p><p className="text-muted-foreground">{u.acessoCriado ? "Senha criada" : "Aguardando 1º acesso"} · {new Date(u.criadoEm).toLocaleDateString("pt-BR")}</p></div>
                   <div className="flex flex-wrap gap-1.5">
                     <Button size="sm" variant="outline" onClick={() => setEditando(u)}><Pencil /> Editar</Button>
-                    {u.email === EMAIL_COORDENACAO && u.papel === "COORDENACAO"
-                      ? <Button size="sm" variant="outline" onClick={() => setSenhaCoord(u)}><KeyRound /> Definir senha da Coordenação</Button>
+                    {(u.email === EMAIL_COORDENACAO && u.papel === "COORDENACAO") || (u.email === EMAIL_CONECTOR_TESTE && u.papel === "CONECTOR")
+                      ? <Button size="sm" variant="outline" onClick={() => setSenhaCoord(u)}><KeyRound /> Definir senha</Button>
                       : <Button size="sm" variant="outline" onClick={() => onRedefinir(u)} title="Primeiro acesso / redefinir senha"><KeyRound /> Senha</Button>}
                     {!u.souEu ? <Button size="sm" variant="outline" onClick={() => executar(() => alterarStatus({ data: { id: u.id, ativo: !u.ativo } }), u.ativo ? "Acesso desativado." : "Acesso reativado.")}><Power /> {u.ativo ? "Desativar" : "Ativar"}</Button> : null}
                   </div>
@@ -135,7 +136,7 @@ function AdminConteudo() {
 
       <Dialog open={senhaCoord !== null} onOpenChange={(o) => !o && setSenhaCoord(null)}>
         <DialogContent>
-          {senhaCoord ? <FormSenhaCoordenacao onSalvar={async (senha) => { const ok = await executar(() => definirSenha({ data: { id: senhaCoord.id, senha } }), `Senha da Coordenação definida. ${senhaCoord.email} já pode entrar.`); if (ok) setSenhaCoord(null); }} /> : null}
+          {senhaCoord ? <FormSenhaCoordenacao onSalvar={async (senha) => { const ok = await executar(() => definirSenha({ data: { id: senhaCoord.id, senha } }), `Senha definida. ${senhaCoord.email} já pode entrar.`); if (ok) setSenhaCoord(null); }} /> : null}
         </DialogContent>
       </Dialog>
     </AppShell>

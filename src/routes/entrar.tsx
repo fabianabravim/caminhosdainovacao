@@ -95,8 +95,8 @@ function Entrar() {
       setErro("As senhas informadas não coincidem.");
       return;
     }
-    if (email.trim().toLowerCase() === "projeto.caminhosdainovacao@gmail.com") {
-      setErro("Esta é a conta institucional da Coordenação. A senha é definida pela Administração — use a opção Entrar na Jornada com a senha recebida.");
+    if (["projeto.caminhosdainovacao@gmail.com", "conector.caminhosdainovacao@gmail.com"].includes(email.trim().toLowerCase())) {
+      setErro("Esta é uma conta institucional de teste. A senha é definida pela Administração — use a opção Entrar na Jornada com a senha recebida.");
       return;
     }
     setCarregando(true);
