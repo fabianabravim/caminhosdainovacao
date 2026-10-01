@@ -11,4 +11,4 @@
 
 - Admin actions run only in src/lib/admin.functions.ts: server checks ADMINISTRADOR in user_roles before using the privileged client — why: the admin area must be enforced server-side, not by hiding menus.
 - perfis trigger blocks user edits to email/nucleo_id/ativo — why: users must not reassign their own Núcleo or reactivate themselves.
-- Only projeto.caminhosdainovacao@gmail.com (COORDENACAO, shared institutional) may get an admin-set password via definirSenhaCoordenacao — why: deliberate exception; all other users create their own password in Primeiro acesso.
+- Only projeto.caminhosdainovacao@gmail.com (COORDENACAO) and conector.caminhosdainovacao@gmail.com (CONECTOR test) may get an admin-set password via definirSenhaCoordenacao, which also syncs the auth e-mail — why: deliberate test-account exception; real users create their own password in Primeiro acesso.
