@@ -22,7 +22,6 @@ export function LinkAdministracao() {
     <Link
       to="/admin"
       className="tap flex shrink-0 items-center gap-1.5 rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary"
-      activeProps={{ className: "bg-primary text-primary-foreground" }}
     >
       <ShieldCheck className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Administração</span><span className="sm:hidden">Admin</span>
     </Link>
