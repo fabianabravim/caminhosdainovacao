@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { MapPinned } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "@/components/BottomNav";
+import { LinkAdministracao } from "@/components/LinkAdministracao";
 import { Celebracao } from "@/components/Celebracao";
 import { useJornada } from "@/context/JornadaContext";
 import { nucleoAtualId, nucleoMap } from "@/data/nucleos";
@@ -43,6 +44,8 @@ export function AppShell({
               <p className="truncate text-xs text-muted-foreground">{subtitulo}</p>
             ) : null}
           </div>
+          <div className="flex items-center gap-2">
+          <LinkAdministracao />
           {mostrarPontos ? (
             <Link
               to="/perfil"
@@ -63,6 +66,7 @@ export function AppShell({
               {nucleo.nome.slice(0, 2).toUpperCase()}
             </span>
           )}
+          </div>
         </div>
       </header>
       <main className={`mx-auto ${jornadaResponsiva ? "w-full min-w-0 px-4 py-5 sm:px-6 lg:px-8 lg:py-7" : "px-4 py-5"} ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
