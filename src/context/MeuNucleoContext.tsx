@@ -105,9 +105,11 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
             : Promise.resolve({ data: [], error: null }),
           perfilResult.data.nucleo_id
             ? supabase.from("atividades_conectores").select("*").eq("nucleo_id", perfilResult.data.nucleo_id).order("created_at", { ascending: false })
-            : Promise.resolve({ data: [], error: null }),
+            : supabase.from("atividades_conectores").select("*").order("created_at", { ascending: false }),
         ]);
         if (roleResult.error || !roleResult.data) throw new Error("O papel deste perfil não foi encontrado.");
+        // Somente Conectores exigem Núcleo; Coordenação e Administração têm atuação transversal.
+        if (roleResult.data.role === "CONECTOR" && !perfilResult.data.nucleo_id) throw new Error("Este perfil não possui um Núcleo Territorial vinculado.");
         if (equipeResult.error || atividadesResult.error) throw new Error("Não foi possível carregar os dados do Núcleo.");
         if (!ativo) return;
 
@@ -183,7 +185,7 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
   }, [perfil]);
 
   const value = useMemo<MeuNucleoState | null>(() => {
-    if (!perfil?.nucleoId) return null;
+    if (!perfil) return null;
     const registros: RegistroJornada[] = atividades.flatMap((a) => {
       const missaoId = a.missaoId ?? a.missoesRelacionadas[0];
       if (!missaoId || !a.fonteContribuicao) return [];
@@ -211,7 +213,7 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
     return {
       perfil,
       participante: { nome: perfil.nome, papel: perfil.perfil === "COORDENACAO" ? "Coordenação" : perfil.perfil === "ADMINISTRADOR" ? "Administrador" : "Conector Territorial", iniciais: iniciais(perfil.nome) },
-      nucleoId: perfil.nucleoId,
+      nucleoId: perfil.nucleoId ?? "",
       conectoresNucleo,
       atividades,
       registros,

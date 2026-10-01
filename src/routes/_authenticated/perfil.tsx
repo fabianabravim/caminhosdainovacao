@@ -32,7 +32,7 @@ function PerfilConteudo() {
     { Icon: UserRound, rotulo: "Nome", valor: perfil.nome },
     { Icon: Mail, rotulo: "E-mail", valor: perfil.email },
     { Icon: LockKeyhole, rotulo: "Perfil / função", valor: participante.papel },
-    { Icon: MapPinned, rotulo: "Núcleo", valor: `Núcleo ${nucleo.nome}` },
+    { Icon: MapPinned, rotulo: "Núcleo", valor: nucleo ? `Núcleo ${nucleo?.nome ?? "Atuação transversal"}` : "Atuação transversal — sem Núcleo" },
     { Icon: CheckCircle2, rotulo: "Status", valor: perfil.ativo ? "Ativo" : "Inativo" },
   ];
   return (
@@ -45,7 +45,7 @@ function PerfilConteudo() {
             <span className="mt-6 grid h-20 w-20 place-items-center rounded-full border border-primary-foreground/20 bg-primary-foreground/10 text-2xl font-semibold">{participante.iniciais}</span>
             <h2 className="mt-5 text-2xl font-semibold">{perfil.nome}</h2>
             <p className="mt-1 text-sm text-primary-foreground/65">{participante.papel}</p>
-            <div className="mt-7 border-t border-primary-foreground/15 pt-5"><p className="text-[0.62rem] uppercase tracking-[0.15em] text-energy">Vínculo territorial</p><p className="mt-1 text-lg font-semibold">Núcleo {nucleo.nome}</p><p className="mt-2 text-xs leading-relaxed text-primary-foreground/58">O Núcleo é definido previamente pela Coordenação e não pode ser alterado pelo Conector.</p></div>
+            <div className="mt-7 border-t border-primary-foreground/15 pt-5"><p className="text-[0.62rem] uppercase tracking-[0.15em] text-energy">Vínculo territorial</p><p className="mt-1 text-lg font-semibold">Núcleo {nucleo?.nome ?? "Atuação transversal"}</p><p className="mt-2 text-xs leading-relaxed text-primary-foreground/58">O Núcleo é definido previamente pela Coordenação e não pode ser alterado pelo Conector.</p></div>
           </div>
         </section>
         <div className="space-y-5">
