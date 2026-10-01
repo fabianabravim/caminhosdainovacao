@@ -62,9 +62,9 @@ export function AppShell({
               </span>
             </Link>
           ) : (
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-primary/20 bg-primary/10 text-xs font-bold text-primary">
-              {nucleo.nome.slice(0, 2).toUpperCase()}
-            </span>
+            <Link to="/perfil" aria-label="Meu perfil" className="tap grid h-9 w-9 shrink-0 place-items-center rounded-full border border-primary/20 bg-primary/10 text-primary">
+              <UserRound className="h-4 w-4" />
+            </Link>
           )}
           </div>
         </div>
