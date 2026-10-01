@@ -16,7 +16,7 @@ export function AppShell({
   children,
 }: {
   titulo: string;
-  subtitulo?: string;
+  subtitulo?: import("react").ReactNode;
   /** Mostra o selo individual de pontos/nível (false na Jornada territorial). */
   mostrarPontos?: boolean;
   /** Permite experiências territoriais amplas sem alterar as demais telas. */
