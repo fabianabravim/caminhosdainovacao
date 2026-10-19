@@ -153,13 +153,13 @@ function Entrar() {
 
       {/* Formas orgânicas institucionais */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute -right-20 -top-28 h-40 w-40 rounded-full bg-brand-primary/80 sm:h-72 sm:w-72" />
-        <span className="absolute -right-6 top-8 hidden h-40 w-64 sm:block rounded-[50%] bg-energy/80 sm:top-12 sm:h-52 sm:w-80" />
-        <span className="absolute -right-24 top-28 hidden h-48 w-48 sm:block rounded-full bg-brand-secondary/85 sm:top-36 sm:h-60 sm:w-60" />
-        <span className="absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-brand-dark sm:h-80 sm:w-80" />
-        <span className="absolute -bottom-6 left-16 hidden h-56 w-72 rounded-[50%] bg-energy/85 sm:block" />
-        <span className="absolute -bottom-28 left-40 hidden h-64 w-64 rounded-full bg-brand-secondary sm:block" />
-        <span className="absolute -left-16 bottom-40 hidden h-40 w-40 rounded-full bg-brand-primary/60 lg:block" />
+        <span className="absolute -right-10 -top-12 h-16 w-16 rounded-full bg-brand-primary/80 sm:-right-16 sm:-top-20 sm:h-28 sm:w-28" />
+        <span className="absolute -right-8 top-4 hidden h-14 w-24 rounded-[50%] bg-energy/80 sm:top-8 sm:h-20 sm:w-32 sm:block" />
+        <span className="absolute -right-16 top-24 hidden h-20 w-20 rounded-full bg-brand-secondary/85 sm:top-32 sm:h-24 sm:w-24 sm:block" />
+        <span className="absolute -bottom-12 -left-12 h-16 w-16 rounded-full bg-brand-dark sm:-bottom-20 sm:-left-20 sm:h-24 sm:w-24" />
+        <span className="absolute -bottom-4 left-6 hidden h-16 w-24 rounded-[50%] bg-energy/85 sm:block" />
+        <span className="absolute -bottom-16 left-24 hidden h-20 w-20 rounded-full bg-brand-secondary sm:block" />
+        <span className="absolute -left-10 bottom-48 hidden h-16 w-16 rounded-full bg-brand-primary/60 lg:block" />
       </div>
 
       <div className="relative mx-auto grid  max-w-6xl content-center items-center md:min-h-screen gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
