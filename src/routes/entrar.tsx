@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, LockKeyhole, MapPinned } from "lucide-react";
 import { z } from "zod";
-import { MapaVivo } from "@/components/MapaVivo";
 import { ChancelaInstitucional } from "@/components/ChancelaInstitucional";
 import { Button } from "@/components/ui/button";
-import { conexoes } from "@/data/nucleos";
-import { totaisEstado } from "@/data/ranking";
 import { supabase } from "@/integrations/supabase/client";
 import { verificarAcessoAutorizado, vincularPerfilAutorizado } from "@/lib/acesso.functions";
-import caparao from "@/assets/caparao.jpg";
+import mestreAlvaro from "@/assets/mestre-alvaro-previa.png";
 
 const searchSchema = z.object({ retorno: z.string().optional().catch(undefined) });
 
@@ -48,7 +45,7 @@ function mensagemErroPrimeiroAcesso(error: { code: unknown; message: string }) {
 function Entrar() {
   const navigate = useNavigate({ from: "/entrar" });
   const { retorno } = Route.useSearch();
-  const [modo, setModo] = useState<Modo>("escolha");
+  const [modo, setModo] = useState<Modo>("entrar");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmacao, setConfirmacao] = useState("");
@@ -139,66 +136,71 @@ function Entrar() {
     }
   }
 
+  const campo = "mt-1.5 w-full rounded-lg border border-border bg-background px-3.5 py-3 text-sm text-foreground outline-none transition focus:border-brand-secondary focus:ring-2 focus:ring-brand-primary/25";
+  const titulo = modo === "primeiro" ? "Primeiro acesso" : modo === "recuperar" ? "Esqueci minha senha" : "Acesso dos Conectores";
+  const subtitulo = modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : modo === "recuperar" ? "Informe seu e-mail para receber as instruções de recuperação." : "Use o e-mail e a senha cadastrados. Seu perfil e seu Núcleo são identificados automaticamente.";
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-brand-dark">
-      <img src={caparao} alt="Paisagem do território capixaba" className="absolute inset-0 h-full w-full object-cover opacity-48" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,var(--brand-dark)_0%,color-mix(in_oklab,var(--brand-dark)_88%,transparent)_48%,color-mix(in_oklab,var(--brand-dark)_48%,transparent))]" />
-      <div className="topo-lines absolute inset-0 opacity-35" />
-      <div className="pointer-events-none absolute -right-24 top-1/2 hidden h-[90vh] w-[70vh] -translate-y-1/2 opacity-45 lg:block"><MapaVivo conexoes={conexoes} labels={false} interativo={false} particulas /></div>
+      {/* Fotografia em resolução reduzida — uso apenas como prévia, aguardando autorização e versão definitiva */}
+      <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="absolute inset-0 h-full w-full object-cover" />
+      <div className="absolute inset-0 bg-[linear-gradient(100deg,color-mix(in_oklab,var(--brand-dark)_94%,transparent)_0%,color-mix(in_oklab,var(--brand-secondary)_78%,transparent)_45%,color-mix(in_oklab,var(--brand-dark)_35%,transparent)_100%)] lg:bg-[linear-gradient(90deg,color-mix(in_oklab,var(--brand-dark)_92%,transparent)_0%,color-mix(in_oklab,var(--brand-secondary)_62%,transparent)_50%,color-mix(in_oklab,var(--brand-dark)_25%,transparent)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-1 bg-energy" />
 
-      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-10 px-5 py-8 lg:grid-cols-[minmax(0,1fr)_28rem] lg:px-8">
+      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-8 px-5 py-8 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_27rem] lg:gap-16">
         <div className="text-primary-foreground">
-          <ChancelaInstitucional />
-          <p className="mt-12 flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-energy"><MapPinned className="h-4 w-4" /> Jornada da Inovação Capixaba</p>
-          <h1 className="mt-5 max-w-2xl font-brand-condensed text-5xl font-semibold leading-none sm:text-6xl">Seu território.<br />Sua Jornada.</h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-primary-foreground/72">Entre para registrar atividades reais, acompanhar missões e fortalecer o Núcleo ao qual você já está vinculado.</p>
-          <div className="mt-8 hidden max-w-lg grid-cols-3 gap-px overflow-hidden rounded-md bg-primary-foreground/15 sm:grid">
-            {[[totaisEstado.nucleos, "Núcleos"], ["28", "Conectores"], ["ES", "Território"]].map(([v, l]) => <div key={l as string} className="bg-brand-dark/80 p-4"><p className="font-brand-condensed text-3xl font-semibold">{v}</p><p className="text-[0.62rem] uppercase tracking-[0.12em] text-primary-foreground/55">{l}</p></div>)}
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-energy text-energy sm:h-14 sm:w-14"><MapPinned className="h-6 w-6 sm:h-7 sm:w-7" /></span>
+            <div className="leading-none">
+              <p className="font-brand-condensed text-3xl font-bold tracking-wide sm:text-4xl">ROTA</p>
+              <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.28em] text-energy sm:text-sm">da Inovação</p>
+            </div>
           </div>
+          <span aria-hidden="true" className="mt-8 block h-1 w-14 rounded-full bg-energy sm:mt-12" />
+          <h1 className="mt-5 font-brand-condensed text-5xl font-semibold leading-none sm:text-6xl lg:text-7xl">Bem-vindo(a)!</h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
+          <div className="mt-10 hidden lg:block"><ChancelaInstitucional /></div>
         </div>
 
-        <div className="panel panel-glow rounded-lg p-5 sm:p-7">
-          {modo === "escolha" ? (
-            <>
-              <LockKeyhole className="h-6 w-6 text-primary" />
-              <p className="mt-4 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-primary">Acesso institucional</p>
-              <h2 className="mt-1 text-2xl font-semibold">Entrar na Jornada</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Seu perfil e seu Núcleo são identificados automaticamente após o acesso.</p>
-              <div className="mt-5 rounded-md border border-primary/15 bg-primary/5 p-3.5">
-                <p className="text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground">Vínculo territorial</p>
-                <p className="mt-1 font-display text-lg font-semibold">Seu Núcleo Territorial</p>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Será identificado automaticamente após o acesso do Conector.</p>
-              </div>
-               <Button type="button" onClick={() => mudarModo("entrar")} className="panel-glow mt-5 h-auto w-full rounded-full px-5 py-3.5 text-sm font-semibold">Entrar na Jornada <ArrowRight /></Button>
-               <Button type="button" variant="outline" onClick={() => mudarModo("primeiro")} className="mt-2 h-auto w-full rounded-full px-5 py-3 text-xs font-semibold text-primary">Primeiro acesso</Button>
-            </>
-          ) : (
-            <form className="space-y-3" onSubmit={(event) => { event.preventDefault(); void (modo === "entrar" ? entrar() : modo === "primeiro" ? primeiroAcesso() : recuperarSenha()); }}>
-              <div>
-                <p className="text-[0.62rem] uppercase tracking-[0.18em] text-muted-foreground">{modo === "entrar" ? "Acesso do Conector" : modo === "primeiro" ? "Ativar acesso" : "Recuperar acesso"}</p>
-                <h2 className="mt-1 font-display text-xl font-semibold">{modo === "entrar" ? "Entrar na Jornada" : modo === "primeiro" ? "Primeiro acesso" : "Esqueci minha senha"}</h2>
-                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{modo === "entrar" ? "Use o e-mail e a senha cadastrados." : modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : "Informe seu e-mail para receber as instruções de recuperação."}</p>
-              </div>
-              <label className="block text-xs font-semibold text-muted-foreground">E-mail
-                <input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} className="mt-1 w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm outline-none focus:border-primary" />
+        <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-8 md:mx-auto md:max-w-md lg:max-w-none">
+          <div className="flex items-center gap-2">
+            <LockKeyhole className="h-5 w-5 text-brand-secondary" />
+            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-brand-secondary">ROTA da Inovação</p>
+          </div>
+          <h2 className="mt-2 font-brand-condensed text-3xl font-semibold text-brand-dark">{titulo}</h2>
+          <span aria-hidden="true" className="mt-2 block h-0.5 w-10 bg-energy" />
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{subtitulo}</p>
+
+          <form className="mt-5 space-y-4" onSubmit={(event) => { event.preventDefault(); void (modo === "primeiro" ? primeiroAcesso() : modo === "recuperar" ? recuperarSenha() : entrar()); }}>
+            <label className="block text-xs font-semibold text-foreground">E-mail
+              <input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} className={campo} />
+            </label>
+            {modo !== "recuperar" ? <label className="block text-xs font-semibold text-foreground">Senha
+              <input type="password" autoComplete={modo === "primeiro" ? "new-password" : "current-password"} minLength={8} required value={senha} onChange={(event) => setSenha(event.target.value)} className={campo} />
+            </label> : null}
+            {modo === "primeiro" ? (
+              <label className="block text-xs font-semibold text-foreground">Confirmar senha
+                <input type="password" autoComplete="new-password" minLength={8} required value={confirmacao} onChange={(event) => setConfirmacao(event.target.value)} className={campo} />
               </label>
-              {modo !== "recuperar" ? <label className="block text-xs font-semibold text-muted-foreground">Senha
-                <input type="password" autoComplete={modo === "entrar" ? "current-password" : "new-password"} minLength={8} required value={senha} onChange={(event) => setSenha(event.target.value)} className="mt-1 w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm outline-none focus:border-primary" />
-              </label> : null}
-              {modo === "primeiro" ? (
-                <label className="block text-xs font-semibold text-muted-foreground">Confirmar senha
-                  <input type="password" autoComplete="new-password" minLength={8} required value={confirmacao} onChange={(event) => setConfirmacao(event.target.value)} className="mt-1 w-full rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm outline-none focus:border-primary" />
-                </label>
-              ) : null}
-              {erro ? <p role="alert" className="rounded-xl border border-destructive/20 bg-destructive/5 p-3 text-xs text-destructive">{erro}</p> : null}
-              {mensagem ? <p role="status" className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-foreground">{mensagem}</p> : null}
-               <Button type="submit" disabled={carregando || Boolean(mensagem)} className="panel-glow h-auto w-full rounded-full px-5 py-3.5 text-sm font-semibold">{carregando ? "Aguarde…" : modo === "entrar" ? "Entrar na Jornada" : modo === "primeiro" ? "Criar acesso" : "Enviar instruções"}</Button>
-              {modo === "entrar" ? <Button type="button" variant="link" onClick={() => mudarModo("recuperar")} className="h-auto w-full py-1 text-xs">Esqueci minha senha</Button> : null}
-              <Button type="button" variant="ghost" onClick={() => mudarModo("escolha")} className="h-auto w-full py-2 text-xs text-muted-foreground">Voltar</Button>
-            </form>
-          )}
-           <Link to="/" className="tap mt-2 flex w-full items-center justify-center gap-1.5 px-5 py-2 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
+            ) : null}
+            {modo !== "primeiro" && modo !== "recuperar" ? <div className="-mt-1 text-right"><button type="button" onClick={() => mudarModo("recuperar")} className="text-xs font-semibold text-brand-secondary hover:underline">Esqueci minha senha</button></div> : null}
+            {erro ? <p role="alert" className="rounded-lg border border-destructive/20 bg-destructive/5 p-3 text-xs text-destructive">{erro}</p> : null}
+            {mensagem ? <p role="status" className="rounded-lg border border-energy/50 bg-energy-soft p-3 text-xs text-foreground">{mensagem}</p> : null}
+            <Button type="submit" disabled={carregando || Boolean(mensagem)} className="h-auto w-full rounded-lg bg-brand-secondary px-5 py-3.5 text-sm font-semibold text-primary-foreground hover:bg-brand-dark">
+              {carregando ? "Aguarde…" : modo === "primeiro" ? "Criar acesso" : modo === "recuperar" ? "Enviar instruções" : <>Entrar na ROTA <ArrowRight /></>}
+            </Button>
+          </form>
+
+          <div className="mt-5 border-t border-border pt-4 text-center">
+            {modo === "primeiro" || modo === "recuperar" ? (
+              <button type="button" onClick={() => mudarModo("entrar")} className="text-xs font-semibold text-muted-foreground hover:text-brand-secondary">Voltar para o acesso</button>
+            ) : (
+              <p className="text-xs text-muted-foreground">Ainda não ativou sua conta? <button type="button" onClick={() => mudarModo("primeiro")} className="font-semibold text-brand-secondary underline decoration-energy decoration-2 underline-offset-4">Primeiro acesso</button></p>
+            )}
+          </div>
+          <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
+        <div className="lg:hidden"><ChancelaInstitucional /></div>
       </div>
     </div>
   );
