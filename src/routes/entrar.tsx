@@ -145,7 +145,7 @@ function Entrar() {
   const subtitulo = modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : modo === "recuperar" ? "Informe seu e-mail para receber as instruções de recuperação." : null;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--brand-primary)_14%,white)_45%,color-mix(in_oklab,var(--brand-primary)_14%,white)_100%)]">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--brand-primary)_14%,white)_45%,color-mix(in_oklab,var(--brand-primary)_14%,white)_100%)]">
       {/* Fotografia em resolução reduzida — somente prévia, aguardando original e autorização de uso */}
       <div className="absolute inset-x-0 bottom-0 h-[58%] min-h-[26rem] md:inset-0 md:h-full md:min-h-0">
         <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="h-full w-full object-cover object-[64%_center] md:object-[70%_center]" />
@@ -160,7 +160,7 @@ function Entrar() {
         <span className="absolute -right-16 top-24 hidden h-20 w-20 rounded-full bg-brand-secondary/85 sm:top-32 sm:h-24 sm:w-24 sm:block" />
       </div>
 
-      <div className="relative mx-auto grid  max-w-6xl content-center items-center md:min-h-[calc(100svh-6rem)] gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
+      <div className="relative mx-auto grid w-full flex-1 max-w-6xl content-center items-center md:min-h-[calc(100svh-6rem)] gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
         <div className="text-center lg:text-left">
           <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-48 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
           <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:mt-6 sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
@@ -206,7 +206,7 @@ function Entrar() {
           <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
       </div>
-      <footer className="relative bg-brand-dark px-5 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">
+      <footer className="relative mt-auto bg-brand-dark px-5 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 sm:flex-row sm:justify-between sm:gap-8" aria-label="Marcas institucionais">
           <img src={logoCaminhos.url} alt="Caminhos da Inovação" className="h-9 w-auto object-contain sm:h-10 lg:h-12" draggable={false} />
           <div className="flex items-center gap-7 sm:gap-10">
