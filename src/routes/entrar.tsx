@@ -159,7 +159,7 @@ function Entrar() {
           <span aria-hidden="true" className="mt-8 block h-1 w-14 rounded-full bg-energy sm:mt-12" />
           <h1 className="mt-5 font-brand-condensed text-5xl font-semibold leading-none sm:text-6xl lg:text-7xl">Bem-vindo(a)!</h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
-          <div className="mt-10 hidden lg:block"><ChancelaInstitucional /></div>
+          <div className="mt-10 hidden w-fit lg:block"><ChancelaInstitucional /></div>
         </div>
 
         <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-8 md:mx-auto md:max-w-md lg:max-w-none">
@@ -200,7 +200,7 @@ function Entrar() {
           </div>
           <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
-        <div className="lg:hidden"><ChancelaInstitucional /></div>
+        <div className="w-fit lg:hidden"><ChancelaInstitucional /></div>
       </div>
     </div>
   );
