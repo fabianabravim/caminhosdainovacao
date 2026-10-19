@@ -160,7 +160,7 @@ function Entrar() {
         <span className="absolute -right-16 top-24 hidden h-20 w-20 rounded-full bg-brand-secondary/85 sm:top-32 sm:h-24 sm:w-24 sm:block" />
       </div>
 
-      <div className="relative mx-auto grid  max-w-6xl content-center items-center md:min-h-screen gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
+      <div className="relative mx-auto grid  max-w-6xl content-center items-center md:min-h-[calc(100svh-6rem)] gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
         <div className="text-center lg:text-left">
           <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-48 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
           <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:mt-6 sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
