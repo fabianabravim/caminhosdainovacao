@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { verificarAcessoAutorizado, vincularPerfilAutorizado } from "@/lib/acesso.functions";
 import mestreAlvaro from "@/assets/mestre-alvaro-previa.png";
-import { ChancelaInstitucional } from "@/components/ChancelaInstitucional";
+import logoCaminhos from "@/assets/marca-horizontal-branco.png.asset.json";
+import logoIjsn from "@/assets/ijsn-branco.png.asset.json";
+import logoGoverno from "@/assets/governo-es-branco.png.asset.json";
 import marcaRota from "@/assets/marca-rota.png";
 
 const searchSchema = z.object({ retorno: z.string().optional().catch(undefined) });
@@ -143,7 +145,7 @@ function Entrar() {
   const subtitulo = modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : modo === "recuperar" ? "Informe seu e-mail para receber as instruções de recuperação." : null;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--brand-primary)_14%,white)_45%,color-mix(in_oklab,var(--brand-primary)_14%,white)_100%)]">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--brand-primary)_14%,white)_45%,color-mix(in_oklab,var(--brand-primary)_14%,white)_100%)]">
       {/* Fotografia em resolução reduzida — somente prévia, aguardando original e autorização de uso */}
       <div className="absolute inset-x-0 bottom-0 h-[58%] min-h-[26rem] md:inset-0 md:h-full md:min-h-0">
         <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="h-full w-full object-cover object-[64%_center] md:object-[70%_center]" />
@@ -156,13 +158,9 @@ function Entrar() {
         <span className="absolute -right-10 -top-12 h-16 w-16 rounded-full bg-brand-primary/80 sm:-right-16 sm:-top-20 sm:h-28 sm:w-28" />
         <span className="absolute -right-8 top-4 hidden h-14 w-24 rounded-[50%] bg-energy/80 sm:top-8 sm:h-20 sm:w-32 sm:block" />
         <span className="absolute -right-16 top-24 hidden h-20 w-20 rounded-full bg-brand-secondary/85 sm:top-32 sm:h-24 sm:w-24 sm:block" />
-        <span className="absolute -bottom-12 -left-12 h-16 w-16 rounded-full bg-brand-dark sm:-bottom-20 sm:-left-20 sm:h-24 sm:w-24" />
-        <span className="absolute -bottom-4 left-6 hidden h-16 w-24 rounded-[50%] bg-energy/85 sm:block" />
-        <span className="absolute -bottom-16 left-24 hidden h-20 w-20 rounded-full bg-brand-secondary sm:block" />
-        <span className="absolute -left-10 bottom-48 hidden h-16 w-16 rounded-full bg-brand-primary/60 lg:block" />
       </div>
 
-      <div className="relative mx-auto grid  max-w-6xl content-center items-center md:min-h-screen gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
+      <div className="relative mx-auto grid w-full flex-1 max-w-6xl content-center items-center md:min-h-[calc(100svh-6rem)] gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
         <div className="text-center lg:text-left">
           <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-48 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
           <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:mt-6 sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
@@ -208,8 +206,15 @@ function Entrar() {
           <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
       </div>
-      <footer className="relative flex justify-center px-5 pb-[max(1.5rem,calc(env(safe-area-inset-bottom)+1rem))] pt-2 lg:-mt-20 lg:justify-start lg:px-8 lg:pb-8 xl:mx-auto xl:max-w-6xl">
-        <div className="shadow-lg [&_img]:h-11 sm:[&_img]:h-11"><ChancelaInstitucional /></div>
+      <footer className="relative mt-auto bg-brand-dark px-5 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 sm:flex-row sm:justify-between sm:gap-8" aria-label="Marcas institucionais">
+          <img src={logoCaminhos.url} alt="Caminhos da Inovação" className="h-9 w-auto object-contain sm:h-10 lg:h-12" draggable={false} />
+          <div className="flex items-center gap-7 sm:gap-10">
+            <img src={logoIjsn.url} alt="Instituto Jones dos Santos Neves — IJSN" className="h-9 w-auto object-contain sm:h-10 lg:h-11" draggable={false} />
+            <span aria-hidden="true" className="h-10 w-px bg-primary-foreground/30" />
+            <img src={logoGoverno.url} alt="Governo do Estado do Espírito Santo" className="h-9 w-auto object-contain sm:h-10 lg:h-11" draggable={false} />
+          </div>
+        </div>
       </footer>
     </div>
   );
