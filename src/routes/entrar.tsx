@@ -143,10 +143,13 @@ function Entrar() {
   const subtitulo = modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : modo === "recuperar" ? "Informe seu e-mail para receber as instruções de recuperação." : null;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--brand-primary)_14%,white)_45%,color-mix(in_oklab,var(--brand-primary)_14%,white)_100%)]">
       {/* Fotografia em resolução reduzida — somente prévia, aguardando original e autorização de uso */}
-      <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="absolute inset-0 h-full w-full object-cover object-[70%_center]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,white_88%,transparent)_0%,color-mix(in_oklab,white_70%,transparent)_45%,color-mix(in_oklab,white_10%,transparent)_100%)] lg:bg-[linear-gradient(90deg,color-mix(in_oklab,white_90%,transparent)_0%,color-mix(in_oklab,white_68%,transparent)_38%,color-mix(in_oklab,white_0%,transparent)_70%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-[58%] min-h-[26rem] md:inset-0 md:h-full md:min-h-0">
+        <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="h-full w-full object-cover object-[64%_center] md:object-[70%_center]" />
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--brand-primary)_14%,white)_0%,transparent_100%)] md:hidden" />
+      </div>
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,white_92%,transparent)_0%,color-mix(in_oklab,white_55%,transparent)_42%,color-mix(in_oklab,white_0%,transparent)_70%)] lg:bg-[linear-gradient(90deg,color-mix(in_oklab,white_90%,transparent)_0%,color-mix(in_oklab,white_68%,transparent)_38%,color-mix(in_oklab,white_0%,transparent)_70%)]" />
 
       {/* Formas orgânicas institucionais */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
@@ -159,11 +162,11 @@ function Entrar() {
         <span className="absolute -left-16 bottom-40 hidden h-40 w-40 rounded-full bg-brand-primary/60 lg:block" />
       </div>
 
-      <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-8 px-5 pb-10 pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
+      <div className="relative mx-auto grid  max-w-6xl content-center items-center md:min-h-screen gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
         <div className="text-center lg:text-left">
-          <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-56 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
-          <h1 className="mt-6 font-brand text-3xl font-bold text-brand-dark sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
-          <p className="mx-auto mt-3 max-w-md text-lg leading-snug text-brand-dark/90 sm:text-xl lg:mx-0 lg:pl-6 lg:text-2xl">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
+          <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-48 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
+          <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:mt-6 sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
+          <p className="mx-auto mt-2 max-w-md text-lg sm:mt-3 leading-snug text-brand-dark/90 sm:text-xl lg:mx-0 lg:pl-6 lg:text-2xl">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
         </div>
 
         <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-10 md:mx-auto md:max-w-md lg:max-w-none">
@@ -196,7 +199,7 @@ function Entrar() {
             {modo === "entrar" ? (
               <>
                 <button type="button" onClick={() => mudarModo("recuperar")} className="font-medium text-brand-secondary underline underline-offset-4">Esqueceu sua senha?</button>
-                <p className="border-t border-border pt-4 text-muted-foreground">Ainda não ativou sua conta? <button type="button" onClick={() => mudarModo("primeiro")} className="font-semibold text-brand-secondary underline decoration-energy decoration-2 underline-offset-4">Primeiro acesso</button></p>
+                <p className="border-t border-border pt-4 text-muted-foreground">Ainda não ativou sua conta? <button type="button" onClick={() => mudarModo("primeiro")} className="font-semibold text-brand-secondary underline decoration-brand-secondary/60 decoration-2 hover:decoration-brand-secondary underline-offset-4">Primeiro acesso</button></p>
               </>
             ) : (
               <button type="button" onClick={() => mudarModo("entrar")} className="font-medium text-muted-foreground hover:text-brand-secondary">Voltar para o acesso</button>
@@ -205,8 +208,8 @@ function Entrar() {
           <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
       </div>
-      <footer className="relative flex justify-center px-5 pb-6 lg:-mt-20 lg:justify-start lg:px-8 lg:pb-8 xl:mx-auto xl:max-w-6xl">
-        <div className="opacity-90"><ChancelaInstitucional /></div>
+      <footer className="relative flex justify-center px-5 pb-[max(1.5rem,calc(env(safe-area-inset-bottom)+1rem))] pt-2 lg:-mt-20 lg:justify-start lg:px-8 lg:pb-8 xl:mx-auto xl:max-w-6xl">
+        <div className="shadow-lg [&_img]:h-11 sm:[&_img]:h-11"><ChancelaInstitucional /></div>
       </footer>
     </div>
   );
