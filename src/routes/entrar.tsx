@@ -208,11 +208,11 @@ function Entrar() {
       </div>
       <footer className="relative bg-brand-dark px-5 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 sm:flex-row sm:justify-between sm:gap-8" aria-label="Marcas institucionais">
-          <img src={logoCaminhos.url} alt="Caminhos da Inovação" className="h-8 w-auto object-contain sm:h-9 lg:h-10" draggable={false} />
+          <img src={logoCaminhos.url} alt="Caminhos da Inovação" className="h-9 w-auto object-contain sm:h-10 lg:h-12" draggable={false} />
           <div className="flex items-center gap-7 sm:gap-10">
-            <img src={logoIjsn.url} alt="Instituto Jones dos Santos Neves — IJSN" className="h-11 w-auto object-contain sm:h-12 lg:h-14" draggable={false} />
+            <img src={logoIjsn.url} alt="Instituto Jones dos Santos Neves — IJSN" className="h-9 w-auto object-contain sm:h-10 lg:h-11" draggable={false} />
             <span aria-hidden="true" className="h-10 w-px bg-primary-foreground/30" />
-            <img src={logoGoverno.url} alt="Governo do Estado do Espírito Santo" className="h-11 w-auto object-contain sm:h-12 lg:h-14" draggable={false} />
+            <img src={logoGoverno.url} alt="Governo do Estado do Espírito Santo" className="h-9 w-auto object-contain sm:h-10 lg:h-11" draggable={false} />
           </div>
         </div>
       </footer>
