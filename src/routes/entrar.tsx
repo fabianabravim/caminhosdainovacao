@@ -153,12 +153,6 @@ function Entrar() {
       </div>
       <div className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,white_92%,transparent)_0%,color-mix(in_oklab,white_55%,transparent)_42%,color-mix(in_oklab,white_0%,transparent)_70%)] lg:bg-[linear-gradient(90deg,color-mix(in_oklab,white_90%,transparent)_0%,color-mix(in_oklab,white_68%,transparent)_38%,color-mix(in_oklab,white_0%,transparent)_70%)]" />
 
-      {/* Formas orgânicas institucionais */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute -right-10 -top-12 h-16 w-16 rounded-full bg-brand-primary/80 sm:-right-16 sm:-top-20 sm:h-28 sm:w-28" />
-        <span className="absolute -right-8 top-4 hidden h-14 w-24 rounded-[50%] bg-energy/80 sm:top-8 sm:h-20 sm:w-32 sm:block" />
-        <span className="absolute -right-16 top-24 hidden h-20 w-20 rounded-full bg-brand-secondary/85 sm:top-32 sm:h-24 sm:w-24 sm:block" />
-      </div>
 
       <div className="relative mx-auto grid w-full flex-1 max-w-6xl content-center items-center md:min-h-[calc(100svh-6rem)] gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
         <div className="text-center lg:text-left">
