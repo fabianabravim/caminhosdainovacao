@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { verificarAcessoAutorizado, vincularPerfilAutorizado } from "@/lib/acesso.functions";
 import mestreAlvaro from "@/assets/mestre-alvaro-previa.png";
+import { ChancelaInstitucional } from "@/components/ChancelaInstitucional";
 import marcaRota from "@/assets/marca-rota.png";
 
 const searchSchema = z.object({ retorno: z.string().optional().catch(undefined) });
@@ -158,7 +159,7 @@ function Entrar() {
         <span className="absolute -left-16 bottom-40 hidden h-40 w-40 rounded-full bg-brand-primary/60 lg:block" />
       </div>
 
-      <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-8 px-5 pb-24 pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
+      <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-8 px-5 pb-10 pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
         <div className="text-center lg:text-left">
           <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-56 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
           <h1 className="mt-6 font-brand text-3xl font-bold text-brand-dark sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
@@ -204,6 +205,9 @@ function Entrar() {
           <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
       </div>
+      <footer className="relative flex justify-center px-5 pb-6 lg:-mt-20 lg:justify-start lg:px-8 lg:pb-8 xl:mx-auto xl:max-w-6xl">
+        <div className="opacity-90"><ChancelaInstitucional /></div>
+      </footer>
     </div>
   );
 }
