@@ -149,9 +149,9 @@ function Entrar() {
 
       {/* Formas orgânicas institucionais */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute -right-16 -top-24 h-56 w-56 rounded-full bg-brand-primary/80 sm:h-72 sm:w-72" />
-        <span className="absolute -right-6 top-8 h-40 w-64 rounded-[50%] bg-energy/80 sm:top-12 sm:h-52 sm:w-80" />
-        <span className="absolute -right-24 top-28 h-48 w-48 rounded-full bg-brand-secondary/85 sm:top-36 sm:h-60 sm:w-60" />
+        <span className="absolute -right-20 -top-28 h-40 w-40 rounded-full bg-brand-primary/80 sm:h-72 sm:w-72" />
+        <span className="absolute -right-6 top-8 hidden h-40 w-64 sm:block rounded-[50%] bg-energy/80 sm:top-12 sm:h-52 sm:w-80" />
+        <span className="absolute -right-24 top-28 hidden h-48 w-48 sm:block rounded-full bg-brand-secondary/85 sm:top-36 sm:h-60 sm:w-60" />
         <span className="absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-brand-dark sm:h-80 sm:w-80" />
         <span className="absolute -bottom-6 left-16 hidden h-56 w-72 rounded-[50%] bg-energy/85 sm:block" />
         <span className="absolute -bottom-28 left-40 hidden h-64 w-64 rounded-full bg-brand-secondary sm:block" />
