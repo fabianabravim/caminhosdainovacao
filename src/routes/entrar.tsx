@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, LockKeyhole, MapPinned } from "lucide-react";
+import { ArrowLeft, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { z } from "zod";
-import { ChancelaInstitucional } from "@/components/ChancelaInstitucional";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { verificarAcessoAutorizado, vincularPerfilAutorizado } from "@/lib/acesso.functions";
 import mestreAlvaro from "@/assets/mestre-alvaro-previa.png";
+import marcaRota from "@/assets/marca-rota.png";
 
 const searchSchema = z.object({ retorno: z.string().optional().catch(undefined) });
 
@@ -51,6 +51,7 @@ function Entrar() {
   const [confirmacao, setConfirmacao] = useState("");
   const [carregando, setCarregando] = useState(false);
   const [mensagem, setMensagem] = useState<string | null>(null);
+  const [verSenha, setVerSenha] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
@@ -136,71 +137,72 @@ function Entrar() {
     }
   }
 
-  const campo = "mt-1.5 w-full rounded-lg border border-border bg-background px-3.5 py-3 text-sm text-foreground outline-none transition focus:border-brand-secondary focus:ring-2 focus:ring-brand-primary/25";
-  const titulo = modo === "primeiro" ? "Primeiro acesso" : modo === "recuperar" ? "Esqueci minha senha" : "Acesso dos Conectores";
-  const subtitulo = modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : modo === "recuperar" ? "Informe seu e-mail para receber as instruções de recuperação." : "Use o e-mail e a senha cadastrados. Seu perfil e seu Núcleo são identificados automaticamente.";
+  const campo = "mt-1.5 w-full rounded-lg border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-brand-secondary focus:ring-2 focus:ring-brand-primary/25";
+  const titulo = modo === "primeiro" ? "Primeiro acesso" : modo === "recuperar" ? "Esqueceu sua senha?" : "Acesso dos Conectores";
+  const subtitulo = modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : modo === "recuperar" ? "Informe seu e-mail para receber as instruções de recuperação." : null;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-brand-dark">
-      {/* Fotografia em resolução reduzida — uso apenas como prévia, aguardando autorização e versão definitiva */}
-      <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-[linear-gradient(100deg,color-mix(in_oklab,var(--brand-dark)_94%,transparent)_0%,color-mix(in_oklab,var(--brand-secondary)_78%,transparent)_45%,color-mix(in_oklab,var(--brand-dark)_35%,transparent)_100%)] lg:bg-[linear-gradient(90deg,color-mix(in_oklab,var(--brand-dark)_92%,transparent)_0%,color-mix(in_oklab,var(--brand-secondary)_62%,transparent)_50%,color-mix(in_oklab,var(--brand-dark)_25%,transparent)_100%)]" />
-      <div className="absolute inset-x-0 bottom-0 h-1 bg-energy" />
+    <div className="relative min-h-screen overflow-hidden bg-background">
+      {/* Fotografia em resolução reduzida — somente prévia, aguardando original e autorização de uso */}
+      <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="absolute inset-0 h-full w-full object-cover object-[70%_center]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,white_88%,transparent)_0%,color-mix(in_oklab,white_70%,transparent)_45%,color-mix(in_oklab,white_10%,transparent)_100%)] lg:bg-[linear-gradient(90deg,color-mix(in_oklab,white_90%,transparent)_0%,color-mix(in_oklab,white_68%,transparent)_38%,color-mix(in_oklab,white_0%,transparent)_70%)]" />
 
-      <div className="relative mx-auto grid min-h-screen max-w-7xl items-center gap-8 px-5 py-8 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_27rem] lg:gap-16">
-        <div className="text-primary-foreground">
-          <div className="flex items-center gap-3">
-            <span aria-hidden="true" className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-energy text-energy sm:h-14 sm:w-14"><MapPinned className="h-6 w-6 sm:h-7 sm:w-7" /></span>
-            <div className="leading-none">
-              <p className="font-brand-condensed text-3xl font-bold tracking-wide sm:text-4xl">ROTA</p>
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.28em] text-energy sm:text-sm">da Inovação</p>
-            </div>
-          </div>
-          <span aria-hidden="true" className="mt-8 block h-1 w-14 rounded-full bg-energy sm:mt-12" />
-          <h1 className="mt-5 font-brand-condensed text-5xl font-semibold leading-none sm:text-6xl lg:text-7xl">Bem-vindo(a)!</h1>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-primary-foreground/85 sm:text-lg">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
-          <div className="mt-10 hidden w-fit lg:block"><ChancelaInstitucional /></div>
+      {/* Formas orgânicas institucionais */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <span className="absolute -right-20 -top-28 h-40 w-40 rounded-full bg-brand-primary/80 sm:h-72 sm:w-72" />
+        <span className="absolute -right-6 top-8 hidden h-40 w-64 sm:block rounded-[50%] bg-energy/80 sm:top-12 sm:h-52 sm:w-80" />
+        <span className="absolute -right-24 top-28 hidden h-48 w-48 sm:block rounded-full bg-brand-secondary/85 sm:top-36 sm:h-60 sm:w-60" />
+        <span className="absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-brand-dark sm:h-80 sm:w-80" />
+        <span className="absolute -bottom-6 left-16 hidden h-56 w-72 rounded-[50%] bg-energy/85 sm:block" />
+        <span className="absolute -bottom-28 left-40 hidden h-64 w-64 rounded-full bg-brand-secondary sm:block" />
+        <span className="absolute -left-16 bottom-40 hidden h-40 w-40 rounded-full bg-brand-primary/60 lg:block" />
+      </div>
+
+      <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-8 px-5 pb-24 pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
+        <div className="text-center lg:text-left">
+          <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-56 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
+          <h1 className="mt-6 font-brand text-3xl font-bold text-brand-dark sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
+          <p className="mx-auto mt-3 max-w-md text-lg leading-snug text-brand-dark/90 sm:text-xl lg:mx-0 lg:pl-6 lg:text-2xl">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
         </div>
 
-        <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-8 md:mx-auto md:max-w-md lg:max-w-none">
-          <div className="flex items-center gap-2">
-            <LockKeyhole className="h-5 w-5 text-brand-secondary" />
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-brand-secondary">ROTA da Inovação</p>
-          </div>
-          <h2 className="mt-2 font-brand-condensed text-3xl font-semibold text-brand-dark">{titulo}</h2>
-          <span aria-hidden="true" className="mt-2 block h-0.5 w-10 bg-energy" />
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{subtitulo}</p>
+        <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-10 md:mx-auto md:max-w-md lg:max-w-none">
+          <h2 className="font-brand text-2xl font-bold text-brand-dark sm:text-3xl">{titulo}</h2>
+          {subtitulo ? <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{subtitulo}</p> : null}
 
-          <form className="mt-5 space-y-4" onSubmit={(event) => { event.preventDefault(); void (modo === "primeiro" ? primeiroAcesso() : modo === "recuperar" ? recuperarSenha() : entrar()); }}>
-            <label className="block text-xs font-semibold text-foreground">E-mail
-              <input type="email" autoComplete="email" required value={email} onChange={(event) => setEmail(event.target.value)} className={campo} />
+          <form className="mt-6 space-y-5" onSubmit={(event) => { event.preventDefault(); void (modo === "primeiro" ? primeiroAcesso() : modo === "recuperar" ? recuperarSenha() : entrar()); }}>
+            <label className="block text-sm font-medium text-muted-foreground">E-mail
+              <input type="email" autoComplete="email" required placeholder="seu@email.com" value={email} onChange={(event) => setEmail(event.target.value)} className={campo} />
             </label>
-            {modo !== "recuperar" ? <label className="block text-xs font-semibold text-foreground">Senha
-              <input type="password" autoComplete={modo === "primeiro" ? "new-password" : "current-password"} minLength={8} required value={senha} onChange={(event) => setSenha(event.target.value)} className={campo} />
+            {modo !== "recuperar" ? <label className="block text-sm font-medium text-muted-foreground">Senha
+              <span className="relative block">
+                <input type={verSenha ? "text" : "password"} autoComplete={modo === "primeiro" ? "new-password" : "current-password"} minLength={8} required placeholder="Digite sua senha" value={senha} onChange={(event) => setSenha(event.target.value)} className={`${campo} pr-12`} />
+                <button type="button" onClick={() => setVerSenha((v) => !v)} aria-label={verSenha ? "Ocultar senha" : "Mostrar senha"} className="absolute right-3 top-1/2 mt-[3px] -translate-y-1/2 text-muted-foreground hover:text-brand-secondary">{verSenha ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>
+              </span>
             </label> : null}
             {modo === "primeiro" ? (
-              <label className="block text-xs font-semibold text-foreground">Confirmar senha
-                <input type="password" autoComplete="new-password" minLength={8} required value={confirmacao} onChange={(event) => setConfirmacao(event.target.value)} className={campo} />
+              <label className="block text-sm font-medium text-muted-foreground">Confirmar senha
+                <input type={verSenha ? "text" : "password"} autoComplete="new-password" minLength={8} required value={confirmacao} onChange={(event) => setConfirmacao(event.target.value)} className={campo} />
               </label>
             ) : null}
-            {modo !== "primeiro" && modo !== "recuperar" ? <div className="-mt-1 text-right"><button type="button" onClick={() => mudarModo("recuperar")} className="text-xs font-semibold text-brand-secondary hover:underline">Esqueci minha senha</button></div> : null}
             {erro ? <p role="alert" className="rounded-lg border border-destructive/20 bg-destructive/5 p-3 text-xs text-destructive">{erro}</p> : null}
             {mensagem ? <p role="status" className="rounded-lg border border-energy/50 bg-energy-soft p-3 text-xs text-foreground">{mensagem}</p> : null}
-            <Button type="submit" disabled={carregando || Boolean(mensagem)} className="h-auto w-full rounded-lg bg-brand-secondary px-5 py-3.5 text-sm font-semibold text-primary-foreground hover:bg-brand-dark">
+            <Button type="submit" disabled={carregando || Boolean(mensagem)} className="h-auto w-full rounded-lg bg-brand-secondary px-5 py-3.5 text-base font-semibold text-primary-foreground hover:bg-brand-dark">
               {carregando ? "Aguarde…" : modo === "primeiro" ? "Criar acesso" : modo === "recuperar" ? "Enviar instruções" : <>Entrar na ROTA <ArrowRight /></>}
             </Button>
           </form>
 
-          <div className="mt-5 border-t border-border pt-4 text-center">
-            {modo === "primeiro" || modo === "recuperar" ? (
-              <button type="button" onClick={() => mudarModo("entrar")} className="text-xs font-semibold text-muted-foreground hover:text-brand-secondary">Voltar para o acesso</button>
+          <div className="mt-5 space-y-3 text-center text-sm">
+            {modo === "entrar" ? (
+              <>
+                <button type="button" onClick={() => mudarModo("recuperar")} className="font-medium text-brand-secondary underline underline-offset-4">Esqueceu sua senha?</button>
+                <p className="border-t border-border pt-4 text-muted-foreground">Ainda não ativou sua conta? <button type="button" onClick={() => mudarModo("primeiro")} className="font-semibold text-brand-secondary underline decoration-energy decoration-2 underline-offset-4">Primeiro acesso</button></p>
+              </>
             ) : (
-              <p className="text-xs text-muted-foreground">Ainda não ativou sua conta? <button type="button" onClick={() => mudarModo("primeiro")} className="font-semibold text-brand-secondary underline decoration-energy decoration-2 underline-offset-4">Primeiro acesso</button></p>
+              <button type="button" onClick={() => mudarModo("entrar")} className="font-medium text-muted-foreground hover:text-brand-secondary">Voltar para o acesso</button>
             )}
           </div>
           <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
         </div>
-        <div className="w-fit lg:hidden"><ChancelaInstitucional /></div>
       </div>
     </div>
   );
