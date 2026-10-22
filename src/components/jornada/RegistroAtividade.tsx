@@ -300,7 +300,6 @@ function ModalAtividade({ preset, origem, onClose }: { preset: Preset; origem: H
                   maxLength={2048} value={form.evidenciaLink}
                   onChange={set("evidenciaLink")} {...atributos("evidenciaLink")}
                    placeholder="Link de notícia, publicação ou vídeo"
-                  aria-label="Link de evidência"
                 />{erroCampo("evidenciaLink")}
               </div>
             </div>
