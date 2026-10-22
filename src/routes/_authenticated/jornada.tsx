@@ -198,7 +198,7 @@ function TrilhaJornada({ progresso }: { progresso: Record<MovimentoId, number> }
             const { Icon } = movimento;
             return (
               <div key={movimento.id} className="relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] items-start gap-3 md:block">
-                <span tabIndex={0} aria-label={`Movimento ${movimento.nome}`} className="relative z-10 grid h-12 w-12 place-items-center rounded-full border border-brand-primary/35 bg-surface text-brand-primary outline-none motion-safe:transition-[background-color,border-color,box-shadow] motion-safe:duration-200 can-hover:hover:border-energy can-hover:hover:bg-energy can-hover:hover:text-brand-dark focus-visible:border-energy focus-visible:bg-energy focus-visible:text-brand-dark focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><Icon className="h-5 w-5" /></span>
+                <span tabIndex={0} aria-label={`Movimento ${movimento.nome}`} className="relative z-10 grid h-12 w-12 place-items-center rounded-full border border-brand-primary/35 bg-surface text-brand-primary outline-none motion-safe:transition-[background-color,border-color,box-shadow] motion-safe:duration-200 [@media(hover:hover)]:hover:border-energy [@media(hover:hover)]:hover:bg-energy [@media(hover:hover)]:hover:text-brand-dark focus-visible:border-energy focus-visible:bg-energy focus-visible:text-brand-dark focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><Icon className="h-5 w-5" /></span>
                 <div className="min-w-0 md:mt-3">
                   <p className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">0{index + 1}</p>
                   <p className="text-xs font-semibold uppercase">{movimento.nome}</p>
