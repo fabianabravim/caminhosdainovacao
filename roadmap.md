@@ -1,7 +1,7 @@
 # Roadmap — Caminhos da Inovação
 
 ## Botão flutuante mobile — diagnóstico
-- [ ] Identificar usos e sobreposições em 320/375/390/430 px; propor correção mínima sem implementar.
+- [x] Identificar usos e sobreposições em 320/375/390/430 px; propor retirar atalho da Jornada e /missoes por redundância e sobreposição, sem implementar.
 - [ ] Ajustar exibição do atalho — aguarda autorização; preservar botão amarelo, menus, perfil, saída e formulário.
 
 ## Análise do Registro de Atividades — 22/10
