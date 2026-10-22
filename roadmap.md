@@ -1,5 +1,9 @@
 # Roadmap — Caminhos da Inovação
 
+## Análise do Registro de Atividades — 22/10
+- [ ] Auditar campos, vínculo às missões/movimentos, identidade, evidências, validação, status e impactos em progresso/ranking, somente leitura.
+- [ ] Verificar formulário em 320/375/390/430 px sem enviar registros; apresentar melhorias priorizadas e aguardar aprovação.
+
 ## Solicitações de 22/10 — cabeçalho e ranking
 - [x] Compactar somente cabeçalho mobile; validar 320/375/390/430 px, teclado e sticky; recomendar sobre ícone de perfil no banner sem removê-lo.
 - [x] Cabeçalho atual já sticky; validado nas cinco abas, computador, tablets e celular, com teclado e diálogo, sem necessidade de mudar código.
