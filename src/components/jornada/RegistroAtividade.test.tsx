@@ -15,7 +15,7 @@ const valido = { ...vazio, data: "2026-10-22", titulo: "Teste isolado", descrica
 const retorno = (extra = {}): ResultadoRegistro => ({ atividade: { ...valido, id: "isolado", status: "em_validacao", criadoEm: "2026-10-22", missoesRelacionadas: ["exp-mapear-ator", "exp-ambiente"], fonteContribuicao: "ativos_inovacao", ...extra }, missoesRelacionadas: [] });
 
 afterEach(cleanup);
-beforeEach(() => registrar.mockReset());
+beforeEach(() => { registrar.mockReset(); });
 
 async function abrir() {
   const user = userEvent.setup();
@@ -97,7 +97,7 @@ describe("Etapa 3A sem persistência", () => {
     await user.click(screen.getByRole("button", { name: "Continuar preenchendo" }));
     expect((screen.getByLabelText("Título da atividade (obrigatório)") as HTMLInputElement).value).toBe(valido.titulo);
     await user.click(screen.getByRole("button", { name: "Fechar" }));
-    await user.click(screen.getByRole("button", { name: "Descartar", exact: true }));
+    await user.click(screen.getByRole("button", { name: /^Descartar$/ }));
     await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
     expect(document.activeElement).toBe(origem);
     expect(registrar).not.toHaveBeenCalled();
