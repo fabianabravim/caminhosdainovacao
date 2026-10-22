@@ -6,7 +6,7 @@ import { souAdministrador } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 
 /** Item "Administração" — visível somente para Administradores (verificado no servidor). */
-export function LinkAdministracao() {
+export function LinkAdministracao({ className = "border-primary/25 bg-primary/10 text-primary" }: { className?: string }) {
   const checar = useServerFn(souAdministrador);
   const { data } = useQuery({
     queryKey: ["admin", "acesso"],
@@ -21,7 +21,7 @@ export function LinkAdministracao() {
   return (
     <Link
       to="/admin"
-      className="tap flex shrink-0 items-center gap-1.5 rounded-full border border-primary/25 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary"
+      className={`tap flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${className}`}
     >
       <ShieldCheck className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Administração</span><span className="sm:hidden">Admin</span>
     </Link>

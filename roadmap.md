@@ -1,5 +1,9 @@
 # Roadmap — Caminhos da Inovação
 
+## Cabeçalho institucional e navegação integrada
+- [x] Aplicar barra roxa com marca branca e integrar somente as abas da Jornada.
+- [x] Validar desktop e celular, preservando menu principal, banner e regras, sem publicação.
+
 ## Etapa 2 — movimentos oficiais (autorizada em 22/10/2026)
 - [x] Atualizar trilha, agrupamento de missões e progresso do Núcleo usando movimentos oficiais.
 - [x] Atualizar descrições, ajuda contextual e metadados de Jornada/Missões.

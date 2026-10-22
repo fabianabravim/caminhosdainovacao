@@ -45,12 +45,27 @@ function JornadaPage() {
   return (
     <MeuNucleoProvider>
       <RegistroAtividadeProvider>
-        <AppShell titulo="ROTA da Inovação" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva>
-          <JornadaConteudo />
-        </AppShell>
+        <JornadaExperiencia />
         <AcaoFlutuanteAtividade />
       </RegistroAtividadeProvider>
     </MeuNucleoProvider>
+  );
+}
+
+function JornadaExperiencia() {
+  const [aba, setAba] = useState<AbaId>("visao");
+  const { perfil, nucleoId } = useMeuNucleo();
+  const mostrarAbas = perfil.perfil !== "COORDENACAO" && Boolean(nucleoMap[nucleoId]);
+  return (
+    <AppShell titulo="ROTA da Inovação" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva navegacao={mostrarAbas ? (
+      <nav aria-label="Seções da Jornada" className="min-w-0">
+        <ul className="grid grid-cols-3 gap-1.5 sm:grid-cols-5">
+          {abas.map((item) => <li key={item.id} className="min-w-0"><Button type="button" variant="ghost" onClick={() => setAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-10 w-full rounded-md border px-2 text-xs font-semibold focus-visible:ring-primary-foreground ${aba === item.id ? "border-secondary bg-secondary text-primary hover:bg-secondary hover:text-primary" : "border-primary-foreground/15 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/15 hover:text-primary-foreground"}`}>{item.rotulo}</Button></li>)}
+        </ul>
+      </nav>
+    ) : undefined}>
+      <JornadaConteudo aba={aba} setAba={setAba} />
+    </AppShell>
   );
 }
 
@@ -59,8 +74,7 @@ function SubtituloPapel() {
   return <>{perfil.perfil === "ADMINISTRADOR" ? "Administração" : perfil.perfil === "COORDENACAO" ? "Área da Coordenação" : "Área do Conector"}</>;
 }
 
-function JornadaConteudo() {
-  const [aba, setAba] = useState<AbaId>("visao");
+function JornadaConteudo({ aba, setAba }: { aba: AbaId; setAba: (aba: AbaId) => void }) {
   const { participante, nucleoId, perfil } = useMeuNucleo();
   const navigate = useNavigate({ from: "/jornada" });
   const queryClient = useQueryClient();
@@ -93,12 +107,6 @@ function JornadaConteudo() {
           <div className="col-span-2 self-end"><BotaoRegistrarAtividade rotulo="Registrar atividade" className="bg-energy text-brand-dark shadow-lg shadow-brand-dark/20 hover:bg-energy/90" /></div>
         </div>
       </section>
-
-      <nav aria-label="Seções da área do Conector" className="min-w-0 border-b border-border">
-        <ul className="flex min-w-max gap-1 overflow-x-auto">
-          {abas.map((item) => <li key={item.id}><Button type="button" variant="ghost" onClick={() => setAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-11 rounded-none border-b-2 px-3 text-xs font-semibold sm:px-5 ${aba === item.id ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}>{item.rotulo}</Button></li>)}
-        </ul>
-      </nav>
 
       {aba === "visao" ? <VisaoGeral irPara={setAba} /> : null}
       {aba === "atividades" ? <MinhasAtividades /> : null}
