@@ -59,8 +59,8 @@ function JornadaExperiencia() {
   return (
     <AppShell titulo="ROTA da Inovação" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva navegacao={mostrarAbas ? (
       <nav aria-label="Seções da Jornada" className="min-w-0">
-        <ul className="flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-x-7 xl:justify-end">
-          {abas.map((item) => <li key={item.id} className="min-w-0 shrink-0"><Button type="button" variant="ghost" onClick={() => setAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-10 rounded-none border-b-2 bg-transparent px-0 text-sm hover:bg-transparent hover:text-primary-foreground focus-visible:ring-secondary ${aba === item.id ? "border-secondary font-semibold text-primary-foreground" : "border-transparent font-normal text-secondary"}`}>{item.rotulo}</Button></li>)}
+        <ul className="grid grid-cols-3 items-center gap-x-2 min-[375px]:flex min-[375px]:flex-wrap sm:gap-x-7 sm:gap-y-1 xl:justify-end">
+          {abas.map((item) => <li key={item.id} className="min-w-0 shrink-0"><Button type="button" variant="ghost" onClick={() => setAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-11 sm:h-10 rounded-none border-b-2 bg-transparent px-0 text-xs sm:text-sm hover:bg-transparent hover:text-primary-foreground focus-visible:ring-secondary ${aba === item.id ? "border-secondary font-semibold text-primary-foreground" : "border-transparent font-normal text-secondary"}`}>{item.rotulo}</Button></li>)}
         </ul>
       </nav>
     ) : undefined}>
@@ -71,7 +71,7 @@ function JornadaExperiencia() {
 
 function SubtituloPapel() {
   const { perfil } = useMeuNucleo();
-  return <>{perfil.perfil === "ADMINISTRADOR" ? "Administração" : perfil.perfil === "COORDENACAO" ? "Área da Coordenação" : "Área do Conector"}</>;
+  return <>{perfil.perfil === "ADMINISTRADOR" ? "Administração" : perfil.perfil === "COORDENACAO" ? "Área da Coordenação" : <span className="max-sm:sr-only">Área do Conector</span>}</>;
 }
 
 function JornadaConteudo({ aba, setAba }: { aba: AbaId; setAba: (aba: AbaId) => void }) {

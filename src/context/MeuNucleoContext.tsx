@@ -9,6 +9,7 @@ import {
 } from "@/data/missoes.config";
 import { tipoAtividadeMap } from "@/data/atividades.config";
 import { calcularProgressoPorMovimento, missoesDoMovimento } from "@/data/movimentos";
+import { calcularMissoes, somarPontuacao } from "@/data/pontuacao";
 import { MeuNucleoContext, type MeuNucleoState } from "@/context/meuNucleoBase";
 import { supabase } from "@/integrations/supabase/client";
 import { vincularPerfilAutorizado } from "@/lib/acesso.functions";
@@ -17,7 +18,6 @@ import type {
   Conector,
   DimensaoId,
   FonteProgressoTerritorio,
-  MissaoTerritorialCalculada,
   PerfilConector,
   RegistroJornada,
   StatusAtividade,
@@ -192,16 +192,7 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
       if (!missaoId || !a.fonteContribuicao) return [];
       return [{ id: `reg-${a.id}`, missaoId, fonte: a.fonteContribuicao, titulo: a.titulo, descricao: a.descricao, data: a.data, local: a.local, atores: a.atores, resultado: a.resultados, localizacao: a.localizacao, municipio: a.municipio || undefined, anexoNome: a.evidenciaFoto ?? a.evidenciaDocumento, statusValidacao: statusValidacaoDe(a.status), criadoEm: a.criadoEm }];
     });
-    const missoes: MissaoTerritorialCalculada[] = missoesTerritorio.filter((m) => m.ativo).map((m) => {
-      const daMissao = registros.filter((r) => r.missaoId === m.id);
-      const aprovados = daMissao.filter((r) => r.statusValidacao === "aprovado").length;
-      const emValidacao = daMissao.filter((r) => r.statusValidacao === "em_validacao").length;
-      const emAjuste = daMissao.filter((r) => r.statusValidacao === "ajustes_solicitados").length;
-      const progressoAtual = Math.min(aprovados, m.metaTotal);
-      const percentual = m.metaTotal > 0 ? Math.min(100, Math.round((progressoAtual / m.metaTotal) * 100)) : 0;
-      const status: MissaoTerritorialCalculada["status"] = progressoAtual >= m.metaTotal && emValidacao === 0 && emAjuste === 0 ? "concluida" : emAjuste > 0 ? "ajustes" : emValidacao > 0 ? "validacao" : progressoAtual > 0 ? "andamento" : "nao_iniciada";
-      return { ...m, progressoAtual, percentualProgresso: percentual, restante: Math.max(0, m.metaTotal - progressoAtual), registrosEmValidacao: emValidacao, registrosEmAjuste: emAjuste, status };
-    });
+    const missoes = calcularMissoes(registros);
     const progressoPorDimensao = Object.fromEntries(ordemDimensoes.map((d) => {
       const feito = missoes.filter((m) => m.dimensao === d).reduce((s, m) => s + m.progressoAtual, 0);
       const meta = metaTotalDimensao(d);
@@ -225,7 +216,7 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
       progressoPorDimensao,
       progressoPorMovimento: calcularProgressoPorMovimento(missoes),
       missoesPorMovimento: (mov) => missoesDoMovimento(missoes, mov),
-      pontuacaoTotal: missoes.reduce((s, m) => s + (m.status === "concluida" ? m.pontuacao : 0), 0),
+      pontuacaoTotal: somarPontuacao(missoes),
       missoesConcluidas: missoes.filter((m) => m.status === "concluida").length,
       missoesEmValidacao: missoes.filter((m) => m.status === "validacao").length,
       atividadesEmValidacao: atividades.filter((a) => a.status === "em_validacao").length,
