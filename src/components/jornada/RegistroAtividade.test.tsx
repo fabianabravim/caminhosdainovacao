@@ -131,4 +131,20 @@ describe("Etapa 3A sem persistência", () => {
     expect(await screen.findByText(/Nenhuma missão contabilizada/)).toBeDefined();
     expect(registrar).toHaveBeenCalledTimes(2);
   });
+  it("guarda somente nomes de arquivos no envio isolado e mantém os campos opcionais", async () => {
+    registrar.mockResolvedValue(retorno({ evidenciaFoto: "foto.png", evidenciaDocumento: "documento.pdf" }));
+    const { user } = await abrir();
+    await preencher();
+    await user.click(screen.getByText("Informações adicionais (opcionais)"));
+    const arquivos = document.querySelectorAll<HTMLInputElement>('input[type="file"]');
+    if (!arquivos[0] || !arquivos[1]) throw new Error("Campos de arquivo ausentes");
+    await user.upload(arquivos[0], new File(["imagem"], "foto.png", { type: "image/png" }));
+    await user.upload(arquivos[1], new File(["texto"], "documento.pdf", { type: "application/pdf" }));
+    expect(screen.getByLabelText("Observações (opcional)")).toBeDefined();
+    expect(screen.getByLabelText("Localização geográfica (opcional)")).toBeDefined();
+    await user.click(screen.getByRole("button", { name: "ENVIAR REGISTRO" }));
+    expect(registrar.mock.calls[0]?.[0].evidenciaFoto).toBe("foto.png");
+    expect(registrar.mock.calls[0]?.[0].evidenciaDocumento).toBe("documento.pdf");
+    expect(await screen.findByText(/Apenas os nomes dos arquivos foram registrados/)).toBeDefined();
+  });
 });

@@ -195,7 +195,7 @@ function ModalAtividade({ preset, origem, onClose }: { preset: Preset; origem: H
               const atuais = errosFormulario(form);
               setErros(atuais);
               if (Object.keys(atuais).length) {
-                setOpcionaisAbertos(true);
+                if (Object.keys(atuais).some((campo) => !["tipoId", "data", "titulo", "descricao"].includes(campo))) setOpcionaisAbertos(true);
                 requestAnimationFrame(() => formularioRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
                 return;
               }
