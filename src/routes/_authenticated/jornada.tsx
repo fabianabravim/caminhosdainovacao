@@ -59,8 +59,8 @@ function JornadaExperiencia() {
   return (
     <AppShell titulo="ROTA da Inovação" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva navegacao={mostrarAbas ? (
       <nav aria-label="Seções da Jornada" className="min-w-0">
-        <ul className="grid grid-cols-3 gap-1.5 sm:grid-cols-5">
-          {abas.map((item) => <li key={item.id} className="min-w-0"><Button type="button" variant="ghost" onClick={() => setAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-10 w-full rounded-md border px-2 text-xs font-semibold focus-visible:ring-primary-foreground ${aba === item.id ? "border-secondary bg-secondary text-primary hover:bg-secondary hover:text-primary" : "border-primary-foreground/15 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/15 hover:text-primary-foreground"}`}>{item.rotulo}</Button></li>)}
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-x-7 xl:justify-end">
+          {abas.map((item) => <li key={item.id} className="min-w-0 shrink-0"><Button type="button" variant="ghost" onClick={() => setAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-10 rounded-none border-b-2 bg-transparent px-0 text-sm hover:bg-transparent hover:text-primary-foreground focus-visible:ring-secondary ${aba === item.id ? "border-secondary font-semibold text-primary-foreground" : "border-transparent font-normal text-secondary"}`}>{item.rotulo}</Button></li>)}
         </ul>
       </nav>
     ) : undefined}>
