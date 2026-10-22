@@ -9,7 +9,7 @@ import { MissoesTerritorio } from "@/components/jornada/MissoesTerritorio";
 import { ProgressoNucleo } from "@/components/jornada/ProgressoNucleo";
 import { RankingNucleos } from "@/components/jornada/RankingNucleos";
 import { RelatoriosJornada } from "@/components/jornada/RelatoriosJornada";
-import { AcaoFlutuanteAtividade, BotaoRegistrarAtividade, RegistroAtividadeProvider } from "@/components/jornada/RegistroAtividade";
+import { BotaoRegistrarAtividade, RegistroAtividadeProvider } from "@/components/jornada/RegistroAtividade";
 import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
 import { Progresso } from "@/components/ui/Progresso";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,6 @@ function JornadaPage() {
     <MeuNucleoProvider>
       <RegistroAtividadeProvider>
         <JornadaExperiencia />
-        <AcaoFlutuanteAtividade />
       </RegistroAtividadeProvider>
     </MeuNucleoProvider>
   );
