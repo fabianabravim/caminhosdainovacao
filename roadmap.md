@@ -1,5 +1,10 @@
 # Roadmap — Caminhos da Inovação
 
+## Solicitações de 22/10 — cabeçalho e ranking
+- [x] Cabeçalho atual já sticky; validado nas cinco abas, computador, tablets e celular, com teclado e diálogo, sem necessidade de mudar código.
+- [x] Auditar ranking demonstrativo e fonte real; apresentar proposta sem modificar ranking ou banco.
+- [ ] Implementar ranking real — aguarda autorização da proposta e resolução do acesso seguro aos totais dos 14 Núcleos.
+
 ## Cabeçalho institucional e navegação integrada
 - [x] Aplicar barra roxa com marca branca e integrar somente as abas da Jornada.
 - [x] Validar desktop e celular, preservando menu principal, banner e regras, sem publicação.
