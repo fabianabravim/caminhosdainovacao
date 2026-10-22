@@ -1,7 +1,7 @@
 # Roadmap — Caminhos da Inovação
 
 ## Etapa 3B — análise autorizada em 22/10
-- [ ] Apresentar diagnóstico, fluxo seguro, matriz de permissões, modelo mínimo e histórico, riscos, etapas e testes isolados.
+- [x] Apresentar diagnóstico, fluxo seguro, matriz de permissões, modelo mínimo e histórico, riscos, etapas e testes isolados; 29 casos existentes aprovados, sem implementação.
 - [ ] Implementar Etapa 3B — bloqueado até autorização expressa; sem migrações, permissões, dados ou publicação nesta análise.
 
 ## Etapa 3A — formulário autorizado
