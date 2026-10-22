@@ -1,5 +1,10 @@
 # Roadmap — Caminhos da Inovação
 
+## Etapa 3A — formulário autorizado
+- [ ] Refinar obrigatórios, erros, opcionais, foco, descarte, envio único e confirmação fiel ao vínculo existente.
+- [ ] Testar isoladamente sem persistência e conferir computador e 320/375/390/430 px.
+- [ ] Informar arquivos, resultados e pendências da Etapa 3B; sem publicação.
+
 ## Botão flutuante mobile — diagnóstico
 - [x] Identificar usos e sobreposições em 320/375/390/430 px; propor retirar atalho da Jornada e /missoes por redundância e sobreposição, sem implementar.
 - [ ] Ajustar exibição do atalho — aguarda autorização; preservar botão amarelo, menus, perfil, saída e formulário.
@@ -7,7 +12,7 @@
 ## Análise do Registro de Atividades — 22/10
 - [x] Auditar campos, vínculo às missões/movimentos, identidade, evidências, validação, status e impactos em progresso/ranking, somente leitura.
 - [x] Verificar formulário em 320/375/390/430 px sem enviar registros; apresentar melhorias priorizadas.
-- [ ] Melhorias do registro e proteção da aprovação — aguardam aprovação específica; revisão segura exige escopo adicional de permissões, proibido nesta análise.
+- [ ] Etapa 3B: associação compatível, evidências reais e ciclo de aprovação/ajustes/reenvio com proteção segura — aguardam autorização específica.
 
 ## Solicitações de 22/10 — cabeçalho e ranking
 - [x] Compactar somente cabeçalho mobile; validar 320/375/390/430 px, teclado e sticky; recomendar sobre ícone de perfil no banner sem removê-lo.
