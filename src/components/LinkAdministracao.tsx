@@ -21,6 +21,7 @@ export function LinkAdministracao({ className = "border-primary/25 bg-primary/10
   return (
     <Link
       to="/admin"
+      aria-label="Administração"
       className={`tap flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold ${className}`}
     >
       <ShieldCheck className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Administração</span><span className="sm:hidden">Admin</span>
