@@ -8,6 +8,7 @@ import {
   ordemDimensoes,
 } from "@/data/missoes.config";
 import { tipoAtividadeMap } from "@/data/atividades.config";
+import { calcularProgressoPorMovimento, missoesDoMovimento } from "@/data/movimentos";
 import { MeuNucleoContext, type MeuNucleoState } from "@/context/meuNucleoBase";
 import { supabase } from "@/integrations/supabase/client";
 import { vincularPerfilAutorizado } from "@/lib/acesso.functions";
@@ -222,6 +223,8 @@ export function MeuNucleoProvider({ children }: { children: ReactNode }) {
       missaoPorId: (id) => missoes.find((m) => m.id === id),
       progressoNucleo: metaGeral > 0 ? Math.round((feitoGeral / metaGeral) * 100) : 0,
       progressoPorDimensao,
+      progressoPorMovimento: calcularProgressoPorMovimento(missoes),
+      missoesPorMovimento: (mov) => missoesDoMovimento(missoes, mov),
       pontuacaoTotal: missoes.reduce((s, m) => s + (m.status === "concluida" ? m.pontuacao : 0), 0),
       missoesConcluidas: missoes.filter((m) => m.status === "concluida").length,
       missoesEmValidacao: missoes.filter((m) => m.status === "validacao").length,
