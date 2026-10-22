@@ -1,4 +1,8 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Dialog, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
+import { criarEnvioUnico, errosFormulario, formularioAlterado, vinculoRegistro, type ErrosFormulario, type FormularioAtividade } from "./registroAtividadeFormulario";
 import { Camera, Check, FileText, Link as LinkIcon, MapPin, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { tipoAtividadeMap, tiposAtividade } from "@/data/atividades.config";
@@ -20,13 +24,17 @@ import {
  */
 export function RegistroAtividadeProvider({ children }: { children: ReactNode }) {
   const [preset, setPreset] = useState<Preset | null>(null);
-  const abrir = useCallback((p?: Preset) => setPreset(p ?? {}), []);
+  const origem = useRef<HTMLElement | null>(null);
+  const abrir = useCallback((p?: Preset) => {
+    origem.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setPreset(p ?? {});
+  }, []);
   const value = useMemo(() => ({ abrir }), [abrir]);
 
   return (
     <Ctx.Provider value={value}>
       {children}
-      {preset ? <ModalAtividade preset={preset} onClose={() => setPreset(null)} /> : null}
+      {preset ? <ModalAtividade preset={preset} origem={origem.current} onClose={() => setPreset(null)} /> : null}
     </Ctx.Provider>
   );
 }
@@ -79,7 +87,7 @@ const campo =
   "w-full rounded-md border border-border/80 bg-surface px-3.5 py-3 text-sm outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/10";
 const rotuloCls = "mb-1 block text-[0.68rem] font-medium uppercase tracking-wide text-muted-foreground";
 
-function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => void }) {
+function ModalAtividade({ preset, origem, onClose }: { preset: Preset; origem: HTMLElement | null; onClose: () => void }) {
   const { registrarAtividade } = useMeuNucleo();
   const missaoOrigem = preset.missaoId ? missaoTerritorialMap[preset.missaoId] : undefined;
   const novoRelatorio = preset.tipoId === "relatorio";
@@ -87,8 +95,8 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
   const [enviando, setEnviando] = useState(false);
   const [erroEnvio, setErroEnvio] = useState<string | null>(null);
 
-  const [form, setForm] = useState({
-    tipoId: preset.tipoId ?? tiposAtividade[0]!.id,
+  const [inicial] = useState<FormularioAtividade>(() => ({
+    tipoId: preset.tipoId ?? tiposAtividade[0]?.id ?? "",
     data: "",
     municipio: "",
     local: "",
@@ -99,48 +107,64 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
     observacoes: "",
     localizacao: "",
     evidenciaLink: "",
-  });
+  }));
+  const [form, setForm] = useState(inicial);
+  const [erros, setErros] = useState<ErrosFormulario>({});
+  const [confirmarDescarte, setConfirmarDescarte] = useState(false);
+  const [opcionaisAbertos, setOpcionaisAbertos] = useState(false);
+  const formularioRef = useRef<HTMLFormElement>(null);
+  const tituloRef = useRef<HTMLHeadingElement>(null);
+  const envioUnico = useRef(criarEnvioUnico());
+  const processando = useRef(false);
   const [foto, setFoto] = useState<string | undefined>();
   const [documento, setDocumento] = useState<string | undefined>();
 
+  const solicitarFechamento = () => {
+    if (processando.current) return;
+    if (!resultado && formularioAlterado(form, inicial, foto, documento)) {
+      setConfirmarDescarte(true);
+    } else onClose();
+  };
+
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
+    if (resultado) tituloRef.current?.focus();
+  }, [resultado]);
 
-  const set =
-    (nome: keyof typeof form) =>
-    (e: { target: { value: string } }) =>
-      setForm((f) => ({ ...f, [nome]: e.target.value }));
+  const set = (nome: keyof FormularioAtividade) => (e: { target: { value: string } }) => {
+    const proximo = { ...form, [nome]: e.target.value };
+    setForm(proximo);
+    if (erros[nome]) setErros((anteriores) => ({ ...anteriores, [nome]: errosFormulario(proximo)[nome] }));
+  };
+  const atributos = (nome: keyof FormularioAtividade) => ({
+    "aria-invalid": Boolean(erros[nome]),
+    "aria-describedby": erros[nome] ? `atv-${nome}-erro` : undefined,
+    onBlur: () => setErros((anteriores) => ({ ...anteriores, [nome]: errosFormulario(form)[nome] })),
+  });
+  const erroCampo = (nome: keyof FormularioAtividade) => erros[nome]
+    ? <p id={`atv-${nome}-erro`} role="alert" className="mt-1 text-sm text-destructive">{erros[nome]}</p> : null;
 
-  const valido = form.tipoId && form.data && form.titulo.trim() && form.descricao.trim();
   const tipo = tipoAtividadeMap[form.tipoId];
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex min-w-0 items-end justify-center overflow-hidden bg-brand-dark/65 backdrop-blur-sm sm:items-center sm:p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-label={novoRelatorio ? "Novo Relatório" : "Registrar atividade"}
-      onClick={onClose}
-    >
-      <div
-        className="panel panel-glow max-h-[calc(100dvh-env(safe-area-inset-top))] w-full min-w-0 max-w-2xl overflow-x-hidden overflow-y-auto rounded-t-lg px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 sm:max-h-[92dvh] sm:rounded-lg sm:p-6"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <Dialog open onOpenChange={(aberto) => { if (!aberto) solicitarFechamento(); }}>
+      <DialogPortal>
+        <DialogOverlay className="bg-brand-dark/65 backdrop-blur-sm" />
+        <DialogPrimitive.Content
+          className="panel panel-glow fixed bottom-0 left-0 z-50 max-h-[calc(100dvh-env(safe-area-inset-top))] w-full min-w-0 overflow-x-hidden overflow-y-auto rounded-t-lg px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-5 sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-h-[92dvh] sm:max-w-2xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg sm:p-6"
+          aria-describedby={undefined}
+          onOpenAutoFocus={(e) => { e.preventDefault(); formularioRef.current?.querySelector<HTMLElement>("select")?.focus(); }}
+          onCloseAutoFocus={(e) => { e.preventDefault(); origem?.focus(); }}
+          onEscapeKeyDown={(e) => { e.preventDefault(); solicitarFechamento(); }}
+          onPointerDownOutside={(e) => { e.preventDefault(); solicitarFechamento(); }}
+        >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-[0.62rem] uppercase tracking-[0.2em] text-lilac/80">
               {resultado ? "Registro enviado" : novoRelatorio ? "Entrega formal do Conector" : "Trabalho realizado no território"}
             </p>
-            <h3 className="break-words font-display text-lg font-semibold [overflow-wrap:anywhere]">
+            <DialogPrimitive.Title ref={tituloRef} tabIndex={-1} className="break-words font-display text-lg font-semibold [overflow-wrap:anywhere]">
               {resultado ? (novoRelatorio ? "Relatório enviado" : "Atividade registrada") : novoRelatorio ? "Novo Relatório" : "Registrar atividade"}
-            </h3>
+            </DialogPrimitive.Title>
             {missaoOrigem && !resultado ? (
               <p className="mt-1 text-[0.7rem] text-muted-foreground">
                 A partir da missão: {missaoOrigem.icone} {missaoOrigem.titulo}
@@ -149,7 +173,8 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
           </div>
            <Button
             type="button"
-            onClick={onClose}
+            onClick={solicitarFechamento}
+            disabled={enviando}
             aria-label="Fechar"
              variant="outline"
              size="icon"
@@ -162,15 +187,23 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
         {resultado ? (
           <FeedbackRegistro resultado={resultado} onClose={onClose} />
         ) : (
-          <form
+          <form ref={formularioRef} noValidate aria-busy={enviando}
             className="mt-4 space-y-3.5"
             onSubmit={async (e) => {
               e.preventDefault();
-              if (!valido) return;
+              if (processando.current) return;
+              const atuais = errosFormulario(form);
+              setErros(atuais);
+              if (Object.keys(atuais).length) {
+                if (Object.keys(atuais).some((campo) => !["tipoId", "data", "titulo", "descricao"].includes(campo))) setOpcionaisAbertos(true);
+                requestAnimationFrame(() => formularioRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
+                return;
+              }
+              processando.current = true;
               setEnviando(true);
               setErroEnvio(null);
               try {
-                const salvo = await registrarAtividade({
+                const salvo = await envioUnico.current(() => registrarAtividade({
                   tipoId: form.tipoId,
                   data: form.data,
                   municipio: form.municipio,
@@ -185,105 +218,109 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
                   evidenciaDocumento: documento,
                   evidenciaLink: form.evidenciaLink || undefined,
                   missaoId: preset.missaoId,
-                });
-                setResultado(salvo);
+                }));
+                if (salvo) setResultado(salvo);
               } catch (error) {
                 setErroEnvio(error instanceof Error ? error.message : "Não foi possível enviar o registro.");
               } finally {
+                processando.current = false;
                 setEnviando(false);
               }
             }}
           >
             <div>
-              <label className={rotuloCls} htmlFor="atv-tipo">Tipo de atividade</label>
-              <select id="atv-tipo" className={campo} value={form.tipoId} onChange={set("tipoId")}>
+              <label className={rotuloCls} htmlFor="atv-tipo">Tipo de atividade (obrigatório)</label>
+              <select id="atv-tipo" className={campo} value={form.tipoId} onChange={set("tipoId")} {...atributos("tipoId")}>
                 {tiposAtividade.map((t) => (
                   <option key={t.id} value={t.id}>
                     {t.icone} {t.rotulo}
                   </option>
                 ))}
-              </select>
+              </select>{erroCampo("tipoId")}
             </div>
             {form.tipoId === "identificacao_iniciativa" ? <AjudaInovacao className="pt-0.5" /> : null}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div>
-                <label className={rotuloCls} htmlFor="atv-data">Data</label>
-                <input id="atv-data" type="date" className={campo} value={form.data} onChange={set("data")} required />
+                <label className={rotuloCls} htmlFor="atv-data">Data (obrigatório)</label>
+                <input id="atv-data" type="date" className={campo} value={form.data} onChange={set("data")} {...atributos("data")} required />{erroCampo("data")}
               </div>
+            <div>
+              <label className={rotuloCls} htmlFor="atv-titulo">Título da atividade (obrigatório)</label>
+              <input id="atv-titulo" className={campo} maxLength={500} value={form.titulo} onChange={set("titulo")} {...atributos("titulo")} required />{erroCampo("titulo")}
+            </div>
+            <div>
+              <label className={rotuloCls} htmlFor="atv-descricao">O que foi realizado? (obrigatório)</label>
+              <textarea id="atv-descricao" className={campo} rows={3} maxLength={10000} value={form.descricao} onChange={set("descricao")} {...atributos("descricao")} required />{erroCampo("descricao")}
+            </div>
+            <details open={opcionaisAbertos} onToggle={(e) => setOpcionaisAbertos(e.currentTarget.open)} className="border-y border-border py-3">
+              <summary className="cursor-pointer py-2 text-sm font-semibold text-primary focus-visible:outline-2 focus-visible:outline-ring">Informações adicionais (opcionais)</summary>
+              <div className="mt-3 space-y-3.5">
               <div>
-                <label className={rotuloCls} htmlFor="atv-municipio">Município</label>
-                <input id="atv-municipio" className={campo} value={form.municipio} onChange={set("municipio")} placeholder="Ex.: Serra" />
+                <label className={rotuloCls} htmlFor="atv-municipio">Município (opcional)</label>
+                <input id="atv-municipio" className={campo} maxLength={500} value={form.municipio} onChange={set("municipio")} {...atributos("municipio")} placeholder="Ex.: Serra" />{erroCampo("municipio")}
               </div>
+            <div>
+              <label className={rotuloCls} htmlFor="atv-local">Local (opcional)</label>
+              <input id="atv-local" className={campo} maxLength={1000} value={form.local} onChange={set("local")} {...atributos("local")} placeholder="Bairro, instituição ou ponto de encontro" />{erroCampo("local")}
             </div>
             <div>
-              <label className={rotuloCls} htmlFor="atv-local">Local</label>
-              <input id="atv-local" className={campo} value={form.local} onChange={set("local")} placeholder="Bairro, instituição ou ponto de encontro" />
+              <label className={rotuloCls} htmlFor="atv-atores">Atores envolvidos (opcional)</label>
+              <input id="atv-atores" className={campo} maxLength={5000} value={form.atores} onChange={set("atores")} {...atributos("atores")} placeholder="Quem participou" />{erroCampo("atores")}
             </div>
             <div>
-              <label className={rotuloCls} htmlFor="atv-titulo">Título da atividade</label>
-              <input id="atv-titulo" className={campo} value={form.titulo} onChange={set("titulo")} required />
+              <label className={rotuloCls} htmlFor="atv-resultados">O que essa atividade revelou ou produziu? (opcional)</label>
+              <textarea id="atv-resultados" className={campo} rows={2} maxLength={10000} value={form.resultados} onChange={set("resultados")} {...atributos("resultados")} />{erroCampo("resultados")}
             </div>
             <div>
-              <label className={rotuloCls} htmlFor="atv-descricao">O que foi realizado?</label>
-              <textarea id="atv-descricao" className={campo} rows={3} value={form.descricao} onChange={set("descricao")} required />
-            </div>
-            <div>
-              <label className={rotuloCls} htmlFor="atv-atores">Atores envolvidos</label>
-              <input id="atv-atores" className={campo} value={form.atores} onChange={set("atores")} placeholder="Quem participou" />
-            </div>
-            <div>
-              <label className={rotuloCls} htmlFor="atv-resultados">
-                O que essa atividade revelou ou produziu?
-              </label>
-              <textarea id="atv-resultados" className={campo} rows={2} value={form.resultados} onChange={set("resultados")} />
-            </div>
-            <div>
-              <span className={rotuloCls}>Evidências</span>
+              <span className={rotuloCls}>Referências de evidências (opcionais)</span>
+              <p id="atv-arquivos-aviso" className="text-sm text-muted-foreground">Somente o nome do arquivo será registrado. O conteúdo da foto ou documento não será enviado nem armazenado.</p>
               <div className="space-y-2">
-                <label className="tap flex min-w-0 cursor-pointer items-center justify-center gap-2 break-words rounded-md border border-dashed border-primary/30 bg-primary/5 px-3.5 py-4 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
+                <label className="tap flex min-w-0 focus-within:ring-2 focus-within:ring-ring cursor-pointer items-center justify-center gap-2 break-words rounded-md border border-dashed border-primary/30 bg-primary/5 px-3.5 py-4 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
                   <input
                     type="file"
                     accept="image/*"
                     className="sr-only"
+                    aria-describedby="atv-arquivos-aviso"
                     onChange={(e) => setFoto(e.target.files?.[0]?.name)}
                   />
-                   <Camera className="h-4 w-4 text-primary" /> {foto ? foto : "Anexar foto"}
+                   <Camera className="h-4 w-4 text-primary" /> {foto ? foto : "Selecionar nome de foto (opcional)"}
                 </label>
-                <label className="tap flex min-w-0 cursor-pointer items-center justify-center gap-2 break-words rounded-md border border-dashed border-primary/30 bg-primary/5 px-3.5 py-4 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
+                <label className="tap flex min-w-0 focus-within:ring-2 focus-within:ring-ring cursor-pointer items-center justify-center gap-2 break-words rounded-md border border-dashed border-primary/30 bg-primary/5 px-3.5 py-4 text-center text-sm text-muted-foreground [overflow-wrap:anywhere]">
                   <input
                     type="file"
                     accept=".pdf,.doc,.docx"
                     className="sr-only"
+                    aria-describedby="atv-arquivos-aviso"
                     onChange={(e) => setDocumento(e.target.files?.[0]?.name)}
                   />
-                   <FileText className="h-4 w-4 text-primary" /> {documento ? documento : "Anexar documento"}
+                   <FileText className="h-4 w-4 text-primary" /> {documento ? documento : "Selecionar nome de documento (opcional)"}
                 </label>
-                <input
+                <label className={rotuloCls} htmlFor="atv-link">Link de evidência (opcional)</label>
+                <input id="atv-link"
                   className={campo}
-                  value={form.evidenciaLink}
-                  onChange={set("evidenciaLink")}
+                  maxLength={2048} value={form.evidenciaLink}
+                  onChange={set("evidenciaLink")} {...atributos("evidenciaLink")}
                    placeholder="Link de notícia, publicação ou vídeo"
-                  aria-label="Link de evidência"
-                />
+                />{erroCampo("evidenciaLink")}
               </div>
             </div>
             <div>
-              <label className={rotuloCls} htmlFor="atv-observacoes">Observações</label>
-              <textarea id="atv-observacoes" className={campo} rows={2} value={form.observacoes} onChange={set("observacoes")} />
+              <label className={rotuloCls} htmlFor="atv-observacoes">Observações (opcional)</label>
+              <textarea id="atv-observacoes" className={campo} rows={2} maxLength={10000} value={form.observacoes} onChange={set("observacoes")} {...atributos("observacoes")} />{erroCampo("observacoes")}
             </div>
             <div>
-              <label className={rotuloCls} htmlFor="atv-localizacao">
-                Localização geográfica (opcional)
-              </label>
-               <div className="relative"><MapPin className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-primary" /><input id="atv-localizacao" className={`${campo} pl-9`} value={form.localizacao} onChange={set("localizacao")} placeholder="Coordenadas ou ponto de referência" /></div>
+              <label className={rotuloCls} htmlFor="atv-localizacao">Localização geográfica (opcional)</label>
+               <div className="relative"><MapPin className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-primary" /><input id="atv-localizacao" className={`${campo} pl-9`} maxLength={1000} value={form.localizacao} onChange={set("localizacao")} {...atributos("localizacao")} placeholder="Coordenadas ou ponto de referência" />{erroCampo("localizacao")}</div>
               <p className="mt-1 text-[0.66rem] text-muted-foreground">
-                Preparado para integração territorial futura com o mapa.
+                Coordenadas ou referência geográfica do local da atividade.
               </p>
             </div>
 
+              </div>
+            </details>
+
             <Button
               type="submit"
-              disabled={!valido || enviando}
+              disabled={enviando}
               className="tap panel-glow h-auto w-full rounded-full bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
             >
               {enviando ? "ENVIANDO…" : novoRelatorio ? "ENVIAR RELATÓRIO" : "ENVIAR REGISTRO"}
@@ -292,12 +329,23 @@ function ModalAtividade({ preset, onClose }: { preset: Preset; onClose: () => vo
             <p className="text-center text-[0.68rem] text-muted-foreground">
               {tipo && tipo.fontes.length > 0
                 ? "O sistema calcula sozinho o progresso das missões a partir deste registro."
-                : "O registro fica no seu histórico; a Coordenação define quais indicadores ele alimenta."}
+                : "O registro fica no seu histórico; sem contribuição configurada para uma missão."}
             </p>
           </form>
         )}
-      </div>
-    </div>
+        </DialogPrimitive.Content>
+      </DialogPortal>
+      <AlertDialog open={confirmarDescarte} onOpenChange={setConfirmarDescarte}>
+        <AlertDialogContent className="max-w-[calc(100%-2rem)] rounded-lg sm:max-w-md">
+          <AlertDialogTitle>Descartar preenchimento?</AlertDialogTitle>
+          <AlertDialogDescription>Os dados preenchidos serão perdidos. Nenhuma atividade foi enviada.</AlertDialogDescription>
+          <div className="flex flex-wrap justify-end gap-2">
+            <AlertDialogCancel>Continuar preenchendo</AlertDialogCancel>
+            <AlertDialogAction onClick={onClose}>Descartar</AlertDialogAction>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
+    </Dialog>
   );
 }
 
@@ -309,7 +357,8 @@ function FeedbackRegistro({
   resultado: ResultadoRegistro;
   onClose: () => void;
 }) {
-  const { atividade, missoesRelacionadas } = resultado;
+  const { atividade } = resultado;
+  const vinculo = vinculoRegistro(atividade);
   const tipo = tipoAtividadeMap[atividade.tipoId];
   const emValidacao = atividade.status === "em_validacao";
 
@@ -328,24 +377,15 @@ function FeedbackRegistro({
         ) : null}
       </div>
 
-      {missoesRelacionadas.length > 0 ? (
-        <div>
-          <p className="text-[0.68rem] uppercase tracking-wide text-muted-foreground">
-            Esta atividade poderá contribuir para:
-          </p>
-          <ul className="mt-2 space-y-1.5">
-            {missoesRelacionadas.map((m) => (
-              <li key={m.id} className="break-words rounded-xl border border-border/60 bg-surface/60 px-3 py-2 text-sm [overflow-wrap:anywhere]">
-                {m.icone} {m.titulo}
-              </li>
-            ))}
-          </ul>
+      {vinculo ? (
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">Missão vinculada: <strong className="text-foreground">{vinculo.missao.icone} {vinculo.missao.titulo}</strong></p>
+          <p className="text-sm text-muted-foreground">Movimento: <strong className="text-foreground">{vinculo.movimento}</strong></p>
         </div>
       ) : (
-        <p className="text-[0.72rem] text-muted-foreground">
-          Registro guardado no seu histórico de atividades do território.
-        </p>
+        <p className="text-sm text-muted-foreground">Nenhuma missão contabilizada neste registro. A atividade permanece no seu histórico.</p>
       )}
+      {atividade.evidenciaFoto || atividade.evidenciaDocumento ? <p className="text-sm text-muted-foreground">Apenas os nomes dos arquivos foram registrados; seus conteúdos não foram enviados.</p> : null}
 
       <div className="rounded-2xl border border-border/60 bg-surface/60 p-3.5 text-[0.74rem] text-muted-foreground">
         <p>
@@ -355,7 +395,7 @@ function FeedbackRegistro({
           </span>
         </p>
         <p className="mt-1">
-          {emValidacao
+          {!vinculo ? "Sem contribuição contabilizada para o progresso das missões." : emValidacao
             ? "Quando validada, a missão e o progresso do Núcleo são atualizados automaticamente."
             : "O progresso da missão e do Núcleo já foi atualizado automaticamente."}
         </p>
