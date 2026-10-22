@@ -26,6 +26,12 @@ describe("movimentos oficiais", () => {
     expect(movimentoPorMissao["tra-mobilizar"]).toBe("articular");
   });
 
+  it.each([
+    ["reconhecer", 3], ["ouvir", 2], ["traduzir", 3], ["articular", 4],
+  ] as const)("%s possui %i missões ativas", (movimento, quantidade) => {
+    expect(missoesDoMovimento(missoesTerritorio, movimento)).toHaveLength(quantidade);
+  });
+
   it("subtotais 500/400/920/960 e teto 2.780", () => {
     expect(pontuacaoTotalMovimento(missoesTerritorio, "reconhecer")).toBe(500);
     expect(pontuacaoTotalMovimento(missoesTerritorio, "ouvir")).toBe(400);

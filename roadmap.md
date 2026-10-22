@@ -1,5 +1,11 @@
 # Roadmap — Caminhos da Inovação
 
+## Etapa 2 — movimentos oficiais (autorizada em 22/10/2026)
+- [x] Atualizar trilha, agrupamento de missões e progresso do Núcleo usando movimentos oficiais.
+- [x] Atualizar descrições, ajuda contextual e metadados de Jornada/Missões.
+- [x] Executar testes e validar computador, tablet e celular; dados existentes somente por leitura (Conector Teste/Serra sem atividades).
+- [x] Entregar relatório, sem publicação ou alteração de dados, autenticação e regras.
+
 - [x] Identidade cromática oficial aplicada: #7F6AAF / #6B4FA0 / #463868
 - [x] Tipografia oficial Amsi Pro aplicada ao corpo, interface e destaques condensados
 - [x] Home institucional com mapa protagonista
