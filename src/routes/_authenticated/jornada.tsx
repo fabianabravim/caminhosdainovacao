@@ -196,16 +196,15 @@ function TrilhaJornada({ progresso }: { progresso: Record<MovimentoId, number> }
           <div className="route-line absolute left-[11%] right-[11%] top-6 hidden h-0.5 md:block" />
           {movimentosApresentacao.map((movimento, index) => {
             const { Icon } = movimento;
-            const destaque = movimento.id === "traduzir";
             return (
               <div key={movimento.id} className="relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] items-start gap-3 md:block">
-                <span className={`relative z-10 grid h-12 w-12 place-items-center rounded-full border ${destaque ? "border-energy bg-energy-soft text-brand-dark" : "border-primary/25 bg-surface text-primary"}`}><Icon className="h-5 w-5" /></span>
+                <span tabIndex={0} aria-label={`Movimento ${movimento.nome}`} className="relative z-10 grid h-12 w-12 place-items-center rounded-full border border-brand-primary/35 bg-surface text-brand-primary outline-none motion-safe:transition-[background-color,border-color,box-shadow] motion-safe:duration-200 [@media(hover:hover)]:hover:border-energy [@media(hover:hover)]:hover:bg-energy [@media(hover:hover)]:hover:text-brand-dark focus-visible:border-energy focus-visible:bg-energy focus-visible:text-brand-dark focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"><Icon className="h-5 w-5" /></span>
                 <div className="min-w-0 md:mt-3">
                   <p className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">0{index + 1}</p>
                   <p className="text-xs font-semibold uppercase">{movimento.nome}</p>
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{movimento.descricao}</p>
                   <div className="mt-2 flex items-center gap-2">
-                    <Progresso valor={progresso[movimento.id]} cor={destaque ? "var(--energy)" : movimento.colorVar} />
+                    <Progresso valor={progresso[movimento.id]} cor={movimento.colorVar} />
                     <span className="shrink-0 text-[0.65rem] text-muted-foreground">{progresso[movimento.id]}%</span>
                   </div>
                 </div>
