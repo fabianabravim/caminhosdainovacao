@@ -56,11 +56,16 @@ function JornadaExperiencia() {
   const [aba, setAba] = useState<AbaId>("visao");
   const { perfil, nucleoId } = useMeuNucleo();
   const mostrarAbas = perfil.perfil !== "COORDENACAO" && Boolean(nucleoMap[nucleoId]);
+  function selecionarAba(id: AbaId) {
+    setAba(id);
+    // No celular, o destino começa abaixo do cabeçalho, sem herdar a rolagem da aba anterior.
+    if (window.matchMedia("(max-width: 639px)").matches) window.scrollTo({ top: 0, behavior: "instant" });
+  }
   return (
     <AppShell titulo="ROTA da Inovação" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva navegacao={mostrarAbas ? (
       <nav aria-label="Seções da Jornada" className="min-w-0">
         <ul className="grid grid-cols-3 items-center gap-x-2 min-[375px]:flex min-[375px]:flex-wrap sm:gap-x-7 sm:gap-y-1 xl:justify-end">
-          {abas.map((item) => <li key={item.id} className="min-w-0 shrink-0"><Button type="button" variant="ghost" onClick={() => setAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-11 sm:h-10 rounded-none border-b-2 bg-transparent px-0 text-xs sm:text-sm hover:bg-transparent hover:text-primary-foreground focus-visible:ring-secondary ${aba === item.id ? "border-secondary font-semibold text-primary-foreground" : "border-transparent font-normal text-secondary"}`}>{item.rotulo}</Button></li>)}
+          {abas.map((item) => <li key={item.id} className="min-w-0 shrink-0"><Button type="button" variant="ghost" onClick={() => selecionarAba(item.id)} aria-current={aba === item.id ? "page" : undefined} className={`h-11 sm:h-10 rounded-none border-b-2 bg-transparent px-0 text-xs sm:text-sm hover:bg-transparent hover:text-primary-foreground focus-visible:ring-secondary ${aba === item.id ? "border-secondary font-semibold text-primary-foreground" : "border-transparent font-normal text-secondary"}`}>{item.rotulo}</Button></li>)}
         </ul>
       </nav>
     ) : undefined}>

@@ -69,7 +69,7 @@ export function AppShell({
               </span>
             </Link>
           ) : (
-            <Link to="/perfil" aria-label="Meu perfil" className="tap grid h-9 w-9 shrink-0 place-items-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground transition-colors hover:bg-primary-foreground/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-foreground">
+            <Link to="/perfil" aria-label="Meu perfil" className={`tap grid shrink-0 place-items-center rounded-full border border-primary-foreground/25 bg-primary-foreground/10 text-primary-foreground transition-colors hover:bg-primary-foreground/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-foreground ${jornadaResponsiva ? "h-11 w-11 sm:h-9 sm:w-9" : "h-9 w-9"}`}>
               <UserRound className="h-4 w-4" />
             </Link>
           )}
