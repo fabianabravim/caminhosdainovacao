@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link, Navigate, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { AlertCircle, ArrowRight, CheckCircle2, Compass, FileClock, FileUp, Handshake, Lightbulb, LogOut, MapPinned, Rocket, User } from "lucide-react";
+import { AlertCircle, ArrowRight, CheckCircle2, Compass, FileClock, FileUp, LogOut, MapPinned, User } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { MapaVivo } from "@/components/MapaVivo";
 import { MinhasAtividades } from "@/components/jornada/MinhasAtividades";
@@ -15,7 +15,8 @@ import { Progresso } from "@/components/ui/Progresso";
 import { Button } from "@/components/ui/button";
 import { MeuNucleoProvider } from "@/context/MeuNucleoContext";
 import { useMeuNucleo } from "@/context/meuNucleoBase";
-import { dimensoes } from "@/data/dimensoes";
+import { movimentosApresentacao } from "@/data/movimentos.apresentacao";
+import type { MovimentoId } from "@/data/movimentos";
 import { tipoAtividadeMap, statusAtividadeLabel, estiloStatusAtividade } from "@/data/atividades.config";
 import { nucleoMap } from "@/data/nucleos";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,10 +24,10 @@ import rioDoce from "@/assets/rio-doce.jpg";
 
 export const Route = createFileRoute("/_authenticated/jornada")({
   head: () => ({ meta: [
-    { title: "Minha Jornada — Caminhos da Inovação" },
-    { name: "description", content: "Área do Conector para registrar atividades, acompanhar missões, entregas e o progresso do Núcleo Territorial." },
-    { property: "og:title", content: "Minha Jornada — Caminhos da Inovação" },
-    { property: "og:description", content: "Cada atividade registrada faz o território avançar." },
+    { title: "Minha Jornada — ROTA da Inovação" },
+    { name: "description", content: "Acompanhe atividades, missões e progresso territorial pelos movimentos Reconhecer, Ouvir, Traduzir e Articular." },
+    { property: "og:title", content: "Minha Jornada — ROTA da Inovação" },
+    { property: "og:description", content: "Quatro movimentos. Muitos caminhos. Reconhecer, Ouvir, Traduzir e Articular no território capixaba." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary_large_image" },
   ] }),
@@ -109,7 +110,7 @@ function JornadaConteudo() {
 }
 
 function VisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
-  const { atividades, atividadesEmValidacao, conectoresNucleo, indicadoresTerritoriais, missoes, missoesEmValidacao, nucleoId, perfil, progressoNucleo, progressoPorDimensao } = useMeuNucleo();
+  const { atividades, atividadesEmValidacao, conectoresNucleo, indicadoresTerritoriais, missoes, missoesEmValidacao, nucleoId, perfil, progressoNucleo, progressoPorMovimento } = useMeuNucleo();
   const { abrir } = useRegistroAtividade();
   const minhas = atividades.filter((a) => a.conectorId === perfil.userId);
   const proximas = missoes.filter((m) => m.status !== "concluida").slice(0, 3);
@@ -118,7 +119,7 @@ function VisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
 
   return (
     <div className="min-w-0 space-y-7">
-      <TrilhaJornada progresso={progressoPorDimensao} />
+      <TrilhaJornada progresso={progressoPorMovimento} />
 
       <section>
         <CabecalhoSecao titulo="Resumo do período" texto="Indicadores atualizados a partir dos registros disponíveis." />
@@ -176,9 +177,37 @@ function VisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
   );
 }
 
-function TrilhaJornada({ progresso }: { progresso: Record<(typeof dimensoes)[number]["id"], number> }) {
-  const icones = { explorar: Compass, conectar: Handshake, descobrir: Lightbulb, transformar: Rocket };
-  return <section className="panel relative overflow-hidden rounded-lg p-5 sm:p-6"><div className="topo-lines absolute inset-0 opacity-35" /><div className="relative"><p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-primary">Sua Jornada</p><h3 className="mt-1 text-xl font-semibold">Quatro dimensões. Muitos caminhos.</h3><div className="relative mt-7 grid gap-4 md:grid-cols-4"><div className="route-line absolute left-[11%] right-[11%] top-6 hidden h-0.5 md:block" />{dimensoes.map((dimensao, index) => { const Icon = icones[dimensao.id]; const transformar = dimensao.id === "transformar"; return <div key={dimensao.id} className="relative grid grid-cols-[3rem_minmax(0,1fr)] items-center gap-3 md:block"><span className={`relative z-10 grid h-12 w-12 place-items-center rounded-full border ${transformar ? "border-energy bg-energy-soft text-brand-dark" : "border-primary/25 bg-surface text-primary"}`}><Icon className="h-5 w-5" /></span><div className="md:mt-3"><p className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">0{index + 1}</p><p className="text-xs font-semibold uppercase">{dimensao.nome}</p><div className="mt-2 flex items-center gap-2"><Progresso valor={progresso[dimensao.id]} cor={transformar ? "var(--energy)" : dimensao.colorVar} /><span className="text-[0.65rem] text-muted-foreground">{progresso[dimensao.id]}%</span></div></div></div>; })}</div></div></section>;
+function TrilhaJornada({ progresso }: { progresso: Record<MovimentoId, number> }) {
+  return (
+    <section className="panel relative overflow-hidden rounded-lg p-5 sm:p-6">
+      <div className="topo-lines absolute inset-0 opacity-35" />
+      <div className="relative">
+        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-primary">Sua Jornada</p>
+        <h3 className="mt-1 text-xl font-semibold">Quatro movimentos. Muitos caminhos.</h3>
+        <div className="relative mt-7 grid gap-4 md:grid-cols-4">
+          <div className="route-line absolute left-[11%] right-[11%] top-6 hidden h-0.5 md:block" />
+          {movimentosApresentacao.map((movimento, index) => {
+            const { Icon } = movimento;
+            const destaque = movimento.id === "traduzir";
+            return (
+              <div key={movimento.id} className="relative grid min-w-0 grid-cols-[3rem_minmax(0,1fr)] items-start gap-3 md:block">
+                <span className={`relative z-10 grid h-12 w-12 place-items-center rounded-full border ${destaque ? "border-energy bg-energy-soft text-brand-dark" : "border-primary/25 bg-surface text-primary"}`}><Icon className="h-5 w-5" /></span>
+                <div className="min-w-0 md:mt-3">
+                  <p className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground">0{index + 1}</p>
+                  <p className="text-xs font-semibold uppercase">{movimento.nome}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{movimento.descricao}</p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <Progresso valor={progresso[movimento.id]} cor={destaque ? "var(--energy)" : movimento.colorVar} />
+                    <span className="shrink-0 text-[0.65rem] text-muted-foreground">{progresso[movimento.id]}%</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function ResumoItem({ valor, rotulo, Icon, destaque = false }: { valor: number; rotulo: string; Icon: typeof Compass; destaque?: boolean }) { return <div className={`panel min-w-0 rounded-lg border-l-4 p-4 ${destaque ? "border-l-energy" : "border-l-primary/35"}`}><Icon className={`h-5 w-5 ${destaque ? "text-energy" : "text-primary"}`} /><strong className="mt-5 block font-brand-condensed text-3xl">{valor}</strong><span className="text-xs text-muted-foreground">{rotulo}</span></div>; }
