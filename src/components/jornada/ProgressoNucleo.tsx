@@ -1,6 +1,6 @@
 import { Progresso } from "@/components/ui/Progresso";
 import { useMeuNucleo } from "@/context/meuNucleoBase";
-import { dimensoes } from "@/data/dimensoes";
+import { movimentosApresentacao } from "@/data/movimentos.apresentacao";
 
 /**
  * Progresso coletivo do Núcleo Territorial. Não há competição individual
@@ -12,7 +12,7 @@ export function ProgressoNucleo() {
     progressoNucleo,
     missoesConcluidas,
     missoesEmValidacao,
-    progressoPorDimensao,
+    progressoPorMovimento,
     indicadoresTerritoriais,
   } = useMeuNucleo();
 
@@ -46,17 +46,17 @@ export function ProgressoNucleo() {
       </div>
 
       <div className="mt-4 space-y-3">
-        {dimensoes.map((d) => (
+        {movimentosApresentacao.map((d) => (
           <div key={d.id}>
             <div className="mb-1 flex items-center justify-between text-[0.72rem]">
               <span className="flex items-center gap-1.5 font-medium">
                 <span aria-hidden>{d.icone}</span> {d.nome}
               </span>
               <span className="font-semibold text-muted-foreground">
-                {progressoPorDimensao[d.id]}%
+                {progressoPorMovimento[d.id]}%
               </span>
             </div>
-            <Progresso valor={progressoPorDimensao[d.id]} cor={d.colorVar} />
+            <Progresso valor={progressoPorMovimento[d.id]} cor={d.colorVar} />
           </div>
         ))}
       </div>

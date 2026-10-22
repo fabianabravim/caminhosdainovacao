@@ -3,8 +3,9 @@ import { AjudaInovacao } from "@/components/jornada/AjudaInovacao";
 import { tipoAtividadePorFonte } from "@/data/atividades.config";
 import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
 import { useMeuNucleo } from "@/context/meuNucleoBase";
-import { dimensaoMap } from "@/data/dimensoes";
-import { ordemDimensoes, statusMissaoLabel } from "@/data/missoes.config";
+import { movimentosApresentacao } from "@/data/movimentos.apresentacao";
+import { statusMissaoLabel } from "@/data/missoes.config";
+import { Button } from "@/components/ui/button";
 import type { StatusMissao } from "@/types";
 
 const estiloStatus: Record<StatusMissao, string> = {
@@ -21,33 +22,28 @@ const estiloStatus: Record<StatusMissao, string> = {
  * Nenhum controle permite avançar a barra manualmente.
  */
 export function MissoesTerritorio() {
-  const { missoesPorDimensao } = useMeuNucleo();
+  const { missoesPorMovimento } = useMeuNucleo();
   const { abrir } = useRegistroAtividade();
 
   return (
     <div className="min-w-0 space-y-6">
-      {ordemDimensoes.map((dimId) => {
-        const dim = dimensaoMap[dimId]!;
+      {movimentosApresentacao.map((dim) => {
         return (
-          <div key={dimId}>
+          <div key={dim.id}>
             <div className="mb-2.5 flex flex-wrap items-center justify-between gap-2">
-              <p
-                className="flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em]"
-                style={{ color: dim.colorVar }}
-              >
+              <h3 className={`flex items-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] ${dim.textoClasse}`}>
                 <span aria-hidden>{dim.icone}</span> {dim.nome}
-              </p>
-              {dimId === "descobrir" ? <AjudaInovacao /> : null}
+              </h3>
             </div>
+            <p className="mb-3 text-sm leading-relaxed text-muted-foreground">{dim.descricao}</p>
             <div className="grid min-w-0 grid-cols-1 gap-2.5 md:grid-cols-2 xl:grid-cols-3">
-              {missoesPorDimensao(dimId).map((m) => {
+              {missoesPorMovimento(dim.id).map((m) => {
                 const concluida = m.status === "concluida";
                 return (
-                    <article key={m.id} className="panel flex min-w-0 flex-col rounded-lg border-t-2 p-4" style={{ borderTopColor: dim.colorVar }}>
+                    <article key={m.id} className={`panel flex min-w-0 flex-col rounded-lg border-t-2 p-4 ${dim.bordaClasse}`}>
                     <div className="flex min-w-0 items-start gap-2.5">
                       <span
-                        className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-base"
-                        style={{ backgroundColor: `color-mix(in oklab, ${dim.colorVar} 16%, transparent)` }}
+                        className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-base ${dim.fundoClasse}`}
                         aria-hidden
                       >
                         {m.icone}
@@ -61,6 +57,8 @@ export function MissoesTerritorio() {
                         </p>
                       </div>
                     </div>
+
+                    {m.id === "des-iniciativa" ? <AjudaInovacao className="mt-3" /> : null}
 
                     {/* Impacto / progresso — elemento principal do card */}
                     <p className="mt-3 text-sm font-semibold">
@@ -89,7 +87,7 @@ export function MissoesTerritorio() {
                     </span>
 
                     {!concluida ? (
-                      <button
+                      <Button
                         type="button"
                         onClick={() =>
                           abrir({
@@ -100,7 +98,7 @@ export function MissoesTerritorio() {
                         className="tap mt-3 min-h-11 w-full rounded-full bg-primary px-3.5 py-2 text-[0.74rem] font-semibold text-primary-foreground transition-opacity sm:min-h-0"
                       >
                         {m.cta}
-                      </button>
+                      </Button>
                     ) : null}
 
                     {/* Gamificação — visualmente secundária */}
