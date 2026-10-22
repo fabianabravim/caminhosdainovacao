@@ -45,7 +45,7 @@ function JornadaPage() {
   return (
     <MeuNucleoProvider>
       <RegistroAtividadeProvider>
-        <AppShell titulo="Jornada da Inovação Capixaba" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva>
+        <AppShell titulo="ROTA da Inovação" subtitulo={<SubtituloPapel />} mostrarPontos={false} ampla jornadaResponsiva>
           <JornadaConteudo />
         </AppShell>
         <AcaoFlutuanteAtividade />

@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { MapPinned, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 import type { ReactNode } from "react";
 import { BottomNav } from "@/components/BottomNav";
 import { LinkAdministracao } from "@/components/LinkAdministracao";
 import { Celebracao } from "@/components/Celebracao";
 import { useJornada } from "@/context/JornadaContext";
 import { nucleoAtualId, nucleoMap } from "@/data/nucleos";
+import marcaCaminhos from "@/assets/marca-horizontal-branco.png.asset.json";
 
 export function AppShell({
   titulo,
@@ -31,18 +32,20 @@ export function AppShell({
   return (
     <div className={jornadaResponsiva ? "topo-lines min-h-screen min-w-0 overflow-x-clip bg-background pb-24" : "topo-lines min-h-screen bg-background pb-24"}>
       <Celebracao />
-      <header className="sticky top-0 z-30 border-b border-border/60 bg-surface/94 px-4 py-3 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-border/60 bg-surface/94 px-4 py-2 backdrop-blur-xl">
         <div className={`mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 ${ampla ? "max-w-7xl" : "max-w-3xl"}`}>
-          <div className="min-w-0">
-            <p className="flex items-center gap-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-lilac/80">
-              <MapPinned className="h-3.5 w-3.5" aria-hidden="true" /> Caminhos da Inovação
-            </p>
+          <div className="flex min-w-0 flex-col items-start gap-1.5 sm:flex-row sm:items-center sm:gap-4">
+            <div className="w-[12.25rem] max-w-full shrink-0 rounded-sm bg-brand-dark px-3 py-2.5 sm:w-[15rem] sm:py-3">
+              <img src={marcaCaminhos.url} alt="Caminhos da Inovação" width={1069} height={176} className="block h-auto w-full object-contain" />
+            </div>
+            <div className="min-w-0">
             <h1 className={`font-brand-condensed text-xl font-semibold ${jornadaResponsiva ? "text-balance leading-tight" : "truncate"}`}>
               {titulo}
             </h1>
             {subtitulo ? (
               <p className="truncate text-xs text-muted-foreground">{subtitulo}</p>
             ) : null}
+            </div>
           </div>
           <div className="flex items-center gap-2">
           <LinkAdministracao />
