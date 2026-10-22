@@ -1,9 +1,9 @@
 # Roadmap — Caminhos da Inovação
 
 ## Etapa 3A — formulário autorizado
-- [ ] Refinar obrigatórios, erros, opcionais, foco, descarte, envio único e confirmação fiel ao vínculo existente.
-- [ ] Testar isoladamente sem persistência e conferir computador e 320/375/390/430 px.
-- [ ] Informar arquivos, resultados e pendências da Etapa 3B; sem publicação.
+- [x] Refinar obrigatórios, erros, opcionais, foco, descarte, envio único e confirmação fiel ao vínculo existente.
+- [x] Testar isoladamente sem persistência: 29 testes aprovados; computador e 320/375/390/430 px, com sessão real, sem escritas nem erros de execução.
+- [x] Informar arquivos, resultados e pendências da Etapa 3B; sem publicação.
 
 ## Botão flutuante mobile — diagnóstico
 - [x] Identificar usos e sobreposições em 320/375/390/430 px; propor retirar atalho da Jornada e /missoes por redundância e sobreposição, sem implementar.
