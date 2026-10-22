@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { MissoesTerritorio } from "@/components/jornada/MissoesTerritorio";
-import { AcaoFlutuanteAtividade, RegistroAtividadeProvider } from "@/components/jornada/RegistroAtividade";
+import { RegistroAtividadeProvider } from "@/components/jornada/RegistroAtividade";
 import { MeuNucleoProvider } from "@/context/MeuNucleoContext";
 
 export const Route = createFileRoute("/_authenticated/missoes")({
@@ -34,7 +34,6 @@ function MissoesPage() {
             <MissoesTerritorio />
           </div>
         </AppShell>
-        <AcaoFlutuanteAtividade />
       </RegistroAtividadeProvider>
     </MeuNucleoProvider>
   );
