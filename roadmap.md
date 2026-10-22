@@ -1,5 +1,9 @@
 # Roadmap — Caminhos da Inovação
 
+## Solicitações de 22/10 — cabeçalho e ranking
+- [ ] Verificar e corrigir somente se necessário a permanência do cabeçalho ao rolar; validar computador, tablet e celular.
+- [ ] Auditar ranking demonstrativo e fonte real; apresentar proposta sem modificar ranking ou banco.
+
 ## Cabeçalho institucional e navegação integrada
 - [x] Aplicar barra roxa com marca branca e integrar somente as abas da Jornada.
 - [x] Validar desktop e celular, preservando menu principal, banner e regras, sem publicação.
