@@ -1,6 +1,7 @@
 # Roadmap — Caminhos da Inovação
 
 ## Solicitações de 22/10 — cabeçalho e ranking
+- [ ] Compactar somente cabeçalho mobile; validar 320/375/390/430 px, teclado e sticky; recomendar sobre ícone de perfil no banner sem removê-lo.
 - [x] Cabeçalho atual já sticky; validado nas cinco abas, computador, tablets e celular, com teclado e diálogo, sem necessidade de mudar código.
 - [x] Auditar ranking demonstrativo e fonte real; apresentar proposta sem modificar ranking ou banco.
 - [ ] Implementar ranking real — aguarda autorização da proposta e resolução do acesso seguro aos totais dos 14 Núcleos.
