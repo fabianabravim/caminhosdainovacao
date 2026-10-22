@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import type { MovimentoId } from "@/data/movimentos";
 import type {
   AtividadeRegistrada,
   DadosAtividade,
@@ -29,6 +30,9 @@ export interface MeuNucleoState {
   /** Progresso territorial do Núcleo, em % das metas das missões ativas. */
   progressoNucleo: number;
   progressoPorDimensao: Record<DimensaoId, number>;
+  /** Progresso pelos movimentos oficiais (Reconhecer, Ouvir, Traduzir, Articular). */
+  progressoPorMovimento: Record<MovimentoId, number>;
+  missoesPorMovimento: (m: MovimentoId) => MissaoTerritorialCalculada[];
   pontuacaoTotal: number;
   missoesConcluidas: number;
   missoesEmValidacao: number;
