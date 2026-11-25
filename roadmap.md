@@ -1,6 +1,7 @@
 # Roadmap — Caminhos da Inovação
 
 ## Solicitações atuais
+- [ ] Diagnosticar nova pontuação por atividade aprovada (50/40/100/50/40/50), correspondência dos tipos, legado, gamificação e segurança; apresentar proposta sem implementar ou recalcular dados.
 - [x] Ajustes visuais de progresso: remover contadores/barras/percentuais dos cards de missões, de "Relatórios e entregas", das listas da Jornada e do card "Meu Núcleo" na Visão geral; só apresentação, sem banco, cálculos, permissões ou publicação.
 - [x] Reconfirmar duas falhas críticas e entregar diagnóstico/SQL proposto, impactos e contenção segura; 52 testes SQL locais, 26 contratos e 29 testes existentes aprovados. Sem mudanças de aplicação/banco.
 - [ ] Aplicar proteção de aprovação e escritor compatível — aguarda autorização específica, homologação hospedada isolada e transição aprovada do backend compartilhado. Não publicar.
