@@ -43,13 +43,10 @@ export function RelatoriosJornada() {
 
       <div className="grid min-w-0 grid-cols-1 gap-2.5 sm:grid-cols-3">
         {indicadoresIndividuais.slice(0, 3).map((i) => (
-          <div key={i.id} className="panel min-w-0 rounded-lg border-l-4 border-l-primary/30 p-3.5">
-            <p className="text-[0.72rem] text-muted-foreground [overflow-wrap:anywhere]">
-              {i.icone} {i.rotulo}
-            </p>
-            <p className="mt-1 font-display text-lg font-bold">
-              {i.valor}
-              {i.meta ? <span className="text-sm text-muted-foreground"> / {i.meta}</span> : null}
+          <div key={i.id} className="panel flex min-w-0 items-center gap-2.5 rounded-lg border-l-4 border-l-primary/30 px-3.5 py-3">
+            <span className="shrink-0 text-base" aria-hidden>{i.icone}</span>
+            <p className="text-xs font-medium text-foreground [overflow-wrap:anywhere]">
+              {i.rotulo}
             </p>
           </div>
         ))}

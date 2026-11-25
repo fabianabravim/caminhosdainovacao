@@ -1,4 +1,3 @@
-import { Progresso } from "@/components/ui/Progresso";
 import { AjudaInovacao } from "@/components/jornada/AjudaInovacao";
 import { tipoAtividadePorFonte } from "@/data/atividades.config";
 import { useRegistroAtividade } from "@/components/jornada/registroAtividadeBase";
@@ -60,25 +59,18 @@ export function MissoesTerritorio() {
 
                     {m.id === "des-iniciativa" ? <AjudaInovacao className="mt-3" /> : null}
 
-                    {/* Impacto / progresso — elemento principal do card */}
-                    <div className="mt-3 flex items-center gap-2">
-                      <Progresso valor={m.percentualProgresso} cor={dim.colorVar} className="flex-1" />
-                      <span className="shrink-0 text-[0.7rem] font-semibold text-muted-foreground">
-                        {m.percentualProgresso}%
-                      </span>
-                    </div>
-                    <p className="mt-1.5 text-[0.7rem] text-muted-foreground">
-                      {concluida
-                        ? "✓ Missão concluída"
-                        : m.registrosEmAjuste > 0
-                          ? `${m.registrosEmAjuste} registro(s) aguardando ajustes`
-                          : m.registrosEmValidacao > 0
-                            ? `${m.registrosEmValidacao} registro(s) em validação`
-                            : `${m.restante} ${m.unidade} restantes`}
-                    </p>
+                    {concluida || m.registrosEmAjuste > 0 || m.registrosEmValidacao > 0 ? (
+                      <p className="mt-3 text-[0.7rem] text-muted-foreground">
+                        {concluida
+                          ? "✓ Missão concluída"
+                          : m.registrosEmAjuste > 0
+                            ? `${m.registrosEmAjuste} registro(s) aguardando ajustes`
+                            : `${m.registrosEmValidacao} registro(s) em validação`}
+                      </p>
+                    ) : null}
 
                     <span
-                      className={`mt-2.5 w-fit rounded-full border px-2.5 py-0.5 text-[0.66rem] font-semibold ${estiloStatus[m.status]}`}
+                      className={`mt-3 w-fit rounded-full border px-2.5 py-0.5 text-[0.66rem] font-semibold ${estiloStatus[m.status]}`}
                     >
                       {statusMissaoLabel[m.status]}
                     </span>
