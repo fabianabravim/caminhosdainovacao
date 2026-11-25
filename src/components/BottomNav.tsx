@@ -1,18 +1,17 @@
 import { Link } from "@tanstack/react-router";
-import { Compass, FileText, Flag, Route as RouteIcon, User } from "lucide-react";
+import { Compass, Flag, Route as RouteIcon, User } from "lucide-react";
 
 const itens = [
   { to: "/mapa", label: "Territórios", Icon: Compass },
   { to: "/missoes", label: "Missões", Icon: Flag },
   { to: "/jornada", label: "Jornada", Icon: RouteIcon },
-  { to: "/relatorios", label: "Relatórios", Icon: FileText },
   { to: "/perfil", label: "Perfil", Icon: User },
 ] as const;
 
 export function BottomNav({ compacta = false }: { compacta?: boolean }) {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-surface/94 shadow-[0_-12px_34px_-24px_color-mix(in_oklab,var(--brand-dark)_38%,transparent)] backdrop-blur-xl">
-      <ul className="mx-auto grid max-w-3xl grid-cols-5 px-1 sm:px-3">
+      <ul className="mx-auto grid max-w-3xl grid-cols-4 px-1 sm:px-3">
         {itens.map(({ to, label, Icon }) => (
           <li key={to}>
             <Link
