@@ -1,6 +1,8 @@
 # Roadmap — Caminhos da Inovação
 
 ## Solicitações atuais
+- [x] Reconfirmar duas falhas críticas e entregar diagnóstico/SQL proposto, impactos e contenção segura; 52 testes SQL locais, 26 contratos e 29 testes existentes aprovados. Sem mudanças de aplicação/banco.
+- [ ] Aplicar proteção de aprovação e escritor compatível — aguarda autorização específica, homologação hospedada isolada e transição aprovada do backend compartilhado. Não publicar.
 - [x] Preparar revisão de segurança 3B.1A, relatório, matriz de permissões e implantação/recuperação; somente leitura do banco, sem migrações ou ativação. 3B.1B depende de aprovação específica.
 - [x] Análise aprofundada concluída: autoaprovação via INSERT/UPDATE e avisos de Primeiro acesso/destino de recuperação registrados no relatório; sem correções não autorizadas.
 - [x] Remover somente Relatórios da barra inferior; quatro itens iguais e destinos/ativa verificados em 320/375/390/430/768/1280 px. Menu superior e página preservados; 29 testes passam. Sem publicação.
