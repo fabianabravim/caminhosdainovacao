@@ -122,7 +122,7 @@ function JornadaConteudo({ aba, setAba }: { aba: AbaId; setAba: (aba: AbaId) => 
 }
 
 function VisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
-  const { atividades, atividadesEmValidacao, conectoresNucleo, indicadoresTerritoriais, missoes, missoesEmValidacao, nucleoId, perfil, progressoNucleo, progressoPorMovimento } = useMeuNucleo();
+  const { atividades, atividadesEmValidacao, conectoresNucleo, indicadoresTerritoriais, missoes, missoesEmValidacao, nucleoId, perfil, progressoPorMovimento } = useMeuNucleo();
   const { abrir } = useRegistroAtividade();
   const minhas = atividades.filter((a) => a.conectorId === perfil.userId);
   const proximas = missoes.filter((m) => m.status !== "concluida").slice(0, 3);
@@ -158,13 +158,12 @@ function VisaoGeral({ irPara }: { irPara: (aba: AbaId) => void }) {
           <div className="topo-lines absolute inset-0 opacity-35" />
           <div className="relative">
             <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-energy">Meu Núcleo</p>
-            <div className="mt-2 flex items-end justify-between gap-4"><h3 className="text-xl font-semibold">Núcleo {nucleoMap[nucleoId]?.nome}</h3><strong className="font-brand-condensed text-4xl">{progressoNucleo}%</strong></div>
-            <Progresso valor={progressoNucleo} cor="var(--energy)" className="mt-4 h-2" />
-            <p className="mt-4 text-xs text-primary-foreground/62">{conectoresNucleo.length} {conectoresNucleo.length === 1 ? "Conector" : "Conectores"} atuando neste território</p>
-            <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-md bg-primary-foreground/15">
+            <h3 className="mt-2 text-xl font-semibold">Núcleo {nucleoMap[nucleoId]?.nome}</h3>
+            <p className="mt-2 text-xs text-primary-foreground/62">{conectoresNucleo.length} {conectoresNucleo.length === 1 ? "Conector" : "Conectores"} atuando neste território</p>
+            <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-md bg-primary-foreground/15">
               {indicadoresTerritoriais.slice(0, 4).map((item) => <div key={item.id} className="bg-brand-dark/90 p-3"><strong className="text-xl">{item.valor}</strong><span className="mt-1 block text-[0.65rem] text-primary-foreground/60">{item.rotulo}</span></div>)}
             </div>
-            <Button variant="ghost" onClick={() => irPara("nucleo")} className="mt-4 h-auto p-0 text-xs text-energy hover:bg-transparent hover:text-primary-foreground">Ver meu Núcleo <ArrowRight /></Button>
+            <Button variant="ghost" onClick={() => irPara("nucleo")} className="mt-3.5 h-auto p-0 text-xs text-energy hover:bg-transparent hover:text-primary-foreground">Ver meu Núcleo <ArrowRight /></Button>
           </div>
         </section>
       </div>
