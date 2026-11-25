@@ -61,10 +61,7 @@ export function MissoesTerritorio() {
                     {m.id === "des-iniciativa" ? <AjudaInovacao className="mt-3" /> : null}
 
                     {/* Impacto / progresso — elemento principal do card */}
-                    <p className="mt-3 text-sm font-semibold">
-                      {m.progressoAtual} de {m.metaTotal} {m.unidade}
-                    </p>
-                    <div className="mt-1.5 flex items-center gap-2">
+                    <div className="mt-3 flex items-center gap-2">
                       <Progresso valor={m.percentualProgresso} cor={dim.colorVar} className="flex-1" />
                       <span className="shrink-0 text-[0.7rem] font-semibold text-muted-foreground">
                         {m.percentualProgresso}%
