@@ -1,5 +1,10 @@
 # Roadmap — Caminhos da Inovação
 
+## Solicitações atuais
+- [x] Preparar revisão de segurança 3B.1A, relatório, matriz de permissões e implantação/recuperação; somente leitura do banco, sem migrações ou ativação. 3B.1B depende de aprovação específica.
+- [x] Análise aprofundada concluída: autoaprovação via INSERT/UPDATE e avisos de Primeiro acesso/destino de recuperação registrados no relatório; sem correções não autorizadas.
+- [x] Remover somente Relatórios da barra inferior; quatro itens iguais e destinos/ativa verificados em 320/375/390/430/768/1280 px. Menu superior e página preservados; 29 testes passam. Sem publicação.
+
 ## Etapa 3B — análise autorizada em 22/10
 - [x] Apresentar diagnóstico, fluxo seguro, matriz de permissões, modelo mínimo e histórico, riscos, etapas e testes isolados; 29 casos existentes aprovados, sem implementação.
 - [x] Apresentar o plano técnico detalhado aprovado (matriz de permissões, proteção do status, migrações, histórico, automáticas, entregas) em 22/10, sem implementar.
