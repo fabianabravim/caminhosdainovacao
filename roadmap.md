@@ -1,6 +1,7 @@
 # Roadmap — Caminhos da Inovação
 
 ## Solicitações atuais
+- [x] Ajustes visuais de progresso: remover contadores/barras/percentuais dos cards de missões, de "Relatórios e entregas", das listas da Jornada e do card "Meu Núcleo" na Visão geral; só apresentação, sem banco, cálculos, permissões ou publicação.
 - [x] Reconfirmar duas falhas críticas e entregar diagnóstico/SQL proposto, impactos e contenção segura; 52 testes SQL locais, 26 contratos e 29 testes existentes aprovados. Sem mudanças de aplicação/banco.
 - [ ] Aplicar proteção de aprovação e escritor compatível — aguarda autorização específica, homologação hospedada isolada e transição aprovada do backend compartilhado. Não publicar.
 - [x] Preparar revisão de segurança 3B.1A, relatório, matriz de permissões e implantação/recuperação; somente leitura do banco, sem migrações ou ativação. 3B.1B depende de aprovação específica.
@@ -20,7 +21,7 @@
 
 ## Botão flutuante mobile — diagnóstico
 - [x] Identificar usos e sobreposições em 320/375/390/430 px; propor retirar atalho da Jornada e /missoes por redundância e sobreposição, sem implementar.
-- [ ] Ajustar exibição do atalho — aguarda autorização; preservar botão amarelo, menus, perfil, saída e formulário.
+- [x] Ajustar exibição do atalho — remoção autorizada e executada nas cinco abas da Jornada e /missoes; sem flutuantes em 320/375/390/430 px, formulário preservado.
 
 ## Análise do Registro de Atividades — 22/10
 - [x] Auditar campos, vínculo às missões/movimentos, identidade, evidências, validação, status e impactos em progresso/ranking, somente leitura.
