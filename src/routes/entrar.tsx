@@ -148,7 +148,7 @@ function Entrar() {
     <div className="relative flex min-h-svh flex-col overflow-hidden bg-background">
       {/* Fotografia original; o tratamento claro é apenas uma sobreposição visual. */}
       <div className="absolute inset-0">
-        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-[38%_50%] md:object-right" />
+        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-[38%_50%] md:object-right-top" />
       </div>
       <div aria-hidden="true" className="rota-login-overlay absolute inset-0" />
 
@@ -156,7 +156,7 @@ function Entrar() {
       <div className="relative mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-5 sm:px-8 sm:py-8 lg:py-10">
         <div className="mx-auto w-full max-w-md md:mx-0 lg:max-w-[29rem]">
           <div className="mb-4 text-center sm:mb-5 md:text-left">
-            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-32 sm:w-44 md:mx-0" draggable={false} />
+            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-32 sm:w-44 md:mx-0 md:w-[14.25rem]" draggable={false} />
             <h1 className="mt-2.5 font-brand text-3xl font-bold text-brand-dark sm:mt-3 sm:text-4xl">Bem-vindo(a)!</h1>
             <p className="mx-auto mt-2 max-w-md text-base leading-snug text-brand-dark/90 sm:text-lg md:mx-0">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
           </div>
