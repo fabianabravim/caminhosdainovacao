@@ -156,7 +156,7 @@ function Entrar() {
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-5 sm:px-8 sm:py-8 md:px-16 lg:px-24 lg:py-10 xl:px-28 2xl:px-32">
         <div className="grid w-full grid-cols-1 items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] md:gap-10 lg:gap-16">
           <div className="mx-auto w-full max-w-md text-center md:mx-0 md:max-w-lg md:text-left">
-            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-[14.4rem] md:mx-0 md:w-[20.8rem]" draggable={false} />
+            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-[15rem] md:mx-0 md:w-[min(23.75rem,100%)]" draggable={false} />
             <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:text-4xl lg:text-5xl">Bem-vindo(a)!</h1>
             <p className="mx-auto mt-2.5 max-w-md text-base leading-snug text-brand-dark sm:text-lg md:mx-0 md:max-w-[24rem] lg:text-xl">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
           </div>
