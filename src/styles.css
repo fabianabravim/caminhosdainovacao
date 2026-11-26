@@ -139,7 +139,7 @@
   --map-fill-end: color-mix(in oklab, var(--brand-secondary) 17%, white);
   --login-wash: color-mix(in oklab, var(--surface) 95%, var(--brand-primary));
   --login-overlay: linear-gradient(90deg, var(--login-wash) 0%, color-mix(in oklab, var(--login-wash) 96%, transparent) 32%, color-mix(in oklab, var(--login-wash) 68%, transparent) 48%, transparent 73%);
-  --login-overlay-mobile: linear-gradient(180deg, color-mix(in oklab, var(--login-wash) 97%, transparent) 0%, color-mix(in oklab, var(--login-wash) 90%, transparent) 60%, color-mix(in oklab, var(--login-wash) 48%, transparent) 100%);
+  --login-overlay-mobile: linear-gradient(180deg, color-mix(in oklab, var(--login-wash) 90%, transparent) 0%, color-mix(in oklab, var(--login-wash) 82%, transparent) 16%, color-mix(in oklab, var(--login-wash) 76%, transparent) 26%, color-mix(in oklab, var(--login-wash) 46%, transparent) 50%, color-mix(in oklab, var(--login-wash) 32%, transparent) 78%, color-mix(in oklab, var(--login-wash) 24%, transparent) 100%);
 }
 
 .rota-login-overlay {

@@ -148,24 +148,24 @@ function Entrar() {
     <div className="relative flex min-h-svh flex-col overflow-hidden bg-background">
       {/* Fotografia original; o tratamento claro é apenas uma sobreposição visual. */}
       <div className="absolute inset-0">
-        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-right" />
+        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-[38%_50%] md:object-right" />
       </div>
       <div aria-hidden="true" className="rota-login-overlay absolute inset-0" />
 
 
-      <div className="relative mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-6 sm:px-8 sm:py-8 lg:py-10">
+      <div className="relative mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-5 sm:px-8 sm:py-8 lg:py-10">
         <div className="mx-auto w-full max-w-md md:mx-0 lg:max-w-[29rem]">
-          <div className="mb-5 text-center md:text-left">
-            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-40 sm:w-44 md:mx-0" draggable={false} />
-            <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:text-4xl">Bem-vindo(a)!</h1>
-            <p className="mx-auto mt-2 max-w-md text-lg leading-snug text-brand-dark/90 md:mx-0">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
+          <div className="mb-4 text-center sm:mb-5 md:text-left">
+            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-32 sm:w-44 md:mx-0" draggable={false} />
+            <h1 className="mt-2.5 font-brand text-3xl font-bold text-brand-dark sm:mt-3 sm:text-4xl">Bem-vindo(a)!</h1>
+            <p className="mx-auto mt-2 max-w-md text-base leading-snug text-brand-dark/90 sm:text-lg md:mx-0">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
           </div>
 
-        <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-8">
+        <div className="w-full rounded-2xl bg-card p-5 text-card-foreground shadow-2xl sm:p-8">
           <h2 className="font-brand text-2xl font-bold text-brand-dark sm:text-3xl">{titulo}</h2>
           {subtitulo ? <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{subtitulo}</p> : null}
 
-          <form className="mt-6 space-y-5" onSubmit={(event) => { event.preventDefault(); void (modo === "primeiro" ? primeiroAcesso() : modo === "recuperar" ? recuperarSenha() : entrar()); }}>
+          <form className="mt-5 space-y-4 sm:mt-6 sm:space-y-5" onSubmit={(event) => { event.preventDefault(); void (modo === "primeiro" ? primeiroAcesso() : modo === "recuperar" ? recuperarSenha() : entrar()); }}>
             <label className="block text-sm font-medium text-muted-foreground">E-mail
               <input type="email" autoComplete="email" required placeholder="seu@email.com" value={email} onChange={(event) => setEmail(event.target.value)} className={campo} />
             </label>
@@ -187,7 +187,7 @@ function Entrar() {
             </Button>
           </form>
 
-          <div className="mt-5 space-y-3 text-center text-sm">
+          <div className="mt-4 space-y-2.5 text-center text-sm sm:mt-5 sm:space-y-3">
             {modo === "entrar" ? (
               <>
                 <button type="button" onClick={() => mudarModo("recuperar")} className="font-medium text-brand-secondary underline underline-offset-4">Esqueceu sua senha?</button>
@@ -201,7 +201,7 @@ function Entrar() {
         </div>
         </div>
       </div>
-      <footer className="relative mt-auto bg-brand-dark px-5 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">
+      <footer className="relative mt-auto bg-brand-dark px-4 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 sm:flex-row sm:justify-between sm:gap-8" aria-label="Marcas institucionais">
           <img src={logoCaminhos.url} alt="Caminhos da Inovação" className="h-9 w-auto object-contain sm:h-10 lg:h-12" draggable={false} />
           <div className="flex items-center gap-7 sm:gap-10">
