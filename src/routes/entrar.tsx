@@ -147,18 +147,18 @@ function Entrar() {
   return (
     <div className="relative flex min-h-svh flex-col overflow-hidden bg-background">
       {/* Fotografia original; o tratamento claro é apenas uma sobreposição visual. */}
-      <div className="absolute inset-0">
-        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-[38%_50%] md:object-right-top" />
+      <div className="absolute inset-0 md:flex md:justify-end">
+        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-[38%_50%] md:h-full md:w-auto md:mr-[-7%]" />
       </div>
       <div aria-hidden="true" className="rota-login-overlay absolute inset-0" />
 
 
-      <div className="relative mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-5 sm:px-8 sm:py-8 lg:py-10">
-        <div className="mx-auto w-full max-w-md md:mx-0 lg:max-w-[29rem]">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-5 sm:px-8 sm:py-8 md:px-16 lg:px-24 lg:py-10 xl:px-28 2xl:px-32">
+        <div className="mx-auto w-full max-w-md md:mx-0 md:max-w-[25rem]">
           <div className="mb-4 text-center sm:mb-5 md:text-left">
-            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-32 sm:w-44 md:mx-0 md:w-[14.25rem]" draggable={false} />
+            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-32 sm:w-44 md:mx-0 md:w-[16.9rem]" draggable={false} />
             <h1 className="mt-2.5 font-brand text-3xl font-bold text-brand-dark sm:mt-3 sm:text-4xl">Bem-vindo(a)!</h1>
-            <p className="mx-auto mt-2 max-w-md text-base leading-snug text-brand-dark/90 sm:text-lg md:mx-0">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
+            <p className="mx-auto mt-2 max-w-md text-base leading-snug text-brand-dark/90 sm:text-lg md:mx-0 md:max-w-[20rem]">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
           </div>
 
         <div className="w-full rounded-2xl bg-card p-5 text-card-foreground shadow-2xl sm:p-8">
@@ -201,8 +201,8 @@ function Entrar() {
         </div>
         </div>
       </div>
-      <footer className="relative mt-auto bg-brand-dark px-4 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 sm:flex-row sm:justify-between sm:gap-8" aria-label="Marcas institucionais">
+      <footer className="relative mt-auto bg-brand-dark px-4 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8 md:px-16 lg:px-24 xl:px-28 2xl:px-32">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-5 sm:flex-row sm:justify-between sm:gap-8" aria-label="Marcas institucionais">
           <img src={logoCaminhos.url} alt="Caminhos da Inovação" className="h-9 w-auto object-contain sm:h-10 lg:h-12" draggable={false} />
           <div className="flex items-center gap-7 sm:gap-10">
             <img src={logoIjsn.url} alt="Instituto Jones dos Santos Neves — IJSN" className="h-9 w-auto object-contain sm:h-10 lg:h-11" draggable={false} />
