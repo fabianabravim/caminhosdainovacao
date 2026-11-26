@@ -138,8 +138,9 @@
   --map-fill-start: color-mix(in oklab, var(--brand-primary) 9%, white);
   --map-fill-end: color-mix(in oklab, var(--brand-secondary) 17%, white);
   --login-wash: var(--surface);
-  --login-overlay: color-mix(in oklab, var(--login-wash) 45%, transparent);
-  --login-overlay-mobile: color-mix(in oklab, var(--login-wash) 45%, transparent);
+  /* Degradê branco suave apenas na lateral esquerda, onde ficam marca e textos. */
+  --login-overlay: linear-gradient(to right, color-mix(in oklab, var(--login-wash) 88%, transparent) 0%, color-mix(in oklab, var(--login-wash) 55%, transparent) 30%, color-mix(in oklab, var(--login-wash) 18%, transparent) 55%, transparent 78%);
+  --login-overlay-mobile: linear-gradient(to bottom, color-mix(in oklab, var(--login-wash) 82%, transparent) 0%, color-mix(in oklab, var(--login-wash) 52%, transparent) 38%, color-mix(in oklab, var(--login-wash) 16%, transparent) 72%, transparent 100%);
 }
 
 .rota-login-overlay {
