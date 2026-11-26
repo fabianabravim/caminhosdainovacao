@@ -1,8 +1,10 @@
 # Roadmap — Caminhos da Inovação
 
 ## Solicitações atuais
-- [ ] Diagnosticar seis missões institucionais e seus relatórios exclusivos, inventariar questionários/campos existentes e faltantes e propor implementação por etapas; sem código, banco, migrações, site institucional ou publicação.
-- [ ] Diagnosticar nova pontuação por atividade aprovada (50/40/100/50/40/50), correspondência dos tipos, legado, gamificação e segurança; apresentar proposta sem implementar ou recalcular dados.
+- [x] Ajustar somente visual de /entrar: foto original IMG_4284, degradê claro, boas-vindas e formulário à esquerda/mobile centralizado; 1280/957/768/320/375/390/430 px e modos Primeiro acesso/recuperação verificados sem envio, 29 testes aprovados; sem publicação.
+- [x] Diagnosticar seis missões institucionais e seus relatórios exclusivos; relatório consolidado entregue em Files em 26/11. Sem implementação ou banco; perguntas oficiais dos quatro instrumentos e modelos de oportunidades/lacunas não localizados.
+- [x] Diagnosticar nova pontuação por atividade aprovada (50/40/100/50/40/50), correspondência dos tipos, legado, gamificação e segurança; proposta consolidada entregue sem implementação/recálculo, 29 testes vigentes aprovados.
+- [ ] Implementar seis missões/relatórios e nova pontuação — aguarda aprovação das entregas, instrumentos/modelos oficiais e definições de vigência, unidade de crédito e aprovação segura. Sem publicação.
 - [x] Ajustes visuais de progresso: remover contadores/barras/percentuais dos cards de missões, de "Relatórios e entregas", das listas da Jornada e do card "Meu Núcleo" na Visão geral; só apresentação, sem banco, cálculos, permissões ou publicação.
 - [x] Reconfirmar duas falhas críticas e entregar diagnóstico/SQL proposto, impactos e contenção segura; 52 testes SQL locais, 26 contratos e 29 testes existentes aprovados. Sem mudanças de aplicação/banco.
 - [ ] Aplicar proteção de aprovação e escritor compatível — aguarda autorização específica, homologação hospedada isolada e transição aprovada do backend compartilhado. Não publicar.

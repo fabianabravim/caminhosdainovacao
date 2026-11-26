@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { verificarAcessoAutorizado, vincularPerfilAutorizado } from "@/lib/acesso.functions";
-import mestreAlvaro from "@/assets/mestre-alvaro-previa.png";
+import fotoEncontro from "@/assets/encontro-rota-original.jpg.asset.json";
 import logoCaminhos from "@/assets/marca-horizontal-branco.png.asset.json";
 import logoIjsn from "@/assets/ijsn-branco.png.asset.json";
 import logoGoverno from "@/assets/governo-es-branco.png.asset.json";
@@ -145,23 +145,23 @@ function Entrar() {
   const subtitulo = modo === "primeiro" ? "Use seu e-mail previamente autorizado e crie sua senha." : modo === "recuperar" ? "Informe seu e-mail para receber as instruções de recuperação." : null;
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,color-mix(in_oklab,var(--brand-primary)_14%,white)_45%,color-mix(in_oklab,var(--brand-primary)_14%,white)_100%)]">
-      {/* Fotografia em resolução reduzida — somente prévia, aguardando original e autorização de uso */}
-      <div className="absolute inset-x-0 bottom-0 h-[58%] min-h-[26rem] md:inset-0 md:h-full md:min-h-0">
-        <img src={mestreAlvaro} alt="Mestre Álvaro, Serra — Espírito Santo" className="h-full w-full object-cover object-[64%_center] md:object-[70%_center]" />
-        <div aria-hidden="true" className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,color-mix(in_oklab,var(--brand-primary)_14%,white)_0%,transparent_100%)] md:hidden" />
+    <div className="relative flex min-h-svh flex-col overflow-hidden bg-background">
+      {/* Fotografia original; o tratamento claro é apenas uma sobreposição visual. */}
+      <div className="absolute inset-0">
+        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-right" />
       </div>
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_oklab,white_92%,transparent)_0%,color-mix(in_oklab,white_55%,transparent)_42%,color-mix(in_oklab,white_0%,transparent)_70%)] lg:bg-[linear-gradient(90deg,color-mix(in_oklab,white_90%,transparent)_0%,color-mix(in_oklab,white_68%,transparent)_38%,color-mix(in_oklab,white_0%,transparent)_70%)]" />
+      <div aria-hidden="true" className="rota-login-overlay absolute inset-0" />
 
 
-      <div className="relative mx-auto grid w-full flex-1 max-w-6xl content-center items-center md:min-h-[calc(100svh-6rem)] gap-5 px-5 pb-6 pt-6 sm:gap-8 sm:pb-10 sm:pt-10 sm:px-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_29rem] lg:gap-14 lg:py-10">
-        <div className="text-center lg:text-left">
-          <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-48 sm:w-72 lg:mx-0 lg:w-[22rem]" draggable={false} />
-          <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:mt-6 sm:text-4xl lg:mt-8 lg:pl-6">Bem-vindo(a)!</h1>
-          <p className="mx-auto mt-2 max-w-md text-lg sm:mt-3 leading-snug text-brand-dark/90 sm:text-xl lg:mx-0 lg:pl-6 lg:text-2xl">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
-        </div>
+      <div className="relative mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-6 sm:px-8 sm:py-8 lg:py-10">
+        <div className="mx-auto w-full max-w-md md:mx-0 lg:max-w-[29rem]">
+          <div className="mb-5 text-center md:text-left">
+            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-40 sm:w-44 md:mx-0" draggable={false} />
+            <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:text-4xl">Bem-vindo(a)!</h1>
+            <p className="mx-auto mt-2 max-w-md text-lg leading-snug text-brand-dark/90 md:mx-0">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
+          </div>
 
-        <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-10 md:mx-auto md:max-w-md lg:max-w-none">
+        <div className="w-full rounded-2xl bg-card p-6 text-card-foreground shadow-2xl sm:p-8">
           <h2 className="font-brand text-2xl font-bold text-brand-dark sm:text-3xl">{titulo}</h2>
           {subtitulo ? <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{subtitulo}</p> : null}
 
@@ -198,6 +198,7 @@ function Entrar() {
             )}
           </div>
           <Link to="/" className="tap mt-3 flex w-full items-center justify-center gap-1.5 py-1 text-xs font-semibold text-muted-foreground"><ArrowLeft className="h-3.5 w-3.5" /> Voltar à página inicial</Link>
+        </div>
         </div>
       </div>
       <footer className="relative mt-auto bg-brand-dark px-5 pt-5 pb-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] sm:px-8">

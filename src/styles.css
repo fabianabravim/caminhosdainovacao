@@ -137,6 +137,19 @@
   --paper-muted: var(--muted-foreground);
   --map-fill-start: color-mix(in oklab, var(--brand-primary) 9%, white);
   --map-fill-end: color-mix(in oklab, var(--brand-secondary) 17%, white);
+  --login-wash: color-mix(in oklab, var(--surface) 95%, var(--brand-primary));
+  --login-overlay: linear-gradient(90deg, var(--login-wash) 0%, color-mix(in oklab, var(--login-wash) 96%, transparent) 32%, color-mix(in oklab, var(--login-wash) 68%, transparent) 48%, transparent 73%);
+  --login-overlay-mobile: linear-gradient(180deg, color-mix(in oklab, var(--login-wash) 97%, transparent) 0%, color-mix(in oklab, var(--login-wash) 90%, transparent) 60%, color-mix(in oklab, var(--login-wash) 48%, transparent) 100%);
+}
+
+.rota-login-overlay {
+  background: var(--login-overlay-mobile);
+}
+
+@media (min-width: 768px) {
+  .rota-login-overlay {
+    background: var(--login-overlay);
+  }
 }
 
 @layer base {
