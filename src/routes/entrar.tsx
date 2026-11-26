@@ -5,7 +5,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { verificarAcessoAutorizado, vincularPerfilAutorizado } from "@/lib/acesso.functions";
-import fotoEncontro from "@/assets/encontro-rota-original.jpg.asset.json";
+import fotoConectores from "@/assets/conectores-reuniao-original.jpg.asset.json";
 import logoCaminhos from "@/assets/marca-horizontal-branco.png.asset.json";
 import logoIjsn from "@/assets/ijsn-branco.png.asset.json";
 import logoGoverno from "@/assets/governo-es-branco.png.asset.json";
@@ -147,21 +147,21 @@ function Entrar() {
   return (
     <div className="relative flex min-h-svh flex-col overflow-hidden bg-background">
       {/* Fotografia original; o tratamento claro é apenas uma sobreposição visual. */}
-      <div className="absolute inset-0 md:flex md:justify-end">
-        <img src={fotoEncontro.url} alt="Participantes registrando observações em uma atividade do Caminhos da Inovação" className="h-full w-full object-cover object-[38%_50%] md:h-full md:w-auto md:mr-[-7%]" />
+      <div className="absolute inset-0">
+        <img src={fotoConectores.url} alt="Conectores do Caminhos da Inovação reunidos em trabalho colaborativo" className="h-full w-full object-cover object-center" />
       </div>
       <div aria-hidden="true" className="rota-login-overlay absolute inset-0" />
 
 
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 items-center px-4 py-5 sm:px-8 sm:py-8 md:px-16 lg:px-24 lg:py-10 xl:px-28 2xl:px-32">
-        <div className="mx-auto w-full max-w-md md:mx-0 md:max-w-[25rem]">
-          <div className="mb-4 text-center sm:mb-5 md:text-left">
-            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-32 sm:w-44 md:mx-0 md:w-[16.9rem]" draggable={false} />
-            <h1 className="mt-2.5 font-brand text-3xl font-bold text-brand-dark sm:mt-3 sm:text-4xl">Bem-vindo(a)!</h1>
-            <p className="mx-auto mt-2 max-w-md text-base leading-snug text-brand-dark/90 sm:text-lg md:mx-0 md:max-w-[20rem]">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
+        <div className="grid w-full grid-cols-1 items-center gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] md:gap-10 lg:gap-16">
+          <div className="mx-auto w-full max-w-md text-center md:mx-0 md:max-w-lg md:text-left">
+            <img src={marcaRota} alt="ROTA da Inovação" className="mx-auto h-auto w-[12.5rem] md:mx-0 md:w-[16.9rem]" draggable={false} />
+            <h1 className="mt-3 font-brand text-3xl font-bold text-brand-dark sm:text-4xl lg:text-5xl">Bem-vindo(a)!</h1>
+            <p className="mx-auto mt-2.5 max-w-md text-base leading-snug text-brand-dark sm:text-lg md:mx-0 md:max-w-[24rem] lg:text-xl">Conectando territórios, pessoas e oportunidades para um Espírito Santo mais inovador.</p>
           </div>
 
-        <div className="w-full rounded-2xl bg-card p-5 text-card-foreground shadow-2xl sm:p-8">
+        <div className="mx-auto w-full max-w-md rounded-2xl bg-card p-5 text-card-foreground shadow-2xl sm:p-8 md:mx-0 md:justify-self-end">
           <h2 className="font-brand text-2xl font-bold text-brand-dark sm:text-3xl">{titulo}</h2>
           {subtitulo ? <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{subtitulo}</p> : null}
 

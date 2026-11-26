@@ -137,9 +137,9 @@
   --paper-muted: var(--muted-foreground);
   --map-fill-start: color-mix(in oklab, var(--brand-primary) 9%, white);
   --map-fill-end: color-mix(in oklab, var(--brand-secondary) 17%, white);
-  --login-wash: color-mix(in oklab, var(--surface) 95%, var(--brand-primary));
-  --login-overlay: linear-gradient(90deg, var(--login-wash) 0%, color-mix(in oklab, var(--login-wash) 95%, transparent) 22%, color-mix(in oklab, var(--login-wash) 84%, transparent) 32%, color-mix(in oklab, var(--login-wash) 80%, transparent) 40%, color-mix(in oklab, var(--login-wash) 45%, transparent) 46%, color-mix(in oklab, var(--login-wash) 18%, transparent) 53%, transparent 62%);
-  --login-overlay-mobile: linear-gradient(180deg, color-mix(in oklab, var(--login-wash) 90%, transparent) 0%, color-mix(in oklab, var(--login-wash) 82%, transparent) 16%, color-mix(in oklab, var(--login-wash) 76%, transparent) 26%, color-mix(in oklab, var(--login-wash) 46%, transparent) 50%, color-mix(in oklab, var(--login-wash) 32%, transparent) 78%, color-mix(in oklab, var(--login-wash) 24%, transparent) 100%);
+  --login-wash: var(--surface);
+  --login-overlay: color-mix(in oklab, var(--login-wash) 45%, transparent);
+  --login-overlay-mobile: color-mix(in oklab, var(--login-wash) 45%, transparent);
 }
 
 .rota-login-overlay {
