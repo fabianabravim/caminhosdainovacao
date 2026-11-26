@@ -1,6 +1,7 @@
 # Roadmap — Caminhos da Inovação
 
 ## Solicitações atuais
+- [x] Aprimorar /entrar no mobile: mesma foto como fundo com enquadramento central (38%), sobreposição suave que mantém contraste AA (título 6,2–6,8:1, texto 4,7–5,2:1), margens laterais de 16px, espaçamentos reduzidos; 320/375/390/430 px sem rolagem horizontal e todos os campos/botões/links acessíveis por rolagem vertical; Primeiro acesso e recuperação conferidos; desktop 957/1280 px inalterado; 29 testes aprovados; sem publicação.
 - [x] Ajustar somente visual de /entrar: foto original IMG_4284, degradê claro, boas-vindas e formulário à esquerda/mobile centralizado; 1280/957/768/320/375/390/430 px e modos Primeiro acesso/recuperação verificados sem envio, 29 testes aprovados; sem publicação.
 - [x] Diagnosticar seis missões institucionais e seus relatórios exclusivos; relatório consolidado entregue em Files em 26/11. Sem implementação ou banco; perguntas oficiais dos quatro instrumentos e modelos de oportunidades/lacunas não localizados.
 - [x] Diagnosticar nova pontuação por atividade aprovada (50/40/100/50/40/50), correspondência dos tipos, legado, gamificação e segurança; proposta consolidada entregue sem implementação/recálculo, 29 testes vigentes aprovados.
