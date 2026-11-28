@@ -10,9 +10,9 @@ const { registrar } = vi.hoisted(() => ({ registrar: vi.fn() }));
 // Never mount the real data provider: submissions only reach this isolated spy.
 vi.mock("@/context/meuNucleoBase", () => ({ useMeuNucleo: () => ({ registrarAtividade: registrar }) }));
 
-const vazio: FormularioAtividade = { tipoId: "mapeamento_ativo", data: "", titulo: "", descricao: "", municipio: "", local: "", atores: "", resultados: "", observacoes: "", localizacao: "", evidenciaLink: "" };
+const vazio: FormularioAtividade = { tipoId: "mapeamento_ativo", data: "", titulo: "", descricao: "", municipio: "", local: "", atores: "", resultados: "", observacoes: "", evidenciaLink: "" };
 const valido = { ...vazio, data: "2026-10-22", titulo: "Teste isolado", descricao: "Atividade sem persistência real" };
-const retorno = (extra = {}): ResultadoRegistro => ({ atividade: { ...valido, id: "isolado", status: "em_validacao", criadoEm: "2026-10-22", missoesRelacionadas: ["exp-mapear-ator", "exp-ambiente"], fonteContribuicao: "ativos_inovacao", ...extra }, missoesRelacionadas: [] });
+const retorno = (extra = {}): ResultadoRegistro => ({ atividade: { ...valido, localizacao: "", id: "isolado", status: "em_validacao", criadoEm: "2026-10-22", missoesRelacionadas: ["exp-mapear-ator", "exp-ambiente"], fonteContribuicao: "ativos_inovacao", ...extra }, missoesRelacionadas: [] });
 
 afterEach(cleanup);
 beforeEach(() => { registrar.mockReset(); });
@@ -141,7 +141,9 @@ describe("Etapa 3A sem persistência", () => {
     await user.upload(arquivos[0], new File(["imagem"], "foto.png", { type: "image/png" }));
     await user.upload(arquivos[1], new File(["texto"], "documento.pdf", { type: "application/pdf" }));
     expect(screen.getByLabelText("Observações (opcional)")).toBeDefined();
-    expect(screen.getByLabelText("Localização geográfica (opcional)")).toBeDefined();
+    // O campo de localização geográfica foi removido do formulário.
+    expect(screen.queryByLabelText("Localização geográfica (opcional)")).toBeNull();
+    expect(screen.queryByLabelText("Coordenadas ou ponto de referência")).toBeNull();
     await user.click(screen.getByRole("button", { name: "ENVIAR REGISTRO" }));
     expect(registrar.mock.calls[0]?.[0].evidenciaFoto).toBe("foto.png");
     expect(registrar.mock.calls[0]?.[0].evidenciaDocumento).toBe("documento.pdf");

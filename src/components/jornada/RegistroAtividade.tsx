@@ -3,7 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Dialog, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from "@/components/ui/alert-dialog";
 import { criarEnvioUnico, errosFormulario, formularioAlterado, vinculoRegistro, type ErrosFormulario, type FormularioAtividade } from "./registroAtividadeFormulario";
-import { Camera, Check, FileText, Link as LinkIcon, MapPin, Plus, X } from "lucide-react";
+import { Camera, Check, FileText, Link as LinkIcon, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { tipoAtividadeMap, tiposAtividade } from "@/data/atividades.config";
 import { AjudaInovacao } from "@/components/jornada/AjudaInovacao";
@@ -105,7 +105,6 @@ function ModalAtividade({ preset, origem, onClose }: { preset: Preset; origem: H
     atores: "",
     resultados: "",
     observacoes: "",
-    localizacao: "",
     evidenciaLink: "",
   }));
   const [form, setForm] = useState(inicial);
@@ -213,7 +212,10 @@ function ModalAtividade({ preset, origem, onClose }: { preset: Preset; origem: H
                   atores: form.atores,
                   resultados: form.resultados,
                   observacoes: form.observacoes,
-                  localizacao: form.localizacao,
+                  // Coluna `localizacao` preservada no banco: preenchida em branco
+                  // porque o formulário não a coleta mais. Uso futuro previsto nos
+                  // Instrumentos de Campo (GPS).
+                  localizacao: "",
                   evidenciaFoto: foto,
                   evidenciaDocumento: documento,
                   evidenciaLink: form.evidenciaLink || undefined,
@@ -307,14 +309,6 @@ function ModalAtividade({ preset, origem, onClose }: { preset: Preset; origem: H
               <label className={rotuloCls} htmlFor="atv-observacoes">Observações (opcional)</label>
               <textarea id="atv-observacoes" className={campo} rows={2} maxLength={10000} value={form.observacoes} onChange={set("observacoes")} {...atributos("observacoes")} />{erroCampo("observacoes")}
             </div>
-            <div>
-              <label className={rotuloCls} htmlFor="atv-localizacao">Localização geográfica (opcional)</label>
-               <div className="relative"><MapPin className="pointer-events-none absolute left-3 top-3.5 h-4 w-4 text-primary" /><input id="atv-localizacao" className={`${campo} pl-9`} maxLength={1000} value={form.localizacao} onChange={set("localizacao")} {...atributos("localizacao")} placeholder="Coordenadas ou ponto de referência" />{erroCampo("localizacao")}</div>
-              <p className="mt-1 text-[0.66rem] text-muted-foreground">
-                Coordenadas ou referência geográfica do local da atividade.
-              </p>
-            </div>
-
               </div>
             </details>
 

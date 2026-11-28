@@ -21,7 +21,6 @@ export const registroFormularioSchema = z.object({
   atores: texto(5000),
   resultados: texto(10000),
   observacoes: texto(10000),
-  localizacao: texto(1000),
   evidenciaLink: texto(2048).refine((v) => {
     if (!v) return true;
     try { return ["http:", "https:"].includes(new URL(v).protocol); } catch { return false; }
